@@ -1,0 +1,34 @@
+<!--NGSWITCH example-->
+<div class="modal-header" [ngSwitch]="type">
+    <span class="material-icons" style="color: green;margin:7px" *ngSwitchCase="'info'">
+        info
+    </span>
+    <span class="material-icons" style="color: red;margin:7px" *ngSwitchCase="'error'">
+        error
+    </span>
+    <span class="material-icons" style="color: deeppink;margin:7px" *ngSwitchCase="'confirmation'">
+        help
+    </span>
+    <h4 class="modal-title pull-left">{{title}}</h4>
+    <button type="button" class="btn-close close pull-right" aria-label="Close" (click)="modalRef.hide()">
+        <span aria-hidden="true" class="visually-hidden">&times;</span>
+    </button>
+</div>
+<div class="modal-body">
+    <ul *ngIf="data == 'list'">
+        <li *ngFor="let item of content">{{item}}</li>
+    </ul>
+    <div *ngIf="data == 'para' && type == 'error'" style="color: red;">
+        {{content}}
+    </div>
+    <div *ngIf="data == 'para'">
+        {{content}}
+    </div>
+</div>
+<div class="modal-footer">
+    <!--angular material button used inside ngx-bootstrap-->
+    <button mat-raised-button *ngIf="primaryButton" [ngStyle]="{'margin-right': secondaryButton ? '1rem' : '0rem' }" color="primary" (click)="clickPrimaryButton()">{{primaryButtonText}}</button>
+    <button mat-raised-button *ngIf="secondaryButton" (click)="modalRef.hide()">{{secondaryButtonText}}</button>
+    <!--<button type="button" class="btn btn-default" (click)="modalRef.hide()">{{primaryButtonText}}</button>
+    <button type="button" class="btn btn-default" (click)="modalRef.hide()">{{primaryButtonText}}</button>-->
+</div>

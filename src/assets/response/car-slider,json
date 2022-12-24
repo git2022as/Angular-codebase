@@ -1,0 +1,24 @@
+{
+    "data": [
+        {
+            "src": "assets/images/chicken-slider.png",
+            "alt_text": "chicken-slider",
+            "text": "Delicious Chicken Kebab"
+        },
+        {
+            "src": "assets/images/fish-slider.jpg",
+            "alt_text": "fish-slider",
+            "text": "Crispy Fish Kebab"
+        },
+        {
+            "src": "assets/images/paner-slider.png",
+            "alt_text": "paner-slider",
+            "text": "Veggy Paneer Kebab"
+        },
+        {
+            "src": "assets/images/mutton-slider.jpg",
+            "alt_text": "mutton-slider",
+            "text": "Spicy Mutton Kebab"
+        }
+    ]
+}

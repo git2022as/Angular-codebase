@@ -1,0 +1,41 @@
+@use "../../variable" as v;
+@import "../../mixin";
+
+.heading{
+    @include header-logo(v.$pink);
+}
+
+.branches {
+    display: flex;
+    flex-direction: row;
+}
+
+.promise{
+    display: flex;
+    flex-wrap: wrap;
+    flex-direction: row;
+    background-color: v.$white;
+    column-count: 3;
+    column-rule: dashed; 
+    p{
+        font-size: 20px;
+        font-weight: 600;
+    }
+}
+
+@media screen and (max-width: 767px) {
+    .promise{
+        flex-direction: column;
+        > div{
+            border-bottom: 2px dashed v.$black;
+        }
+    }
+}
+
+@media screen and (min-width: 768px) {
+    .promise-right-border{
+        border-right: 2px dashed v.$black;
+    }
+}
+
+

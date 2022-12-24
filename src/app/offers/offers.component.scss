@@ -1,0 +1,6 @@
+@use "../../variable" as v;
+@import "../../mixin";
+
+.heading{
+    @include header-logo(v.$pink);
+}

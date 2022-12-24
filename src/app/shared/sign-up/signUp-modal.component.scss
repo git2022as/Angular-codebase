@@ -1,0 +1,11 @@
+@import "../../../variable";
+
+.reactive-form-login{
+    width:70%;
+}
+
+@media screen and (max-width:767px) {
+    .reactive-form-login{
+        width:100%;
+    }
+}

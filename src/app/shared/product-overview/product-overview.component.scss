@@ -1,0 +1,25 @@
+@import "../../../variable";
+@import "../../../mixin";
+
+.example-card {
+    height: auto;
+}
+
+.product-desc{
+    height: 100px;
+    overflow-y: auto;
+}
+
+.product-image{
+    height: 200px !important;
+}
+
+.product-header{
+    height:100px;
+}
+
+.material-icons {
+    font-size: 20px !important;
+    position: absolute;
+    margin: 2px 0px 0px 5px;
+}

@@ -1,0 +1,53 @@
+{
+    "success": true,
+    "data": [
+        {
+            "location": "Kasba",
+            "img": "kasba.jpg",
+            "contact": "+91 9045220123, +91 9925256398",
+            "timing": "11 AM - 11 PM"
+        },
+        {
+            "location": "Rajarhat",
+            "img": "rajarhat.jpg",
+            "contact": "+91 9045220123, +91 9925256398",
+            "timing": "11 AM - 11 PM"
+        },
+        {
+            "location": "Golpark",
+            "img": "golpark.jpg",
+            "contact": "+91 9045220123, +91 9925256398",
+            "timing": "11 AM - 11 PM"
+        },
+        {
+            "location": "Shyambazar",
+            "img": "shyambazar.jpg",
+            "contact": "+91 9045220123, +91 9925256398",
+            "timing": "11 AM - 11 PM"
+        },
+        {
+            "location": "Golpark",
+            "img": "golpark.jpg",
+            "contact": "+91 9045220123, +91 9925256398",
+            "timing": "11 AM - 11 PM"
+        },
+        {
+            "location": "Barrackpore",
+            "img": "barrackpore.jpg",
+            "contact": "+91 9045220123, +91 9925256398",
+            "timing": "11 AM - 11 PM"
+        },
+        {
+            "location": "Serampore",
+            "img": "serampore.jpg",
+            "contact": "+91 9045220123, +91 9925256398",
+            "timing": "11 AM - 11 PM"
+        },
+        {
+            "location": "kalighat",
+            "img": "kalighat.jpg",
+            "contact": "+91 9045220123, +91 9925256398",
+            "timing": "11 AM - 11 PM"
+        }
+    ]
+}

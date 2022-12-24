@@ -1,0 +1,11 @@
+@import "../../mixin";
+@import "../../variable";
+
+.footer{
+    position: fixed;
+    z-index: 1;
+    bottom: 0;
+    background-color: $site-theme;
+    width: 100%;
+    height: 40px;
+}

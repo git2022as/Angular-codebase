@@ -1,0 +1,77 @@
+@import "../../mixin";
+@import "../../variable";
+
+.sidenav-properties {
+    display: flex;
+    //background-color: $pink;
+}
+
+.example-container {
+    height: auto;
+}
+
+.toolbar-spacer {
+    flex: 1 1 auto;
+}
+
+.mat-drawer {
+    background-color: $pink;
+    color: $black;
+}
+
+.sidenav-icon {
+    background-color: transparent;
+    border: none;
+}
+
+.close-icon {
+    position: absolute;
+    right: 0;
+    top: 0;
+}
+
+.sidenav-list {
+    margin-top: 1rem;
+    text-decoration: underline;
+    font-weight: 600;
+    .mat-list-item{
+        cursor: pointer;
+    }
+}
+
+.menu-icon {
+    margin-top: 0.6rem;
+}
+
+.sidenav-container {
+    min-width: 30vw;
+}
+
+.heading {
+    @include header-logo($white);
+    font-size: 1.2rem;
+    font-family: monospace;
+    font-weight: bold;
+}
+
+.loggedin-heading {
+    font-size: 1.2rem;
+    font-family: monospace;
+    font-weight: bold;
+}
+
+@media screen and (max-width: 767px) {
+    .heading {
+        font-size: 0.8rem;
+    }
+    .loggedin-heading{
+        font-size: 0.8rem;
+    }
+}
+
+.content {
+    margin: 5px;
+    height: 81%;
+    max-height: 81%;
+    overflow: auto;
+}

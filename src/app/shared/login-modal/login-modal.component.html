@@ -1,0 +1,38 @@
+<!--Example of TEMPLATE DRIVEN FORMs-->
+<!--NGSWITCH example-->
+<div class="modal-header">
+    <span class="material-icons" style="color: deeppink;margin:7px"> 
+        person
+    </span>
+    <h4 class="modal-title pull-left">{{title}}</h4>
+    <button type="button" class="btn-close close pull-right" aria-label="Close" (click)="bsModalRef.hide()">
+        <span aria-hidden="true" class="visually-hidden">&times;</span>
+    </button>
+</div>
+<div class="modal-body">
+    <form #loginForm="ngForm">
+        <mat-form-field class="template-form-login">
+            <mat-label>Phone Number</mat-label>
+            <input matInput type="text" ngModel maxlength="10" minlength="10" #phone="ngModel" name="phoneNumber" [(ngModel)]="phoneNumber" pattern="[0-9]+$" [required]=true>
+            <button *ngIf="phoneNumber" matSuffix mat-icon-button aria-label="Clear" (click)="phoneNumber=''">
+                <mat-icon>close</mat-icon>
+            </button>
+            <mat-error *ngIf="phone.touched && phone.invalid">Enter a valid number</mat-error>
+        </mat-form-field>
+        <button mat-raised-button *ngIf="phone.valid" style="margin-left: 2rem;" color="primary" (click)="getOtp(loginForm)">Get OTP</button>
+        <mat-form-field class="template-form-login">
+            <mat-label>OTP</mat-label>
+            <input matInput type="text" ngModel maxlength="6" minlength="6" name="otp" #otpNo="ngModel" [(ngModel)]="otp" [required]="true">
+            <button *ngIf="otp" matSuffix mat-icon-button aria-label="Clear" (click)="otp=''">
+                <mat-icon>close</mat-icon>
+            </button>
+            <mat-error *ngIf="otpNo.touched && otpNo.invalid">Enter six digits otp</mat-error>
+        </mat-form-field>
+    </form>
+    <div class="newAcc" (click)="signUpModal()">create new account</div>
+</div>
+<div class="modal-footer">
+    <!--angular material button used inside ngx-bootstrap-->
+    <button mat-raised-button style="margin-right: 1rem" color="primary" (click)="submitForm(loginForm)" [disabled]="loginForm.invalid">Continue</button>
+    <button mat-raised-button (click)="resetForm(loginForm)" [disabled]="loginForm.untouched">Reset</button>
+</div>

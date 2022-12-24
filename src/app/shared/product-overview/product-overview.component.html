@@ -1,0 +1,35 @@
+<mat-card class="example-card">
+    <mat-card-header class="product-header">
+        <mat-card-title style="font-weight: 600;font-size: 17px;">{{product?.name}}
+            <span class="material-icons" [ngStyle]="{'color':product?.origin === 'Veg' ? 'green' : 'red' }">
+                adjust
+            </span>
+        </mat-card-title>
+        <mat-card-subtitle>
+            <span styel="font-size: 15px;">{{product?.origin}}</span>
+        </mat-card-subtitle>
+    </mat-card-header>
+    <img mat-card-image class="product-image" src="assets/images/{{product?.image}}" [alt]="product?.alt">
+    <mat-card-content>
+        <div class="product-desc">
+            <div>{{product?.description}}</div>
+            <div>
+                <span>Quantity:</span>
+                <span>{{product?.quantity | quantityPipe}}</span>
+            </div>
+            <div>
+                <span>Price:</span>
+                <span>
+                    <img src="assets/images/rupee.png" width="20px" height="15px">{{product?.price}}</span>
+            </div>
+            <div>
+                <span>Add-On:</span>
+                <span>{{product?.addOn}}</span>
+            </div>
+        </div>
+    </mat-card-content>
+    <mat-card-actions>
+        <button mat-raised-button color="primary">Add to Cart</button>
+        <button mat-button>Add to Wishlist</button>
+    </mat-card-actions>
+</mat-card>
