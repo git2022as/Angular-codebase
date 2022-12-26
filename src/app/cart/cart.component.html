@@ -1,0 +1,11 @@
+<!--html + css + bootstrap => CART -->
+<!--without angular material & ngx-bootstrap -->
+<div class="container">
+    <div class="mt-5 mb-5 heading" style="text-align: center;"><h3>Your Cart</h3></div>
+    <ng-container *ngFor="let each of cartDetails; let i = index">
+    <div class="mb-3">
+        <app-cart-overview [cart]="each" (cartAddRemoveEvent)="showShortMsg($event)"></app-cart-overview>
+    </div>
+    </ng-container>
+    <div #shortContainer></div>
+</div>

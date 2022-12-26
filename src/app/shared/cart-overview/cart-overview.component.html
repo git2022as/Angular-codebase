@@ -1,0 +1,49 @@
+<div class="cart-overview row p-2 m-0">
+    <div class="col-md-2 col-3 p-0">
+        <img src="assets/images/{{cart?.image}}" class="cart-image" alt="cart?.alt">
+    </div>
+    <div class="cart-value col-md-7 col-9">
+        <div>
+            <b style="font-size: 20px;">{{cart?.name}}</b>
+        </div>
+        <div class="cart-secondary-font mb-1">
+            {{cart?.description}}
+        </div>
+        <div class="cart-origin-quantity cart-secondary-font mb-1">
+            <div>{{cart?.origin}}/</div>
+            <div>Qty: {{cart?.quantity}}</div>
+        </div>
+        <div class="cart-secondary-font mb-1" style="font-family: inherit !important;">
+            <section class="cart-extra-section">
+                <mat-checkbox class="cart-extra-margin" [(ngModel)]="cartValueAdd.extraCheese">Extra Cheese</mat-checkbox>
+                <mat-checkbox class="cart-extra-margin" [(ngModel)]="cartValueAdd.olivOil">Oliv Oil Cooking</mat-checkbox>
+            </section>
+            <div class="cart-secondary-font">
+                <span>*Extra Cheese cost you </span>
+                <span><img src="assets/images/rupee.png" width="13px" height="13px"><b>20</b></span>
+                <span> and Oliv Oil Cooking will add </span>
+                <span><img src="assets/images/rupee.png" width="13px" height="13px"><b>30</b></span>
+                <span> more to your cart. </span>
+            </div>
+        </div>
+        <div style="font-weight: bold;">
+            <span><img src="assets/images/rupee.png" width="14px" height="15px"><span>{{cart?.price * productQuantity}}</span></span>
+        </div>
+    </div>
+    <div class="col-md-3 col-xs-12 cart-button-section">      
+        <mat-card-actions class="offer-button-class">
+            <span class="material-icons" style="color: #3f51b5;margin:7px" (click)="addItem()"> 
+                add_circle
+            </span>
+            <span style="font-size: 18px;color: #555353; position: relative; top: -5px;">{{productQuantity}}</span>
+            <span class="material-icons" style="color: #3f51b5;margin:7px" (click)="removeItem()"> 
+                do_not_disturb_on
+            </span>
+        </mat-card-actions>
+        <mat-card-actions>
+            <span class="material-icons" style="color: #3f51b5;margin:7px"> 
+                delete
+            </span>
+        </mat-card-actions>
+    </div>
+</div>

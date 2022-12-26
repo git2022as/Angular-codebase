@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { BsModalService, ModalOptions, BsModalRef } from 'ngx-bootstrap/modal';
 import { LoginModalComponent } from '../shared/login-modal/login-modal.component';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-header',
@@ -13,7 +14,9 @@ export class HeaderComponent implements OnInit {
   loggedIn: boolean = false;
   loggedInUserName: string = "";
 
-  constructor(private modalService: BsModalService) { }
+  constructor(private modalService: BsModalService,
+              private router: Router
+  ) { }
 
   ngOnInit(): void {
   }
@@ -29,9 +32,13 @@ export class HeaderComponent implements OnInit {
     //get event triggerd from modal component
     this.bsModalRef.content.loginClicked.subscribe((res: any) => {
       this.loggedIn = true;
-      this.loggedInUserName = res?.name;
+      this.loggedInUserName = res?.name ? res.name : "user";
       this.bsModalRef?.hide();
     });
+  }
+
+  openLink(val: string): void{
+    this.router.navigateByUrl('/' + val);
   }
 
 }

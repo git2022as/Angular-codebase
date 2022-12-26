@@ -15,16 +15,30 @@ import { OffersComponent } from './offers/offers.component';
 
 //example of lazy loading
 const lazyRoutes: Routes = [
-  {path: 'base', loadChildren: () => import('./base/base.module').then(a => a.BaseModule)},
-  {path: 'about-us', loadChildren: () => import('./about/about.module').then(a=>a.AboutModule)},
-  {path: 'offers', loadChildren: () => import('./offers/offers.module').then(a=>a.OffersModule)},
-  {path: '', redirectTo: 'base', pathMatch: 'full'},
-  {path: '**', redirectTo: 'base'}
-]
+  {
+    path: 'base',
+    loadChildren: () => import('./base/base.module').then((a) => a.BaseModule),
+  },
+  {
+    path: 'about-us',
+    loadChildren: () =>
+      import('./about/about.module').then((a) => a.AboutModule),
+  },
+  {
+    path: 'offers',
+    loadChildren: () =>
+      import('./offers/offers.module').then((a) => a.OffersModule),
+  },
+  {
+    path: 'cart',
+    loadChildren: () => import('./cart/cart.module').then((a) => a.CartModule),
+  },
+  { path: '', redirectTo: 'base', pathMatch: 'full' },
+  { path: '**', redirectTo: 'base' },
+];
 
 @NgModule({
   imports: [RouterModule.forRoot(lazyRoutes)],
-  exports: [RouterModule]
+  exports: [RouterModule],
 })
-
-export class AppRoutingModule { }
+export class AppRoutingModule {}

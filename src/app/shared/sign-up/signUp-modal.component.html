@@ -13,19 +13,22 @@
     <form [formGroup]="signUpForm">
         <mat-form-field class="reactive-form-login">
             <mat-label>Phone Number</mat-label>
-            <input matInput type="text" name="phoneNumber" formControlName="phoneNumber">
+            <input matInput type="text" name="phoneNumber" maxlength="10" minlength="10" formControlName="phoneNumber">
             <button *ngIf="signUpForm.get('phoneNumber')?.value != '' && signUpForm.get('phoneNumber')?.value != null" matSuffix mat-icon-button aria-label="Clear" (click)="setValue('phoneNumber')">
                 <mat-icon>close</mat-icon>
             </button>
-            <mat-error *ngIf="signUpForm.get('phoneNumber')?.invalid && signUpForm.get('phoneNumber')?.touched">Enter a valid number</mat-error>
+            <mat-error *ngIf="signUpForm.get('phoneNumber')?.invalid && signUpForm.get('phoneNumber')?.touched">Phone number is required</mat-error>
         </mat-form-field>
         <mat-form-field class="reactive-form-login">
             <mat-label>Name</mat-label>
-            <input matInput type="text" name="name" formControlName="name">
+            <input matInput type="text" name="name" formControlName="name" maxlength="40">
+            <button matSuffix mat-icon-button aria-label="Clear" tooltip="Name can be valid upto 40 characters" placement="auto" containerClass="customClass" (click)="clickDisabled($event)">
+                <mat-icon>info</mat-icon>
+            </button>
             <button *ngIf="signUpForm.get('name')?.value != '' && signUpForm.get('name')?.value != null" matSuffix mat-icon-button aria-label="Clear" (click)="setValue('name')">
                 <mat-icon>close</mat-icon>
             </button>
-            <mat-error *ngIf="signUpForm.get('name')?.invalid && signUpForm.get('name')?.touched">Enter name upto 20 characters</mat-error>
+            <mat-error *ngIf="signUpForm.get('name')?.invalid && signUpForm.get('name')?.touched">Name is required</mat-error>
         </mat-form-field>
         <mat-form-field class="reactive-form-login">
             <mat-label>Email</mat-label>
@@ -33,26 +36,32 @@
             <button *ngIf="signUpForm.get('email')?.value != '' && signUpForm.get('email')?.value != null" matSuffix mat-icon-button aria-label="Clear" (click)="setValue('email')">
                 <mat-icon>close</mat-icon>
             </button>
-            <mat-error *ngIf="signUpForm.get('email')?.invalid && signUpForm.get('email')?.touched">Enter proper mail address</mat-error>
+            <mat-error *ngIf="signUpForm.get('email')?.invalid && signUpForm.get('email')?.touched">Proper email address is required</mat-error>
         </mat-form-field>
-        <mat-form-field class="reactive-form-login">
+        <mat-form-field class="reactive-form-login" [ngClass]="{'mb-4': signUpForm.get('password')?.errors?.emailRequirement}">
             <mat-label>Password</mat-label>
             <input matInput type="password" #pass name="password" formControlName="password">
-            <!--<button *ngIf="signUpForm.get('password')?.value != '' && signUpForm.get('password')?.value != null" matSuffix mat-icon-button aria-label="Clear" (click)="togglePassword()">
-                <mat-icon>visibility</mat-icon>
-            </button>-->
+            <button *ngIf="signUpForm.get('password')?.value != '' && signUpForm.get('password')?.value != null" matSuffix mat-icon-button aria-label="Clear" (click)="clickDisabled($event)" (mouseenter)="showPassword();isVisibility = false;" (mouseleave)="hidePassword();isVisibility = true;">
+                <mat-icon *ngIf="isVisibility">visibility</mat-icon>
+                <mat-icon *ngIf="!isVisibility">visibility_off</mat-icon>
+            </button>
+            <button matSuffix mat-icon-button aria-label="Clear" tooltip="Password must have one capital, one number, one special charactaer with 6-10 characters" placement="auto" (click)="clickDisabled($event)">
+                <mat-icon>info</mat-icon>
+            </button>
             <button *ngIf="signUpForm.get('password')?.value != '' && signUpForm.get('password')?.value != null" matSuffix mat-icon-button aria-label="Clear" (click)="setValue('password')">
                 <mat-icon>close</mat-icon>
             </button>
-            <mat-error *ngIf="signUpForm.get('password')?.invalid && signUpForm.get('password')?.touched">Enter 6-10 characters password</mat-error>
+            <mat-error *ngIf="signUpForm.get('password')?.errors?.required && signUpForm.get('password')?.touched">Password is required</mat-error>
+            <mat-error *ngIf="signUpForm.get('password')?.errors?.emailRequirement">Enter 6-10 characters password with one capital, one number and one special character</mat-error>
         </mat-form-field>
         <mat-form-field class="reactive-form-login">
             <mat-label>Confirm Password</mat-label>
-            <input matInput type="password" name="confirmPassowrd" formControlName="confirmPassowrd">
-            <button *ngIf="signUpForm.get('confirmPassowrd')?.value != '' && signUpForm.get('confirmPassowrd')?.value != null" matSuffix mat-icon-button aria-label="Clear" (click)="setValue('confirmPassowrd')">
+            <input matInput type="password" name="confirmPassword" formControlName="confirmPassword">
+            <button *ngIf="signUpForm.get('confirmPassword')?.value != '' && signUpForm.get('confirmPassword')?.value != null" matSuffix mat-icon-button aria-label="Clear" (click)="setValue('confirmPassword')">
                 <mat-icon>close</mat-icon>
             </button>
-            <mat-error *ngIf="signUpForm.get('confirmPassowrd')?.invalid && signUpForm.get('confirmPassowrd')?.touched">Enter the same password again</mat-error>
+            <mat-error *ngIf="signUpForm.get('confirmPassword')?.errors.required && signUpForm.get('confirmPassword')?.touched">Confirm password is required</mat-error>
+            <mat-error *ngIf="signUpForm.get('confirmPassword')?.errors.noMatch && signUpForm.get('confirmPassword')?.touched">Passwords don't match, please check again</mat-error>
         </mat-form-field>
     </form>
 </div>

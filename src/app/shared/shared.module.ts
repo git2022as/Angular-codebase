@@ -8,10 +8,13 @@ import { OffersDetailsComponent } from './offers-details/offers-details.componen
 import { LoginModalComponent } from './login-modal/login-modal.component';
 import { FormsModule } from '@angular/forms';
 import { ReactiveFormsModule } from '@angular/forms';
+import { CartOverviewComponent } from './cart-overview/cart-overview.component';
+import { ShortMessageComponent } from './short-message/short-message.component';
 /* pipe module */
 import { PipeModule } from '../pipes/pipe.module';
 /* ngx-bootstrap modal*/
 import { ModalModule } from 'ngx-bootstrap/modal';
+import { TooltipModule } from 'ngx-bootstrap/tooltip';
 /* material modules */
 import { MatIconModule } from '@angular/material/icon';
 import { MatDialogModule } from '@angular/material/dialog';
@@ -19,6 +22,8 @@ import { MatButtonModule } from '@angular/material/button';
 import { MatTooltipModule } from '@angular/material/tooltip';
 import { MatCardModule } from '@angular/material/card';
 import { MatInputModule } from '@angular/material/input';
+import { MatRadioModule } from '@angular/material/radio';
+import { MatCheckboxModule } from '@angular/material/checkbox';
 
 @NgModule({
   declarations: [
@@ -27,7 +32,9 @@ import { MatInputModule } from '@angular/material/input';
     BranchesComponent,
     StaticDialogNgxBootstrapComponent,
     OffersDetailsComponent,
-    LoginModalComponent
+    LoginModalComponent,
+    CartOverviewComponent,
+    ShortMessageComponent
   ],
   imports: [
     CommonModule,
@@ -40,7 +47,10 @@ import { MatInputModule } from '@angular/material/input';
     MatTooltipModule,
     MatInputModule,
     FormsModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    TooltipModule.forRoot(),
+    MatRadioModule,
+    MatCheckboxModule
   ],
   exports: [
     SignUpModalComponent,
@@ -48,7 +58,9 @@ import { MatInputModule } from '@angular/material/input';
     BranchesComponent,
     StaticDialogNgxBootstrapComponent,
     OffersDetailsComponent,
-    LoginModalComponent
+    LoginModalComponent,
+    CartOverviewComponent,
+    ShortMessageComponent
   ]
 })
 
