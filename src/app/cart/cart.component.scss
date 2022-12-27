@@ -4,3 +4,46 @@
 .heading{
     @include header-logo($pink);
 }
+
+.cartAmountSection{
+    border-radius: 5px;
+    box-shadow: 0 4px 8px 0 rgb(116 114 114), 0 6px 20px 0 rgb(0 0 0 /19%); 
+}
+
+.cartValue{
+    border-right: 1.5px dashed $border-color-gray;
+}
+
+.cart-sub-details{
+    font-size: 12px;
+    color: #555353;
+}
+
+.cart-sub-details-bold{
+    font-size: 12px;
+    color: $black;
+    font-weight: bold;
+}
+
+.cart-sub-parent{
+    justify-content: space-between;
+}
+
+.cartReady{
+    height: auto;
+    width: 100%;
+    border-top-left-radius: 5px;
+    border-top-right-radius: 5px;
+    background-color: $site-theme;
+    color: $white;
+    font-weight: bold;
+}
+
+@media screen and (max-width: 767px){
+    .cartValue{
+        border-right: none;
+        border-bottom: 1.5px dashed $border-color-gray;
+    }
+}
+
+

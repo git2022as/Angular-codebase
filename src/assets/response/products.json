@@ -7,9 +7,10 @@
             "image": "paneer-tikka-small.png",
             "alt": "paneer-tikka",
             "description": "Paneer Tikka is an Indian dish made from chunks of paneer marinated in spices and grilled in a tandoor.",
-            "quantity": 6,
+            "productQuantity": 6,
             "price": 180,
-            "addOn": "green chatni & meyonnaise"
+            "addOn": "green chatni & meyonnaise",
+            "itemId": 1
         },
         {
             "name": "Paneer Hariyali Kebab",
@@ -17,9 +18,10 @@
             "image": "paneer-hariyali-small.png",
             "alt": "paneer-hariyali",
             "description": "Hariyali Paneer Tikka is a delectable Indian appetizer made with cubes of soft paneer, crisp bell pepper, and onions marinated in cilantro, and mint, along with yogurt and spices.",
-            "quantity": 6,
+            "productQuantity": 6,
             "price": 200,
-            "addOn": "green chatni & meyonnaise"
+            "addOn": "green chatni & meyonnaise",
+            "itemId": 2
         },
         {
             "name": "Tandoori Aloo",
@@ -27,9 +29,10 @@
             "image": "tandoori-aloo-small.png",
             "alt": "tandoori-aloo",
             "description": "Tandoori Aloo or Tandoori Aloo Tikka is one of our favorite starter dishes which we order often in restaurants.",
-            "quantity": 8,
+            "productQuantity": 8,
             "price": 200,
-            "addOn": "green chatni & meyonnaise"
+            "addOn": "green chatni & meyonnaise",
+            "itemId": 3
         },
         {
             "name": "Chicken Reshmi Kebab",
@@ -37,9 +40,10 @@
             "image": "chicken-reshmi-small.png",
             "alt": "chicken-reshmi",
             "description": "Reshmi is an Indian word that means 'silk'. This is an apt description for these silky-textured, delicious chicken kababs that are a traditional Mughlai dish prepared in India.",
-            "quantity": 6,
+            "productQuantity": 6,
             "price": 250,
-            "addOn": "green & red chatni"
+            "addOn": "green & red chatni",
+            "itemId": 4
         },
         {
             "name": "Chicken Malai Kebab",
@@ -47,9 +51,10 @@
             "image": "chicken-malai-small.png",
             "alt": "chicken-malai",
             "description": "Chicken Malai refers to grilled supreme of chicken with ginger, garlic, green chilli, cream-cheese, coriander-stem and cardamom.",
-            "quantity": 6,
+            "productQuantity": 6,
             "price": 260,
-            "addOn": "green & red chatni"
+            "addOn": "green & red chatni",
+            "itemId": 5
         },
         {
             "name": "Chicken Tengri",
@@ -57,9 +62,10 @@
             "image": "chicken-tengri-small.png",
             "alt": "chicken-tengri",
             "description": "A marinade of garlic, ginger, garam masala, turmeric and chilli gives chicken drumsticks a dose of sub-continental spice in Alfred Prasad's tangdi kabab recipe.",
-            "quantity": 6,
+            "productQuantity": 6,
             "price": 280,
-            "addOn": "green chatni & meyonnaise"
+            "addOn": "green chatni & meyonnaise",
+            "itemId": 6
         },
         {
             "name": "Chicken Tikka Kebab",
@@ -67,9 +73,10 @@
             "image": "chicken-tikka-small.png",
             "alt": "chicken-tikka",
             "description": "Chicken Tikka Kebab is a delicious appetizer that is packed with flavor. It starts with chicken pieces marinated in yogurt along with lime juice and aromatic spices, then threaded onto skewers and cooked to create a delicious appetizer.",
-            "quantity": 6,
+            "productQuantity": 6,
             "price": 250,
-            "addOn": "green chatni & meyonnaise"
+            "addOn": "green chatni & meyonnaise",
+            "itemId": 7
         },
         {
             "name": "Chicken Wings",
@@ -77,9 +84,10 @@
             "image": "chicken-wings-small.png",
             "alt": "chicken-wings",
             "description": "Drums, or drumettes, resemble small chicken legs, with a single, main bone running through the middle.",
-            "quantity": 6,
+            "productQuantity": 6,
             "price": 300,
-            "addOn": "green chatni & meyonnaise"
+            "addOn": "green chatni & meyonnaise",
+            "itemId": 8
         },
         {
             "name": "Mutton Kakori Kebab",
@@ -87,9 +95,10 @@
             "image": "mutton-kakori-small.png",
             "alt": "mutton-kakori",
             "description": "Kakori Kebabs is a delicious Mughlai recipe that is prepared with mutton, onions and lots of spices. These kebabs are soft too.",
-            "quantity": 4,
+            "productQuantity": 4,
             "price": 300,
-            "addOn": "green chatni & meyonnaise"
+            "addOn": "green chatni & meyonnaise",
+            "itemId": 9
         },
         {
             "name": "Mutton Boti Kebab",
@@ -97,9 +106,10 @@
             "image": "mutton-boti-small.png",
             "alt": "mutton-boti",
             "description": "Mutton Boti is a popular dish from the southern part of our country. It is made with mutton (goat meat) that is marinated in spices and then grilled.",
-            "quantity": 6,
+            "productQuantity": 6,
             "price": 330,
-            "addOn": "green chatni & meyonnaise"
+            "addOn": "green chatni & meyonnaise",
+            "itemId": 10
         },
         {
             "name": "Mutton Tikka Kebab",
@@ -107,9 +117,10 @@
             "image": "mutton-tikka-small.png",
             "alt": "mutton-tikka",
             "description": "Mutton Boti Tikka is a popular dish from the southern part of our country. It is made with mutton (goat meat) that is marinated in spices and then grilled.",
-            "quantity": 6,
+            "productQuantity": 6,
             "price": 330,
-            "addOn": "green chatni & meyonnaise"
+            "addOn": "green chatni & meyonnaise",
+            "itemId": 11
         },
         {
             "name": "Fish Tikka Kebab",
@@ -117,9 +128,10 @@
             "image": "fish-tikka-small.png",
             "alt": "fish-tikka",
             "description": "Lasooni fish tikka is one of the most delicious and flavourful dishes made from fish. The fish pieces are marinated with many herbs, spices, and yoghurt to get the best possible taste.",
-            "quantity": 4,
+            "productQuantity": 4,
             "price": 300,
-            "addOn": "green chatni & meyonnaise"
+            "addOn": "green chatni & meyonnaise",
+            "itemId": 12
         },
         {
             "name": "Prawn Tandoori",
@@ -127,9 +139,10 @@
             "image": "prawn-tandoori-small.png",
             "alt": "prawn-tandoori",
             "description": "Tandoori Prawns are the grilled shrimp skewers loaded with the bold Indian flavors.",
-            "quantity": 4,
+            "productQuantity": 4,
             "price": 350,
-            "addOn": "green chatni & meyonnaise"
+            "addOn": "green chatni & meyonnaise",
+            "itemId": 13
         }
     ]
 }

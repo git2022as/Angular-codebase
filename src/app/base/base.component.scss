@@ -27,14 +27,14 @@
     .promise{
         flex-direction: column;
         > div{
-            border-bottom: 2px dashed v.$black;
+            border-bottom: 1.5px dashed v.$border-color-gray;
         }
     }
 }
 
 @media screen and (min-width: 768px) {
     .promise-right-border{
-        border-right: 2px dashed v.$black;
+        border-right: 1.5px dashed v.$border-color-gray;
     }
 }
 

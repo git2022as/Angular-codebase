@@ -3,6 +3,7 @@ import { BsModalService, ModalOptions, BsModalRef } from 'ngx-bootstrap/modal';
 import { LoginModalComponent } from '../shared/login-modal/login-modal.component';
 import { StaticDialogNgxBootstrapComponent } from '../shared/static-dialog-material/static-dialog-ngxBootstrap.component';
 import { Router } from '@angular/router';
+import { AppCacheService } from '../services/app.cache.service';
 
 @Component({
   selector: 'app-header',
@@ -18,7 +19,8 @@ export class HeaderComponent implements OnInit {
   cartItemCount: string = "0";
 
   constructor(private modalService: BsModalService,
-              private router: Router
+              private router: Router,
+              public appCacheService: AppCacheService
   ) { }
 
   ngOnInit(): void {
@@ -34,8 +36,16 @@ export class HeaderComponent implements OnInit {
 
     //get event triggerd from modal component
     this.bsModalRef.content.loginClicked.subscribe((res: any) => {
-      this.loggedIn = true;
-      this.loggedInUserName = res?.name ? res.name : "user";
+      //when login is successful
+      if(res.login.success){
+        this.appCacheService._loggedInUser = res?.login?.success;
+        this.appCacheService._tokenSID = res?.login?.sid;
+        this.appCacheService._cartDetails = res?.cart;
+        this.appCacheService._profileDetails = res?.profile;
+      }
+      else{
+        //login is not successful block => write code here
+      }
       this.bsModalRef?.hide();
     });
   }
@@ -53,15 +63,19 @@ export class HeaderComponent implements OnInit {
     };
     this.bsModalRef = this.modalService.show(StaticDialogNgxBootstrapComponent, initialState);
     this.bsModalRef.content.primaryButtonConfirmationEvent.subscribe((res: any) => {
-      //call logout service here to clear all cache
-      this.loggedIn = false;
+      //call logout service here to clear all cache and call API service to clear SID
+      this.appCacheService._loggedInUser = false;
       this.router.navigateByUrl('/base');
       this.bsModalRef?.hide();
     });
   }
 
   openLink(val: string): void{
-    this.router.navigateByUrl('/' + val);
+    if(val == 'logout'){
+      this.openLogoutModal;
+    }
+    else
+      this.router.navigateByUrl('/' + val);
   }
 
 }

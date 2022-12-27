@@ -11,7 +11,7 @@
     </carousel>
     <!--Our dishes section-->
     <div class="mt-5 mb-5 heading" style="text-align: center;"><h3>Our Dishes</h3></div>
-    <div class="row mt-5 mb-5">
+    <div class="row">
         <ng-container *ngFor="let each of allProducts; let i = index;">
             <div class="col-md-4 col-xs-12 mb-3">
                 <app-product-overview [product]="each"></app-product-overview>
@@ -28,7 +28,7 @@
             chevron_right
         </span>
     </div>
-    <div class="row mb-5">
+    <div class="row">
         <ng-container *ngFor="let branch of allBranches; let i = index;">
             <div class="col-md-4 col-xs-12 mb-3" *ngIf="i<3">
                 <app-branches [branch]="branch" (callOptionClicked)="openCallDialog($event)"></app-branches>
@@ -40,7 +40,7 @@
     <div class="mt-5 mb-5 heading" style="text-align: center;">
         <span style="margin: 0px 10px;font-size: 1.75rem;font-weight: 500;">Our Promises</span>
     </div>
-    <div class="promise mb-5">
+    <div class="promise mb-3">
         <div class="col-md-4 promise-right-border" style="text-align: center; padding: 5px 5px 15px 5px;">
             <img src="assets/images/cart.jpg" width="100px"  height="100px">
             <p>No Minimum Order</p>

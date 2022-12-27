@@ -1,7 +1,7 @@
 <div class="container">
     <!--Bank's offers section-->
     <div class="mt-5 mb-5 heading" style="text-align: center;"><h3>Bank's Offers</h3></div>
-    <div class="row mt-5 mb-5">
+    <div class="row">
         <ng-container *ngFor="let offer of offerDetails; let i = index;">
             <div class="col-md-4 col-xs-12 mb-3" *ngIf="offer.section == 'banks'">
                 <app-offers-details [offers]="offer"></app-offers-details>
@@ -10,7 +10,7 @@
     </div>
     <!--Wallet's offers section-->
     <div class="mt-5 mb-5 heading" style="text-align: center;"><h3>Wallet's Offers</h3></div>
-    <div class="row mt-5 mb-5">
+    <div class="row">
         <ng-container *ngFor="let offer of offerDetails; let i = index;">
             <div class="col-md-4 col-xs-12 mb-3" *ngIf="offer.section == 'wallet'">
                 <app-offers-details [offers]="offer" tooltipPos="above"></app-offers-details>

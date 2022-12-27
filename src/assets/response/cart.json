@@ -1,0 +1,34 @@
+{
+    "success": true,
+    "data": [
+        {
+            "quantity": 2,
+            "tprice": 360,
+            "exCheese": false,
+            "oliv": false,
+            "itemId": 1
+        },
+        {
+            "quantity": 2,
+            "tprice": 400,
+            "exCheese": false,
+            "oliv": false,
+            "itemId": 2
+        },
+        {
+            "quantity": 1,
+            "tprice": 200,
+            "exCheese": false,
+            "oliv": false,
+            "itemId": 3
+        },
+        {
+            
+            "quantity": 3,
+            "tprice": 750,
+            "exCheese": false,
+            "oliv": false,
+            "itemId": 4
+        }
+    ]
+}

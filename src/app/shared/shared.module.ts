@@ -11,6 +11,7 @@ import { ReactiveFormsModule } from '@angular/forms';
 import { CartOverviewComponent } from './cart-overview/cart-overview.component';
 import { ShortMessageComponent } from './short-message/short-message.component';
 import { SocialMediaComponent } from './social-media/social-media.component';
+import { IndividualCartPipe } from '../pipes/individual-cart.pipe';
 /* pipe module */
 import { PipeModule } from '../pipes/pipe.module';
 /* ngx-bootstrap modal*/
@@ -64,7 +65,8 @@ import { MatCheckboxModule } from '@angular/material/checkbox';
     CartOverviewComponent,
     ShortMessageComponent,
     SocialMediaComponent
-  ]
+  ],
+  providers: [IndividualCartPipe]
 })
 
 export class SharedModule { }
