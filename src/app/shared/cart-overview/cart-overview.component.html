@@ -27,7 +27,7 @@
             </div>
         </div>
         <div style="font-weight: bold;">
-            <span><img src="assets/images/rupee.png" width="14px" height="15px"><span>{{cart?.price * productQuantity}}</span></span>
+            <span><img src="assets/images/rupee.png" width="14px" height="15px"><span>{{cart?.price | individualCart : productQuantity : cartValueAdd.extraCheese : cartValueAdd.olivOil}}</span></span>
         </div>
     </div>
     <div class="col-md-3 col-xs-12 cart-button-section">      

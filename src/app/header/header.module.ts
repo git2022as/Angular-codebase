@@ -10,6 +10,7 @@ import { FooterModule } from '../footer/footer.module';
 import { RouterModule } from '@angular/router';
 import { OffersModule } from '../offers/offers.module';
 import { ModalModule } from 'ngx-bootstrap/modal';
+import { MatBadgeModule } from '@angular/material/badge';
 
 @NgModule({
     declarations: [
@@ -25,7 +26,8 @@ import { ModalModule } from 'ngx-bootstrap/modal';
         FooterModule,
         RouterModule,
         OffersModule,
-        ModalModule.forChild()
+        ModalModule.forChild(),
+        MatBadgeModule
     ],
     exports: [
         HeaderComponent

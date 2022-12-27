@@ -60,8 +60,8 @@
             <button *ngIf="signUpForm.get('confirmPassword')?.value != '' && signUpForm.get('confirmPassword')?.value != null" matSuffix mat-icon-button aria-label="Clear" (click)="setValue('confirmPassword')">
                 <mat-icon>close</mat-icon>
             </button>
-            <mat-error *ngIf="signUpForm.get('confirmPassword')?.errors.required && signUpForm.get('confirmPassword')?.touched">Confirm password is required</mat-error>
-            <mat-error *ngIf="signUpForm.get('confirmPassword')?.errors.noMatch && signUpForm.get('confirmPassword')?.touched">Passwords don't match, please check again</mat-error>
+            <mat-error *ngIf="signUpForm.get('confirmPassword')?.errors?.required && signUpForm.get('confirmPassword')?.touched">Confirm password is required</mat-error>
+            <mat-error *ngIf="signUpForm.get('confirmPassword')?.errors?.noMatch && signUpForm.get('confirmPassword')?.touched">Passwords don't match, please check again</mat-error>
         </mat-form-field>
     </form>
 </div>

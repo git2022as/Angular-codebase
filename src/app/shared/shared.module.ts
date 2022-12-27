@@ -10,6 +10,7 @@ import { FormsModule } from '@angular/forms';
 import { ReactiveFormsModule } from '@angular/forms';
 import { CartOverviewComponent } from './cart-overview/cart-overview.component';
 import { ShortMessageComponent } from './short-message/short-message.component';
+import { SocialMediaComponent } from './social-media/social-media.component';
 /* pipe module */
 import { PipeModule } from '../pipes/pipe.module';
 /* ngx-bootstrap modal*/
@@ -34,7 +35,8 @@ import { MatCheckboxModule } from '@angular/material/checkbox';
     OffersDetailsComponent,
     LoginModalComponent,
     CartOverviewComponent,
-    ShortMessageComponent
+    ShortMessageComponent,
+    SocialMediaComponent
   ],
   imports: [
     CommonModule,
@@ -60,7 +62,8 @@ import { MatCheckboxModule } from '@angular/material/checkbox';
     OffersDetailsComponent,
     LoginModalComponent,
     CartOverviewComponent,
-    ShortMessageComponent
+    ShortMessageComponent,
+    SocialMediaComponent
   ]
 })
 

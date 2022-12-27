@@ -1,13 +1,17 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, OnDestroy } from '@angular/core';
 import { BsModalService, BsModalRef, ModalOptions } from 'ngx-bootstrap/modal';
 import { StaticDialogNgxBootstrapComponent } from '../shared/static-dialog-material/static-dialog-ngxBootstrap.component';
+
+/*Example of observable */
+import { Observable, of } from 'rxjs';
+import { Subscription } from 'rxjs';
 
 @Component({
   selector: 'app-base',
   templateUrl: './base.component.html',
   styleUrls: ['./base.component.scss']
 })
-export class BaseComponent implements OnInit {
+export class BaseComponent implements OnInit, OnDestroy {
 
   title: string = 'kebabHouse';
   caouselInterval: number = 2000;
@@ -220,12 +224,59 @@ export class BaseComponent implements OnInit {
     }
   ]
 
+  /* basic testing of creation of an OBSERVABLE */
+
+  test = new Observable((res)=>{
+    console.log("Observable has been created");
+    //Observable has 3 methods() => next, complete & error
+    res.next(1);
+    res.next(2);
+    res.next(3);
+    res.error(new Error("Hi I am an error"));
+    //This data has been streamed as we will get the below output
+    //1
+    //2
+    //3
+  });
+
+  //with OF operator
+  testOF = of("Hello", [1,2,3,4,5,6]); //OF operator will emit complete method as well
+
+  //we need to subscribe the observable 
+  testSubscription: Subscription | undefined;
+  test1Subscription: Subscription | undefined;
+  /* ends here */
+
   bsModalRef?: BsModalRef;
 
   constructor(private modalService: BsModalService) { }
 
-  ngOnInit(): void {
+  ngOnDestroy(): void {
+    this.testSubscription ? this.testSubscription.unsubscribe : this.testSubscription;
+    console.log("unsubscribed hits");
+  }
 
+  ngOnInit(): void {
+    this.testSubscription = this.test.subscribe((res: any)=>{
+      //SUBSCRIBER also has 3 callback options parameters => next, error, complete
+      console.log(res);
+    },
+    (error: any)=>{
+      console.log(error);
+    },
+    ()=>{
+      console.log("observable emitted complete signal");
+    });
+
+    this.test1Subscription = this.testOF.subscribe((res: any)=>{
+      console.log(res);
+    },
+    (error)=>{
+      console.log(error.message);
+    },
+    ()=>{
+      console.log("observable emitted complete signal");
+    })
   }
 
   myEvent(evt: string) {

@@ -1,12 +1,15 @@
 import { NgModule } from "@angular/core";
 import { QuantityPipe } from "./quantity.pipe";
+import { IndividualCartPipe } from "./individual-cart.pipe";
 
 @NgModule({
     declarations: [
-        QuantityPipe
+        QuantityPipe,
+        IndividualCartPipe
     ],
     exports: [
-        QuantityPipe
+        QuantityPipe,
+        IndividualCartPipe
     ]
 })
 

@@ -8,7 +8,7 @@
             <mat-list-item role="listitem" *ngIf="!loggedIn">Sign-Up</mat-list-item>
             <mat-list-item role="listitem" *ngIf="loggedIn" routerLink="/cart">Cart</mat-list-item>
             <mat-list-item role="listitem" *ngIf="loggedIn">Wishlist</mat-list-item>
-            <mat-list-item role="listitem" *ngIf="loggedIn">Logout</mat-list-item>
+            <mat-list-item role="listitem" (click)="openLogoutModal()" *ngIf="loggedIn">Logout</mat-list-item>
         </mat-list>
     </mat-sidenav>
     <mat-sidenav-content>
@@ -21,9 +21,9 @@
             <mat-icon class="mr-2" style="cursor: pointer;" (click)="openLoginModal()" *ngIf="!loggedIn">login</mat-icon>
             <mat-icon class="mr-2" style="cursor: pointer;color: deeppink" *ngIf="loggedIn">person</mat-icon>
             <span *ngIf="loggedIn" class="loggedin-heading mr-2">Welcome, {{loggedInUserName}}</span>
-            <mat-icon class="mr-2" style="cursor: pointer;color: deeppink" *ngIf="loggedIn" (click)="openLink('cart');">shopping_cart</mat-icon>
-            <mat-icon class="mr-2" style="cursor: pointer;color: deeppink" *ngIf="loggedIn">favorite</mat-icon>
-            <mat-icon class="mr-2" style="cursor: pointer;color: deeppink" *ngIf="loggedIn">logout</mat-icon>
+            <mat-icon class="mr-2" [matBadge]="cartItemCount" [matBadgeHidden]="cartBadgeHidden" matBadgeColor="accent" matBadgeSize="small"[matBadgeOverlap]=true style="cursor: pointer;" *ngIf="loggedIn" (click)="openLink('cart');">shopping_cart</mat-icon>
+            <mat-icon class="mr-2" style="cursor: pointer;" *ngIf="loggedIn">favorite</mat-icon>
+            <mat-icon class="mr-2" style="cursor: pointer;" (click)="openLogoutModal()" *ngIf="loggedIn">logout</mat-icon>
         </mat-toolbar>
         <!--give main content a proper height which is less than 100% to display footer at the bottom of the page -->
         <div class="content">

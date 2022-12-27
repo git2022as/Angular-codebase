@@ -1,5 +1,5 @@
 import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
-import { cartExtraItem } from '../../model/model';
+import { cartExtraItem } from '../../interface/project.interface';
 import { StaticMsg } from 'src/app/constants/message.constant';
 
 @Component({
@@ -11,7 +11,10 @@ export class CartOverviewComponent implements OnInit {
 
   @Input() cart: any;
   productQuantity: number = 1;
-  cartValueAdd: any = cartExtraItem;
+  cartValueAdd: cartExtraItem = {
+    extraCheese: false,
+    olivOil: false
+  };
   durationStaysInSeconds = 5000;
 
   @Output() cartAddRemoveEvent = new EventEmitter<any>();

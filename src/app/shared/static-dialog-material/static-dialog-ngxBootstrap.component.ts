@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, EventEmitter } from '@angular/core';
 import { BsModalRef } from 'ngx-bootstrap/modal';
 import { LoginModalComponent } from '../login-modal/login-modal.component';
 
@@ -19,6 +19,8 @@ export class StaticDialogNgxBootstrapComponent implements OnInit {
   secondaryButtonText?: string = "Cancel";
   //secondary button clicks always close the modal
 
+  primaryButtonConfirmationEvent = new EventEmitter<any>();
+
   constructor(public modalRef: BsModalRef) { }
 
   ngOnInit(): void {
@@ -27,6 +29,9 @@ export class StaticDialogNgxBootstrapComponent implements OnInit {
   clickPrimaryButton(): void{
     if(this.type == 'info' || this.type == 'error'){
       this.modalRef.hide();
+    }
+    else if(this.type == 'confirmation'){
+      this.primaryButtonConfirmationEvent.emit({response: true});//sednig response true means accept the request
     }
   }
 

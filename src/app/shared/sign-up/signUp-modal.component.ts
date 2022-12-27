@@ -1,7 +1,7 @@
-import { Component, OnInit, TemplateRef, ElementRef, ViewChild } from '@angular/core';
+import { Component, OnInit, ElementRef, ViewChild } from '@angular/core';
 import { NgForm } from '@angular/forms';
 import { BsModalRef } from 'ngx-bootstrap/modal';
-import { FormGroup, FormControl, Validators } from '@angular/forms';
+import { FormGroup, FormControl, Validators, FormBuilder } from '@angular/forms';
 import { customValidator } from 'src/app/validator/custom.validator';
 
 @Component({
@@ -17,9 +17,9 @@ export class SignUpModalComponent implements OnInit {
   signUpForm: any = FormGroup;
   isVisibility: boolean = true;
 
-  @ViewChild('pass', { static: true }) passwrd: any = ElementRef;
+  @ViewChild('pass', { static: true }) passwrd: ElementRef;
 
-  constructor(public bsModalRef: BsModalRef, private el: ElementRef) { }
+  constructor(public bsModalRef: BsModalRef, private fb: FormBuilder ) { }
 
   ngOnInit(): void { 
     this.createSignUpForm();
@@ -33,6 +33,15 @@ export class SignUpModalComponent implements OnInit {
       password: new FormControl('', [Validators.required, customValidator.passwordRequirement]),
       confirmPassword: new FormControl('',[Validators.required, customValidator.passwordMatch])
     })
+
+    //another way to create reactive forms with FROMBUILDER
+    /*this.signUpForm = this.fb.group({
+      phoneNumber: ['', Validators.required, Validators.maxLength(10), Validators.minLength(10), Validators.pattern('[0-9]+$')],
+      name: ['', Validators.required, Validators.maxLength(40)],
+      email: ['', Validators.required, Validators.email],
+      password: ['', Validators.required, customValidator.passwordRequirement],
+      confirmPassword: ['', Validators.required, customValidator.passwordMatch]
+    })*/
   }
 
   signUpFormClicked(data:FormGroup): void{
