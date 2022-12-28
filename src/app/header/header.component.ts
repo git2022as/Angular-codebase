@@ -1,9 +1,10 @@
 import { Component, OnInit } from '@angular/core';
 import { BsModalService, ModalOptions, BsModalRef } from 'ngx-bootstrap/modal';
 import { LoginModalComponent } from '../shared/login-modal/login-modal.component';
-import { StaticDialogNgxBootstrapComponent } from '../shared/static-dialog-material/static-dialog-ngxBootstrap.component';
 import { Router } from '@angular/router';
 import { AppCacheService } from '../services/app.cache.service';
+import { CommonService } from '../services/common.service';
+import { DataService } from '../services/data.service';
 
 @Component({
   selector: 'app-header',
@@ -12,7 +13,6 @@ import { AppCacheService } from '../services/app.cache.service';
 })
 export class HeaderComponent implements OnInit {
 
-  bsModalRef?: BsModalRef;
   loggedIn: boolean = false;
   loggedInUserName: string = "";
   cartBadgeHidden: boolean = true;
@@ -20,10 +20,28 @@ export class HeaderComponent implements OnInit {
 
   constructor(private modalService: BsModalService,
               private router: Router,
-              public appCacheService: AppCacheService
+              public appCacheService: AppCacheService,
+              private commonService: CommonService,
+              private dataService: DataService,
+              public bsModalRef: BsModalRef
   ) { }
 
   ngOnInit(): void {
+    this.subscribeDataService();
+  }
+
+  subscribeDataService(): void{
+    this.dataService.UPDATE_CART_COUNT.subscribe((res: boolean) => {
+      if(this.appCacheService._cartDetails.length > 0){
+        let length = this.appCacheService._cartDetails.length;
+        this.cartItemCount = length.toString();
+        this.cartBadgeHidden = false;
+      }
+      else{
+        this.cartItemCount = "0";
+        this.cartBadgeHidden = true;
+      }
+    });
   }
 
   openLoginModal(): void{
@@ -42,6 +60,8 @@ export class HeaderComponent implements OnInit {
         this.appCacheService._tokenSID = res?.login?.sid;
         this.appCacheService._cartDetails = res?.cart;
         this.appCacheService._profileDetails = res?.profile;
+        this.dataService.UPDATED_DISH.next(true);
+        this.dataService.UPDATE_CART_COUNT.next(true);
       }
       else{
         //login is not successful block => write code here
@@ -61,7 +81,7 @@ export class HeaderComponent implements OnInit {
         primaryButtonText: 'Yes'
       }
     };
-    this.bsModalRef = this.modalService.show(StaticDialogNgxBootstrapComponent, initialState);
+    this.bsModalRef = this.commonService.openStaticModal(initialState);
     this.bsModalRef.content.primaryButtonConfirmationEvent.subscribe((res: any) => {
       //call logout service here to clear all cache and call API service to clear SID
       this.appCacheService._loggedInUser = false;
@@ -72,7 +92,7 @@ export class HeaderComponent implements OnInit {
 
   openLink(val: string): void{
     if(val == 'logout'){
-      this.openLogoutModal;
+      this.openLogoutModal();
     }
     else
       this.router.navigateByUrl('/' + val);

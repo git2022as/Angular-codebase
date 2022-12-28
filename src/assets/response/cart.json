@@ -4,31 +4,40 @@
         {
             "quantity": 2,
             "tprice": 360,
-            "exCheese": false,
-            "oliv": false,
+            "addOn": [
+                {"name": "Extra Cheese", "value": false, "extraPrice": 20},
+                {"name": "Oliv Oil Cooking ", "value": false, "extraPrice": 30}
+            ],
             "itemId": 1
         },
         {
             "quantity": 2,
             "tprice": 400,
-            "exCheese": false,
-            "oliv": false,
+            "addOn": [
+                {"name": "Extra Cheese", "value": false, "extraPrice": 20},
+                {"name": "Oliv Oil Cooking ", "value": false, "extraPrice": 30}
+            ],
             "itemId": 2
         },
         {
             "quantity": 1,
             "tprice": 200,
-            "exCheese": false,
-            "oliv": false,
+            "addOn": [
+                {"name": "Extra Cheese", "value": false, "extraPrice": 20},
+                {"name": "Oliv Oil Cooking ", "value": false, "extraPrice": 30}
+            ],
             "itemId": 3
         },
         {
             
             "quantity": 3,
             "tprice": 750,
-            "exCheese": false,
-            "oliv": false,
+            "addOn": [
+                {"name": "Extra Cheese", "value": false, "extraPrice": 20},
+                {"name": "Oliv Oil Cooking ", "value": false, "extraPrice": 30}
+            ],
             "itemId": 4
         }
-    ]
+    ],
+    "emptyCart": false
 }

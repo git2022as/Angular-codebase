@@ -4,7 +4,6 @@
             <mat-list-item role="listitem" routerLink="/about-us">About Us</mat-list-item>
             <mat-list-item role="listitem" routerLink="/base">Dishes</mat-list-item>
             <mat-list-item role="listitem" routerLink="/offers">Offers</mat-list-item>
-            <mat-list-item role="listitem" routerLink="/cart">Cart</mat-list-item>
             <mat-list-item role="listitem" (click)="openLoginModal()" *ngIf="!appCacheService._loggedInUser">Login</mat-list-item>
             <mat-list-item role="listitem" *ngIf="!appCacheService._loggedInUser">Sign-Up</mat-list-item>
             <mat-list-item role="listitem" *ngIf="appCacheService._loggedInUser" routerLink="/cart">Cart</mat-list-item>
@@ -17,14 +16,14 @@
             <button mat-icon-button class="sidenav-icon" mat-button (click)="sidenav.toggle()" aria-label="icon-button with menu icon">
                 <mat-icon class="menu-icon">menu</mat-icon>
             </button>
-            <span class="heading pl-2" [ngClass]="{'hide': loggedIn}">Kebab-House</span>
+            <span class="heading pl-2" [ngClass]="{'hide': appCacheService._loggedInUser}">Kebab-House</span>
             <span class="toolbar-spacer"></span>
-            <mat-icon class="mr-2" style="cursor: pointer;" (click)="openLoginModal()" *ngIf="!appCacheService._loggedInUser">login</mat-icon>
-            <mat-icon class="mr-2" style="cursor: pointer;color: deeppink" *ngIf="appCacheService._loggedInUser">person</mat-icon>
+            <mat-icon class="mr-2" style="cursor: pointer;" (click)="openLoginModal()" *ngIf="!appCacheService._loggedInUser" tooltip="Login" placement="auto">login</mat-icon>
+            <mat-icon class="mr-2" style="cursor: pointer;color: deeppink" *ngIf="appCacheService._loggedInUser" tooltip="Profile" placement="auto">person</mat-icon>
             <span *ngIf="appCacheService._loggedInUser" class="loggedin-heading mr-2">Welcome, {{appCacheService._profileDetails?.name}}</span>
-            <mat-icon class="mr-2" [matBadge]="cartItemCount" [matBadgeHidden]="cartBadgeHidden" matBadgeColor="accent" matBadgeSize="small"[matBadgeOverlap]=true style="cursor: pointer;" *ngIf="appCacheService._loggedInUser" (click)="openLink('cart');">shopping_cart</mat-icon>
-            <mat-icon class="mr-2" style="cursor: pointer;" *ngIf="appCacheService._loggedInUser">favorite</mat-icon>
-            <mat-icon class="mr-2" style="cursor: pointer;" (click)="openLink('logout');" *ngIf="appCacheService._loggedInUser">logout</mat-icon>
+            <mat-icon class="mr-2" [matBadge]="cartItemCount" [matBadgeHidden]="cartBadgeHidden" matBadgeColor="accent" matBadgeSize="small" [matBadgeOverlap]=true style="cursor: pointer;" *ngIf="appCacheService._loggedInUser" (click)="openLink('cart');" tooltip="Cart" placement="auto">shopping_cart</mat-icon>
+            <mat-icon class="mr-2" style="cursor: pointer;" *ngIf="appCacheService._loggedInUser" tooltip="Wishlist" placement="auto">favorite</mat-icon>
+            <mat-icon class="mr-2" style="cursor: pointer;" (click)="openLink('logout');" *ngIf="appCacheService._loggedInUser" tooltip="Logout" placement="auto">logout</mat-icon>
         </mat-toolbar>
         <!--give main content a proper height which is less than 100% to display footer at the bottom of the page -->
         <div class="content">

@@ -10,7 +10,7 @@
         help
     </span>
     <h4 class="modal-title pull-left">{{title}}</h4>
-    <button type="button" class="btn-close close pull-right" aria-label="Close" (click)="modalRef.hide()">
+    <button type="button" class="btn-close close pull-right" aria-label="Close" (click)="bsModalRef.hide()">
         <span aria-hidden="true" class="visually-hidden">&times;</span>
     </button>
 </div>
@@ -18,17 +18,12 @@
     <ul *ngIf="data == 'list'">
         <li *ngFor="let item of content">{{item}}</li>
     </ul>
-    <div *ngIf="data == 'para' && type == 'error'" style="color: red;">
-        {{content}}
-    </div>
     <div *ngIf="data == 'para'">
-        {{content}}
+        <span [ngStyle]="{'color': type == 'error' ? 'red' : 'black'}">{{content}}</span>
     </div>
 </div>
 <div class="modal-footer">
     <!--angular material button used inside ngx-bootstrap-->
     <button mat-raised-button *ngIf="primaryButton" [ngStyle]="{'margin-right': secondaryButton ? '1rem' : '0rem' }" color="primary" (click)="clickPrimaryButton()">{{primaryButtonText}}</button>
-    <button mat-raised-button *ngIf="secondaryButton" (click)="modalRef.hide()">{{secondaryButtonText}}</button>
-    <!--<button type="button" class="btn btn-default" (click)="modalRef.hide()">{{primaryButtonText}}</button>
-    <button type="button" class="btn btn-default" (click)="modalRef.hide()">{{primaryButtonText}}</button>-->
+    <button mat-raised-button *ngIf="secondaryButton" (click)="bsModalRef.hide()">{{secondaryButtonText}}</button>
 </div>

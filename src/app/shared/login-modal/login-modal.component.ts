@@ -34,46 +34,54 @@ export class LoginModalComponent implements OnInit {
       {
         quantity: 2,
         tprice: 360,
-        exCheese: false,
-        oliv: false,
+        addOn: [
+          {name: 'Extra Cheese', value: false, extraPrice: 20},
+          {name: 'Oliv Oil Cooking ', value: false, extraPrice: 30},
+        ],
         itemId: 1,
       },
       {
         quantity: 2,
         tprice: 400,
-        exCheese: false,
-        oliv: false,
+        addOn: [
+          {name: 'Extra Cheese', value: false, extraPrice: 20},
+          {name: 'Oliv Oil Cooking ', value: false, extraPrice: 30},
+        ],
         itemId: 2,
       },
       {
         quantity: 1,
         tprice: 200,
-        exCheese: false,
-        oliv: false,
+        addOn: [
+          {name: 'Extra Cheese', value: false, extraPrice: 20},
+          {name: 'Oliv Oil Cooking ', value: false, extraPrice: 30},
+        ],
         itemId: 3,
       },
       {
         quantity: 3,
         tprice: 750,
-        exCheese: false,
-        oliv: false,
+        addOn: [
+          {name: 'Extra Cheese', value: false, extraPrice: 20},
+          {name: 'Oliv Oil Cooking ', value: false, extraPrice: 30},
+        ],
         itemId: 4,
       }
     ]
     //sample PROFILE API
     const profile = {
-      name: "Sudipta Sil",
-      phone: "9830997610",
-      member: "silver",
-      email: "sudipta.sil.2000@gmail.com",
-      deliveryAddress: []
+      name: 'Sudipta Sil',
+      phone: '9830997610',
+      member: 'silver',
+      email: 'sudipta.sil.2000@gmail.com',
+      deliveryAddress: [],
     }
     //sample LOGIN API
     const login = {
-      sid: "4hz3468b-a179-4058-aaf2-086461479b52",
-      success: true
+      sid: '4hz3468b-a179-4058-aaf2-086461479b52',
+      success: true,
     }
-    this.loginClicked.emit({profile: profile, cart: cart, login: login});
+    this.loginClicked.emit({profile: profile, cart: cart, login: login})
   }
 
   getOtp(data: NgForm): void {

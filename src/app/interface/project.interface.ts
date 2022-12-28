@@ -1,4 +1,5 @@
 export interface cartExtraItem {
-    "extraCheese" : boolean,
-    "olivOil": boolean
+    name: string,
+    value: boolean,
+    extraPrice: number
 }

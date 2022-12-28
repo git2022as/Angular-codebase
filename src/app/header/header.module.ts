@@ -11,6 +11,7 @@ import { RouterModule } from '@angular/router';
 import { OffersModule } from '../offers/offers.module';
 import { ModalModule } from 'ngx-bootstrap/modal';
 import { MatBadgeModule } from '@angular/material/badge';
+import { TooltipModule } from 'ngx-bootstrap/tooltip';
 
 @NgModule({
     declarations: [
@@ -27,7 +28,8 @@ import { MatBadgeModule } from '@angular/material/badge';
         RouterModule,
         OffersModule,
         ModalModule.forChild(),
-        MatBadgeModule
+        MatBadgeModule,
+        TooltipModule
     ],
     exports: [
         HeaderComponent

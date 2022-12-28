@@ -6,12 +6,16 @@
 }
 
 .product-desc{
-    height: 100px;
-    overflow-y: auto;
+    height: auto;
+    font-size: 12px;
+}
+
+.product-button{
+    font-size: 12px;
 }
 
 .product-image{
-    height: 200px !important;
+    height: 150px !important;
 }
 
 .product-header{

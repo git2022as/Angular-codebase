@@ -12,6 +12,7 @@ import { CartOverviewComponent } from './cart-overview/cart-overview.component';
 import { ShortMessageComponent } from './short-message/short-message.component';
 import { SocialMediaComponent } from './social-media/social-media.component';
 import { IndividualCartPipe } from '../pipes/individual-cart.pipe';
+import { ProductAddOnComponent } from './product-add-on/product-add-on.component';
 /* pipe module */
 import { PipeModule } from '../pipes/pipe.module';
 /* ngx-bootstrap modal*/
@@ -37,7 +38,8 @@ import { MatCheckboxModule } from '@angular/material/checkbox';
     LoginModalComponent,
     CartOverviewComponent,
     ShortMessageComponent,
-    SocialMediaComponent
+    SocialMediaComponent,
+    ProductAddOnComponent
   ],
   imports: [
     CommonModule,
@@ -64,7 +66,8 @@ import { MatCheckboxModule } from '@angular/material/checkbox';
     LoginModalComponent,
     CartOverviewComponent,
     ShortMessageComponent,
-    SocialMediaComponent
+    SocialMediaComponent,
+    ProductAddOnComponent
   ],
   providers: [IndividualCartPipe]
 })

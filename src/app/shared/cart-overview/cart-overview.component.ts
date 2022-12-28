@@ -1,8 +1,8 @@
 import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
-import { cartExtraItem } from '../../interface/project.interface';
 import { StaticMsg } from 'src/app/constants/message.constant';
 import { IndividualCartPipe } from 'src/app/pipes/individual-cart.pipe';
 import { DataService } from 'src/app/services/data.service';
+import { staticValue } from 'src/app/model/model';
 
 @Component({
   selector: 'app-cart-overview',
@@ -13,10 +13,6 @@ export class CartOverviewComponent implements OnInit {
 
   @Input() cartDetails: any;
   @Input() productDetails: any;
-  cartValueAdd: cartExtraItem = {
-    extraCheese: false,
-    olivOil: false
-  };
   durationStaysInSeconds = 5000;
 
   @Output() cartAddRemoveEvent = new EventEmitter<any>();
@@ -27,12 +23,13 @@ export class CartOverviewComponent implements OnInit {
               private dataService: DataService) { }
 
   ngOnInit(): void {
+    
   }
 
   addItem(itemID: number, index: number): void{
     this.cartDetails[index].quantity ++;
-    if(this.cartDetails[index].quantity > 5){
-      this.cartDetails[index].quantity = 5;
+    if(this.cartDetails[index].quantity > staticValue.maxQuantityInCart){
+      this.cartDetails[index].quantity = staticValue.maxQuantityInCart;
       this.openMessage(StaticMsg.addQuantity);
     }
     this.cartDetails[index].tprice = this.individualCartPipe.transform(itemID, this.productDetails, this.cartDetails[index].quantity);
@@ -42,8 +39,8 @@ export class CartOverviewComponent implements OnInit {
 
   removeItem(itemID: number, index: number): void{
     this.cartDetails[index].quantity --;
-    if(this.cartDetails[index].quantity < 1){
-      this.cartDetails[index].quantity = 1;
+    if(this.cartDetails[index].quantity < staticValue.minQuantityInCart){
+      this.cartDetails[index].quantity = staticValue.minQuantityInCart;
       this.openMessage(StaticMsg.removeQuantity);
     }
     this.cartDetails[index].tprice = this.individualCartPipe.transform(itemID, this.productDetails, this.cartDetails[index].quantity);

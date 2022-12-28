@@ -1,6 +1,5 @@
 import { Component, OnInit, EventEmitter } from '@angular/core';
 import { BsModalRef } from 'ngx-bootstrap/modal';
-import { LoginModalComponent } from '../login-modal/login-modal.component';
 
 @Component({
   selector: 'app-static-dialog-ngxBootstrap',
@@ -21,14 +20,14 @@ export class StaticDialogNgxBootstrapComponent implements OnInit {
 
   primaryButtonConfirmationEvent = new EventEmitter<any>();
 
-  constructor(public modalRef: BsModalRef) { }
+  constructor(public bsModalRef: BsModalRef) { }
 
   ngOnInit(): void {
   }
 
   clickPrimaryButton(): void{
     if(this.type == 'info' || this.type == 'error'){
-      this.modalRef.hide();
+      this.bsModalRef.hide();
     }
     else if(this.type == 'confirmation'){
       this.primaryButtonConfirmationEvent.emit({response: true});//sednig response true means accept the request

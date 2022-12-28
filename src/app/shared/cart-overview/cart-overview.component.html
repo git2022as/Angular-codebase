@@ -17,19 +17,15 @@
                 </div>
                 <div class="cart-secondary-font mb-1" style="font-family: inherit !important;">
                     <section class="cart-extra-section">
-                        <mat-checkbox class="cart-extra-margin" [(ngModel)]="cartValueAdd.extraCheese">Extra Cheese</mat-checkbox>
-                        <mat-checkbox class="cart-extra-margin" [(ngModel)]="cartValueAdd.olivOil">Oliv Oil Cooking</mat-checkbox>
+                        <mat-checkbox class="cart-extra-margin" *ngFor="let item of cart.addOn; let i = index;" [(ngModel)]="item.value">{{item.name}} <span><img src="assets/images/rupee.png" width="20px" height="15px"></span><b>{{item.extraPrice}}</b></mat-checkbox>
                     </section>
-                    <div class="cart-secondary-font">
-                        <span>*Extra Cheese cost you </span>
-                        <span><img src="assets/images/rupee.png" width="13px" height="13px"><b>20</b></span>
-                        <span> and Oliv Oil Cooking will add </span>
-                        <span><img src="assets/images/rupee.png" width="13px" height="13px"><b>30</b></span>
-                        <span> more to your cart. </span>
+                    <div class="cart-secondary-font" *ngFor="let item of cart.addOn; let i = index;">
+                        <span>*{{item.name}} will cost you </span>
+                        <span><img src="assets/images/rupee.png" width="13px" height="13px"><b>{{item.extraPrice}}.</b></span>
                     </div>
                 </div>
-                <div style="font-weight: bold;">
-                    <span><img src="assets/images/rupee.png" width="14px" height="15px"><span>{{cart?.tprice}}</span></span>
+                <div>
+                    <span><img src="assets/images/rupee.png" width="14px" height="15px"><span><b>{{cart?.tprice}} </b><span class="cart-secondary-font">(Each Item Cost - <img src="assets/images/rupee.png" width="14px" height="15px">{{cart?.itemId | cartItemOriginalPrice : productDetails}})</span></span></span>
                 </div>
             </div>
             <div class="col-md-3 col-xs-12 cart-button-section">      

@@ -1,7 +1,8 @@
-import {Component, OnInit, OnDestroy} from '@angular/core'
-import {BsModalService, BsModalRef, ModalOptions} from 'ngx-bootstrap/modal'
-import {StaticDialogNgxBootstrapComponent} from '../shared/static-dialog-material/static-dialog-ngxBootstrap.component';
+import { Component, OnInit, OnDestroy } from '@angular/core';
+import { BsModalRef, ModalOptions } from 'ngx-bootstrap/modal';
+import { StaticDialogNgxBootstrapComponent } from '../shared/static-dialog-material/static-dialog-ngxBootstrap.component';
 import { AppCacheService } from '../services/app.cache.service';
+import { CommonService } from '../services/common.service';
 
 /*Example of observable */
 import {Observable, of} from 'rxjs'
@@ -273,10 +274,9 @@ export class BaseComponent implements OnInit, OnDestroy {
   test1Subscription: Subscription | undefined
   /* ends here */
 
-  bsModalRef?: BsModalRef
-
-  constructor(private modalService: BsModalService,
-              private appCacheService: AppCacheService) {}
+  constructor(private appCacheService: AppCacheService,
+              private commonService: CommonService,
+              private bsModalRef: BsModalRef) {}
 
   ngOnDestroy(): void {
     this.testSubscription
@@ -286,6 +286,7 @@ export class BaseComponent implements OnInit, OnDestroy {
   }
 
   ngOnInit(): void {
+    //call 3 APIs => dish, offers, card-carosul 
     //save products in app.cache.service
     this.appCacheService._dishesDetails = this.allProducts;
     this.testSubscription = this.test.subscribe(
@@ -328,7 +329,7 @@ export class BaseComponent implements OnInit, OnDestroy {
     this.allBranches.push(firstValue)
   }
 
-  openCallDialog(event: any): void {
+  openPhoneDialog(event: any): void {
     const number = event.contact.split(',')
     const initialState: ModalOptions = {
       initialState: {
@@ -339,9 +340,6 @@ export class BaseComponent implements OnInit, OnDestroy {
         primaryButtonText: 'Cancel',
       },
     }
-    this.bsModalRef = this.modalService.show(
-      StaticDialogNgxBootstrapComponent,
-      initialState
-    )
+    this.bsModalRef = this.commonService.openStaticModal(initialState);
   }
 }
