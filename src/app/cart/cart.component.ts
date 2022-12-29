@@ -3,6 +3,7 @@ import { ShortMessageComponent } from '../shared/short-message/short-message.com
 import { DataService } from '../services/data.service';
 import { UtilityService } from '../services/utility.service';
 import { AppCacheService } from '../services/app.cache.service';
+import { staticValue, coupon } from '../model/model';
 
 @Component({
   selector: 'app-cart',
@@ -13,13 +14,15 @@ export class CartComponent implements OnInit {
 
   @ViewChild("shortContainer", { read: ViewContainerRef }) shortContainer: any = ViewContainerRef;
   timeForMsg: number = 2000;
+  deliveryAmount: number = staticValue.deliveryCharge;
   totalCartValue: number;
-  deliveryLogic: string = "FREE";
-  govtTax: number = 50;
-  packagingCharge: number = 50;
-  toPayValue: number = 100;
+  deliveryFree: boolean = false;
+  govtTaxPackage: number = 0;
+  packagingCharge: number = staticValue.packagingCharge;
   productDetails: Array<any> = [];
   cartDetails : Array<any> = [];
+  selectedCoupon: string;
+  coupon = coupon;
   constructor(private dataService: DataService,
               private utilityService: UtilityService,
               private appCacheService: AppCacheService) { }
@@ -37,12 +40,25 @@ export class CartComponent implements OnInit {
 
   calculateCartValue(arr: Array<any>): void{
     this.totalCartValue = this.utilityService.calculateCartValue(arr);
+    if(this.totalCartValue > 500){
+      this.deliveryFree = true;
+      this.deliveryAmount = 0
+    }else{
+      this.deliveryFree = false;
+    }
+    this.calculateGovtTaxPackage();
   }
 
   subscribeDataService(): void{
     this.dataService.UPDATED_CART.subscribe((res: any)=>{
-      this.totalCartValue = this.utilityService.calculateCartValue(res);
+     this.calculateCartValue(res);
     });
+  }
+
+  calculateGovtTaxPackage(){
+    let tax = 0;
+    tax = this.utilityService.calculateGovtTax(this.totalCartValue);
+    this.govtTaxPackage = tax +  staticValue.packagingCharge;
   }
 
   showShortMsg(event: any): void{

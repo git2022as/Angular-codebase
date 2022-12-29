@@ -17,21 +17,31 @@
                 <div class="cart-sub-details">{{totalCartValue}}</div>
             </div>
             <div class="row m-0 cart-sub-parent">
-                <div class="cart-sub-details">Delivery Fee</div>
-                <div class="cart-sub-details" [ngStyle]="{'color': deliveryLogic == 'FREE' ? 'green' : 'inherit'}">{{deliveryLogic}}</div>
+                <div class="cart-sub-details">Delivery Fee
+                    <mat-icon tooltip="Delivery charges will be FREE above 500 INR order, else 50 INR is needed" placement="auto" style="font-size: 13px;">info</mat-icon>
+                </div>
+                <div class="cart-sub-details" [ngStyle]="{'color': deliveryFree ? 'green' : 'inherit'}">{{deliveryAmount}}</div>
             </div>
             <div class="row m-0 cart-sub-parent">
-                <div class="cart-sub-details">Govt Taxes & Restaurant Charges</div>
-                <div class="cart-sub-details">{{govtTax + packagingCharge}}</div>
+                <div class="cart-sub-details">Govt Taxes & Packaging Charges</div>
+                <div class="cart-sub-details">{{govtTaxPackage}}</div>
             </div>
             <hr style="border-top: 1.5px solid black;margin-bottom: 0px;">
-            <div class="row m-0 cart-sub-parent">
+            <div class="row m-0 cart-sub-parent mt-3">
                 <div class="cart-sub-details-bold">TO PAY</div>
-                <div class="cart-sub-details-bold">{{totalCartValue + govtTax + packagingCharge}}</div>
+                <div class="cart-sub-details-bold">{{totalCartValue + govtTaxPackage + deliveryAmount}}</div>
             </div>
         </div>
         <div class="cartCoupon col-md-6 col-xs-12 p-2">
-            <h1>Coupon Details</h1>
+            <h5>Apply these coupons to get more discounts</h5>
+            <mat-radio-group
+            aria-labelledby="example-radio-group-label"
+            class="example-radio-group"
+            [(ngModel)]="selectedCoupon">
+                <mat-radio-button class="example-radio-button" *ngFor="let cou of coupon" [value]="cou.code">
+                {{cou.code}}
+                </mat-radio-button>
+            </mat-radio-group>
         </div>
     </div>
     <div #shortContainer></div>

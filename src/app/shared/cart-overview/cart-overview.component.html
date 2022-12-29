@@ -17,7 +17,7 @@
                 </div>
                 <div class="cart-secondary-font mb-1" style="font-family: inherit !important;">
                     <section class="cart-extra-section">
-                        <mat-checkbox class="cart-extra-margin" *ngFor="let item of cart.addOn; let i = index;" [(ngModel)]="item.value">{{item.name}} <span><img src="assets/images/rupee.png" width="20px" height="15px"></span><b>{{item.extraPrice}}</b></mat-checkbox>
+                        <mat-checkbox class="cart-extra-margin" *ngFor="let item of cart.addOn; let j = index;" [(ngModel)]="item.value" (change)="addExtraCheckbox(cart)">{{item.name}} <span><img src="assets/images/rupee.png" width="20px" height="15px"></span><b>{{item.extraPrice}}</b></mat-checkbox>
                     </section>
                     <div class="cart-secondary-font" *ngFor="let item of cart.addOn; let i = index;">
                         <span>*{{item.name}} will cost you </span>
@@ -30,16 +30,16 @@
             </div>
             <div class="col-md-3 col-xs-12 cart-button-section">      
                 <mat-card-actions class="offer-button-class">
-                    <span class="material-icons" style="color: #3f51b5;margin:7px" (click)="addItem(cart.itemId,i)"> 
+                    <span class="material-icons" style="color: #3f51b5;margin:7px" (click)="addItem(cart)"> 
                         add_circle
                     </span>
                     <span style="font-size: 18px;color: #555353; position: relative; top: -5px;">{{cart?.quantity}}</span>
-                    <span class="material-icons" style="color: #3f51b5;margin:7px" (click)="removeItem(cart.itemId,i)"> 
+                    <span class="material-icons" style="color: #3f51b5;margin:7px" (click)="removeItem(cart)"> 
                         do_not_disturb_on
                     </span>
                 </mat-card-actions>
                 <mat-card-actions>
-                    <span class="material-icons" style="color: #3f51b5;margin:7px"> 
+                    <span class="material-icons" style="color: #3f51b5;margin:7px" (click)="delteDish(cart)"> 
                         delete
                     </span>
                 </mat-card-actions>
