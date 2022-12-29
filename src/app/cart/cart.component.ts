@@ -13,6 +13,7 @@ import { staticValue, coupon } from '../model/model';
 export class CartComponent implements OnInit {
 
   @ViewChild("shortContainer", { read: ViewContainerRef }) shortContainer: any = ViewContainerRef;
+  cartAvailable: boolean = false;
   timeForMsg: number = 2000;
   deliveryAmount: number = staticValue.deliveryCharge;
   totalCartValue: number;
@@ -23,6 +24,9 @@ export class CartComponent implements OnInit {
   cartDetails : Array<any> = [];
   selectedCoupon: string;
   coupon = coupon;
+  appDiscountAmount: number = 0;
+  showAppDiscount: boolean = false;
+  showAppDiscountTooltip : string = "";
   constructor(private dataService: DataService,
               private utilityService: UtilityService,
               private appCacheService: AppCacheService) { }
@@ -35,7 +39,10 @@ export class CartComponent implements OnInit {
   checkCart(){
     this.cartDetails = this.appCacheService._cartDetails;
     this.productDetails = this.appCacheService._dishesDetails;
-    this.calculateCartValue(this.cartDetails);
+    if(this.cartDetails.length > 0)
+      this.calculateCartValue(this.cartDetails);
+    else
+      this.cartAvailable = false;
   }
 
   calculateCartValue(arr: Array<any>): void{
@@ -78,6 +85,13 @@ export class CartComponent implements OnInit {
 
   removeShortMsg(): void{
     this.shortContainer.clear();
+  }
+
+  applySiteCoupon(event: any): void{
+    this.appDiscountAmount = this.utilityService.calculateAppDiscount(event.value,this.totalCartValue);
+    if(this.appDiscountAmount > 0)
+      this.showAppDiscount = true;
+      this.showAppDiscountTooltip = `${event.value} is applied`;
   }
 
 }

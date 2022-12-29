@@ -6,13 +6,13 @@ export const cartExtraItems = [
 export const coupon = [
     {
         code: "DEC2022",
-        offer: "Flat 10% discount on final CART value",
+        offer: "Flat 10% discount on the final CART value",
         discountPercent: true,
         discountAmout: 10
     },
     {
         code: "FLAT300",
-        offer: "Flat 300 INR discount on final CART value",
+        offer: "Flat 300 INR discount on the final CART value",
         discountPercent: false,
         discountAmout: 300
     }
