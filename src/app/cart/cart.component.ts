@@ -39,8 +39,10 @@ export class CartComponent implements OnInit {
   checkCart(){
     this.cartDetails = this.appCacheService._cartDetails;
     this.productDetails = this.appCacheService._dishesDetails;
-    if(this.cartDetails.length > 0)
+    if(this.cartDetails.length > 0){
+      this.cartAvailable = true;
       this.calculateCartValue(this.cartDetails);
+    }
     else
       this.cartAvailable = false;
   }
