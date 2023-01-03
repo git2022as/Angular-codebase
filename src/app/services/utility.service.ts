@@ -1,12 +1,15 @@
 import { Injectable } from "@angular/core";
 import { staticValue } from "../model/model";
 import { coupon } from "../model/model";
+import { AppCacheService } from "./app.cache.service";
 
 @Injectable({
     providedIn: 'root'
 })
 
 export class UtilityService {
+    constructor(private appCacheService: AppCacheService){}
+
     calculateAppDiscount(value: any, totalCartValue: number) {
         let totalDiscount : number = 0;
         let appDiscountDetails = this.findAppDiscountDetails(value);
@@ -43,5 +46,19 @@ export class UtilityService {
         let val;
         val = ((cartValue*staticValue.gstPercent)/100).toFixed(2);
         return Number(val);
+    }
+
+    checkDishInCart(product: any): boolean{
+        let val: boolean;
+        if(this.appCacheService._cartDetails.length == 0)
+          val = true;
+        else{
+          this.appCacheService._cartDetails.forEach(each => {
+            if(each.itemId == product.itemId){
+              val = false;
+            }
+          })
+        }
+        return val;
     }
 }

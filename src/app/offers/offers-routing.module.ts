@@ -4,8 +4,8 @@ import { OffersComponent } from './offers.component';
 
 const offersRoutes: Routes = [
     {
-        'path': '',
-        'component': OffersComponent
+        path: '',
+        component: OffersComponent
     }
 ]
 

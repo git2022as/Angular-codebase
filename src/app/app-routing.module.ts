@@ -33,6 +33,10 @@ const lazyRoutes: Routes = [
     path: 'cart',
     loadChildren: () => import('./cart/cart.module').then((a) => a.CartModule),
   },
+  {
+    path: 'dish/:id',
+    loadChildren: () => import('./dish/dish.module').then((a)=>a.DishModule)
+  },
   { path: '', redirectTo: 'base', pathMatch: 'full' },
   { path: '**', redirectTo: 'base' },
 ];

@@ -8,7 +8,7 @@
             <div class="cartReady p-2">
                 Bill Details
             </div>
-            <div class="cartValue col-md-6 col-xs-12 p-2">
+            <div class="cartValue col-md-6 col-xs-12 p-3">
                 <div class="row m-0 cart-sub-parent">
                     <div class="cart-sub-details">Item Total</div>
                     <div class="cart-sub-details">{{totalCartValue}}</div>
@@ -35,14 +35,14 @@
                     <div class="cart-sub-details-bold">{{(totalCartValue + govtTaxPackage + deliveryAmount)-appDiscountAmount}}</div>
                 </div>
             </div>
-            <div class="cartCoupon col-md-6 col-xs-12 p-2">
+            <div class="cartCoupon col-md-6 col-xs-12 p-3">
                 <div style="font-size: 13px;">Apply these <span style="font-weight: bold; color: green;">COUPONS</span> to get more discounts</div>
                 <mat-radio-group
                 aria-labelledby="coupon-radio-group-label"
                 class="coupon-radio-group"
                 [(ngModel)]="selectedCoupon">
                     <mat-radio-button (change)="applySiteCoupon($event)" class="coupon-radio-button" *ngFor="let cou of coupon" [value]="cou.code">
-                    <b>{{cou.code}}</b> - {{cou.offer}}
+                    <span style="white-space: normal;"><b>{{cou.code}}</b> - {{cou.offer}}</span>
                     </mat-radio-button>
                 </mat-radio-group>
             </div>

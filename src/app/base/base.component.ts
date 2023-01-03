@@ -1,8 +1,8 @@
-import { Component, OnInit, OnDestroy } from '@angular/core';
-import { BsModalRef, ModalOptions } from 'ngx-bootstrap/modal';
-import { StaticDialogNgxBootstrapComponent } from '../shared/static-dialog-material/static-dialog-ngxBootstrap.component';
-import { AppCacheService } from '../services/app.cache.service';
-import { CommonService } from '../services/common.service';
+import {Component, OnInit, OnDestroy} from '@angular/core'
+import {BsModalRef, ModalOptions} from 'ngx-bootstrap/modal'
+import {StaticDialogNgxBootstrapComponent} from '../shared/static-dialog-material/static-dialog-ngxBootstrap.component'
+import {AppCacheService} from '../services/app.cache.service'
+import {CommonService} from '../services/common.service'
 
 /*Example of observable */
 import {Observable, of} from 'rxjs'
@@ -51,6 +51,23 @@ export class BaseComponent implements OnInit, OnDestroy {
       productQuantity: 6,
       price: 180,
       addOn: 'green chatni & meyonnaise',
+      ingradient: [
+        'Paneer - 200g',
+        'Onion - 30g',
+        'Masala - 100g',
+        'Butter - 10g',
+      ],
+      calorie: {
+        totalFat: "18000",
+        cholesterol: "6",
+        sodium: "332",
+        carbohydrate: "11000",
+        protein: "4000",
+        vitamin: "0",
+        calcium: "100",
+        iron: "1",
+        potassium: "133"
+      },
       itemId: 1,
     },
     {
@@ -63,6 +80,23 @@ export class BaseComponent implements OnInit, OnDestroy {
       productQuantity: 6,
       price: 200,
       addOn: 'green chatni & meyonnaise',
+      ingradient: [
+        'Paneer - 200g',
+        'Onion - 30g',
+        'Masala - 100g',
+        'Butter - 10g',
+      ],
+      calorie: {
+        totalFat: "18000",
+        cholesterol: "6",
+        sodium: "332",
+        carbohydrate: "11000",
+        protein: "4000",
+        vitamin: "0",
+        calcium: "100",
+        iron: "1",
+        potassium: "133"
+      },
       itemId: 2,
     },
     {
@@ -75,6 +109,24 @@ export class BaseComponent implements OnInit, OnDestroy {
       productQuantity: 8,
       price: 200,
       addOn: 'green chatni & meyonnaise',
+      ingradient: [
+        'Aloo - 300g',
+        'Onion - 30g',
+        'Capcicum - 50g',
+        'Masala - 100g',
+        'Butter - 10g',
+      ],
+      calorie: {
+        totalFat: "18000",
+        cholesterol: "6",
+        sodium: "332",
+        carbohydrate: "11000",
+        protein: "4000",
+        vitamin: "0",
+        calcium: "100",
+        iron: "1",
+        potassium: "133"
+      },
       itemId: 3,
     },
     {
@@ -87,6 +139,23 @@ export class BaseComponent implements OnInit, OnDestroy {
       productQuantity: 6,
       price: 250,
       addOn: 'green & red chatni',
+      ingradient: [
+        'Chicken - 200g',
+        'Onion - 30g',
+        'Masala - 100g',
+        'Butter - 10g',
+      ],
+      calorie: {
+        totalFat: "18000",
+        cholesterol: "6",
+        sodium: "332",
+        carbohydrate: "11000",
+        protein: "4000",
+        vitamin: "0",
+        calcium: "100",
+        iron: "1",
+        potassium: "133"
+      },
       itemId: 4,
     },
     {
@@ -99,6 +168,23 @@ export class BaseComponent implements OnInit, OnDestroy {
       productQuantity: 6,
       price: 260,
       addOn: 'green & red chatni',
+      ingradient: [
+        'Chicken - 200g',
+        'Onion - 30g',
+        'Masala - 100g',
+        'Butter - 10g',
+      ],
+      calorie: {
+        totalFat: "18000",
+        cholesterol: "6",
+        sodium: "332",
+        carbohydrate: "11000",
+        protein: "4000",
+        vitamin: "0",
+        calcium: "100",
+        iron: "1",
+        potassium: "133"
+      },
       itemId: 5,
     },
     {
@@ -111,6 +197,23 @@ export class BaseComponent implements OnInit, OnDestroy {
       productQuantity: 6,
       price: 280,
       addOn: 'green chatni & meyonnaise',
+      ingradient: [
+        'Chicken Tengri - 300g',
+        'Onion - 30g',
+        'Masala - 100g',
+        'Butter - 10g',
+      ],
+      calorie: {
+        totalFat: "18000",
+        cholesterol: "6",
+        sodium: "332",
+        carbohydrate: "11000",
+        protein: "4000",
+        vitamin: "0",
+        calcium: "100",
+        iron: "1",
+        potassium: "133"
+      },
       itemId: 6,
     },
     {
@@ -123,6 +226,23 @@ export class BaseComponent implements OnInit, OnDestroy {
       productQuantity: 6,
       price: 250,
       addOn: 'green chatni & meyonnaise',
+      ingradient: [
+        'Chicken - 200g',
+        'Onion - 30g',
+        'Masala - 100g',
+        'Butter - 10g',
+      ],
+      calorie: {
+        totalFat: "18000",
+        cholesterol: "6",
+        sodium: "332",
+        carbohydrate: "11000",
+        protein: "4000",
+        vitamin: "0",
+        calcium: "100",
+        iron: "1",
+        potassium: "133"
+      },
       itemId: 7,
     },
     {
@@ -135,6 +255,23 @@ export class BaseComponent implements OnInit, OnDestroy {
       productQuantity: 6,
       price: 300,
       addOn: 'green chatni & meyonnaise',
+      ingradient: [
+        'Chicken Wings - 300g',
+        'Onion - 30g',
+        'Masala - 100g',
+        'Butter - 10g',
+      ],
+      calorie: {
+        totalFat: "18000",
+        cholesterol: "6",
+        sodium: "332",
+        carbohydrate: "11000",
+        protein: "4000",
+        vitamin: "0",
+        calcium: "100",
+        iron: "1",
+        potassium: "133"
+      },
       itemId: 8,
     },
     {
@@ -147,6 +284,23 @@ export class BaseComponent implements OnInit, OnDestroy {
       productQuantity: 4,
       price: 300,
       addOn: 'green chatni & meyonnaise',
+      ingradient: [
+        'Mutton - 200g',
+        'Onion - 30g',
+        'Masala - 100g',
+        'Butter - 10g',
+      ],
+      calorie: {
+        totalFat: "18000",
+        cholesterol: "6",
+        sodium: "332",
+        carbohydrate: "11000",
+        protein: "4000",
+        vitamin: "0",
+        calcium: "100",
+        iron: "1",
+        potassium: "133"
+      },
       itemId: 9,
     },
     {
@@ -159,6 +313,23 @@ export class BaseComponent implements OnInit, OnDestroy {
       productQuantity: 6,
       price: 330,
       addOn: 'green chatni & meyonnaise',
+      ingradient: [
+        'Mutton Keema - 200g',
+        'Onion - 30g',
+        'Masala - 100g',
+        'Butter - 10g',
+      ],
+      calorie: {
+        totalFat: "18000",
+        cholesterol: "6",
+        sodium: "332",
+        carbohydrate: "11000",
+        protein: "4000",
+        vitamin: "0",
+        calcium: "100",
+        iron: "1",
+        potassium: "133"
+      },
       itemId: 10,
     },
     {
@@ -171,6 +342,23 @@ export class BaseComponent implements OnInit, OnDestroy {
       productQuantity: 6,
       price: 330,
       addOn: 'green chatni & meyonnaise',
+      ingradient: [
+        'Mutton - 200g',
+        'Onion - 30g',
+        'Masala - 100g',
+        'Butter - 10g',
+      ],
+      calorie: {
+        totalFat: "18000",
+        cholesterol: "6",
+        sodium: "332",
+        carbohydrate: "11000",
+        protein: "4000",
+        vitamin: "0",
+        calcium: "100",
+        iron: "1",
+        potassium: "133"
+      },
       itemId: 11,
     },
     {
@@ -183,6 +371,23 @@ export class BaseComponent implements OnInit, OnDestroy {
       productQuantity: 4,
       price: 300,
       addOn: 'green chatni & meyonnaise',
+      ingradient: [
+        'Fish (Vetki) - 200g',
+        'Onion - 30g',
+        'Masala - 100g',
+        'Butter - 10g',
+      ],
+      calorie: {
+        totalFat: "18000",
+        cholesterol: "6",
+        sodium: "332",
+        carbohydrate: "11000",
+        protein: "4000",
+        vitamin: "0",
+        calcium: "100",
+        iron: "1",
+        potassium: "133"
+      },
       itemId: 12,
     },
     {
@@ -195,6 +400,23 @@ export class BaseComponent implements OnInit, OnDestroy {
       productQuantity: 4,
       price: 350,
       addOn: 'green chatni & meyonnaise',
+      ingradient: [
+        'Prawn (Bagda) - 200g',
+        'Onion - 30g',
+        'Masala - 100g',
+        'Butter - 10g',
+      ],
+      calorie: {
+        totalFat: "18000",
+        cholesterol: "6",
+        sodium: "332",
+        carbohydrate: "11000",
+        protein: "4000",
+        vitamin: "0",
+        calcium: "100",
+        iron: "1",
+        potassium: "133"
+      },
       itemId: 13,
     }
   ]
@@ -274,9 +496,11 @@ export class BaseComponent implements OnInit, OnDestroy {
   test1Subscription: Subscription | undefined
   /* ends here */
 
-  constructor(private appCacheService: AppCacheService,
-              private commonService: CommonService,
-              private bsModalRef: BsModalRef) {}
+  constructor(
+    private appCacheService: AppCacheService,
+    private commonService: CommonService,
+    private bsModalRef: BsModalRef
+  ) {}
 
   ngOnDestroy(): void {
     this.testSubscription
@@ -286,9 +510,9 @@ export class BaseComponent implements OnInit, OnDestroy {
   }
 
   ngOnInit(): void {
-    //call 3 APIs => dish, offers, card-carosul 
+    //call 3 APIs => dish, offers, card-carosul
     //save products in app.cache.service
-    this.appCacheService._dishesDetails = this.allProducts;
+    this.appCacheService._dishesDetails = this.allProducts
     this.testSubscription = this.test.subscribe(
       (res: any) => {
         //SUBSCRIBER also has 3 callback options parameters => next, error, complete
@@ -340,6 +564,6 @@ export class BaseComponent implements OnInit, OnDestroy {
         primaryButtonText: 'Cancel',
       },
     }
-    this.bsModalRef = this.commonService.openStaticModal(initialState);
+    this.bsModalRef = this.commonService.openStaticModal(initialState)
   }
 }

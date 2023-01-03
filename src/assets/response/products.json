@@ -10,6 +10,23 @@
             "productQuantity": 6,
             "price": 180,
             "addOn": "green chatni & meyonnaise",
+            "ingradient": [
+                "Paneer - 200g",
+                "Onion - 30g",
+                "Masala - 100g",
+                "Butter - 10g"
+            ],
+            "calorie": {
+                "totalFat": "18g",
+                "cholesterol": "6mg",
+                "sodium": "332mg",
+                "carbohydrate": "11g",
+                "protein": "4g",
+                "vitamin": "0",
+                "calcium": "100mg",
+                "iron": "1mg",
+                "potassium": "133mg"
+            },
             "itemId": 1
         },
         {
@@ -21,6 +38,23 @@
             "productQuantity": 6,
             "price": 200,
             "addOn": "green chatni & meyonnaise",
+            "ingradient": [
+                "Paneer - 200g",
+                "Onion - 30g",
+                "Masala - 100g",
+                "Butter - 10g"
+            ],
+            "calorie": {
+                "totalFat": "18g",
+                "cholesterol": "6mg",
+                "sodium": "332mg",
+                "carbohydrate": "11g",
+                "protein": "4g",
+                "vitamin": "0",
+                "calcium": "100mg",
+                "iron": "1mg",
+                "potassium": "133mg"
+            },
             "itemId": 2
         },
         {
@@ -32,6 +66,24 @@
             "productQuantity": 8,
             "price": 200,
             "addOn": "green chatni & meyonnaise",
+            "ingradient": [
+                "Aloo - 300g",
+                "Onion - 30g",
+                "Capcicum - 50g",
+                "Masala - 100g",
+                "Butter - 10g"
+            ],
+            "calorie": {
+                "totalFat": "18g",
+                "cholesterol": "6mg",
+                "sodium": "332mg",
+                "carbohydrate": "11g",
+                "protein": "4g",
+                "vitamin": "0",
+                "calcium": "100mg",
+                "iron": "1mg",
+                "potassium": "133mg"
+            },
             "itemId": 3
         },
         {
@@ -43,6 +95,23 @@
             "productQuantity": 6,
             "price": 250,
             "addOn": "green & red chatni",
+            "ingradient": [
+                "Chicken - 200g",
+                "Onion - 30g",
+                "Masala - 100g",
+                "Butter - 10g"
+            ],
+            "calorie": {
+                "totalFat": "18g",
+                "cholesterol": "6mg",
+                "sodium": "332mg",
+                "carbohydrate": "11g",
+                "protein": "4g",
+                "vitamin": "0",
+                "calcium": "100mg",
+                "iron": "1mg",
+                "potassium": "133mg"
+            },
             "itemId": 4
         },
         {
@@ -54,6 +123,23 @@
             "productQuantity": 6,
             "price": 260,
             "addOn": "green & red chatni",
+            "ingradient": [
+                "Chicken - 200g",
+                "Onion - 30g",
+                "Masala - 100g",
+                "Butter - 10g"
+            ],
+            "calorie": {
+                "totalFat": "18g",
+                "cholesterol": "6mg",
+                "sodium": "332mg",
+                "carbohydrate": "11g",
+                "protein": "4g",
+                "vitamin": "0",
+                "calcium": "100mg",
+                "iron": "1mg",
+                "potassium": "133mg"
+            },
             "itemId": 5
         },
         {
@@ -65,6 +151,23 @@
             "productQuantity": 6,
             "price": 280,
             "addOn": "green chatni & meyonnaise",
+            "ingradient": [
+                "Chicken Tengri - 300g",
+                "Onion - 30g",
+                "Masala - 100g",
+                "Butter - 10g"
+            ],
+            "calorie": {
+                "totalFat": "18g",
+                "cholesterol": "6mg",
+                "sodium": "332mg",
+                "carbohydrate": "11g",
+                "protein": "4g",
+                "vitamin": "0",
+                "calcium": "100mg",
+                "iron": "1mg",
+                "potassium": "133mg"
+            },
             "itemId": 6
         },
         {
@@ -76,6 +179,23 @@
             "productQuantity": 6,
             "price": 250,
             "addOn": "green chatni & meyonnaise",
+            "ingradient": [
+                "Chicken - 200g",
+                "Onion - 30g",
+                "Masala - 100g",
+                "Butter - 10g"
+            ],
+            "calorie": {
+                "totalFat": "18g",
+                "cholesterol": "6mg",
+                "sodium": "332mg",
+                "carbohydrate": "11g",
+                "protein": "4g",
+                "vitamin": "0",
+                "calcium": "100mg",
+                "iron": "1mg",
+                "potassium": "133mg"
+            },
             "itemId": 7
         },
         {
@@ -87,6 +207,23 @@
             "productQuantity": 6,
             "price": 300,
             "addOn": "green chatni & meyonnaise",
+            "ingradient": [
+                "Chicken Wings - 300g",
+                "Onion - 30g",
+                "Masala - 100g",
+                "Butter - 10g"
+            ],
+            "calorie": {
+                "totalFat": "18g",
+                "cholesterol": "6mg",
+                "sodium": "332mg",
+                "carbohydrate": "11g",
+                "protein": "4g",
+                "vitamin": "0",
+                "calcium": "100mg",
+                "iron": "1mg",
+                "potassium": "133mg"
+            },
             "itemId": 8
         },
         {
@@ -98,6 +235,23 @@
             "productQuantity": 4,
             "price": 300,
             "addOn": "green chatni & meyonnaise",
+            "ingradient": [
+                "Mutton - 200g",
+                "Onion - 30g",
+                "Masala - 100g",
+                "Butter - 10g"
+            ],
+            "calorie": {
+                "totalFat": "18g",
+                "cholesterol": "6mg",
+                "sodium": "332mg",
+                "carbohydrate": "11g",
+                "protein": "4g",
+                "vitamin": "0",
+                "calcium": "100mg",
+                "iron": "1mg",
+                "potassium": "133mg"
+            },
             "itemId": 9
         },
         {
@@ -109,6 +263,23 @@
             "productQuantity": 6,
             "price": 330,
             "addOn": "green chatni & meyonnaise",
+            "ingradient": [
+                "Mutton Keema - 200g",
+                "Onion - 30g",
+                "Masala - 100g",
+                "Butter - 10g"
+            ],
+            "calorie": {
+                "totalFat": "18g",
+                "cholesterol": "6mg",
+                "sodium": "332mg",
+                "carbohydrate": "11g",
+                "protein": "4g",
+                "vitamin": "0",
+                "calcium": "100mg",
+                "iron": "1mg",
+                "potassium": "133mg"
+            },
             "itemId": 10
         },
         {
@@ -120,6 +291,23 @@
             "productQuantity": 6,
             "price": 330,
             "addOn": "green chatni & meyonnaise",
+            "ingradient": [
+                "Mutton - 200g",
+                "Onion - 30g",
+                "Masala - 100g",
+                "Butter - 10g"
+            ],
+            "calorie": {
+                "totalFat": "18g",
+                "cholesterol": "6mg",
+                "sodium": "332mg",
+                "carbohydrate": "11g",
+                "protein": "4g",
+                "vitamin": "0",
+                "calcium": "100mg",
+                "iron": "1mg",
+                "potassium": "133mg"
+            },
             "itemId": 11
         },
         {
@@ -131,6 +319,23 @@
             "productQuantity": 4,
             "price": 300,
             "addOn": "green chatni & meyonnaise",
+            "ingradient": [
+                "Fish (Vetki) - 200g",
+                "Onion - 30g",
+                "Masala - 100g",
+                "Butter - 10g"
+            ],
+            "calorie": {
+                "totalFat": "18g",
+                "cholesterol": "6mg",
+                "sodium": "332mg",
+                "carbohydrate": "11g",
+                "protein": "4g",
+                "vitamin": "0",
+                "calcium": "100mg",
+                "iron": "1mg",
+                "potassium": "133mg"
+            },
             "itemId": 12
         },
         {
@@ -142,6 +347,23 @@
             "productQuantity": 4,
             "price": 350,
             "addOn": "green chatni & meyonnaise",
+            "ingradient": [
+                "Prawn (Bagda) - 200g",
+                "Onion - 30g",
+                "Masala - 100g",
+                "Butter - 10g"
+            ],
+            "calorie": {
+                "totalFat": "18g",
+                "cholesterol": "6mg",
+                "sodium": "332mg",
+                "carbohydrate": "11g",
+                "protein": "4g",
+                "vitamin": "0",
+                "calcium": "100mg",
+                "iron": "1mg",
+                "potassium": "133mg"
+            },
             "itemId": 13
         }
     ]

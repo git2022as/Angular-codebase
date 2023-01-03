@@ -31,6 +31,6 @@
     <mat-card-actions>
         <button mat-raised-button color="primary" class="product-button" *ngIf="availableForcart" (click)="addToCart(product)">Add to Cart</button>
         <button mat-raised-button color="primary" class="product-button" *ngIf="!availableForcart" (click)="removeFromCart(product)">Remove from Cart</button>
-        <button mat-button class="product-button">Add to Wishlist</button>
+        <button mat-button color="primary" class="product-button product-view-details" (click)="viewDetails(product)">View Details</button>
     </mat-card-actions>
 </mat-card>

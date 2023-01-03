@@ -23,6 +23,16 @@ export const staticValue = {
     minQuantityInCart: 1,
     deliveryCharge: 50,
     packagingCharge: 30,
-    gstPercent: 10
-
+    gstPercent: 10,
+    chartBackgroudColor: [
+        'rgb(255, 99, 132)',
+        'rgb(54, 162, 235)',
+        'rgb(255, 205, 86)',
+        'rgb(86 255 138)',
+        'rgb(86 255 242)',
+        'rgb(252 86 255)',
+        'rgb(50 7 7)',
+        'rgb(122 97 171)',
+        'rgb(22 205 234)'
+    ]
 }
