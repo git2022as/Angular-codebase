@@ -124,7 +124,7 @@
 }
 
 .mat-list .mat-list-item, .mat-nav-list .mat-list-item, .mat-selection-list .mat-list-item{
-    font-size: 13px !important;
+    font-size: 12px !important;
 }
 
 .calorie_section{
@@ -133,6 +133,7 @@
     flex: 1;
     justify-content: end;
     align-items: center;
+    flex-direction: column;
 }
 
 @media screen and (max-width: 767px) {
@@ -142,10 +143,20 @@
     .calorie_section{
         justify-content: center !important;
         align-items: center !important;
-        border-top: 1px solid black !important;
+    }
+    .ingradient_section{
+        border-bottom: 1px solid gray !important;
+        margin-bottom: 1rem;
     }
 }
 
 .product-button{
     font-size: 12px;
+}
+
+.list-heading{
+    font-size: 14px;
+    font-weight: 600;
+    text-decoration: underline;
+    text-align: center;
 }

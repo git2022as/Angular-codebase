@@ -16,7 +16,7 @@ export class CalorieChartComponent implements OnInit, AfterViewInit {
   data = {
     labels: [],
     datasets: [{
-      label: 'Calori Details (in mg)',
+      label: 'Calorie Details (in mg)',
       data: [],
       backgroundColor: [],
       hoverOffset: 4

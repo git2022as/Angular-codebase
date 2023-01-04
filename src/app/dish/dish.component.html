@@ -71,17 +71,22 @@
             </div>
             <div class="dish_basic_details_section mt-3 p-3">
                 <ng-container *ngIf="showIngradient">
-                    <mat-list role="list" class="pb-3">
-                        <mat-list-item role="listitem" *ngFor="let product of productDetails.ingradient">
-                            <mat-icon style="color: deeppink;margin-right:5px;" matListItemIcon>
-                                <span >
-                                    restaurant_menu
-                                </span>
-                            </mat-icon>
-                            {{product}}</mat-list-item>
-                    </mat-list>
-                    <div class="calorie_section mr-md-5 pt-3">
+                    <div class="ingradient_section">
+                        <div class="list-heading">Ingradient List</div>
+                        <mat-list role="list" class="pb-3">
+                            <mat-list-item role="listitem" *ngFor="let product of productDetails.ingradient">
+                                <mat-icon style="color: deeppink;margin-right:5px;" matListItemIcon>
+                                    <span >
+                                        restaurant_menu
+                                    </span>
+                                </mat-icon>
+                                {{product}}
+                            </mat-list-item>
+                        </mat-list>
+                    </div>
+                    <div class="calorie_section mr-md-5">
                         <!--use chart component-->
+                        <div class="list-heading mb-3">Calorie Chart</div>
                         <app-calorie-chart [cartData]="productDetails.calorie"></app-calorie-chart>
                     </div>
                 </ng-container>
@@ -91,7 +96,7 @@
                 </ng-container>
                 <ng-container *ngIf="showReviews">
                     <!--use reviews component-->
-                    <app-reviews></app-reviews>
+                    <app-reviews [itemUniqueID]="productDetails.itemId"></app-reviews>
                 </ng-container>
             </div>
         </mat-expansion-panel>

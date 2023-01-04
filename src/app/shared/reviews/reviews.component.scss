@@ -1,0 +1,33 @@
+@import "../../../variable";
+
+.rating{
+    display: flex;
+    flex-direction: row;
+}
+
+.list-heading{
+    font-size: 14px;
+    font-weight: 600;
+    text-decoration: underline;
+}
+
+.goodRating{
+    color: $green;
+}
+
+.mediumRating{
+    color: $orange;
+}
+
+.poorRating{
+    color: $red;
+}
+
+.finalrating{
+    font-size: 14px;
+    padding: 2px;
+    font-weight: 700;
+    color: $white;
+    width: 25px;
+    height: 23px;
+}

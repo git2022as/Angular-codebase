@@ -61,4 +61,23 @@ export class UtilityService {
         }
         return val;
     }
+
+    checkWholeRating(val: any): Array<number>{
+        let num = [];
+        let x = Number(val);
+        let a = x % 1;
+        let b = (x-a);
+        if(b>1){
+            for(let i = 1; i<=b; i++){
+                num.push(i);
+            }
+        }
+        return num;
+    }
+
+    checkFractionalRating(val: any): number{
+        let x = Number(val);
+        let a = val % 1;
+        return a;
+    }
 }

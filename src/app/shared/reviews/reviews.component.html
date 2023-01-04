@@ -1,1 +1,22 @@
-<p>reviews works!</p>
+<div class="rating-section">
+    <div class="list-heading">Ratings</div>
+    <div class="rating" [ngClass]="{'goodRating': reviews.rating > 4, 'mediumRating': (reviews.rating > 3 && reviews.rating < 4), 'poorRating': reviews.rating < 3 }">
+        <mat-icon *ngFor="let x of latestWholeRating; let i = index;" style="font-size: 16px;margin-top:3px;">star</mat-icon>
+        <mat-icon *ngIf="latestFractionalRating > 0" style="font-size: 16px;margin-top:3px;">star_half</mat-icon>
+        <span class="finalrating" [ngStyle]="{'background-color': reviews.rating > 4 ? 'green' : (reviews.rating > 3 && reviews.rating < 4) ? '#FF7F50' : 'red'}">{{reviews.rating}}</span>
+    </div>
+</div>
+<div class="review-section mt-2">
+    <div class="list-heading">Reviews</div>
+    <div class="mb-3 mt-2" *ngFor="let each of reviews.review">
+        <div style="display: flex; flex-direction: row;">
+            <mat-icon class="mr-2" style="cursor: pointer;color: deeppink; font-size: 16px; width: 10px">person</mat-icon>
+            <div *ngIf="each.verifiedUser" style="font-size: 12px;">Verified User</div>
+            <div *ngIf="!each.verifiedUser" style="font-size: 12px;">Unknown User</div>
+        </div>
+        <div style="font-size: 12px; font-weight: 600;">
+            "{{each.comment}}"
+        </div>
+    </div>
+</div>
+

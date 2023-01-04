@@ -4,7 +4,10 @@
             <mat-list-item role="listitem" routerLink="/about-us">About Us</mat-list-item>
             <mat-list-item role="listitem" routerLink="/base">Dishes</mat-list-item>
             <mat-list-item role="listitem" routerLink="/offers">Offers</mat-list-item>
+            <mat-list-item role="listitem" routerLink="/offers">Contact Us</mat-list-item>
             <mat-list-item role="listitem" (click)="openLoginModal()" *ngIf="!appCacheService._loggedInUser">Login</mat-list-item>
+            <mat-list-item role="listitem" *ngIf="appCacheService._loggedInUser">Orders</mat-list-item>
+            <mat-list-item role="listitem" *ngIf="appCacheService._loggedInUser">Profile</mat-list-item>
             <mat-list-item role="listitem" *ngIf="!appCacheService._loggedInUser">Sign-Up</mat-list-item>
             <mat-list-item role="listitem" *ngIf="appCacheService._loggedInUser" routerLink="/cart">Cart</mat-list-item>
             <mat-list-item role="listitem" (click)="openLink('logout');" *ngIf="appCacheService._loggedInUser">Logout</mat-list-item>
