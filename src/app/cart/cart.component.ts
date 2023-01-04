@@ -60,7 +60,7 @@ export class CartComponent implements OnInit {
 
   subscribeDataService(): void{
     this.dataService.UPDATED_CART.subscribe((res: any)=>{
-     this.calculateCartValue(res);
+     this.checkCart();
     });
   }
 

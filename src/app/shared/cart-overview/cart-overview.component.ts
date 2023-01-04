@@ -85,6 +85,7 @@ export class CartOverviewComponent implements OnInit {
           ind = index;
       });
       this.appCacheService._cartDetails.splice(ind,1);
+      this.dataService.UPDATED_CART.next(this.cartDetails);
       this.dataService.UPDATE_CART_COUNT.next(true);
     });
   }
