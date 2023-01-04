@@ -34,6 +34,10 @@
                     <div class="cart-sub-details-bold">TO PAY</div>
                     <div class="cart-sub-details-bold">{{(totalCartValue + govtTaxPackage + deliveryAmount)-appDiscountAmount}}</div>
                 </div>
+                <hr style="border-top: 1.5px solid black;margin-bottom: 0px;">
+                <div class="mt-2">
+                    <button mat-raised-button color="primary" class="product-button" (click)="goToPayment()">PAY</button>
+                </div>
             </div>
             <div class="cartCoupon col-md-6 col-xs-12 p-3">
                 <div style="font-size: 13px;">Apply these <span style="font-weight: bold; color: green;">COUPONS</span> to get more discounts</div>
@@ -45,6 +49,15 @@
                     <span style="white-space: normal;"><b>{{cou.code}}</b> - {{cou.offer}}</span>
                     </mat-radio-button>
                 </mat-radio-group>
+                <!--<mat-form-field class="">
+                    <mat-label>Enter Coupon Code</mat-label>
+                    <input matInput type="text" ngModel maxlength="7" minlength="7" #couCode="ngModel" name="manualCouponCode" style="font-size: 12px;" [(ngModel)]="manualCouponCode">
+                    <span matSuffix mat-icon-button aria-label="Discount" style="font-size: 10px;">
+                        <mat-icon>close</mat-icon>
+                    </span>
+                </mat-form-field>
+                <p *ngIf="couponError" style="color:red;">{{couponErroMsg}}</p>
+                <button mat-raised-button color="primary" class="product-button ml-3" (click)="applyCoupon()">Apply</button>-->
             </div>
         </div>
         <div #shortContainer></div>

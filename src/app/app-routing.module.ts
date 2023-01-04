@@ -3,6 +3,7 @@ import { RouterModule, Routes } from '@angular/router';
 import { AboutComponent } from './about/about.component';
 import { BaseComponent } from './base/base.component';
 import { OffersComponent } from './offers/offers.component';
+import { PageNotFoundComponent } from './shared/page-not-found/page-not-found.component';
 
 //example of normal routing
 /*const routes: Routes = [
@@ -27,18 +28,22 @@ const lazyRoutes: Routes = [
   {
     path: 'offers',
     loadChildren: () =>
-      import('./offers/offers.module').then((a) => a.OffersModule),
+      import('./offers/offers.module').then(a => a.OffersModule),
   },
   {
     path: 'cart',
-    loadChildren: () => import('./cart/cart.module').then((a) => a.CartModule),
+    loadChildren: () => import('./cart/cart.module').then(a => a.CartModule),
   },
   {
     path: 'dish/:id',
-    loadChildren: () => import('./dish/dish.module').then((a)=>a.DishModule)
+    loadChildren: () => import('./dish/dish.module').then(a=>a.DishModule)
+  },
+  {
+    path: 'payment',
+    loadChildren: () => import('./payment/payment.module').then(a => a.PaymentModule)
   },
   { path: '', redirectTo: 'base', pathMatch: 'full' },
-  { path: '**', redirectTo: 'base' },
+  { path: '**', component: PageNotFoundComponent  },//this will show th error page
 ];
 
 @NgModule({

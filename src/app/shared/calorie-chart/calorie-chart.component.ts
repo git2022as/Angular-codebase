@@ -1,6 +1,6 @@
 import { Component, OnInit, ViewChild, AfterViewInit, Input } from '@angular/core';
 import { Chart, BarElement, BarController, CategoryScale, Decimation, Filler, Legend, Title, Tooltip, LinearScale, DoughnutController, ArcElement} from 'chart.js';
-import { staticValue } from 'src/app/model/model';
+import { staticValue } from 'src/app/constants/constant';
 
 @Component({
   selector: 'app-calorie-chart',

@@ -1,11 +1,11 @@
 export const cartExtraItems = [
     {name: "Extra Cheese", extraPrice: 20},
     {name: "Oliv Oil Cooking", extraPrice: 30},
-]
+] as const;
 
 export const coupon = [
     {
-        code: "DEC2022",
+        code: "JAN2023",
         offer: "Flat 10% discount on the final CART value",
         discountPercent: true,
         discountAmout: 10
@@ -16,7 +16,12 @@ export const coupon = [
         discountPercent: false,
         discountAmout: 300
     }
-]
+] as const;
+
+export const StaticMsg = {
+    addQuantity: "You can't buy more than 5 quantities of any dish at a time.",
+    removeQuantity: "Atleast one quantity should be added."
+} as const;
 
 export const staticValue = {
     maxQuantityInCart : 5,

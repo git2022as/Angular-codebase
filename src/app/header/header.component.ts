@@ -85,7 +85,7 @@ export class HeaderComponent implements OnInit {
     this.bsModalRef.content.primaryButtonConfirmationEvent.subscribe((res: any) => {
       //call logout service here to clear all cache and call API service to clear SID
       this.appCacheService._loggedInUser = false;
-      this.router.navigateByUrl('/base');
+      this.router.navigateByUrl('base');
       this.bsModalRef?.hide();
     });
   }
@@ -95,7 +95,7 @@ export class HeaderComponent implements OnInit {
       this.openLogoutModal();
     }
     else
-      this.router.navigateByUrl('/' + val);
+      this.router.navigateByUrl(val);
   }
 
 }

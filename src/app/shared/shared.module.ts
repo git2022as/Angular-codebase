@@ -17,6 +17,7 @@ import { NoItemsComponent } from './no-items/no-items.component';
 import { CalorieChartComponent } from './calorie-chart/calorie-chart.component';
 import { AvailabilityCheckComponent } from './availability-check/availability-check.component';
 import { ReviewsComponent } from './reviews/reviews.component';
+import { PageNotFoundComponent } from './page-not-found/page-not-found.component';
 /* pipe module */
 import { PipeModule } from '../pipes/pipe.module';
 /* ngx-bootstrap modal*/
@@ -47,7 +48,8 @@ import { MatCheckboxModule } from '@angular/material/checkbox';
     NoItemsComponent,
     CalorieChartComponent,
     AvailabilityCheckComponent,
-    ReviewsComponent
+    ReviewsComponent,
+    PageNotFoundComponent
   ],
   imports: [
     CommonModule,
@@ -79,7 +81,8 @@ import { MatCheckboxModule } from '@angular/material/checkbox';
     NoItemsComponent,
     CalorieChartComponent,
     AvailabilityCheckComponent,
-    ReviewsComponent
+    ReviewsComponent,
+    PageNotFoundComponent
   ],
   providers: [IndividualCartPipe]
 })

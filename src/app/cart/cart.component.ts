@@ -3,7 +3,8 @@ import { ShortMessageComponent } from '../shared/short-message/short-message.com
 import { DataService } from '../services/data.service';
 import { UtilityService } from '../services/utility.service';
 import { AppCacheService } from '../services/app.cache.service';
-import { staticValue, coupon } from '../model/model';
+import { staticValue, coupon } from '../constants/constant';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-cart',
@@ -27,9 +28,13 @@ export class CartComponent implements OnInit {
   appDiscountAmount: number = 0;
   showAppDiscount: boolean = false;
   showAppDiscountTooltip : string = "";
+  manualCouponCode: string = "";
+  couponError: boolean = false;
+  couponErroMsg: string = "";
   constructor(private dataService: DataService,
               private utilityService: UtilityService,
-              private appCacheService: AppCacheService) { }
+              private appCacheService: AppCacheService,
+              private router: Router) { }
 
   ngOnInit(): void {
     this.checkCart();
@@ -53,6 +58,7 @@ export class CartComponent implements OnInit {
       this.deliveryFree = true;
       this.deliveryAmount = 0
     }else{
+      this.deliveryAmount = staticValue.deliveryCharge;
       this.deliveryFree = false;
     }
     this.calculateGovtTaxPackage();
@@ -91,9 +97,28 @@ export class CartComponent implements OnInit {
 
   applySiteCoupon(event: any): void{
     this.appDiscountAmount = this.utilityService.calculateAppDiscount(event.value,this.totalCartValue);
-    if(this.appDiscountAmount > 0)
+    if(this.appDiscountAmount > 0){
       this.showAppDiscount = true;
       this.showAppDiscountTooltip = `${event.value} is applied`;
+    }
+  }
+
+  goToPayment(): void{
+    this.router.navigateByUrl('payment');
+  }
+
+  applyCoupon(): void{
+    //API call to check coupon validity
+    if(this.manualCouponCode == ""){
+      this.couponError = true;
+      this.couponErroMsg = "Please enter coupon code";
+    }
+    else{
+      //CALL API with value this.manualCouponCode
+      //write code to validate coupon amount
+      this.couponError = true;
+      this.couponErroMsg = "Invalid coupon code";
+    }
   }
 
 }

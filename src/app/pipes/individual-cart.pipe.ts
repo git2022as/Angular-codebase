@@ -1,9 +1,9 @@
 import { Pipe, PipeTransform } from '@angular/core';
-import { cartExtraItems } from '../model/model';
 
 @Pipe({
   name: 'individualCart'
 })
+
 export class IndividualCartPipe implements PipeTransform {
 
   transform(cart: any, product: Array<any>): number {

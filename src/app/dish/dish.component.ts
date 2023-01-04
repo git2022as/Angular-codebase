@@ -132,7 +132,7 @@ export class DishComponent implements OnInit {
       }
       this.bsModalRef = this.commonService.openStaticModal(initialState);
       this.bsModalRef.content.primaryButtonConfirmationEvent.subscribe((res: any) => {
-        //User clicked remove cart option
+        //User clicked remove from cart option
         this.bsModalRef.hide();
         let ind = 0;
         this.appCacheService._cartDetails.forEach((each, index) =>{

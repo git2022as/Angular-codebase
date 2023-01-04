@@ -1,8 +1,7 @@
 import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
-import { StaticMsg } from 'src/app/constants/message.constant';
 import { IndividualCartPipe } from 'src/app/pipes/individual-cart.pipe';
 import { DataService } from 'src/app/services/data.service';
-import { staticValue } from 'src/app/model/model';
+import { staticValue, StaticMsg } from 'src/app/constants/constant';
 import { BsModalRef, BsModalService, ModalOptions } from 'ngx-bootstrap/modal';
 import { CommonService } from 'src/app/services/common.service';
 import { AppCacheService } from 'src/app/services/app.cache.service';

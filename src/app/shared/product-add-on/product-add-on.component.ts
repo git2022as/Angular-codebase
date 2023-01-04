@@ -1,6 +1,6 @@
 import { Component, OnInit, EventEmitter } from '@angular/core';
 import { BsModalRef } from 'ngx-bootstrap/modal';
-import { cartExtraItems } from 'src/app/model/model';
+import { cartExtraItems } from 'src/app/constants/constant';
 import { cartExtraItem } from 'src/app/interface/project.interface';
 
 @Component({

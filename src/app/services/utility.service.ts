@@ -1,6 +1,6 @@
 import { Injectable } from "@angular/core";
-import { staticValue } from "../model/model";
-import { coupon } from "../model/model";
+import { staticValue } from "../constants/constant";
+import { coupon } from "../constants/constant";
 import { AppCacheService } from "./app.cache.service";
 
 @Injectable({
@@ -49,7 +49,7 @@ export class UtilityService {
     }
 
     checkDishInCart(product: any): boolean{
-        let val: boolean;
+        let val: boolean = true;
         if(this.appCacheService._cartDetails.length == 0)
           val = true;
         else{
