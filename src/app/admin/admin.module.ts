@@ -12,8 +12,12 @@ import { AdminSlidesEntryComponent } from "./admin-slides-entry/admin-slides-ent
 import { AdminDashboardComponent } from './admin-dashboard/admin-dashboard.component';
 import { MatIconModule } from '@angular/material/icon';
 import { MatButtonModule } from '@angular/material/button';
-import { MatTooltipModule } from '@angular/material/tooltip';
 import { MatInputModule } from '@angular/material/input';
+import { HttpClientModule } from "@angular/common/http";
+import { SharedModule } from "../shared/shared.module";
+
+/* ngx-modules */
+import { TooltipModule } from 'ngx-bootstrap/tooltip';
 
 @NgModule({
     declarations: [
@@ -40,8 +44,10 @@ import { MatInputModule } from '@angular/material/input';
         TabsModule.forRoot(),
         MatIconModule,
         MatButtonModule,
-        MatTooltipModule,
-        MatInputModule
+        MatInputModule,
+        TooltipModule.forRoot(),
+        HttpClientModule,
+        SharedModule
     ]
 })
 

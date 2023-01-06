@@ -3,17 +3,17 @@
 
 .activeAdminSection{
     font-weight: bold;
-    font-size: 1.25rem;
+    font-size: 1.30rem;
     text-decoration: underline !important;
 }
 
 .adminNavBar{
-    background-color: $lightgray;
+    background-color: $pink;
     border-radius: 5px;
 }
 
 a{
-    color: $black !important;
+    color: $white !important;
     cursor: pointer;
     &:hover{
         font-weight: bold;

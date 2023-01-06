@@ -21,6 +21,10 @@
     visibility: visible;
     transition: all 1s ease-in;
   }
+
+  img{
+    border-radius: 5px;
+  }
 }
 
 @keyframes branchShake {

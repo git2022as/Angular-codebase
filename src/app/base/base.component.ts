@@ -100,9 +100,11 @@ export class BaseComponent implements OnInit, OnDestroy {
 
   getCarouselSlides(): void{
     this.slidesSubscription = this.baseService.getSlides().pipe(map((data: any)=>{
+      let products = [];
       for(let x in data){
-        return data[x];
+        products.push(data[x]);
       }
+      return products;
     })).subscribe((res: any)=>{
       if(res){
         this.slides = res;
@@ -124,12 +126,14 @@ export class BaseComponent implements OnInit, OnDestroy {
 
   getBranches(): void{
     this.branchSubscription = this.baseService.getBranches().pipe(map((data: any)=>{
+      let products = []
       for(let x in data){
-        return data[x];
+        products.push(data[x]);
       }
+      return products;
     })).subscribe((res: any)=>{
-      if(res.success){
-        this.allBranches = res.data;
+      if(res){
+        this.allBranches = res;
       }
     })
   }
@@ -161,11 +165,13 @@ export class BaseComponent implements OnInit, OnDestroy {
   }
 
   openPhoneDialog(event: any): void {
-    const number = event.contact.split(',')
+    const number = Array.isArray(event.locationContact) ? event.locationContact.split(',') : event.locationContact;
+    const timing = event.locatiomTiming;
+    let content = [`Contact Number: ${number}`,`Timing: ${timing}`];
     const initialState: ModalOptions = {
       initialState: {
-        content: number,
-        title: `${event.location}'s Contact Details`,
+        content: content,
+        title: `${event.branchLocation}'s Contact Details`,
         type: 'info',
         data: 'list',
         primaryButtonText: 'Cancel',

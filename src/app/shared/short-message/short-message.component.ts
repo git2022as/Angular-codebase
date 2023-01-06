@@ -10,6 +10,7 @@ export class ShortMessageComponent implements OnInit {
   @Input() message: string = ""; 
   @Input() parent !: any;
   @Input() time: number = 5000;
+  @Input() color: string = 'red';
 
   constructor() { }
 

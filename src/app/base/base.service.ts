@@ -11,7 +11,7 @@ export class BaseService {
     constructor(private http: HttpClient) {}
 
     getSlides(): Observable<any>{
-        return this.http.get('https://kebab-house-db7f1-default-rtdb.firebaseio.com/car-slides.json');
+        return this.http.get('https://kebab-house-db7f1-default-rtdb.firebaseio.com/slides.json');
     }
 
     getDish(): Observable<any>{
@@ -19,7 +19,7 @@ export class BaseService {
     }
 
     getBranches(): Observable<any>{
-        return this.http.get('https://kebab-house-db7f1-default-rtdb.firebaseio.com/branches.json');
+        return this.http.get('https://kebab-house-db7f1-default-rtdb.firebaseio.com/shopLocation.json');
     }
 
     getOffers(): Observable<any>{
