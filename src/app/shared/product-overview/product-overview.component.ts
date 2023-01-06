@@ -108,7 +108,7 @@ export class ProductOverviewComponent implements OnInit {
   }
 
   viewDetails(product: any): void{
-    this.router.navigateByUrl('dish/' + product.itemId);
+    this.router.navigate(['dish/' + product.itemId]);
   }
 
 }

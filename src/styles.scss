@@ -3,6 +3,7 @@
 @import url("https://fonts.googleapis.com/icon?family=Material+Icons");
 
 @import "./variable";
+@import "./mixin";
 
 .snack-message-pos {
     position: fixed;
@@ -14,4 +15,8 @@
     color: $white;
     background-color: $snack-back-color;
     padding: 10px;
+}
+
+.heading{
+    @include header-logo($pink);
 }

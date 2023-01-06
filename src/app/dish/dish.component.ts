@@ -55,9 +55,8 @@ export class DishComponent implements OnInit {
   getProductDetails(id): any{
     let details = {};
     const pro = this.appCacheService._dishesDetails;
-    pro.forEach(res => {
-      if(res.itemId == Number(id))
-        details = res;
+    details = pro.find(res => {
+      return res.itemId == Number(id)
     });
     return details;
   }

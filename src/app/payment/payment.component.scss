@@ -1,0 +1,42 @@
+@import "../../variable";
+@import "../../mixin";
+
+.paymentSection{
+    border-radius: 5px;
+    box-shadow: 0 4px 8px 0 rgb(116 114 114), 0 6px 20px 0 rgb(0 0 0 /19%); 
+}
+
+.paymentSectionHeading{
+    height: auto;
+    width: 100%;
+    border-top-left-radius: 5px;
+    border-top-right-radius: 5px;
+    background-color: $site-theme;
+    color: $white;
+    font-weight: bold;
+}
+
+.payment-sub-details{
+    font-size: 12px;
+    color: #555353;
+}
+
+.paymentBreakupSection{
+    height: auto;
+    width: 40%;
+    background-color: rgba(236, 232, 232, 0.8509803922);
+    border-radius: 5px;
+    font-size: 12px;
+}
+
+@media screen and (max-width: 767px){
+    .paymentBreakupSection{
+        width: 100%;
+    }
+}
+
+.payment-breakup-parent{
+    justify-content: space-between;
+    height: 24px;
+}
+

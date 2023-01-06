@@ -2,6 +2,8 @@ import { NgModule } from "@angular/core";
 import { CommonModule } from "@angular/common";
 import { PaymentComponent } from "./payment.component";
 import { PaymentRoutingModule } from "./payment-routing.module";
+import { MatIconModule } from '@angular/material';
+import { TooltipModule } from 'ngx-bootstrap/tooltip';
 
 @NgModule({
     declarations: [
@@ -9,7 +11,9 @@ import { PaymentRoutingModule } from "./payment-routing.module";
     ],
     imports: [
         CommonModule,
-        PaymentRoutingModule
+        PaymentRoutingModule,
+        MatIconModule,
+        TooltipModule.forRoot()
     ],
     exports: [
         PaymentComponent

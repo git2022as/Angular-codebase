@@ -5,6 +5,7 @@ import { CarouselModule } from 'ngx-bootstrap/carousel';
 import { SharedModule } from '../shared/shared.module';
 import { ModalModule } from 'ngx-bootstrap/modal';
 import { BaseRoutingModule } from './base-routing.module';
+import { HttpClientModule } from '@angular/common/http';
 
 @NgModule({
     declarations: [
@@ -15,7 +16,8 @@ import { BaseRoutingModule } from './base-routing.module';
         SharedModule,
         ModalModule.forRoot(),
         BaseRoutingModule,
-        CommonModule
+        CommonModule,
+        HttpClientModule
     ],
     exports: [
         BaseComponent

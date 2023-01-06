@@ -10,12 +10,10 @@ import { CarouselModule } from 'ngx-bootstrap/carousel';
 /*angular material*/
 import { MatSlideToggleModule } from '@angular/material/slide-toggle';
 import { LayoutModule } from './layout/layout.module';
-import { AboutComponent } from './about/about.component';
 
 @NgModule({
   declarations: [
-    AppComponent,
-    AboutComponent
+    AppComponent
   ],
   imports: [
     BrowserModule,

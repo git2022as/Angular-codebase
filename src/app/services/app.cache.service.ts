@@ -13,6 +13,7 @@ export class AppCacheService {
     aboutUSDetails: any;
     cartDetails: Array<any> = [];
     profileDetails: any;
+    adminLoggedIn: boolean = false;
     
     /* setter & getter concept */
 
@@ -70,6 +71,14 @@ export class AppCacheService {
     }
     get _profileDetails(): any{
         return this.profileDetails;
+    }
+
+    set _adminLoggedIn(admin: boolean){
+        this.adminLoggedIn = admin;
+    }
+
+    get _adminLoggedIn(): boolean{
+        return this.adminLoggedIn;
     }
 
 }

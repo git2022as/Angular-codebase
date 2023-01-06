@@ -42,8 +42,18 @@ const lazyRoutes: Routes = [
     path: 'payment',
     loadChildren: () => import('./payment/payment.module').then(a => a.PaymentModule)
   },
-  { path: '', redirectTo: 'base', pathMatch: 'full' },
-  { path: '**', component: PageNotFoundComponent  },//this will show th error page
+  {
+    path: 'admin',
+    loadChildren: () => import('./admin/admin.module').then(a => a.AdminModule)
+  },
+  { 
+    path: '', 
+    redirectTo: 'base', 
+    pathMatch: 'full' 
+  },
+  { path: '**', 
+    component: PageNotFoundComponent  
+  }//this will show th error page
 ];
 
 @NgModule({

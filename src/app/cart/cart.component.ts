@@ -104,7 +104,8 @@ export class CartComponent implements OnInit {
   }
 
   goToPayment(): void{
-    this.router.navigateByUrl('payment');
+    //sending QUERY PARAMS to the route
+    this.router.navigate(['payment'],{queryParams: {cartValue: this.totalCartValue, deliveryCharge: this.deliveryAmount, govtTaxPackageCharge: this.govtTaxPackage, discountCharge: this.appDiscountAmount, discountTooltip: this.showAppDiscountTooltip, finalPayable: (this.totalCartValue + this.govtTaxPackage + this.deliveryAmount)-this.appDiscountAmount}});
   }
 
   applyCoupon(): void{

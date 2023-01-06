@@ -1,3 +1,48 @@
 <div class="container">
-    <div>Payment Gateway</div>
+    <div class="mt-5 mb-5 heading" style="text-align: center;"><h3>Payment Gateway</h3></div>
+    <div class="paymentSection row m-0 mb-3">
+        <div class="paymentSectionHeading col-12 p-2">
+            Bill Details
+        </div>
+        <div class="col-12 p-2">
+            <div class="row m-0">
+                <div class="payment-sub-details mr-2">Total Bill:</div>
+                <div class="payment-sub-details mr-2"><b>{{cartValue}}</b></div>
+                <div class="ml-2" *ngIf="!showBreakUp" style="text-decoration: underline;color: deeppink; cursor: pointer; font-size: 12px;" (click)="showBreakUp = true"><b>view breakup</b></div>
+                <div class="ml-2" *ngIf="showBreakUp" style="text-decoration: underline;color: deeppink; cursor: pointer;font-size: 12px;" (click)="showBreakUp = false"><b>hide breakup</b></div>
+            </div>
+            <div class="paymentBreakupSection mt-3 p-2" *ngIf="showBreakUp">
+                <div class="row m-0 payment-breakup-parent">
+                    <div class="payment-sub-details">Cart Value</div>
+                    <div class="payment-sub-details">{{cartValue}}</div>
+                </div>
+                <div class="row m-0 payment-breakup-parent">
+                    <div class="payment-sub-details">Delivery Fee
+                        <mat-icon tooltip="Delivery charges will be FREE above 500 INR order, else 50 INR is needed" placement="auto" style="font-size: 13px;">info</mat-icon>
+                    </div>
+                    <div class="payment-sub-details">{{deliveryCharge}}</div>
+                </div>
+                <div class="row m-0 payment-breakup-parent">
+                    <div class="payment-sub-details">Govt Taxes & Packaging Charges</div>
+                    <div class="payment-sub-details">{{govtTaxPackageCharge}}</div>
+                </div>
+                <div class="row m-0 payment-breakup-parent">
+                    <div class="payment-sub-details">Discounts
+                        <mat-icon [tooltip]="discountTooltip" placement="auto" style="font-size: 13px;">info</mat-icon>
+                    </div>
+                    <div class="cart-sub-details">{{discountCharge}}</div>
+                </div>
+                <hr style="border-top: 1.5px solid black;">
+                <div class="row m-0 payment-breakup-parent mt-1">
+                    <div class="payment-sub-details"><b>TO PAY:</b></div>
+                    <div class="payment-sub-details"><b>{{finalPayable}}</b></div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="paymentSection row m-0 mb-2">
+        <div class="paymentSectionHeading p-2">
+            Offers Details
+        </div>
+    </div>
 </div>

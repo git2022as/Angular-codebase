@@ -5,6 +5,7 @@ import { Router } from '@angular/router';
 import { AppCacheService } from '../services/app.cache.service';
 import { CommonService } from '../services/common.service';
 import { DataService } from '../services/data.service';
+import { AdminLoginModalComponent } from '../shared/admin-login-modal/admin-login-modal.component';
 
 @Component({
   selector: 'app-header',
@@ -70,6 +71,29 @@ export class HeaderComponent implements OnInit {
     });
   }
 
+  /* Admin Login Modal */
+  openAdminLoginModal(): void{
+    const initialState: ModalOptions = {
+      initialState: {
+        title: "Admin Login"
+      }
+    };
+    this.bsModalRef = this.modalService.show(AdminLoginModalComponent, initialState);
+
+    //get event triggerd from modal component
+    this.bsModalRef.content.adminLoginClicked.subscribe((res: any) => {
+      //when admin login is successful
+      if(res){
+        this.appCacheService._adminLoggedIn = true;
+        this.router.navigate(['admin/dashboard']);
+      }
+      else{
+        this.appCacheService._adminLoggedIn = false;
+      }
+      this.bsModalRef?.hide();
+    });
+  }
+
   openLogoutModal(): void{
     const initialState: ModalOptions = {
       initialState: {
@@ -84,7 +108,7 @@ export class HeaderComponent implements OnInit {
     this.bsModalRef = this.commonService.openStaticModal(initialState);
     this.bsModalRef.content.primaryButtonConfirmationEvent.subscribe((res: any) => {
       //call logout service here to clear all cache and call API service to clear SID
-      this.appCacheService._loggedInUser = false;
+      this.commonService.logoutService();
       this.router.navigateByUrl('base');
       this.bsModalRef?.hide();
     });

@@ -28,7 +28,9 @@
             <mat-error *ngIf="otpNo.touched && otpNo.invalid">Enter six digits otp</mat-error>
         </mat-form-field>
     </form>
-    <div class="newAcc" (click)="signUpModal()">create new account</div>
+    <div class="row m-0">
+        <div class="newAcc mr-3" (click)="signUpModal()">create new account</div>
+    </div>
 </div>
 <div class="modal-footer">
     <!--angular material button used inside ngx-bootstrap-->

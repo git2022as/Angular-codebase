@@ -1,5 +1,5 @@
 <div class="container">
-    <h1>Welcome to <span class="heading" (mouseover)="myEvent('blured')" (click)="myEvent('clicked')">Kebab-House</span></h1>
+    <h1 id="top">Welcome to <span class="heading" (mouseover)="myEvent('blured')" (click)="myEvent('clicked')">Kebab-House</span></h1>
     <p>Order from Kebab-House & enjoy the best quality kebab.</p>
     <carousel [noPause]="false" [interval]="caouselInterval">
         <slide *ngFor="let slide of slides; let index=index">
@@ -63,3 +63,4 @@
     </div>
 </div>
 <app-social-media></app-social-media>
+<app-go-to-top (clickedArrowEvent)="goToTopClicked($event)"></app-go-to-top>

@@ -1,17 +1,29 @@
 <mat-sidenav-container class="example-container" fullscreen>
     <mat-sidenav #sidenav class="sidenav-container" position="start">
         <mat-list role="list" class="sidenav-list" (click)="sidenav.toggle()">
-            <mat-list-item role="listitem" routerLinkActive="active" routerLink="/about-us">About Us & Our Team</mat-list-item>
-            <mat-list-item role="listitem" routerLinkActive="active" routerLink="/base">Dishes</mat-list-item>
-            <mat-list-item role="listitem" routerLinkActive="active" routerLink="/offers">Offers</mat-list-item>
-            <mat-list-item role="listitem" routerLinkActive="active" routerLink="#">Business With Us</mat-list-item>
-            <mat-list-item role="listitem" (click)="openLoginModal()" *ngIf="!appCacheService._loggedInUser">Login</mat-list-item>
-            <mat-list-item role="listitem" *ngIf="appCacheService._loggedInUser">Orders</mat-list-item>
-            <mat-list-item role="listitem" *ngIf="appCacheService._loggedInUser">Profiles</mat-list-item>
-            <mat-list-item role="listitem" *ngIf="appCacheService._loggedInUser">Wallet</mat-list-item>
-            <mat-list-item role="listitem" *ngIf="!appCacheService._loggedInUser">Sign-Up</mat-list-item>
-            <mat-list-item role="listitem" routerLinkActive="active" *ngIf="appCacheService._loggedInUser" routerLink="/cart">Cart</mat-list-item>
-            <mat-list-item role="listitem" (click)="openLink('logout');" *ngIf="appCacheService._loggedInUser">Logout</mat-list-item>
+            <mat-list-item role="listitem" routerLinkActive="active" routerLink="/about-us" *ngIf="!appCacheService._adminLoggedIn">About Us & Our Team</mat-list-item>
+
+            <mat-list-item role="listitem" routerLinkActive="active" routerLink="/base" *ngIf="!appCacheService._adminLoggedIn">Dishes</mat-list-item>
+
+            <mat-list-item role="listitem" routerLinkActive="active" routerLink="/offers" *ngIf="!appCacheService._adminLoggedIn">Offers</mat-list-item>
+
+            <mat-list-item role="listitem" routerLinkActive="active" routerLink="#" *ngIf="!appCacheService._adminLoggedIn">Business With Us</mat-list-item>
+
+            <mat-list-item role="listitem" (click)="openLoginModal()" *ngIf="!appCacheService._loggedInUser && !appCacheService._adminLoggedIn">Login</mat-list-item>
+
+            <mat-list-item role="listitem" *ngIf="appCacheService._loggedInUser && !appCacheService._adminLoggedIn">Orders</mat-list-item>
+
+            <mat-list-item role="listitem" *ngIf="appCacheService._loggedInUser && !appCacheService._adminLoggedIn">Profiles</mat-list-item>
+
+            <mat-list-item role="listitem" *ngIf="appCacheService._loggedInUser && !appCacheService._adminLoggedIn">Wallet</mat-list-item>
+
+            <mat-list-item role="listitem" *ngIf="!appCacheService._loggedInUser && !appCacheService._adminLoggedIn">Sign-Up</mat-list-item>
+
+            <mat-list-item role="listitem" routerLinkActive="active" *ngIf="appCacheService._loggedInUser && !appCacheService._adminLoggedIn" routerLink="/cart">Cart</mat-list-item>
+
+            <mat-list-item role="listitem" routerLinkActive="active" *ngIf="!appCacheService._adminLoggedIn" (click)="openAdminLoginModal()">Admin</mat-list-item>
+
+            <mat-list-item role="listitem" (click)="openLink('logout');" *ngIf="appCacheService._loggedInUser || appCacheService._adminLoggedIn">Logout</mat-list-item>
         </mat-list>
     </mat-sidenav>
     <mat-sidenav-content>
@@ -21,11 +33,16 @@
             </button>
             <span class="heading pl-2" [ngClass]="{'hide': appCacheService._loggedInUser}">Kebab-House</span>
             <span class="toolbar-spacer"></span>
-            <mat-icon class="mr-2" style="cursor: pointer;" (click)="openLoginModal()" *ngIf="!appCacheService._loggedInUser" tooltip="Login" placement="auto">login</mat-icon>
-            <mat-icon class="mr-2" style="cursor: pointer;color: deeppink" *ngIf="appCacheService._loggedInUser" tooltip="Account" placement="auto">person</mat-icon>
-            <span *ngIf="appCacheService._loggedInUser" class="loggedin-heading mr-2">Welcome, {{appCacheService._profileDetails?.name}}</span>
-            <mat-icon class="mr-2" [matBadge]="cartItemCount" [matBadgeHidden]="cartBadgeHidden" matBadgeColor="accent" matBadgeSize="small" [matBadgeOverlap]=true style="cursor: pointer;" *ngIf="appCacheService._loggedInUser" (click)="openLink('cart');" tooltip="Cart" placement="auto">shopping_cart</mat-icon>
-            <mat-icon class="mr-2" style="cursor: pointer;" (click)="openLink('logout');" *ngIf="appCacheService._loggedInUser" tooltip="Logout" placement="auto">logout</mat-icon>
+
+            <mat-icon class="mr-2" style="cursor: pointer;" (click)="openLoginModal()" *ngIf="!appCacheService._loggedInUser && !appCacheService._adminLoggedIn" tooltip="Login" placement="auto">login</mat-icon>
+
+            <mat-icon class="mr-2" style="cursor: pointer;color: deeppink" *ngIf="appCacheService._loggedInUser && !appCacheService._adminLoggedIn" tooltip="Account" placement="auto">person</mat-icon>
+
+            <span *ngIf="appCacheService._loggedInUser && !appCacheService._adminLoggedIn" class="loggedin-heading mr-2">Welcome, {{appCacheService._profileDetails?.name}}</span>
+
+            <mat-icon class="mr-2" [matBadge]="cartItemCount" [matBadgeHidden]="cartBadgeHidden" matBadgeColor="accent" matBadgeSize="small" [matBadgeOverlap]=true style="cursor: pointer;" *ngIf="appCacheService._loggedInUser && !appCacheService._adminLoggedIn" (click)="openLink('cart');" tooltip="Cart" placement="auto">shopping_cart</mat-icon>
+
+            <mat-icon class="mr-2" style="cursor: pointer;" (click)="openLink('logout');" *ngIf="appCacheService._loggedInUser || appCacheService._adminLoggedIn" tooltip="Logout" placement="auto">logout</mat-icon>
         </mat-toolbar>
         <!--give main content a proper height which is less than 100% to display footer at the bottom of the page -->
         <div class="content">

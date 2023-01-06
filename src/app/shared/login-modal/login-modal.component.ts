@@ -26,7 +26,6 @@ export class LoginModalComponent implements OnInit {
     //call Login API => take token
     //call Cart API
     //call Profile API
-    //call Wishlist API
     //send CART, PROFILE & WISHLIST array to Header (Parent) component
     //EventEmitter without OUTPUT
     //sample CART API
@@ -81,7 +80,7 @@ export class LoginModalComponent implements OnInit {
       sid: '4hz3468b-a179-4058-aaf2-086461479b52',
       success: true,
     }
-    this.loginClicked.emit({profile: profile, cart: cart, login: login})
+    this.loginClicked.emit({profile: profile, cart: cart, login: login});
   }
 
   getOtp(data: NgForm): void {
@@ -96,15 +95,16 @@ export class LoginModalComponent implements OnInit {
   }
 
   signUpModal(): void {
-    this.bsModalRef.hide()
+    this.bsModalRef.hide();
     const initialState: ModalOptions = {
       initialState: {
         title: 'Sign Up',
-      },
+      }
     }
     this.bsModalRef = this.bsModalService.show(
       SignUpModalComponent,
       initialState
     )
   }
+
 }

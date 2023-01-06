@@ -1,0 +1,21 @@
+@import "../../variable";
+@import '../../mixin';
+
+.activeAdminSection{
+    font-weight: bold;
+    font-size: 1.25rem;
+    text-decoration: underline !important;
+}
+
+.adminNavBar{
+    background-color: $lightgray;
+    border-radius: 5px;
+}
+
+a{
+    color: $black !important;
+    cursor: pointer;
+    &:hover{
+        font-weight: bold;
+    }
+}
