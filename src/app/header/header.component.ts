@@ -6,6 +6,8 @@ import { AppCacheService } from '../services/app.cache.service';
 import { CommonService } from '../services/common.service';
 import { DataService } from '../services/data.service';
 import { AdminLoginModalComponent } from '../shared/admin-login-modal/admin-login-modal.component';
+import { AuthService } from '../services/auth.service';
+import { SignUpModalComponent } from '../shared/sign-up/signUp-modal.component';
 
 @Component({
   selector: 'app-header',
@@ -24,7 +26,8 @@ export class HeaderComponent implements OnInit {
               public appCacheService: AppCacheService,
               private commonService: CommonService,
               private dataService: DataService,
-              public bsModalRef: BsModalRef
+              public bsModalRef: BsModalRef,
+              private authService: AuthService
   ) { }
 
   ngOnInit(): void {
@@ -52,8 +55,6 @@ export class HeaderComponent implements OnInit {
       }
     };
     this.bsModalRef = this.modalService.show(LoginModalComponent, initialState);
-
-    //get event triggerd from modal component
     this.bsModalRef.content.loginClicked.subscribe((res: any) => {
       //when login is successful
       if(res.login.success){
@@ -64,10 +65,28 @@ export class HeaderComponent implements OnInit {
         this.dataService.UPDATED_DISH.next(true);
         this.dataService.UPDATE_CART_COUNT.next(true);
       }
-      else{
-        //login is not successful block => write code here
-      }
       this.bsModalRef?.hide();
+    });
+    this.bsModalRef.content.signUpClickedOpenLogin.subscribe((res: any) => {
+      //when sign up is successful from login modal, again open fresh login modal
+      this.bsModalRef?.hide();
+      if(res){
+        this.openLoginModal();
+      }
+    });
+  }
+
+  openSignUpModal(): void{
+    const initialState: ModalOptions = {
+      initialState: {
+        title: "Sign Up"
+      }
+    };
+    this.bsModalRef = this.modalService.show(SignUpModalComponent, initialState);
+    this.bsModalRef.content.signUpSuccessfulEvent.subscribe((res: any) => {
+      this.bsModalRef?.hide();
+      //when Signup is successful open login modal
+      this.openLoginModal();
     });
   }
 
@@ -79,8 +98,6 @@ export class HeaderComponent implements OnInit {
       }
     };
     this.bsModalRef = this.modalService.show(AdminLoginModalComponent, initialState);
-
-    //get event triggerd from modal component
     this.bsModalRef.content.adminLoginClicked.subscribe((res: any) => {
       //when admin login is successful
       if(res){
@@ -108,8 +125,14 @@ export class HeaderComponent implements OnInit {
     this.bsModalRef = this.commonService.openStaticModal(initialState);
     this.bsModalRef.content.primaryButtonConfirmationEvent.subscribe((res: any) => {
       //call logout service here to clear all cache and call API service to clear SID
-      this.commonService.logoutService();
-      this.router.navigateByUrl('base');
+      this.authService.logoutUser().then((res: any)=>{
+        console.log("logout called " + JSON.stringify(res));
+        this.commonService.logoutService();
+        this.router.navigateByUrl('base');
+      },
+      (error: any)=>{
+        alert(error.message);
+      });
       this.bsModalRef?.hide();
     });
   }

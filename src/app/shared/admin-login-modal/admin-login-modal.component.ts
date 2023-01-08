@@ -38,6 +38,8 @@ export class AdminLoginModalComponent implements OnInit {
 
   resetAdminForm(adminLoginForm: NgForm): void{
     adminLoginForm.resetForm();
+    this.adminAuthFailedStatus= false;
+    this.adminAuthFailedMsg = "";
   }
 
 }

@@ -1,0 +1,14 @@
+@import "../../../variable";
+@import "../../../mixin";
+
+.admin-dish-origin-radio-group {
+    display: flex;
+    flex-direction: column;
+    margin: 15px 0;
+    align-items: flex-start;
+    font-size: 12px;
+}
+
+.admin-dish-origin-button {
+    margin: 5px;
+}

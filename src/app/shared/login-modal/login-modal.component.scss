@@ -1,12 +1,12 @@
 @import "../../../variable";
 
 .template-form-login{
-    width:70%;
+    width:100%;
 }
 
 @media screen and (max-width:767px) {
     .template-form-login{
-        width:51%;
+        width:100%;
     }
 }
 
@@ -17,4 +17,10 @@
         color: $site-theme;
         cursor: pointer;
     }
+}
+
+.loginFailedMsgSec{
+    font-size: 13px; 
+    color: $red;
+    word-break: break-all;
 }

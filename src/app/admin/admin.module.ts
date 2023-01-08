@@ -15,6 +15,8 @@ import { MatButtonModule } from '@angular/material/button';
 import { MatInputModule } from '@angular/material/input';
 import { HttpClientModule } from "@angular/common/http";
 import { SharedModule } from "../shared/shared.module";
+import { MatRadioModule } from '@angular/material/radio';
+import { MatSelectModule } from '@angular/material/select';
 
 /* ngx-modules */
 import { TooltipModule } from 'ngx-bootstrap/tooltip';
@@ -47,7 +49,9 @@ import { TooltipModule } from 'ngx-bootstrap/tooltip';
         MatInputModule,
         TooltipModule.forRoot(),
         HttpClientModule,
-        SharedModule
+        SharedModule,
+        MatRadioModule,
+        MatSelectModule
     ]
 })
 

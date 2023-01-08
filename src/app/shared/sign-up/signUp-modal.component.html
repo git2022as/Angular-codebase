@@ -10,16 +10,18 @@
     </button>
 </div>
 <div class="modal-body">
+    <div *ngIf="signUpFailedStatus" class="signUpFailedMsgSec mb-3">{{SignUpMsg}}</div>
+    <div *ngIf="signUpSuccessful" class="signUpSuccessfulMsgSec mb-3">{{SignUpMsg}}</div>
     <form [formGroup]="signUpForm">
-        <mat-form-field class="reactive-form-login">
+        <!--<mat-form-field class="reactive-form-login">
             <mat-label>Phone Number</mat-label>
             <input matInput type="text" name="phoneNumber" maxlength="10" minlength="10" formControlName="phoneNumber">
             <button *ngIf="signUpForm.get('phoneNumber')?.value != '' && signUpForm.get('phoneNumber')?.value != null" matSuffix mat-icon-button aria-label="Clear" (click)="setValue('phoneNumber')">
                 <mat-icon>close</mat-icon>
             </button>
             <mat-error *ngIf="signUpForm.get('phoneNumber')?.invalid && signUpForm.get('phoneNumber')?.touched">Phone number is required</mat-error>
-        </mat-form-field>
-        <mat-form-field class="reactive-form-login">
+        </mat-form-field>-->
+        <!--<mat-form-field class="reactive-form-login">
             <mat-label>Name</mat-label>
             <input matInput type="text" name="name" formControlName="name" maxlength="40">
             <button matSuffix mat-icon-button aria-label="Clear" tooltip="Name can be valid upto 40 characters" placement="auto" containerClass="customClass" (click)="clickDisabled($event)">
@@ -29,7 +31,7 @@
                 <mat-icon>close</mat-icon>
             </button>
             <mat-error *ngIf="signUpForm.get('name')?.invalid && signUpForm.get('name')?.touched">Name is required</mat-error>
-        </mat-form-field>
+        </mat-form-field>-->
         <mat-form-field class="reactive-form-login">
             <mat-label>Email</mat-label>
             <input matInput type="text" name="email" formControlName="email">

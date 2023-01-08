@@ -46,6 +46,10 @@ const lazyRoutes: Routes = [
     path: 'admin',
     loadChildren: () => import('./admin/admin.module').then(a => a.AdminModule)
   },
+  {
+    path: 'practice',
+    loadChildren: () => import('./practice-observable-rxjs/practice-observable-rxjs.module').then(a => a.PracticeObservableRxjsModule)
+  },
   { 
     path: '', 
     redirectTo: 'base', 

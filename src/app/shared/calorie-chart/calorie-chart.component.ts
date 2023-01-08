@@ -34,7 +34,9 @@ export class CalorieChartComponent implements OnInit, AfterViewInit {
     let cLabels = [];
     let cData = [];
     for(let x in cartData){
-      cLabels.push(x);
+      let calorie = "";
+      calorie = x.substring(4);
+      cLabels.push(calorie);
       cData.push(cartData[x]);
     }
     this.data.labels = cLabels;

@@ -1,30 +1,30 @@
 <mat-card class="example-card">
     <mat-card-header class="product-header">
-        <mat-card-title style="font-weight: 600;font-size: 15px;">{{product?.name}}
-            <span class="material-icons" [ngStyle]="{'color':product?.origin === 'Veg' ? 'green' : 'red' }">
+        <mat-card-title style="font-weight: 600;font-size: 15px;">{{product?.dishName}}
+            <span class="material-icons" [ngStyle]="{'color':product?.dishOrigin === 'Veg' ? 'green' : 'red' }">
                 adjust
             </span>
         </mat-card-title>
         <mat-card-subtitle>
-            <span styel="font-size: 13px;">{{product?.origin}}</span>
+            <span styel="font-size: 13px;">{{product?.dishOrigin}}</span>
         </mat-card-subtitle>
     </mat-card-header>
-    <img mat-card-image class="product-image" src="assets/images/{{product?.image}}" [alt]="product?.alt">
+    <img mat-card-image class="product-image" src="assets/images/{{product?.dishImage}}" [alt]="product?.dishImageText">
     <mat-card-content>
         <div class="product-desc">
-            <div [tooltip]="product?.description" placement="auto">{{product?.description | productDescription}}</div>
+            <div [tooltip]="product?.dishDesc" placement="auto">{{product?.dishDesc | productDescription}}</div>
             <div>
                 <span>Quantity: </span>
-                <span style="font-weight: 600;">{{product?.productQuantity | quantityPipe}}</span>
+                <span style="font-weight: 600;">{{product?.dishQuantity | quantityPipe}}</span>
             </div>
             <div>
                 <span>Price:</span>
                 <span style="font-weight: 600;">
-                    <img src="assets/images/rupee.png" width="20px" height="15px">{{product?.price}}</span>
+                    <img src="assets/images/rupee.png" width="20px" height="15px">{{product?.dishPrice}}</span>
             </div>
             <div>
                 <span>Complementary: </span>
-                <span>{{product?.addOn}}</span>
+                <span>{{product?.dishComplementary}}</span>
             </div>
         </div>
     </mat-card-content>

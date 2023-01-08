@@ -10,6 +10,14 @@ import { CarouselModule } from 'ngx-bootstrap/carousel';
 /*angular material*/
 import { MatSlideToggleModule } from '@angular/material/slide-toggle';
 import { LayoutModule } from './layout/layout.module';
+import { initializeApp,provideFirebaseApp } from '@angular/fire/app';
+import { environment } from '../environments/environment';
+import { provideAuth,getAuth } from '@angular/fire/auth';
+import { provideDatabase,getDatabase } from '@angular/fire/database';
+import { provideFirestore,getFirestore } from '@angular/fire/firestore';
+import { AngularFireModule } from '@angular/fire/compat';
+import { AngularFireAuthModule } from '@angular/fire/compat/auth';
+import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 
 @NgModule({
   declarations: [
@@ -21,7 +29,14 @@ import { LayoutModule } from './layout/layout.module';
     BrowserAnimationsModule,
     CarouselModule.forRoot(),
     MatSlideToggleModule,
-    LayoutModule
+    LayoutModule,
+    provideFirebaseApp(() => initializeApp(environment.firebase)),
+    provideAuth(() => getAuth()),
+    provideDatabase(() => getDatabase()),
+    provideFirestore(() => getFirestore()),
+    AngularFireModule.initializeApp(environment.firebase),
+    AngularFireAuthModule,
+    MatProgressSpinnerModule
   ],
   schemas: [
     CUSTOM_ELEMENTS_SCHEMA

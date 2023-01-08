@@ -28,4 +28,14 @@ export class AdminService {
     getBranches(): Observable<any>{
         return this.http.get('https://kebab-house-db7f1-default-rtdb.firebaseio.com/shopLocation.json');
     }
+
+    /* add dishes to firebase database */
+    addDishes(dishes: any): Observable<any>{
+        return this.http.post('https://kebab-house-db7f1-default-rtdb.firebaseio.com/dishes.json',dishes);
+    }
+
+    /* get dishes from firebase database */
+    getDishes(): Observable<any>{
+        return this.http.get('https://kebab-house-db7f1-default-rtdb.firebaseio.com/dishes.json');
+    }
 }

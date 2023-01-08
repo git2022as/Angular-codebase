@@ -68,8 +68,6 @@ export class BaseComponent implements OnInit, OnDestroy {
     this.getDishDetails();
     this.getBranches();
     this.getOffers();
-    this.appCacheService._dishesDetails = this.allProducts;
-    this.appCacheService._offersDetails = this.offers;
     /***********************TESTING OF OBSERVABLE *************************/
       this.testSubscription = this.test.subscribe(
         (res: any) => {
@@ -114,12 +112,17 @@ export class BaseComponent implements OnInit, OnDestroy {
 
   getDishDetails(): void{
     this.dishSubscription = this.baseService.getDish().pipe(map((data: any)=>{
-      for(let x in data){
-        return data[x];
+      let products = [];
+      for(let key in data){
+        if(data.hasOwnProperty(key))
+          products.push({...data[key], id: key});
       }
+      return products;
     })).subscribe((res: any)=>{
-      if(res.success){
-        this.allProducts = res.data;
+      if(res){
+        this.allProducts = res;
+        this.appCacheService._dishesDetails = this.allProducts;
+        console.log(this.allProducts);
       }
     });
   }
@@ -146,6 +149,7 @@ export class BaseComponent implements OnInit, OnDestroy {
     })).subscribe((res: any)=>{
       if(res.success){
         this.offers = res.data;
+        this.appCacheService._offersDetails = this.offers;
       }
     })
   }

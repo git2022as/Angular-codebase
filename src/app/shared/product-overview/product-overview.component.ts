@@ -40,7 +40,7 @@ export class ProductOverviewComponent implements OnInit {
   addToCart(product: any): void{
     if(this.appCacheService._loggedInUser){
       //code for ADD-ON items
-      this.bsModalRef = this.openAddOn(product.price);
+      this.bsModalRef = this.openAddOn(product.dishPrice);
       this.bsModalRef.content.AddOnEvent.subscribe((res: any) => {
         //code for add to cart after 
         this.bsModalRef.hide();
@@ -48,7 +48,7 @@ export class ProductOverviewComponent implements OnInit {
           "quantity": 1,
           "addOn": res.addOn,
           "tprice": res.total,
-          "itemId": product.itemId
+          "itemId": product.id
         }
         this.appCacheService._cartDetails.push(cartObject);
         this.dataService.UPDATE_CART_COUNT.next(true);
@@ -108,7 +108,7 @@ export class ProductOverviewComponent implements OnInit {
   }
 
   viewDetails(product: any): void{
-    this.router.navigate(['dish/' + product.itemId]);
+    this.router.navigate(['dish/' + product.id]);
   }
 
 }

@@ -8,10 +8,10 @@ export class ProductDescriptionPipe implements PipeTransform {
   transform(value: string, strLength?: number): unknown {
     let len : number;
     if(!strLength)
-      len = 110;
+      len = 100;
 
     let finalValue : string = "";
-    if(value.length > 110)
+    if(value.length > 100)
       finalValue = `${value.substring(0,len)}...`;
     else
       finalValue = value;

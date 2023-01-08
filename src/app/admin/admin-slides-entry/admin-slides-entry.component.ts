@@ -41,15 +41,30 @@ export class AdminSlidesEntryComponent implements OnInit, OnDestroy {
     this.addSlidesSubscriptiton?.unsubscribe();
   }
 
-  slidesFormSubmit(slidesForm: NgForm): void{
-    console.log(slidesForm.value);
-    this.addSlidesSubscriptiton = this.adminService.addSlides(slidesForm.value).subscribe((res: any)=>{
-      this.getSlides();
-      const msg = "slide has been added";
-      const color = 'green';
-      this.showShortMsg(msg,color);
-      this.slidesFormReset(slidesForm);
+  checkDuplicate(value,arr): boolean{
+    let dup = false;
+    arr.forEach((x)=>{if(x.imageText.toUpperCase() == value.toUpperCase())
+      {dup = true;}
     });
+    return dup;
+  }
+
+  slidesFormSubmit(slidesForm: NgForm): void{
+    if(!this.checkDuplicate(slidesForm.value.imageText,this.slides)){
+      console.log(slidesForm.value);
+      this.addSlidesSubscriptiton = this.adminService.addSlides(slidesForm.value).subscribe((res: any)=>{
+        this.getSlides();
+        const msg = "slide has been added";
+        const color = 'green';
+        this.showShortMsg(msg,color);
+        this.slidesFormReset(slidesForm);
+        document.getElementById('top').scrollIntoView({behavior: 'smooth'});
+      });
+    }
+    else{
+      //Duplicate scene
+      this.showShortMsg('Duplicate slides, please add a new slides.','red');
+    }
   }
 
   slidesFormReset(slidesForm: NgForm): void{

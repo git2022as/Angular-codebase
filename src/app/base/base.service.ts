@@ -15,7 +15,7 @@ export class BaseService {
     }
 
     getDish(): Observable<any>{
-        return this.http.get('https://kebab-house-db7f1-default-rtdb.firebaseio.com/dish.json');
+        return this.http.get('https://kebab-house-db7f1-default-rtdb.firebaseio.com/dishes.json');
     }
 
     getBranches(): Observable<any>{

@@ -1,1 +1,178 @@
-<p>admin-dish-entry works!</p>
+<div class="container">
+    <div class="mt-5 mb-5 heading" style="text-align: center;" id="top"><h3>Manage Dishes</h3></div>
+    <div class="admin-block">
+        <div style="text-align: center;font-size: 22px; color: #3f51b5; font-weight: 600;">Manage Products</div>
+        <hr style="border-top: 1.5px solid #23222221;">
+        <div class="admin-block-sections">
+            <div class="col-md-5 col-xs-12 mt-2 mb-3">
+                <div class="mb-2" style="font-size: 16px; color: #3f51b5; font-weight: 600;">Create Dish</div>
+                <form #dishForm="ngForm" style="display: grid;font-size: 14px;">
+                    <!--Dish Name-->
+                    <mat-form-field class="mb-2">
+                        <mat-label>Dish Name</mat-label>
+                        <input matInput type="text" maxlength="60" ngModel #dName="ngModel" name="dishName" [required]=true [(ngModel)]="dishName">
+                        <button *ngIf="dishName" matSuffix mat-icon-button aria-label="Clear" (click)="dishName = ''">
+                            <mat-icon>close</mat-icon>
+                        </button>
+                        <mat-error *ngIf="dName.touched && dName.invalid">Enter a valid dish name</mat-error>
+                    </mat-form-field>
+                    <!--Origin-->
+                    <div style="font-weight: 600;">Dish Origin Details (Veg/Non-Veg)*</div>
+                    <mat-radio-group
+                    aria-labelledby="dish-origin-radio-group-label"
+                    class="admin-dish-origin-radio-group"
+                    [(ngModel)]="dishOrigin" name="dishOrigin" [required]=true  ngModel #dOrigin="ngModel">
+                        <mat-radio-button class="admin-dish-origin-button" value="Veg">
+                        <span style="white-space: normal;">Veg</span>
+                        </mat-radio-button>
+                        <mat-radio-button class="admin-dish-origin-button" value="Non-Veg">
+                        <span style="white-space: normal;">Non-Veg</span>
+                        </mat-radio-button>
+                        <p *ngIf="dOrigin.touched && dOrigin.invalid">Select the proper origin</p>
+                    </mat-radio-group>
+                    <!--Dish Image-->
+                    <mat-form-field class="mb-2">
+                        <mat-label>Dish Image</mat-label>
+                        <input matInput type="text" ngModel #dImg="ngModel" maxlength="40" name="dishImage" [required]=true [(ngModel)]="dishImage">
+                        <button *ngIf="dishImage" matSuffix mat-icon-button aria-label="Clear" (click)="dishImage = ''">
+                            <mat-icon>close</mat-icon>
+                        </button>
+                        <mat-error *ngIf="dImg.touched && dImg.invalid">Enter a valid dish image</mat-error>
+                    </mat-form-field>
+                    <!--Dish Image Alt Text-->
+                    <mat-form-field class="mb-2">
+                        <mat-label>Dish Image Text</mat-label>
+                        <input matInput type="text" ngModel #dImgText="ngModel" maxlength="40" name="dishImageText" [required]=true [(ngModel)]="dishImageText">
+                        <button *ngIf="dishImageText" matSuffix mat-icon-button aria-label="Clear" (click)="dishImageText = ''">
+                            <mat-icon>close</mat-icon>
+                        </button>
+                        <mat-error *ngIf="dImgText.touched && dImgText.invalid">Enter a valid dish image text</mat-error>
+                    </mat-form-field>
+                    <!--Dish Description-->
+                    <mat-form-field class="mb-2">
+                        <mat-label>Dish Description</mat-label>
+                        <textarea matInput type="text" ngModel #dDesc="ngModel" maxlength="300" name="dishDesc" [required]=true [(ngModel)]="dishDesc"></textarea>
+                        <button *ngIf="dishDesc" matSuffix mat-icon-button aria-label="Clear" (click)="dishDesc = ''">
+                            <mat-icon>close</mat-icon>
+                        </button>
+                        <mat-error *ngIf="dDesc.touched && dDesc.invalid">Enter a proper description for the dish</mat-error>
+                    </mat-form-field>
+                    <!--Dish Piece Quantity-->
+                    <mat-form-field appearance="fill">
+                        <mat-label>Product Quantity</mat-label>
+                        <mat-select [(ngModel)]="dishQuantity" name="dishQuantity" [required]=true>
+                          <mat-option *ngFor="let quantity of Quantity" [value]="quantity">
+                            {{quantity}}
+                          </mat-option>
+                        </mat-select>
+                    </mat-form-field>
+                    <!--Dish Price-->
+                    <mat-form-field class="mb-2">
+                        <mat-label>Dish Price</mat-label>
+                        <input matInput type="text" maxlength="3" minlength="3" ngModel #dPrice="ngModel" pattern="[0-9]+$" name="dishPrice" [required]=true [(ngModel)]="dishPrice">
+                        <button *ngIf="dishPrice" matSuffix mat-icon-button aria-label="Clear" (click)="dishPrice = null">
+                            <mat-icon>close</mat-icon>
+                        </button>
+                        <mat-error *ngIf="dPrice.touched && dPrice.invalid">Enter a valid price</mat-error>
+                    </mat-form-field>
+                    <!--Dish Add On-->
+                    <mat-form-field class="mb-2">
+                        <mat-label>Dish Complementary</mat-label>
+                        <input matInput type="text" ngModel #dComplementary="ngModel" maxlength="40" name="dishComplementary" [(ngModel)]="dishComplementary" tooltip="If nothing to add, type NA" placement="auto" tooltip="example: green chatni & meyonnaise" placement="auto">
+                        <button *ngIf="dishComplementary" matSuffix mat-icon-button aria-label="Clear" (click)="dishComplementary = ''">
+                            <mat-icon>close</mat-icon>
+                        </button>
+                        <mat-error *ngIf="dComplementary.touched && dComplementary.invalid">Enter details of complementary item</mat-error>
+                    </mat-form-field>
+                    <!--Dish Ingradient-->
+                    <mat-form-field class="mb-2">
+                        <mat-label>Dish Ingradients</mat-label>
+                        <textarea matInput type="text" ngModel #dIngradient="ngModel" maxlength="300" name="dishIngradient" [required]=true tooltip="exp: Paneer - 200g,Onion - 30g,Masala - 100g,Butter - 10g" placement="auto" [(ngModel)]="dishIngradient"></textarea>
+                        <button *ngIf="dishIngradient" matSuffix mat-icon-button aria-label="Clear" (click)="dishIngradient = ''">
+                            <mat-icon>close</mat-icon>
+                        </button>
+                        <mat-error *ngIf="dIngradient.touched && dIngradient.invalid">Enter allmajor ingradient details</mat-error>
+                    </mat-form-field>
+                    <!--Dish Calorie Details-->
+                    <div style="font-weight: 600;">Dish Calorie Details (in mg/100g)*</div>
+                    <mat-form-field class="mb-2">
+                        <mat-label>Fat</mat-label>
+                        <input matInput type="text" ngModel #dFat="ngModel" maxlength="3" minlength="1" name="dishFat" [required]=true pattern="[0-9]+$" tooltip="example: 10" placement="auto">
+                        <mat-error *ngIf="dFat.touched && dFat.invalid">Enter Fat details</mat-error>
+                    </mat-form-field>
+                    <mat-form-field class="mb-2">
+                        <mat-label>Cholesterol</mat-label>
+                        <input matInput type="text" ngModel #dCholesterol="ngModel" maxlength="3" minlength="1" name="dishCholesterol" [required]=true pattern="[0-9]+$" tooltip="example: 10" placement="auto">
+                        <mat-error *ngIf="dCholesterol.touched && dCholesterol.invalid">Enter Cholesterol details</mat-error>
+                    </mat-form-field>
+                    <mat-form-field class="mb-2">
+                        <mat-label>Sodium</mat-label>
+                        <input matInput type="text" ngModel #dSodium="ngModel" maxlength="3" minlength="1" name="dishSodium" [required]=true pattern="[0-9]+$" tooltip="example: 10" placement="auto">
+                        <mat-error *ngIf="dSodium.touched && dSodium.invalid">Enter Sodium details</mat-error>
+                    </mat-form-field>
+                    <mat-form-field class="mb-2">
+                        <mat-label>Carbohydrate</mat-label>
+                        <input matInput type="text" ngModel #dCarbohydrate="ngModel" maxlength="3" minlength="1" name="dishCarbohydrate" [required]=true pattern="[0-9]+$" tooltip="example: 10" placement="auto">
+                        <mat-error *ngIf="dCarbohydrate.touched && dCarbohydrate.invalid">Enter Carbohydrate details</mat-error>
+                    </mat-form-field>
+                    <mat-form-field class="mb-2">
+                        <mat-label>Protein</mat-label>
+                        <input matInput type="text" ngModel #dProtein="ngModel" maxlength="3" minlength="1" name="dishProtein" [required]=true pattern="[0-9]+$" tooltip="example: 10" placement="auto">
+                        <mat-error *ngIf="dProtein.touched && dProtein.invalid">Enter Protein details</mat-error>
+                    </mat-form-field>
+                    <mat-form-field class="mb-2">
+                        <mat-label>Calcium</mat-label>
+                        <input matInput type="text" ngModel #dCalcium="ngModel" maxlength="3" minlength="1" name="dishCalcium" [required]=true pattern="[0-9]+$" tooltip="example: 10" placement="auto">
+                        <mat-error *ngIf="dCalcium.touched && dCalcium.invalid">Enter Calcium details</mat-error>
+                    </mat-form-field>
+                    <mat-form-field class="mb-2">
+                        <mat-label>Potassium</mat-label>
+                        <input matInput type="text" ngModel #dPotassium="ngModel" maxlength="3" minlength="1" name="dishPotassium" [required]=true pattern="[0-9]+$" tooltip="example: 10" placement="auto">
+                        <mat-error *ngIf="dPotassium.touched && dPotassium.invalid">Enter Potassium details</mat-error>
+                    </mat-form-field>
+                </form>
+                <div class="admin-block-button-section">
+                    <button mat-raised-button style="margin-right: 1rem" color="primary" (click)="dishFormSubmit(dishForm)" [disabled]="dishForm.invalid">Continue</button>
+                    <button mat-raised-button (click)="dishFormReset(dishForm)" [disabled]="dishForm.untouched">Reset</button>
+                </div>
+            </div>
+            <div class="col-md-7 col-xs-12 mt-2 mb-3 admin-block-border">
+                <div class="mb-2" style="font-size: 16px; color: #3f51b5; font-weight: 600;">Avaialable Dishes</div>
+                <div class="row ml-0">
+                    <table class="mt-3 admin-block-table">
+                        <thead>
+                            <tr>
+                                <th>
+                                    ID
+                                </th>
+                                <th>
+                                    Branch's Name
+                                </th>
+                                <th>
+                                    Actions
+                                </th>
+                            </tr>
+                        </thead>
+                        <tr *ngFor="let each of dishes; let i = index;">
+                            <td>
+                                {{i+1}}
+                            </td>
+                            <td>
+                                {{each.dishName}}
+                            </td>
+                            <td>
+                                <span class="material-icons" style="color: deeppink;margin:7px; font-size: 20px;"> 
+                                    delete
+                                </span>
+                                <span class="material-icons" style="color: deeppink;margin:7px; font-size: 20px;"> 
+                                    edit
+                                </span>
+                            </td>
+                        </tr>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div #shortContainer></div>
+</div>

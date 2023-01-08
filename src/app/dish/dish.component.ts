@@ -56,7 +56,7 @@ export class DishComponent implements OnInit {
     let details = {};
     const pro = this.appCacheService._dishesDetails;
     details = pro.find(res => {
-      return res.itemId == Number(id)
+      return res.id == id
     });
     return details;
   }
@@ -78,7 +78,7 @@ export class DishComponent implements OnInit {
   addToCart(productDetails: any): void{
     if(this.appCacheService._loggedInUser){
       //code for ADD-ON items
-      this.bsModalRef = this.openAddOn(productDetails.price);
+      this.bsModalRef = this.openAddOn(productDetails.dishPrice);
       this.bsModalRef.content.AddOnEvent.subscribe((res: any) => {
         //code for add to cart after 
         this.bsModalRef.hide();
@@ -86,7 +86,7 @@ export class DishComponent implements OnInit {
           "quantity": 1,
           "addOn": res.addOn,
           "tprice": res.total,
-          "itemId": productDetails.itemId
+          "itemId": productDetails.id
         }
         this.appCacheService._cartDetails.push(cartObject);
         this.dataService.UPDATE_CART_COUNT.next(true);

@@ -1,0 +1,14 @@
+{
+  "targets": {
+    "kebab-house-db7f1": {
+      "hosting": {
+        "kebabHouse": [
+          "kebab-house-db7f1"
+        ]
+      }
+    }
+  },
+  "projects": {
+    "default": "kebab-house-db7f1"
+  }
+}

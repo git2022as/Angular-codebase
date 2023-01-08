@@ -1,8 +1,9 @@
-import { Component, OnInit, ElementRef, ViewChild } from '@angular/core';
+import { Component, OnInit, ElementRef, ViewChild, EventEmitter } from '@angular/core';
 import { NgForm } from '@angular/forms';
 import { BsModalRef } from 'ngx-bootstrap/modal';
 import { FormGroup, FormControl, Validators, FormBuilder } from '@angular/forms';
 import { customValidator } from 'src/app/validator/custom.validator';
+import { AuthService } from 'src/app/services/auth.service';
 
 @Component({
   selector: 'app-signUp-modal',
@@ -11,15 +12,21 @@ import { customValidator } from 'src/app/validator/custom.validator';
 })
 export class SignUpModalComponent implements OnInit {
 
-  phoneNumber: any;
-  otp: any;
+  //phoneNumber: any;
+  //otp: any;
   title?: string = "Default Modal";
   signUpForm: any = FormGroup;
   isVisibility: boolean = true;
+  signUpFailedStatus: boolean = false;
+  signUpSuccessful: boolean = false;
+  SignUpMsg: string = "";
+  signUpSuccessfulEvent = new EventEmitter<any>();
 
   @ViewChild('pass', { static: true }) passwrd: ElementRef;
 
-  constructor(public bsModalRef: BsModalRef, private fb: FormBuilder ) { }
+  constructor(public bsModalRef: BsModalRef, 
+              private fb: FormBuilder,
+              private authService: AuthService) { }
 
   ngOnInit(): void { 
     this.createSignUpForm();
@@ -27,11 +34,11 @@ export class SignUpModalComponent implements OnInit {
 
   createSignUpForm(): void{
     this.signUpForm = new FormGroup({
-      phoneNumber: new FormControl('', [Validators.required, Validators.maxLength(10), Validators.minLength(10), Validators.pattern('[0-9]+$')]),
-      name: new FormControl('', [Validators.required, Validators.maxLength(40)]),
+      //phoneNumber: new FormControl('', [Validators.required, Validators.maxLength(10), Validators.minLength(10), Validators.pattern('[0-9]+$')]),
+      //name: new FormControl('', [Validators.required, Validators.maxLength(40)]),
       email: new FormControl('', [Validators.required, Validators.email]),
-      password: new FormControl('', [Validators.required, customValidator.passwordRequirement]),
-      confirmPassword: new FormControl('',[Validators.required, customValidator.passwordMatch])
+      password: new FormControl('', [Validators.required, customValidator.passwordRequirement, Validators.maxLength(10), Validators.minLength(6)]),
+      confirmPassword: new FormControl('',[Validators.required, customValidator.passwordMatch, Validators.maxLength(10), Validators.minLength(6)])
     })
 
     //another way to create reactive forms with FROMBUILDER
@@ -46,6 +53,19 @@ export class SignUpModalComponent implements OnInit {
 
   signUpFormClicked(data:FormGroup): void{
     console.log(data.value);
+    this.authService.createUser(data.value).then((res: any)=>{
+      console.log("registration done " + JSON.stringify(res));
+      this.signUpFailedStatus = false;
+      this.signUpSuccessful = true;
+      this.SignUpMsg = "Sign Up is Successful";
+      setTimeout(()=>{
+        this.signUpSuccessfulEvent.emit(true);
+      },5000);
+    },
+    (error: any)=>{
+      this.signUpFailedStatus = true;
+      this.SignUpMsg = error.message;
+    })
   }
 
   showPassword(): void{
@@ -62,6 +82,8 @@ export class SignUpModalComponent implements OnInit {
 
   signUpFormReset(): void{
     this.signUpForm.reset();
+    this.signUpFailedStatus = false;
+    this.SignUpMsg = "";
   }
 
   setValue(data: any): void{

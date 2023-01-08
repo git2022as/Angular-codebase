@@ -18,21 +18,21 @@
             <div class="dish_basic_details">
                 <div class="cart-overview row p-2 m-0">
                     <div class="col-md-2 col-3 p-0">
-                        <img src="assets/images/{{productDetails.image}}" class="cart-image" alt="{{productDetails.alt}}" style="margin-top: 3px;">
+                        <img src="assets/images/{{productDetails.dishImage}}" class="cart-image" alt="{{productDetails.dishImageText}}" style="margin-top: 3px;">
                     </div>
                     <div class="cart-value col-md-7 col-9">
                         <div>
-                            <b style="font-size: 20px;">{{productDetails.name}}</b><!--name-->
+                            <b style="font-size: 20px;">{{productDetails.dishName}}</b><!--name-->
                         </div>
                         <div class="cart-secondary-font mb-1">
-                            {{productDetails.description}}<!--description-->
+                            {{productDetails.dishDesc}}<!--description-->
                         </div>
                         <div class="cart-origin-quantity cart-secondary-font mb-1">
-                            <div>{{productDetails.origin}}/</div><!--origin-->
-                            <div>Qty: {{productDetails.productQuantity}}</div><!--product quantity-->
+                            <div>{{productDetails.dishOrigin}}/</div><!--origin-->
+                            <div>Qty: {{productDetails.dishQuantity}}</div><!--product quantity-->
                         </div>
                         <div>
-                            <span class="cart-origin-quantity cart-secondary-font">(Each Item Cost - <img src="assets/images/rupee.png" width="14px" height="15px">{{productDetails.price}})</span>
+                            <span class="cart-origin-quantity cart-secondary-font">(Each Item Cost - <img src="assets/images/rupee.png" width="14px" height="15px">{{productDetails.dishPrice}})</span>
                         </div>
                         <div class="mt-2">
                             <button mat-raised-button color="primary" class="product-button" *ngIf="availableIncart" (click)="addToCart(productDetails)">Add to Cart</button>
@@ -74,7 +74,7 @@
                     <div class="ingradient_section">
                         <div class="list-heading">Ingradient List</div>
                         <mat-list role="list" class="pb-3">
-                            <mat-list-item role="listitem" *ngFor="let product of productDetails.ingradient">
+                            <mat-list-item role="listitem" *ngFor="let product of productDetails.dishIngradient">
                                 <mat-icon style="color: deeppink;margin-right:5px;" matListItemIcon>
                                     <span >
                                         restaurant_menu
@@ -87,7 +87,7 @@
                     <div class="calorie_section mr-md-5">
                         <!--use chart component-->
                         <div class="list-heading mb-3">Calorie Chart</div>
-                        <app-calorie-chart [cartData]="productDetails.calorie"></app-calorie-chart>
+                        <app-calorie-chart [cartData]="productDetails.dishCalorie"></app-calorie-chart>
                     </div>
                 </ng-container>
                 <ng-container *ngIf="showAvailability">

@@ -31,10 +31,10 @@ export class AppCacheService {
         return this.tokenSID;
     }
 
-    set _dishesDetails(dish: Array<any>){
+    set _dishesDetails(dish: any){
         this.dishesDetails = dish;
     }
-    get _dishesDetails(): Array<any>{
+    get _dishesDetails(): any{
         return this.dishesDetails;
     }
 
