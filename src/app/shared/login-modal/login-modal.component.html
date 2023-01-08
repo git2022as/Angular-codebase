@@ -10,7 +10,7 @@
 </div>
 <div class="modal-body">
     <div *ngIf="loginFailedStatus" class="loginFailedMsgSec mb-3">{{loginErrorMsg}}</div>
-    <form #loginForm="ngForm">
+    <form #loginForm="ngForm" (keydown.enter)="submitForm(loginForm)">
         <mat-form-field class="template-form-login">
             <mat-label>Email Address</mat-label>
             <input matInput type="text" ngModel #mail="ngModel" name="emailAddress" [(ngModel)]="emailAddress" [required]=true pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}$">
@@ -22,7 +22,11 @@
         <!--<button mat-raised-button *ngIf="phone.valid" style="margin-left: 2rem;" color="primary" (click)="getOtp(loginForm)">Get OTP</button>-->
         <mat-form-field class="template-form-login">
             <mat-label>Password</mat-label>
-            <input matInput type="text" ngModel maxlength="10" minlength="6" name="password" #pass="ngModel" [(ngModel)]="password" [required]="true">
+            <input matInput type="password" ngModel #loginPass maxlength="10" minlength="6" name="password" #pass="ngModel" [(ngModel)]="password" [required]="true">
+            <button *ngIf="password" matSuffix mat-icon-button aria-label="Clear" (click)="$event.preventDefault()" (mouseenter)="showHidePassword();isVisibility = false;" (mouseleave)="showHidePassword();isVisibility = true;">
+                <mat-icon *ngIf="isVisibility">visibility</mat-icon>
+                <mat-icon *ngIf="!isVisibility">visibility_off</mat-icon>
+            </button>
             <button *ngIf="password" matSuffix mat-icon-button aria-label="Clear" (click)="password=''">
                 <mat-icon>close</mat-icon>
             </button>

@@ -12,7 +12,7 @@
 <div class="modal-body">
     <div *ngIf="signUpFailedStatus" class="signUpFailedMsgSec mb-3">{{SignUpMsg}}</div>
     <div *ngIf="signUpSuccessful" class="signUpSuccessfulMsgSec mb-3">{{SignUpMsg}}</div>
-    <form [formGroup]="signUpForm">
+    <form [formGroup]="signUpForm" (keydown.enter)="signUpFormClicked(signUpForm)">
         <!--<mat-form-field class="reactive-form-login">
             <mat-label>Phone Number</mat-label>
             <input matInput type="text" name="phoneNumber" maxlength="10" minlength="10" formControlName="phoneNumber">
@@ -43,7 +43,7 @@
         <mat-form-field class="reactive-form-login" [ngClass]="{'mb-4': signUpForm.get('password')?.errors?.emailRequirement}">
             <mat-label>Password</mat-label>
             <input matInput type="password" #pass name="password" formControlName="password">
-            <button *ngIf="signUpForm.get('password')?.value != '' && signUpForm.get('password')?.value != null" matSuffix mat-icon-button aria-label="Clear" (click)="clickDisabled($event)" (mouseenter)="showPassword();isVisibility = false;" (mouseleave)="hidePassword();isVisibility = true;">
+            <button *ngIf="signUpForm.get('password')?.value != '' && signUpForm.get('password')?.value != null" matSuffix mat-icon-button aria-label="Clear" (click)="clickDisabled($event)" (mouseenter)="showHidePassword();isVisibility = false;" (mouseleave)="showHidePassword();isVisibility = true;">
                 <mat-icon *ngIf="isVisibility">visibility</mat-icon>
                 <mat-icon *ngIf="!isVisibility">visibility_off</mat-icon>
             </button>

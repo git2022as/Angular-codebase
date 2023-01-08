@@ -10,7 +10,7 @@
 </div>
 <div class="modal-body">
     <div *ngIf="adminAuthFailedStatus" class="adminAuthFailedMsgSec mb-3">{{adminAuthFailedMsg}}</div>
-    <form #adminLoginForm="ngForm" style="display: grid;">
+    <form #adminLoginForm="ngForm" style="display: grid;" (keydown.enter)="adminLogin(adminLoginForm)">
         <mat-form-field class="template-form-login">
             <mat-label>User Name</mat-label>
             <input matInput type="text" ngModel maxlength="10" minlength="5" #adminUName="ngModel" name="adminUserName" [required]=true [(ngModel)]="adminUserName">

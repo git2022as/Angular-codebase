@@ -60,7 +60,7 @@ export class SignUpModalComponent implements OnInit {
       this.SignUpMsg = "Sign Up is Successful";
       setTimeout(()=>{
         this.signUpSuccessfulEvent.emit(true);
-      },5000);
+      },3000);
     },
     (error: any)=>{
       this.signUpFailedStatus = true;
@@ -68,20 +68,16 @@ export class SignUpModalComponent implements OnInit {
     })
   }
 
-  showPassword(): void{
+  showHidePassword(): void{
     if(this.passwrd.nativeElement.getAttribute('type') == 'password')
       this.passwrd.nativeElement.setAttribute('type', 'text');
     else
       this.passwrd.nativeElement.setAttribute('type', 'password');
   }
 
-  hidePassword(): void{
-    if(this.passwrd.nativeElement.getAttribute('type') == 'text')
-      this.passwrd.nativeElement.setAttribute('type', 'password');
-  }
-
   signUpFormReset(): void{
     this.signUpForm.reset();
+    this.passwrd.nativeElement.setAttribute('type', 'password');
     this.signUpFailedStatus = false;
     this.SignUpMsg = "";
   }

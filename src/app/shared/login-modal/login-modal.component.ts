@@ -1,4 +1,4 @@
-import { Component, OnInit, EventEmitter } from '@angular/core';
+import { Component, OnInit, EventEmitter, ViewChild, ElementRef } from '@angular/core';
 import { NgForm } from '@angular/forms';
 import { BsModalRef, BsModalService, ModalOptions } from 'ngx-bootstrap/modal';
 import { SignUpModalComponent } from '../sign-up/signUp-modal.component';
@@ -15,8 +15,11 @@ export class LoginModalComponent implements OnInit {
   title?: string = 'Default Modal';
   loginErrorMsg: string = "";
   loginFailedStatus: boolean = false;
+  isVisibility: boolean = true;
   loginClicked = new EventEmitter<any>();
   signUpClickedOpenLogin = new EventEmitter<any>();
+
+  @ViewChild("loginPass", {static: true}) loginPass : ElementRef;
 
   constructor(
     public bsModalRef: BsModalRef,
@@ -111,6 +114,7 @@ export class LoginModalComponent implements OnInit {
 
   resetForm(data: NgForm): void {
     data.resetForm();
+    this.loginPass.nativeElement.setAttribute('type', 'password');
     this.loginFailedStatus = false;
     this.loginErrorMsg = "";
   }
@@ -132,6 +136,13 @@ export class LoginModalComponent implements OnInit {
       //when Signup is successful open login modal
       this.signUpClickedOpenLogin.emit(true);
     });
+  }
+
+  showHidePassword(): void{
+    if(this.loginPass.nativeElement.getAttribute('type') == 'password')
+      this.loginPass.nativeElement.setAttribute('type', 'text');
+    else
+      this.loginPass.nativeElement.setAttribute('type', 'password');
   }
 
 }
