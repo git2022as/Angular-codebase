@@ -48,6 +48,9 @@
         <div class="content">
             <!--<app-base></app-base>-->
             <router-outlet></router-outlet>
+            <ng-container *ngIf="dataService.UPDATE_SPINNER | async">
+                <app-spinner></app-spinner>
+            </ng-container>
         </div>
         <app-footer></app-footer>
     </mat-sidenav-content>

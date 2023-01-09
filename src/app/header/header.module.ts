@@ -12,6 +12,7 @@ import { OffersModule } from '../offers/offers.module';
 import { ModalModule } from 'ngx-bootstrap/modal';
 import { MatBadgeModule } from '@angular/material/badge';
 import { TooltipModule } from 'ngx-bootstrap/tooltip';
+import { SharedModule } from '../shared/shared.module';
 
 @NgModule({
     declarations: [
@@ -29,7 +30,8 @@ import { TooltipModule } from 'ngx-bootstrap/tooltip';
         OffersModule,
         ModalModule.forChild(),
         MatBadgeModule,
-        TooltipModule
+        TooltipModule,
+        SharedModule
     ],
     exports: [
         HeaderComponent

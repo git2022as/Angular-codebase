@@ -25,7 +25,7 @@ export class HeaderComponent implements OnInit {
               private router: Router,
               public appCacheService: AppCacheService,
               private commonService: CommonService,
-              private dataService: DataService,
+              public dataService: DataService,
               public bsModalRef: BsModalRef,
               private authService: AuthService
   ) { }

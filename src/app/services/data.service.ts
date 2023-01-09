@@ -9,4 +9,5 @@ export class DataService {
     UPDATED_CART = new Subject();
     UPDATED_DISH = new BehaviorSubject(false);
     UPDATE_CART_COUNT = new BehaviorSubject(false);
+    UPDATE_SPINNER = new BehaviorSubject(false);
 }

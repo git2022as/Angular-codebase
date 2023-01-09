@@ -3,13 +3,13 @@ import { BrowserModule } from '@angular/platform-browser';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
+import { LayoutModule } from './layout/layout.module';
 
 /*ngx-bootstrap*/
 import { CarouselModule } from 'ngx-bootstrap/carousel';
 
 /*angular material*/
 import { MatSlideToggleModule } from '@angular/material/slide-toggle';
-import { LayoutModule } from './layout/layout.module';
 import { initializeApp,provideFirebaseApp } from '@angular/fire/app';
 import { environment } from '../environments/environment';
 import { provideAuth,getAuth } from '@angular/fire/auth';

@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import { StaticDialogNgxBootstrapComponent } from '../shared/static-dialog-material/static-dialog-ngxBootstrap.component';
 import { BsModalService, BsModalRef, ModalOptions } from 'ngx-bootstrap/modal';
 import { AppCacheService } from './app.cache.service';
+import { DataService } from './data.service';
 
 @Injectable({
     providedIn: 'root'
@@ -10,7 +11,8 @@ import { AppCacheService } from './app.cache.service';
 export class CommonService {
 
     constructor(private bsModalService: BsModalService,
-                private appCacheService: AppCacheService){}
+                private appCacheService: AppCacheService,
+                private dataService: DataService){}
 
     openStaticModal(data: any): BsModalRef{
         return this.bsModalService.show(
@@ -29,5 +31,13 @@ export class CommonService {
         this.appCacheService._dishesDetails = [];
         this.appCacheService._offersDetails = [];
         this.appCacheService._tokenSID = "";
+    }
+
+    showSpinner(): void{
+        this.dataService.UPDATE_SPINNER.next(true);
+    }
+
+    hideSpinner(): void{
+        this.dataService.UPDATE_SPINNER.next(false);
     }
 }
