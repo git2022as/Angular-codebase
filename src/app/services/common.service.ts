@@ -24,13 +24,23 @@ export class CommonService {
     }
 
     logoutService(): void{
-        this.appCacheService._loggedInUser = false;
-        this.appCacheService._adminLoggedIn = false;
-        this.appCacheService._cartDetails = [];
-        this.appCacheService._carosulDetails = [];
-        this.appCacheService._dishesDetails = [];
-        this.appCacheService._offersDetails = [];
-        this.appCacheService._tokenSID = "";
+        //if admin login is true then logout from admin service only
+        if(this.appCacheService._adminLoggedIn){
+            this.appCacheService._adminLoggedIn = false;
+        }
+        else{
+            //wehn normal user is logged in
+            this.appCacheService._loggedInUser = false;
+            this.appCacheService._UID = "";
+            this.appCacheService._refreshToken = "";
+            this.appCacheService._loggedInUserName = "";
+            this.appCacheService._loggedInUserEmail = "";
+            this.appCacheService._cartDetails = [];
+            this.appCacheService._carosulDetails = [];
+            this.appCacheService._dishesDetails = [];
+            this.appCacheService._offersDetails = [];
+            this.appCacheService._profileDetails = {};
+        }
     }
 
     showSpinner(): void{
@@ -40,4 +50,5 @@ export class CommonService {
     hideSpinner(): void{
         this.dataService.UPDATE_SPINNER.next(false);
     }
+
 }

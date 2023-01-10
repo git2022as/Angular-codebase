@@ -58,9 +58,10 @@
 }
 
 .loggedin-heading {
-    font-size: 1.2rem;
+    font-size: 0.8rem;
     font-family: monospace;
     font-weight: bold;
+    line-height: 12px;
 }
 
 @media screen and (max-width: 767px) {
@@ -72,6 +73,11 @@
     }
     .hide{
         display: none;
+    }
+    .loggedin-heading-inner{
+        max-width: 200px;
+        text-overflow: ellipsis;
+        overflow: hidden;
     }
 }
 

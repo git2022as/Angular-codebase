@@ -6,7 +6,10 @@ import { Injectable } from "@angular/core";
 
 export class AppCacheService {
     loggedInUser: boolean = false;
-    tokenSID: string = "";
+    UID: string = "";
+    refreshToken: string = "";
+    loggedInUserName: string = "";
+    loggedInUserEmail: string = "";
     dishesDetails: Array<any> = [];
     offersDetails: Array<any> = [];
     carosulDetails: Array<any> = [];
@@ -24,11 +27,25 @@ export class AppCacheService {
         return this.loggedInUser;
     }
 
-    set _tokenSID(token: string){
-        this.tokenSID = token;
+    set _refreshToken(token: string){
+        this.refreshToken = token;
     }
-    get _tokenSID(): string{
-        return this.tokenSID;
+    get _refreshToken(): string{
+        return this.refreshToken;
+    }
+
+    set _loggedInUserName(name: string){
+        this.loggedInUserName = name;
+    }
+    get _loggedInUserName(): string{
+        return this.loggedInUserName;
+    }
+
+    set _loggedInUserEmail(email: string){
+        this.loggedInUserEmail = email;
+    }
+    get _loggedInUserEmail(): string{
+        return this.loggedInUserEmail;
     }
 
     set _dishesDetails(dish: any){
@@ -79,6 +96,14 @@ export class AppCacheService {
 
     get _adminLoggedIn(): boolean{
         return this.adminLoggedIn;
+    }
+
+    set _UID(uid: string){
+        this.UID = uid;
+    }
+
+    get _UID(): string{
+        return this.UID;
     }
 
 }

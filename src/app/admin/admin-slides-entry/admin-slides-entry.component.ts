@@ -34,7 +34,7 @@ export class AdminSlidesEntryComponent implements OnInit, OnDestroy {
       return products;
     })).subscribe(((res: any)=>{
       this.slides = res;
-    }))
+    }));
   }
 
   ngOnDestroy(): void {

@@ -21,7 +21,7 @@
 
             <mat-list-item role="listitem" routerLinkActive="active" *ngIf="appCacheService._loggedInUser && !appCacheService._adminLoggedIn" routerLink="/cart">Cart</mat-list-item>
 
-            <mat-list-item role="listitem" routerLinkActive="active" *ngIf="!appCacheService._adminLoggedIn" (click)="openAdminLoginModal()">Admin</mat-list-item>
+            <mat-list-item role="listitem" routerLinkActive="active" *ngIf="!appCacheService._adminLoggedIn && !appCacheService._loggedInUser" (click)="openAdminLoginModal()">Admin</mat-list-item>
 
             <mat-list-item role="listitem" (click)="openLink('logout');" *ngIf="appCacheService._loggedInUser || appCacheService._adminLoggedIn">Logout</mat-list-item>
         </mat-list>
@@ -34,15 +34,19 @@
             <span class="heading pl-2" [ngClass]="{'hide': appCacheService._loggedInUser}">Kebab-House</span>
             <span class="toolbar-spacer"></span>
 
-            <mat-icon class="mr-2" style="cursor: pointer;" (click)="openLoginModal()" *ngIf="!appCacheService._loggedInUser && !appCacheService._adminLoggedIn" tooltip="Login" placement="auto">login</mat-icon>
+            <mat-icon class="mr-2" style="cursor: pointer;color: deeppink" (click)="openLoginModal()" *ngIf="!appCacheService._loggedInUser && !appCacheService._adminLoggedIn" tooltip="Login" placement="auto">login</mat-icon>
 
             <mat-icon class="mr-2" style="cursor: pointer;color: deeppink" *ngIf="appCacheService._loggedInUser && !appCacheService._adminLoggedIn" tooltip="Account" placement="auto">person</mat-icon>
 
-            <span *ngIf="appCacheService._loggedInUser && !appCacheService._adminLoggedIn" class="loggedin-heading mr-2">Welcome, {{appCacheService._profileDetails?.name}}</span>
+            <div *ngIf="appCacheService._loggedInUser && !appCacheService._adminLoggedIn" class="loggedin-heading mr-2">Welcome,
+                 <div class="loggedin-heading-inner">
+                    {{appCacheService._loggedInUserName != "" ? appCacheService._loggedInUserName : (appCacheService._loggedInUserEmail == "" ? 'User' : appCacheService._loggedInUserEmail)}}
+                </div>
+            </div>
 
-            <mat-icon class="mr-2" [matBadge]="cartItemCount" [matBadgeHidden]="cartBadgeHidden" matBadgeColor="accent" matBadgeSize="small" [matBadgeOverlap]=true style="cursor: pointer;" *ngIf="appCacheService._loggedInUser && !appCacheService._adminLoggedIn" (click)="openLink('cart');" tooltip="Cart" placement="auto">shopping_cart</mat-icon>
+            <mat-icon class="mr-2" [matBadge]="cartItemCount" [matBadgeHidden]="cartBadgeHidden" matBadgeColor="accent" matBadgeSize="small" [matBadgeOverlap]=true style="cursor: pointer;color: deeppink" *ngIf="appCacheService._loggedInUser && !appCacheService._adminLoggedIn" (click)="openLink('cart');" tooltip="Cart" placement="auto">shopping_cart</mat-icon>
 
-            <mat-icon class="mr-2" style="cursor: pointer;" (click)="openLink('logout');" *ngIf="appCacheService._loggedInUser || appCacheService._adminLoggedIn" tooltip="Logout" placement="auto">logout</mat-icon>
+            <mat-icon class="mr-2" style="cursor: pointer;color: deeppink" (click)="openLink('logout');" *ngIf="appCacheService._loggedInUser || appCacheService._adminLoggedIn" tooltip="Logout" placement="auto">logout</mat-icon>
         </mat-toolbar>
         <!--give main content a proper height which is less than 100% to display footer at the bottom of the page -->
         <div class="content">

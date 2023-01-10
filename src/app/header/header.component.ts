@@ -57,9 +57,12 @@ export class HeaderComponent implements OnInit {
     this.bsModalRef = this.modalService.show(LoginModalComponent, initialState);
     this.bsModalRef.content.loginClicked.subscribe((res: any) => {
       //when login is successful
-      if(res.login.success){
-        this.appCacheService._loggedInUser = res?.login?.success;
-        this.appCacheService._tokenSID = res?.login?.sid;
+      if(res.login.uid != ""){
+        this.appCacheService._UID = res?.login?.uid;
+        this.appCacheService._loggedInUser = true;
+        this.appCacheService._refreshToken = res?.login?.refreshToken;
+        this.appCacheService._loggedInUserName = res?.login?.name;
+        this.appCacheService._loggedInUserEmail = res?.login?.email;
         this.appCacheService._cartDetails = res?.cart;
         this.appCacheService._profileDetails = res?.profile;
         this.dataService.UPDATED_DISH.next(true);

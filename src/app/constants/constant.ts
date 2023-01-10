@@ -41,3 +41,12 @@ export const staticValue = {
         'rgb(22 205 234)'
     ]
 }
+
+export const tokenUrL = {
+    noToken: [
+        'slides.json',
+        'shopLocation.json',
+        'dishes.json',
+        'offers.json'
+    ]
+}

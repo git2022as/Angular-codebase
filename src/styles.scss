@@ -71,6 +71,9 @@ table.admin-block-table th {
     .admin-block-border{
         border-top: 1px dashed gray;
     }
+    .modal-form{
+        width:100%;
+    }
 }
 
 @media screen and (min-width: 768px) {
@@ -78,3 +81,29 @@ table.admin-block-table th {
         border-left: 1px dashed gray;
     }
 }
+
+.newAcc {
+    text-decoration: underline;
+    color: $pink;
+    &:hover{
+        color: $site-theme;
+        cursor: pointer;
+    }
+}
+
+.modalFailedMsgSec{
+    font-size: 13px; 
+    color: $red;
+    word-break: break-all;
+}
+
+.modalSuccessfulMsgSec{
+    font-size: 13px; 
+    color: $green;
+    word-break: break-all;
+}
+
+.modal-form{
+    width:100%;
+}
+

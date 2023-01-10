@@ -41,15 +41,11 @@ export class BaseComponent implements OnInit, OnDestroy {
   }
 
   ngOnInit(): void {
-    this.commonService.showSpinner();
     //call 4 APIs => dish, offers, card-carosul & branches
     this.getCarouselSlides();
     this.getDishDetails();
     this.getBranches();
     this.getOffers();
-    setTimeout(()=>{
-      this.commonService.hideSpinner();
-    },3000);
   }
 
   getCarouselSlides(): void{

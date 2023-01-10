@@ -9,9 +9,10 @@
     </button>
 </div>
 <div class="modal-body">
-    <div *ngIf="loginFailedStatus" class="loginFailedMsgSec mb-3">{{loginErrorMsg}}</div>
+    <div *ngIf="loginFailedStatus" class="modalFailedMsgSec mb-3">{{loginMsg}}</div>
+    <div *ngIf="loginSuccessStatus" class="modalSuccessfulMsgSec mb-3">{{loginMsg}}</div>
     <form #loginForm="ngForm" (keydown.enter)="submitForm(loginForm)">
-        <mat-form-field class="template-form-login">
+        <mat-form-field class="modal-form">
             <mat-label>Email Address</mat-label>
             <input matInput type="text" ngModel #mail="ngModel" name="emailAddress" [(ngModel)]="emailAddress" [required]=true pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}$">
             <button *ngIf="emailAddress" matSuffix mat-icon-button aria-label="Clear" (click)="emailAddress=''">
@@ -20,7 +21,7 @@
             <mat-error *ngIf="mail.touched && mail.invalid">Enter a valid email address</mat-error>
         </mat-form-field>
         <!--<button mat-raised-button *ngIf="phone.valid" style="margin-left: 2rem;" color="primary" (click)="getOtp(loginForm)">Get OTP</button>-->
-        <mat-form-field class="template-form-login">
+        <mat-form-field class="modal-form">
             <mat-label>Password</mat-label>
             <input matInput type="password" ngModel #loginPass maxlength="10" minlength="6" name="password" #pass="ngModel" [(ngModel)]="password" [required]="true">
             <button *ngIf="password" matSuffix mat-icon-button aria-label="Clear" (click)="$event.preventDefault()" (mouseenter)="showHidePassword();isVisibility = false;" (mouseleave)="showHidePassword();isVisibility = true;">
@@ -34,11 +35,13 @@
         </mat-form-field>
     </form>
     <div class="row m-0">
-        <div class="newAcc mr-3" (click)="signUpModal()">create new account</div>
+        <div class="newAcc mr-3 mt-2" (click)="signUpModal()">create new account</div>
+        <div class="newAcc mr-3 mt-2" (click)="openForgotPassModal()">forgot password</div>
     </div>
 </div>
 <div class="modal-footer">
-    <!--angular material button used inside ngx-bootstrap-->
-    <button mat-raised-button style="margin-right: 1rem" color="primary" (click)="submitForm(loginForm)" [disabled]="loginForm.invalid">Continue</button>
-    <button mat-raised-button (click)="resetForm(loginForm)" [disabled]="loginForm.untouched">Reset</button>
+    <div>
+        <button mat-raised-button style="margin-right: 1rem" color="primary" (click)="submitForm(loginForm)" [disabled]="loginForm.invalid">Continue</button>
+        <button mat-raised-button (click)="resetForm(loginForm)" [disabled]="loginForm.untouched">Reset</button>
+    </div>
 </div>

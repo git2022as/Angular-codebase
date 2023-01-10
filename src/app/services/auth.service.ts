@@ -22,8 +22,15 @@ export class AuthService {
         return this.angularFireAuth.createUserWithEmailAndPassword(email,password);
     }
 
+    //logout scenario
     logoutUser(): Promise<any>{
         return this.angularFireAuth.signOut();
+    }
+
+    //forgot password scenario
+    forgotPassword(value: {forgotEmailAdd: string}): Promise<any>{
+        const email = value.forgotEmailAdd;
+        return this.angularFireAuth.sendPasswordResetEmail(email);
     }
 
 }

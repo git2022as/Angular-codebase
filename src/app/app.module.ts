@@ -4,6 +4,9 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { LayoutModule } from './layout/layout.module';
+import { HTTP_INTERCEPTORS } from '@angular/common/http';
+import { HttpRequestInterceptor } from './interceptors/http.request.interceptor';
+import { HttpResponseInterceptor } from './interceptors/http.response.interceptor';
 
 /*ngx-bootstrap*/
 import { CarouselModule } from 'ngx-bootstrap/carousel';
@@ -41,7 +44,10 @@ import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
   schemas: [
     CUSTOM_ELEMENTS_SCHEMA
   ],
-  providers: [],
+  providers: [
+    {provide: HTTP_INTERCEPTORS, useClass: HttpRequestInterceptor, multi: true},
+    {provide: HTTP_INTERCEPTORS, useClass: HttpResponseInterceptor, multi: true}
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

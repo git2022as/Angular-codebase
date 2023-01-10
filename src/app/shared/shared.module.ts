@@ -21,6 +21,7 @@ import { PageNotFoundComponent } from './page-not-found/page-not-found.component
 import { GoToTopComponent } from './go-to-top/go-to-top.component';
 import { AdminLoginModalComponent } from './admin-login-modal/admin-login-modal.component';
 import { SpinnerComponent } from './spinner/spinner.component';
+import { ForgotPasswordComponent } from './forgot-password/forgot-password.component';
 /* pipe module */
 import { PipeModule } from '../pipes/pipe.module';
 /* ngx-bootstrap modal*/
@@ -55,7 +56,8 @@ import { MatCheckboxModule } from '@angular/material/checkbox';
     PageNotFoundComponent,
     GoToTopComponent,
     AdminLoginModalComponent,
-    SpinnerComponent
+    SpinnerComponent,
+    ForgotPasswordComponent
   ],
   imports: [
     CommonModule,
@@ -91,7 +93,8 @@ import { MatCheckboxModule } from '@angular/material/checkbox';
     PageNotFoundComponent,
     GoToTopComponent,
     AdminLoginModalComponent,
-    SpinnerComponent
+    SpinnerComponent,
+    ForgotPasswordComponent
   ],
   providers: [IndividualCartPipe]
 })

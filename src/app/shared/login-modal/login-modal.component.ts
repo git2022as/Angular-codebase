@@ -3,6 +3,7 @@ import { NgForm } from '@angular/forms';
 import { BsModalRef, BsModalService, ModalOptions } from 'ngx-bootstrap/modal';
 import { SignUpModalComponent } from '../sign-up/signUp-modal.component';
 import { AuthService } from 'src/app/services/auth.service';
+import { ForgotPasswordComponent } from '../forgot-password/forgot-password.component';
 
 @Component({
   selector: 'app-login-modal',
@@ -13,12 +14,15 @@ export class LoginModalComponent implements OnInit {
   emailAddress: string;
   password: string;
   title?: string = 'Default Modal';
-  loginErrorMsg: string = "";
+  loginMsg: string = "";
   loginFailedStatus: boolean = false;
   isVisibility: boolean = true;
   loginClicked = new EventEmitter<any>();
   signUpClickedOpenLogin = new EventEmitter<any>();
-
+  forgotEmailAdd: string;
+  loginSuccessStatus: boolean = false;
+  forgotPassForm: any;
+  
   @ViewChild("loginPass", {static: true}) loginPass : ElementRef;
 
   constructor(
@@ -29,7 +33,7 @@ export class LoginModalComponent implements OnInit {
 
   ngOnInit(): void {}
 
-  submitForm(data: NgForm): void {
+  submitForm(data?: NgForm): void {
     console.log(data.value);
     /*write API Calls, get details & send back to Header components with eventEmitter
       call Login API => take token
@@ -37,11 +41,17 @@ export class LoginModalComponent implements OnInit {
       call Profile API
       send CART, PROFILE & WISHLIST array to Header (Parent) component
     */
-    //loginAPI
+    /*********** loginAPI **************/
     this.authService.getLogin(data.value).then((res: any)=>{
       console.log("Login Data " +  JSON.stringify(res));
       this.loginFailedStatus = false;
-      this.loginErrorMsg = "";
+      this.loginMsg = "";
+      const login = {
+        uid: res.user.uid ? res.user.uid : "",
+        email: res.user.email ? res.user.email : "",
+        name: res.user.displayName ? res.user.displayName : "",
+        refreshToken: res.user.refreshToken ? res.user.refreshToken : ""
+      }
       //sample PROFILE API
       const profile = {
         name: 'Sudipta Sil',
@@ -50,11 +60,6 @@ export class LoginModalComponent implements OnInit {
         email: 'sudipta.sil.2000@gmail.com',
         deliveryAddress: [],
       }
-      //sample LOGIN API
-      const login = {
-        sid: '4hz3468b-a179-4058-aaf2-086461479b52',
-        success: true,
-      }
       //sample CART API
       const cart = [];
       //send CART, PROFILE, TOKEN to Header (Parent) component
@@ -62,7 +67,7 @@ export class LoginModalComponent implements OnInit {
     },
     ((error: any)=>{
       this.loginFailedStatus = true;
-      this.loginErrorMsg = error.message;
+      this.loginMsg = error.message;
     }));
   
     /*const cart = [
@@ -112,11 +117,31 @@ export class LoginModalComponent implements OnInit {
     this.otp = Math.floor(Math.random() * (maxm - minm + 1)) + minm
   }*/
 
-  resetForm(data: NgForm): void {
+  openForgotPassModal(): void{
+    this.bsModalRef.hide();
+    const initialState: ModalOptions = {
+      initialState: {
+        title: 'Forgot Password'
+      }
+    }
+    this.bsModalRef = this.bsModalService.show(
+      ForgotPasswordComponent,
+      initialState
+    )
+
+    this.bsModalRef.content.backToSignInEvent.subscribe((res: any) => {
+      this.bsModalRef?.hide();
+      //back to this page, hence open login modal again
+      //use the same signup modal event
+      this.signUpClickedOpenLogin.emit(true);
+    });
+  }
+
+  resetForm(data?: NgForm): void {
     data.resetForm();
     this.loginPass.nativeElement.setAttribute('type', 'password');
     this.loginFailedStatus = false;
-    this.loginErrorMsg = "";
+    this.loginMsg = "";
   }
 
   signUpModal(): void {

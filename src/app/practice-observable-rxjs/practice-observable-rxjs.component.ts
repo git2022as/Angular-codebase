@@ -4,6 +4,7 @@ import { catchError, delay, filter, map, retry, take, takeUntil } from 'rxjs/ope
 import { ajax } from 'rxjs/ajax';
 import { Subscription } from 'rxjs'
 import { formatCurrency } from '@angular/common';
+import { ViewEncapsulation } from '@angular/compiler';
 
 @Component({
   selector: 'app-practice-observable-rxjs',

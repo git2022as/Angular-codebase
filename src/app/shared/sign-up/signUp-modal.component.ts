@@ -18,7 +18,7 @@ export class SignUpModalComponent implements OnInit {
   signUpForm: any = FormGroup;
   isVisibility: boolean = true;
   signUpFailedStatus: boolean = false;
-  signUpSuccessful: boolean = false;
+  signUpSuccessStatus: boolean = false;
   SignUpMsg: string = "";
   signUpSuccessfulEvent = new EventEmitter<any>();
 
@@ -56,7 +56,7 @@ export class SignUpModalComponent implements OnInit {
     this.authService.createUser(data.value).then((res: any)=>{
       console.log("registration done " + JSON.stringify(res));
       this.signUpFailedStatus = false;
-      this.signUpSuccessful = true;
+      this.signUpSuccessStatus = true;
       this.SignUpMsg = "Sign Up is Successful";
       setTimeout(()=>{
         this.signUpSuccessfulEvent.emit(true);
