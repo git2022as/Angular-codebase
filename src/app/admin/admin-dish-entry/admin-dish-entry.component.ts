@@ -3,13 +3,15 @@ import { NgForm } from '@angular/forms';
 import { map, Subscription } from 'rxjs';
 import { AdminService } from '../admin.service';
 import { ShortMessageComponent } from 'src/app/shared/short-message/short-message.component';
+import { deactivateInterface } from 'src/app/interface/project.interface';
+import { StaticMsg } from 'src/app/constants/constant';
 
 @Component({
   selector: 'app-admin-dish-entry',
   templateUrl: './admin-dish-entry.component.html',
   styleUrls: ['./admin-dish-entry.component.scss']
 })
-export class AdminDishEntryComponent implements OnInit, OnDestroy {
+export class AdminDishEntryComponent implements OnInit, OnDestroy, deactivateInterface {
 
   dishName: string;
   dishOrigin: string;
@@ -24,11 +26,21 @@ export class AdminDishEntryComponent implements OnInit, OnDestroy {
   addDishesSubscriptiton: Subscription | undefined;
   dishes: Array<any>;
   @ViewChild("shortContainer", { read: ViewContainerRef }) shortContainer: any = ViewContainerRef;
+  @ViewChild("dishForm", {read: NgForm}) dishForm: any;
 
   constructor(private adminService: AdminService) { }
 
   ngOnInit(): void {
     this.getDishes();
+  }
+
+  canExit(): boolean{
+    if(this.dishForm.form.touched && (this.dishForm.form.valid || this.dishForm.form.invalid)){
+      return confirm(StaticMsg.adminDeActivateMsg);
+    }
+    else{
+      return true;
+    }
   }
 
   getDishes(){

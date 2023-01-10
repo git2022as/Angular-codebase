@@ -19,6 +19,18 @@ export class AdminService {
         return this.http.get('https://kebab-house-db7f1-default-rtdb.firebaseio.com/slides.json');
     }
 
+    /* update slides on firebase database */
+    /* use PUT request */
+    updateSlides(id: string, slides: {imageSource: string, altText: string, imageText: string}): Observable<any>{
+        return this.http.put(`https://kebab-house-db7f1-default-rtdb.firebaseio.com//slides/${id}.json`,slides);
+    }
+
+    /* delete slides on firebase database */
+    /* use DELETE request */
+    deleteSlide(id: string): Observable<any>{
+        return this.http.delete(`https://kebab-house-db7f1-default-rtdb.firebaseio.com//slides/${id}.json`);
+    }
+
     /* add branches to firebase database */
     addBranches(branches: {branchLocation: string, locationImage: string, locationContact: number, locatiomTiming: string, branchPin: number}): Observable<any>{
         return this.http.post('https://kebab-house-db7f1-default-rtdb.firebaseio.com/shopLocation.json',branches);

@@ -1,5 +1,6 @@
 import { NgModule } from "@angular/core";
 import { RouterModule, Routes } from "@angular/router";
+import { AdminCanDeactivateGuardService } from "../guard/adminCanDeactivate.guard";
 import { AdminBranchesEntryComponent } from "./admin-branches-entry/admin-branches-entry.component";
 import { AdminCouponsEntryComponent } from "./admin-coupons-entry/admin-coupons-entry.component";
 import { AdminDashboardComponent } from "./admin-dashboard/admin-dashboard.component";
@@ -19,7 +20,8 @@ const adminRoutes: Routes = [
             },
             {
                 path: 'dishes',
-                component: AdminDishEntryComponent
+                component: AdminDishEntryComponent,
+                canDeactivate: [AdminCanDeactivateGuardService]
             },
             {
                 path: 'offers',
@@ -27,15 +29,17 @@ const adminRoutes: Routes = [
             },
             {
                 path: 'slides',
-                component: AdminSlidesEntryComponent
+                component: AdminSlidesEntryComponent,
+                canDeactivate: [AdminCanDeactivateGuardService]
             },
             {
                 path: 'coupons',
-                component: AdminCouponsEntryComponent
+                component: AdminCouponsEntryComponent,
             },
             {
                 path: 'branches',
-                component: AdminBranchesEntryComponent
+                component: AdminBranchesEntryComponent,
+                canDeactivate: [AdminCanDeactivateGuardService]
             }
         ]
     }

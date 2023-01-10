@@ -8,6 +8,7 @@ import { DataService } from '../services/data.service';
 import { AdminLoginModalComponent } from '../shared/admin-login-modal/admin-login-modal.component';
 import { AuthService } from '../services/auth.service';
 import { SignUpModalComponent } from '../shared/sign-up/signUp-modal.component';
+import { StaticMsg } from '../constants/constant';
 
 @Component({
   selector: 'app-header',
@@ -115,17 +116,9 @@ export class HeaderComponent implements OnInit {
   }
 
   openLogoutModal(): void{
-    const initialState: ModalOptions = {
-      initialState: {
-        content: 'Are you sure want to logout?',
-        title: 'Logout',
-        type: 'confirmation',
-        data: 'para',
-        secondaryButton: true,
-        primaryButtonText: 'Yes'
-      }
-    };
-    this.bsModalRef = this.commonService.openStaticModal(initialState);
+    const content = StaticMsg.logoutConfirmationText;
+    const title = StaticMsg.logoutConfirmationTitle;
+    this.bsModalRef = this.commonService.openConfirmationModal(content,title);
     this.bsModalRef.content.primaryButtonConfirmationEvent.subscribe((res: any) => {
       //call logout service here to clear all cache and call API service to clear SID
       this.authService.logoutUser().then((res: any)=>{

@@ -3,6 +3,7 @@ import { StaticDialogNgxBootstrapComponent } from '../shared/static-dialog-mater
 import { BsModalService, BsModalRef, ModalOptions } from 'ngx-bootstrap/modal';
 import { AppCacheService } from './app.cache.service';
 import { DataService } from './data.service';
+import { StaticMsg } from '../constants/constant';
 
 @Injectable({
     providedIn: 'root'
@@ -12,7 +13,8 @@ export class CommonService {
 
     constructor(private bsModalService: BsModalService,
                 private appCacheService: AppCacheService,
-                private dataService: DataService){}
+                private dataService: DataService,
+                private bsModalRef: BsModalRef){}
 
     openStaticModal(data: any): BsModalRef{
         return this.bsModalService.show(
@@ -51,4 +53,31 @@ export class CommonService {
         this.dataService.UPDATE_SPINNER.next(false);
     }
 
+    openErrorModal(msg: string): void{
+        const initialState: ModalOptions = {
+            initialState: {
+              content: msg,
+              title: 'Error',
+              type: 'error',
+              data: 'para',
+              primaryButtonText: 'Ok',
+            },
+        }
+        this.bsModalRef = this.openStaticModal(initialState);
+    }
+
+    openConfirmationModal(content: string,title: string): BsModalRef{
+        const initialState: ModalOptions = {
+            initialState: {
+            content: content,
+            title: title,
+            type: 'confirmation',
+            data: 'para',
+            secondaryButton: true,
+            primaryButtonText: 'Yes'
+            }
+        }
+        this.bsModalRef = this.openStaticModal(initialState);
+        return this.bsModalRef;
+    }
 }

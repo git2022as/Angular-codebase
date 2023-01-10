@@ -3,13 +3,15 @@ import { NgForm } from '@angular/forms';
 import { map, Subscription } from 'rxjs';
 import { AdminService } from '../admin.service';
 import { ShortMessageComponent } from 'src/app/shared/short-message/short-message.component';
+import { deactivateInterface } from 'src/app/interface/project.interface';
+import { StaticMsg } from 'src/app/constants/constant';
 
 @Component({
   selector: 'app-admin-branches-entry',
   templateUrl: './admin-branches-entry.component.html',
   styleUrls: ['./admin-branches-entry.component.scss']
 })
-export class AdminBranchesEntryComponent implements OnInit, OnDestroy {
+export class AdminBranchesEntryComponent implements OnInit, OnDestroy, deactivateInterface {
 
   branchLocation: string;
   locationImage: string;
@@ -19,11 +21,21 @@ export class AdminBranchesEntryComponent implements OnInit, OnDestroy {
   addBranchesSubscriptiton: Subscription | undefined;
   branches: Array<any>;
   @ViewChild("shortContainer", { read: ViewContainerRef }) shortContainer: any = ViewContainerRef;
+  @ViewChild("branchesForm", {read: NgForm}) branchesForm: any;
 
   constructor(private adminService: AdminService) { }
 
   ngOnInit(): void {
     this.getBranches();
+  }
+
+  canExit(): boolean{
+    if(this.branchesForm.form.touched && (this.branchesForm.form.valid || this.branchesForm.form.invalid)){
+      return confirm(StaticMsg.adminDeActivateMsg);
+    }
+    else{
+      return true;
+    }
   }
 
   getBranches(){

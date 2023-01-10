@@ -3,3 +3,7 @@ export interface cartExtraItem {
     value: boolean,
     extraPrice: number
 }
+
+export interface deactivateInterface{
+    canExit: () => boolean;
+}

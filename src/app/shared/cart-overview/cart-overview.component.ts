@@ -64,17 +64,9 @@ export class CartOverviewComponent implements OnInit {
   }
 
   delteDish(cart: any): void{
-    const initialState: ModalOptions = {
-      initialState: {
-        content: 'Are you sure want to remove this item from cart?',
-        title: 'Remove From Cart',
-        type: 'confirmation',
-        data: 'para',
-        secondaryButton: true,
-        primaryButtonText: 'Yes'
-      },
-    }
-    this.bsModalRef = this.commonService.openStaticModal(initialState);
+    const content = StaticMsg.removeFromCartConfirmation;
+    const title = StaticMsg.removeFromCartTitle;
+    this.bsModalRef = this.commonService.openConfirmationModal(content,title);
     this.bsModalRef.content.primaryButtonConfirmationEvent.subscribe((res: any) => {
       //User clicked delete cart option
       this.bsModalRef.hide();

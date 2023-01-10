@@ -4,7 +4,10 @@ import { Observable, tap, catchError, of, throwError, map } from "rxjs";
 import { CommonService } from "../services/common.service";
 import { BsModalRef, ModalOptions } from 'ngx-bootstrap/modal';
 
-@Injectable()
+@Injectable({
+    providedIn: 'root'
+})
+
 export class HttpResponseInterceptor implements HttpInterceptor{
 
     constructor(private commonService: CommonService,
@@ -32,16 +35,8 @@ export class HttpResponseInterceptor implements HttpInterceptor{
     }
 
     openCommonErrorModal(msg: string): void{
-        const initialState: ModalOptions = {
-            initialState: {
-              content: msg,
-              title: 'Error',
-              type: 'error',
-              data: 'para',
-              primaryButtonText: 'Ok',
-            },
-        }
-        this.bsModalRef = this.commonService.openStaticModal(initialState);
+        //show error modal
+        this.commonService.openErrorModal(msg);
     }
 
 

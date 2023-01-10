@@ -7,6 +7,7 @@ import { ModalOptions, BsModalRef, BsModalService } from 'ngx-bootstrap/modal';
 import { ProductAddOnComponent } from '../shared/product-add-on/product-add-on.component';
 import { DataService } from 'src/app/services/data.service';
 import { UtilityService } from '../services/utility.service';
+import { StaticMsg } from '../constants/constant';
 
 @Component({
   selector: 'app-dish',
@@ -94,16 +95,9 @@ export class DishComponent implements OnInit {
       });
     }
     else{
-      const initialState: ModalOptions = {
-        initialState: {
-          content: 'Please login first to add this dish in the cart.',
-          title: 'Error',
-          type: 'error',
-          data: 'para',
-          primaryButtonText: 'Ok',
-        },
-      }
-      this.bsModalRef = this.commonService.openStaticModal(initialState);
+      //show error modal
+      const errorMsg = StaticMsg.withoutLoginNoCartAccess;
+      this.commonService.openErrorModal(errorMsg);
     }
   }
 
@@ -119,17 +113,9 @@ export class DishComponent implements OnInit {
 
   removeFromCart(productDetails: any){
     if(this.appCacheService._loggedInUser){
-      const initialState: ModalOptions = {
-        initialState: {
-          content: 'Are you sure want to remove this item from cart?',
-          title: 'Remove From Cart',
-          type: 'confirmation',
-          data: 'para',
-          secondaryButton: true,
-          primaryButtonText: 'Yes'
-        },
-      }
-      this.bsModalRef = this.commonService.openStaticModal(initialState);
+      const content = StaticMsg.removeFromCartConfirmation;
+      const title = StaticMsg.removeFromCartTitle;
+      this.bsModalRef = this.commonService.openConfirmationModal(content,title);
       this.bsModalRef.content.primaryButtonConfirmationEvent.subscribe((res: any) => {
         //User clicked remove from cart option
         this.bsModalRef.hide();

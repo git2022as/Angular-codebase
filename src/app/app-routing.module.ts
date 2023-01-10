@@ -2,8 +2,10 @@ import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { AboutComponent } from './about/about.component';
 import { BaseComponent } from './base/base.component';
+import { LoginAuthCanActivateGuardService } from './guard/loginAuthCanActivate.guard';
 import { OffersComponent } from './offers/offers.component';
 import { PageNotFoundComponent } from './shared/page-not-found/page-not-found.component';
+import { AdminCanDeactivateGuardService } from './guard/adminCanDeactivate.guard';
 
 //example of normal routing
 /*const routes: Routes = [
@@ -18,21 +20,22 @@ import { PageNotFoundComponent } from './shared/page-not-found/page-not-found.co
 const lazyRoutes: Routes = [
   {
     path: 'base',
-    loadChildren: () => import('./base/base.module').then((a) => a.BaseModule),
+    loadChildren: () => import('./base/base.module').then((a) => a.BaseModule)
   },
   {
     path: 'about-us',
     loadChildren: () =>
-      import('./about/about.module').then((a) => a.AboutModule),
+      import('./about/about.module').then((a) => a.AboutModule)
   },
   {
     path: 'offers',
     loadChildren: () =>
-      import('./offers/offers.module').then(a => a.OffersModule),
+      import('./offers/offers.module').then(a => a.OffersModule)
   },
   {
     path: 'cart',
     loadChildren: () => import('./cart/cart.module').then(a => a.CartModule),
+    canActivate: [LoginAuthCanActivateGuardService]
   },
   {
     path: 'dish/:id',

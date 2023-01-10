@@ -64,6 +64,10 @@ table.admin-block-table th {
     text-transform: uppercase;
 }
 
+.admin-icons{
+    cursor: pointer;
+}
+
 @media screen and (max-width: 767px) {
     .admin-block-sections{
         flex-direction: column;
