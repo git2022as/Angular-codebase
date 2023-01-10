@@ -105,6 +105,12 @@ export class AdminSlidesEntryComponent implements OnInit, OnDestroy, deactivateI
   slidesFormSubmit(slidesForm: NgForm): void{
     if(this.editMode){
       //when edit mode is ON, call the update functionality
+      if(slidesForm.untouched){
+        const msg = "It seems, you haven't changed any value yet";
+        const color = 'orange';
+        this.showShortMsg(msg,color);
+        return;
+      }
       this.updateSlidesSubscription = this.adminService.updateSlides(this.selectedID,slidesForm.value).subscribe((data: any)=>{
         const msg = "slide has been updated";
         const color = 'green';
@@ -119,7 +125,7 @@ export class AdminSlidesEntryComponent implements OnInit, OnDestroy, deactivateI
         const msg = error.message;
         const color = 'red';
         this.showShortMsg(msg,color);
-      })
+      });
     }
     else{
       if(!this.checkDuplicate(slidesForm.value.imageText,this.slides)){
