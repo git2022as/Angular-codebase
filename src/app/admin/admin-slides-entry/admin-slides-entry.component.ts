@@ -25,6 +25,8 @@ export class AdminSlidesEntryComponent implements OnInit, OnDestroy, deactivateI
   buttonText: string = "Continue";
   slides: Array<any>;
   selectedID: string = "";
+  slidesHeader = ["Slides' Name", "Slides' Details", "Actions"];
+  slidesTableDataSet = [];
   @ViewChild("shortContainer", { read: ViewContainerRef }) shortContainer: any = ViewContainerRef;
   @ViewChild("slidesForm", {read: NgForm}) slidesForm: any;
 
@@ -55,6 +57,7 @@ export class AdminSlidesEntryComponent implements OnInit, OnDestroy, deactivateI
       return products;
     })).subscribe(((res: any)=>{
       this.slides = res;
+      this.slidesTableDataSet = [...this.slides];
     }));
   }
 

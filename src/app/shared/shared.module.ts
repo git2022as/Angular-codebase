@@ -23,6 +23,7 @@ import { AdminLoginModalComponent } from './admin-login-modal/admin-login-modal.
 import { SpinnerComponent } from './spinner/spinner.component';
 import { ForgotPasswordComponent } from './forgot-password/forgot-password.component';
 import { PaginationComponent } from './pagination/pagination.component';
+import { AdminTableComponent } from './admin-table/admin-table.component';
 /* pipe module */
 import { PipeModule } from '../pipes/pipe.module';
 /* ngx-bootstrap modal*/
@@ -60,7 +61,8 @@ import { MatSelectModule } from '@angular/material/select';
     AdminLoginModalComponent,
     SpinnerComponent,
     ForgotPasswordComponent,
-    PaginationComponent
+    PaginationComponent,
+    AdminTableComponent
   ],
   imports: [
     CommonModule,
@@ -99,7 +101,8 @@ import { MatSelectModule } from '@angular/material/select';
     AdminLoginModalComponent,
     SpinnerComponent,
     ForgotPasswordComponent,
-    PaginationComponent
+    PaginationComponent,
+    AdminTableComponent
   ],
   providers: [IndividualCartPipe]
 })

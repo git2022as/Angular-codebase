@@ -3,7 +3,7 @@ import { StaticDialogNgxBootstrapComponent } from '../shared/static-dialog-mater
 import { BsModalService, BsModalRef, ModalOptions } from 'ngx-bootstrap/modal';
 import { AppCacheService } from './app.cache.service';
 import { DataService } from './data.service';
-import { StaticMsg } from '../constants/constant';
+import { StaticMsg, staticValue } from '../constants/constant';
 
 @Injectable({
     providedIn: 'root'
@@ -79,5 +79,82 @@ export class CommonService {
         }
         this.bsModalRef = this.openStaticModal(initialState);
         return this.bsModalRef;
+    }
+
+    /* pagination function */
+    //call from component
+    loadPagination(data: Array<any>, perPageData?: number, curretPage?: number): Array<any>{
+        let arr = [];
+        let startIndex = 0;
+        let endIndex = 5;
+
+        if(!curretPage)
+            curretPage = 1;
+        if(!perPageData)
+            perPageData = staticValue.paginationPerPageConstant;
+
+        if(curretPage == 1){
+            startIndex = 0;
+            endIndex = perPageData;
+        }
+        else{
+            endIndex = (curretPage*perPageData) > data.length ? data.length : (curretPage*perPageData);
+            startIndex = perPageData*(curretPage-1);
+        }
+
+        if(data.length > 0){
+            arr = [...data].slice(startIndex,endIndex);
+        }
+        return arr;
+    }
+
+    //call from pagination component
+    totalNoOfPage(data: Array<any>, perPageData?: number): number{
+        let totalPages = 0;
+        const len = data.length;
+        if(len > 0 && perPageData > 0)
+            totalPages = Math.ceil(len/perPageData);
+        return totalPages;
+    }
+
+    //call to check pagination icon/button status
+    getPaginationButtonStatus(totalNoOfPage: number, currentPage: number): any{
+        let obj = {
+            first: false,
+            previous: false,
+            next: false,
+            last: false
+        }
+
+        if(currentPage == totalNoOfPage){
+            if(currentPage == 1){
+                obj.first = true;
+                obj.previous = true;
+                obj.next = true;
+                obj.last = true;
+            }
+            else{
+                obj.first = false;
+                obj.previous = false;
+                obj.next = true;
+                obj.last = true;
+            }
+        }
+        else{
+            if(currentPage == 1){
+                obj.first = true;
+                obj.previous = true;
+                obj.next = false;
+                obj.last = false;
+            }
+            else{
+                obj.first = false;
+                obj.previous = false;
+                obj.next = false;
+                obj.last = false;
+            }
+        }
+
+        return obj;
     }
 }

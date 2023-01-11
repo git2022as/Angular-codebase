@@ -47,7 +47,8 @@ export const staticValue = {
         'rgb(50 7 7)',
         'rgb(122 97 171)',
         'rgb(22 205 234)'
-    ]
+    ],
+    paginationPerPageConstant : 5
 }
 
 export const tokenUrL = {

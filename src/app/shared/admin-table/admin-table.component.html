@@ -1,0 +1,27 @@
+<div class="row ml-0">
+    <table class="mt-2 admin-block-table">
+        <thead>
+            <tr>
+                <th *ngFor="let header of adminHeader; let i = index;">
+                    {{header}}
+                </th>
+            </tr>
+        </thead>
+        <tr *ngFor="let each of adminTableDataSet; let i = index;">
+            <td>
+                {{each[adminFirstColumnVariable]}}
+            </td>
+            <td>
+                {{each[adminSecondColumnVariable]}}
+            </td>
+            <td>
+                <span class="material-icons admin-icons" style="color: deeppink;margin:7px; font-size: 20px;" (click)="deleteItem(each)"> 
+                    delete
+                </span>
+                <span class="material-icons admin-icons" style="color: deeppink;margin:7px; font-size: 20px;" (click)="editItem(each)"> 
+                    edit
+                </span>
+            </td>
+        </tr>
+    </table>
+</div>

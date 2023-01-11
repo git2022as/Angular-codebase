@@ -5,6 +5,7 @@ import { AdminService } from '../admin.service';
 import { ShortMessageComponent } from 'src/app/shared/short-message/short-message.component';
 import { deactivateInterface } from 'src/app/interface/project.interface';
 import { StaticMsg } from 'src/app/constants/constant';
+import { CommonService } from 'src/app/services/common.service';
 
 @Component({
   selector: 'app-admin-dish-entry',
@@ -25,10 +26,13 @@ export class AdminDishEntryComponent implements OnInit, OnDestroy, deactivateInt
   dishIngradient: string;
   addDishesSubscriptiton: Subscription | undefined;
   dishes: Array<any>;
+  paginationDishes: Array<any>;
+  dishHeader = ["Dish's Name","Dish's Price", "Actions"];
   @ViewChild("shortContainer", { read: ViewContainerRef }) shortContainer: any = ViewContainerRef;
   @ViewChild("dishForm", {read: NgForm}) dishForm: any;
 
-  constructor(private adminService: AdminService) { }
+  constructor(private adminService: AdminService,
+              private commonService: CommonService) { }
 
   ngOnInit(): void {
     this.getDishes();
@@ -53,7 +57,24 @@ export class AdminDishEntryComponent implements OnInit, OnDestroy, deactivateInt
       return products;
     })).subscribe(((res: any)=>{
       this.dishes = res;
+      this.paginationDishes = this.commonService.loadPagination(this.dishes);
     }))
+  }
+
+  deleteDish(each: any): void{
+
+  }
+
+  editDish(each: any): void{
+
+  }
+
+  _perPageSelectionChanged(value: number): void{
+    this.paginationDishes = this.commonService.loadPagination(this.dishes, value);
+  }
+
+  _paginationButtonChangedEvent(event: any): void{
+    this.paginationDishes = this.commonService.loadPagination(this.dishes, event.perPageSelection, event.currentPage);
   }
 
   ngOnDestroy(): void {

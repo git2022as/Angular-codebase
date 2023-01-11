@@ -40,39 +40,7 @@
             </div>
             <div class="col-md-7 col-xs-12 mt-2 mb-3 admin-block-border">
                 <div class="mb-2" style="font-size: 16px; color: #3f51b5; font-weight: 600;">Avaialable Slides</div>
-                <div class="row ml-0">
-                    <table class="mt-3 admin-block-table">
-                        <thead>
-                            <tr>
-                                <th>
-                                    ID
-                                </th>
-                                <th>
-                                    Slides Name
-                                </th>
-                                <th>
-                                    Actions
-                                </th>
-                            </tr>
-                        </thead>
-                        <tr *ngFor="let each of slides; let i = index;">
-                            <td>
-                                {{i+1}}
-                            </td>
-                            <td>
-                                {{each.altText}}
-                            </td>
-                            <td>
-                                <span class="material-icons admin-icons" style="color: deeppink;margin:7px; font-size: 20px;" (click)="deleteSlide(each)"> 
-                                    delete
-                                </span>
-                                <span class="material-icons admin-icons" style="color: deeppink;margin:7px; font-size: 20px;" (click)="editSlides(each)"> 
-                                    edit
-                                </span>
-                            </td>
-                        </tr>
-                    </table>
-                </div>
+                <app-admin-table [adminHeader]="slidesHeader" [adminTableDataSet]="slidesTableDataSet" adminFirstColumnVariable="altText" adminSecondColumnVariable="imageText" (deleteClickedEvent)="deleteSlide($event)" (editClickedEvent)="editSlides($event)"></app-admin-table>
             </div>
         </div>
     </div>

@@ -1,3 +1,9 @@
+@import "../../../variable";
+
 .pagination-select{
-    width: 65px;
+    width: 100%;
+}
+
+.pagination-icon-active{
+    color: $pink !important;
 }

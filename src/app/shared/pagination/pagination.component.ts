@@ -1,20 +1,84 @@
-import { Component, OnInit, Input } from '@angular/core';
+import { Component, OnInit, Input, Output, EventEmitter, OnChanges, SimpleChanges } from '@angular/core';
+import { CommonService } from 'src/app/services/common.service';
+import { staticValue } from 'src/app/constants/constant';
+import { outputAst } from '@angular/compiler';
 
 @Component({
   selector: 'app-pagination',
   templateUrl: './pagination.component.html',
   styleUrls: ['./pagination.component.scss']
 })
-export class PaginationComponent implements OnInit {
 
-  @Input() totalNoOfPage : number = 0;
-  @Input() currentPage: number = 0;
-  perPageSelection: number = 5;
+export class PaginationComponent implements OnInit, OnChanges {
+
+  @Input() currentDataSet: Array<any>;
+  totalNoOfPage : number = 0;
+  currentPage: number = 1;
+  perPageSelection: number = staticValue.paginationPerPageConstant;
+  @Output() perPageSelectionChangedEvent = new EventEmitter<any>();
+  @Output() paginationButtonChangedEvent = new EventEmitter<any>();
+  paginationButton = {
+    first: false,
+    previous: false,
+    next: false,
+    last: false
+  };
+
   perPageOptions = [5,10,15,20];
 
-  constructor() { }
+  constructor(private commonService: CommonService) { }
 
   ngOnInit(): void {
+    this.pageCalculation();
+    this.pageButtonCalculation();
+  }
+
+  //it is called on page load or when dish array dataset changes
+  //it starts with first page always
+  pageCalculation(): void{
+    this.totalNoOfPage = this.commonService.totalNoOfPage(this.currentDataSet, this.perPageSelection);
+  }
+
+  pageButtonCalculation(): void{
+    this.paginationButton = this.commonService.getPaginationButtonStatus(this.totalNoOfPage, this.currentPage);
+  }
+
+  ngOnChanges(changes: SimpleChanges): void {
+    this.pageCalculation();
+    this.pageButtonCalculation();
+  }
+
+  goToFirst(): void{
+    this.currentPage = 1;
+    this.pageButtonCalculation();
+    this.paginationButtonChangedEvent.emit({currentPage: this.currentPage, perPageSelection: this.perPageSelection});
+  }
+
+  goToPrevious(): void{
+    this.currentPage --;
+    this.pageButtonCalculation();
+    this.paginationButtonChangedEvent.emit({currentPage: this.currentPage, perPageSelection: this.perPageSelection});
+  }
+
+  goToNext(): void{
+    this.currentPage ++;
+    this.pageButtonCalculation();
+    this.paginationButtonChangedEvent.emit({currentPage: this.currentPage, perPageSelection: this.perPageSelection});
+  }
+
+  goToLast(): void{
+    this.currentPage = this.totalNoOfPage;
+    this.pageButtonCalculation();
+    this.paginationButtonChangedEvent.emit({currentPage: this.currentPage, perPageSelection: this.perPageSelection});
+  }
+
+  perSelectionChange(event): void{
+    this.pageCalculation();
+    this.currentPage = 1;
+    console.log(event.value);
+    this.perPageSelection = event.value;
+    this.pageButtonCalculation();
+    this.perPageSelectionChangedEvent.emit(event.value);
   }
 
 }

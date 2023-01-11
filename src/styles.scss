@@ -15,6 +15,7 @@
     color: $white;
     background-color: $snack-back-color;
     padding: 10px;
+    align-items: center;
 }
 
 .heading{
@@ -54,7 +55,7 @@ table.admin-block-table tr {
   
 table.admin-block-table{
     th, td{
-        padding: 2px;
+        padding: 3px;
         text-align: center;
     }
 } 
@@ -121,5 +122,10 @@ table.admin-block-table th {
     justify-content: end;
     background-color: $white;
     flex-direction: row;
+    align-items: center;
+}
+
+.pagination-icon{
+    width:20px;
 }
 
