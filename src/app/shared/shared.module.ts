@@ -22,6 +22,7 @@ import { GoToTopComponent } from './go-to-top/go-to-top.component';
 import { AdminLoginModalComponent } from './admin-login-modal/admin-login-modal.component';
 import { SpinnerComponent } from './spinner/spinner.component';
 import { ForgotPasswordComponent } from './forgot-password/forgot-password.component';
+import { PaginationComponent } from './pagination/pagination.component';
 /* pipe module */
 import { PipeModule } from '../pipes/pipe.module';
 /* ngx-bootstrap modal*/
@@ -36,6 +37,7 @@ import { MatCardModule } from '@angular/material/card';
 import { MatInputModule } from '@angular/material/input';
 import { MatRadioModule } from '@angular/material/radio';
 import { MatCheckboxModule } from '@angular/material/checkbox';
+import { MatSelectModule } from '@angular/material/select';
 
 @NgModule({
   declarations: [
@@ -57,7 +59,8 @@ import { MatCheckboxModule } from '@angular/material/checkbox';
     GoToTopComponent,
     AdminLoginModalComponent,
     SpinnerComponent,
-    ForgotPasswordComponent
+    ForgotPasswordComponent,
+    PaginationComponent
   ],
   imports: [
     CommonModule,
@@ -73,7 +76,8 @@ import { MatCheckboxModule } from '@angular/material/checkbox';
     ReactiveFormsModule,
     TooltipModule.forRoot(),
     MatRadioModule,
-    MatCheckboxModule
+    MatCheckboxModule,
+    MatSelectModule
   ],
   exports: [
     SignUpModalComponent,
@@ -94,7 +98,8 @@ import { MatCheckboxModule } from '@angular/material/checkbox';
     GoToTopComponent,
     AdminLoginModalComponent,
     SpinnerComponent,
-    ForgotPasswordComponent
+    ForgotPasswordComponent,
+    PaginationComponent
   ],
   providers: [IndividualCartPipe]
 })

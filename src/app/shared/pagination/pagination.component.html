@@ -1,0 +1,29 @@
+<div class="pagination mt-3 mb-3 p-2">
+    <div class="col-3 pl-0">Items per page:</div>
+    <div class="col-3 pl-0">
+        <mat-form-field appearance="fill" class="pagination-select">
+            <mat-select [(ngModel)]="perPageSelection" name="perPageSelection">
+              <mat-option *ngFor="let page of perPageOptions" [value]="page">
+                {{page}}
+              </mat-option>
+            </mat-select>
+        </mat-form-field>
+    </div>
+    <div class="col-3 pl-0">
+        Page {{currentPage}} of {{totalNoOfPage}}
+    </div>
+    <div class="col-3 p-0">
+        <span class="material-icons admin-icons" style="color: deeppink;margin-right:5px; font-size: 20px;"> 
+            skip_previous
+        </span>
+        <span class="material-icons admin-icons" style="color: deeppink;margin-right:5px; font-size: 20px;"> 
+            navigate_before
+        </span>
+        <span class="material-icons admin-icons" style="color: deeppink;margin-right:5px; font-size: 20px;"> 
+            navigate_next
+        </span>
+        <span class="material-icons admin-icons" style="color: deeppink;margin-right:5px; font-size: 20px;"> 
+            skip_next
+        </span>
+    </div>
+</div>

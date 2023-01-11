@@ -78,6 +78,9 @@ table.admin-block-table th {
     .modal-form{
         width:100%;
     }
+    .pagination{
+        flex-direction: column !important;
+    }
 }
 
 @media screen and (min-width: 768px) {
@@ -109,5 +112,17 @@ table.admin-block-table th {
 
 .modal-form{
     width:100%;
+}
+
+.pagination{
+    width: 100%;
+    font-size: 12px;
+    height: auto;
+    border: 1px solid $white;
+    border-radius: 5px;
+    display: flex;
+    justify-content: end;
+    background-color: $white;
+    flex-direction: row;
 }
 
