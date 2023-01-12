@@ -4,6 +4,8 @@ import { BsModalRef, BsModalService, ModalOptions } from 'ngx-bootstrap/modal';
 import { SignUpModalComponent } from '../sign-up/signUp-modal.component';
 import { AuthService } from 'src/app/services/auth.service';
 import { ForgotPasswordComponent } from '../forgot-password/forgot-password.component';
+import { signInResponse } from 'src/app/interface/project.interface';
+import { map, mergeMap, take } from 'rxjs/operators';
 
 @Component({
   selector: 'app-login-modal',
@@ -22,7 +24,13 @@ export class LoginModalComponent implements OnInit {
   forgotEmailAdd: string;
   loginSuccessStatus: boolean = false;
   forgotPassForm: any;
-  
+  login: any = {
+    uid: '',
+    email: '',
+    token: ''
+  };
+  profile: any = {};
+
   @ViewChild("loginPass", {static: true}) loginPass : ElementRef;
 
   constructor(
@@ -33,89 +41,41 @@ export class LoginModalComponent implements OnInit {
 
   ngOnInit(): void {}
 
+  /*write API Calls, get details & send back to Header components with eventEmitter
+      call Login API => take token & uid
+      call Cart API => get user based cart details
+      call Profile API => user based profile details
+      send CART, PROFILE & LOGIN array to Header (Parent) component
+  /*********** loginAPI **************/
   submitForm(data?: NgForm): void {
     console.log(data.value);
-    /*write API Calls, get details & send back to Header components with eventEmitter
-      call Login API => take token
-      call Cart API
-      call Profile API
-      send CART, PROFILE & WISHLIST array to Header (Parent) component
-    */
-    /*********** loginAPI **************/
-    this.authService.getLogin(data.value).then((res: any)=>{
-      console.log("Login Data " +  JSON.stringify(res));
-      this.loginFailedStatus = false;
-      this.loginMsg = "";
-      const login = {
-        uid: res.user.uid ? res.user.uid : "",
-        email: res.user.email ? res.user.email : "",
-        name: res.user.displayName ? res.user.displayName : "",
-        refreshToken: res.user.refreshToken ? res.user.refreshToken : ""
+    this.authService.getLogin(data.value).pipe(map((res: signInResponse)=>{
+    this.loginFailedStatus = false;
+    this.loginMsg = "";
+    this.login.uid = res.localId ? res.localId : "";
+    this.login.email = res.email ? res.email : "";
+    this.login.token = res.idToken ? res.idToken : ""; "";
+    return res;
+    }),
+    //CART API with MERGEMAP
+    mergeMap(res => this.authService.getFromCart(res.localId)),take(1)).pipe(map((data: any)=>{
+      console.log("data after add to cart " + data);
+      let cart = [];
+      for(let key in data){
+        if(data.hasOwnProperty(key))
+          cart.push({...data[key], cartID: key});
       }
-      //sample PROFILE API
-      const profile = {
-        name: 'Sudipta Sil',
-        phone: '9830997610',
-        member: 'silver',
-        email: 'sudipta.sil.2000@gmail.com',
-        deliveryAddress: [],
+      return cart;
+    })).subscribe((cart: any)=>{
+      if(cart){
+        this.loginClicked.emit({profile: this.profile, cart: cart, login: this.login});
       }
-      //sample CART API
-      const cart = [];
-      //send CART, PROFILE, TOKEN to Header (Parent) component
-      this.loginClicked.emit({profile: profile, cart: cart, login: login});
     },
-    ((error: any)=>{
+    (error: any)=>{
       this.loginFailedStatus = true;
       this.loginMsg = error.message;
-    }));
-  
-    /*const cart = [
-      {
-        quantity: 2,
-        tprice: 360,
-        addOn: [
-          {name: 'Extra Cheese', value: false, extraPrice: 20},
-          {name: 'Oliv Oil Cooking ', value: false, extraPrice: 30},
-        ],
-        itemId: 1,
-      },
-      {
-        quantity: 2,
-        tprice: 400,
-        addOn: [
-          {name: 'Extra Cheese', value: false, extraPrice: 20},
-          {name: 'Oliv Oil Cooking ', value: false, extraPrice: 30},
-        ],
-        itemId: 2,
-      },
-      {
-        quantity: 1,
-        tprice: 200,
-        addOn: [
-          {name: 'Extra Cheese', value: false, extraPrice: 20},
-          {name: 'Oliv Oil Cooking ', value: false, extraPrice: 30},
-        ],
-        itemId: 3,
-      },
-      {
-        quantity: 3,
-        tprice: 750,
-        addOn: [
-          {name: 'Extra Cheese', value: false, extraPrice: 20},
-          {name: 'Oliv Oil Cooking ', value: false, extraPrice: 30},
-        ],
-        itemId: 4,
-      }
-    ]*/
-  }
-
-  /*getOtp(data: NgForm): void {
-    //get otp API call => to get 6 digits random SMS
-    const minm = 100000
-    const maxm = 999999
-    this.otp = Math.floor(Math.random() * (maxm - minm + 1)) + minm
-  }*/
+    });
+  };
 
   openForgotPassModal(): void{
     this.bsModalRef.hide();

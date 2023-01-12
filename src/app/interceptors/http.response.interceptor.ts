@@ -1,5 +1,5 @@
 import { Injectable } from "@angular/core";
-import { HttpInterceptor, HttpRequest, HttpHandler, HttpEvent, HttpEventType, HttpResponse } from "@angular/common/http";
+import { HttpInterceptor, HttpRequest, HttpHandler, HttpEvent, HttpEventType, HttpResponse, HttpErrorResponse } from "@angular/common/http";
 import { Observable, tap, catchError, of, throwError, map } from "rxjs";
 import { CommonService } from "../services/common.service";
 import { BsModalRef, ModalOptions } from 'ngx-bootstrap/modal';
@@ -22,13 +22,14 @@ export class HttpResponseInterceptor implements HttpInterceptor{
                         this.commonService.hideSpinner();
                         console.log("Response from interceptor");
                         console.log(event);
-                    },2000)
+                    },2000) 
                 }
             }),
-            catchError((error: any)=>{
+            catchError((error: HttpErrorResponse)=>{
                 this.commonService.hideSpinner();
                 //controlling HTTP ERROR GLOBALLY from INTERCEPTOR & showing an error modal
-                this.openCommonErrorModal(error.message);
+                const err = error?.error?.error?.message ? error?.error?.error?.message : error.message;
+                this.openCommonErrorModal(err);
                 return throwError(error);
             })
         )

@@ -5,14 +5,14 @@ import { Pipe, PipeTransform } from '@angular/core';
 })
 export class CartProductQuantityPipe implements PipeTransform {
 
-  transform(itemId: number, product: Array<any>): string {
-    let pQuantity: string = "";
+  transform(id: number, product: Array<any>): string {
+    let dishQuantity: string = "";
     product.forEach(res =>{
-      if(res.itemId == itemId){
-        pQuantity = res.productQuantity;
+      if(res.id == id){
+        dishQuantity = res.dishQuantity;
       }
     });
-    return pQuantity;
+    return dishQuantity;
   }
 
 }

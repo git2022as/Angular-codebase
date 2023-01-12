@@ -1,4 +1,4 @@
-<div class="row ml-0">
+<div class="">
     <table class="mt-2 admin-block-table">
         <thead>
             <tr>
@@ -7,7 +7,7 @@
                 </th>
             </tr>
         </thead>
-        <tr *ngFor="let each of adminTableDataSet; let i = index;">
+        <tr *ngFor="let each of _adminTableDataSet; let i = index;">
             <td>
                 {{each[adminFirstColumnVariable]}}
             </td>

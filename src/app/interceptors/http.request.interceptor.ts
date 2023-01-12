@@ -14,10 +14,9 @@ export class HttpRequestInterceptor implements HttpInterceptor{
 
     intercept(req: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
         //get token id which we get after login
-        const API_KEY = this.appCacheService._refreshToken? this.appCacheService._refreshToken : ""; 
         //for testing only
+        const API_KEY = this.appCacheService._token? this.appCacheService._token : ""; 
         const TEST_KEY = "Test";
-        //modify the request
         let urlPresentCount = false;
         let newReq;
 
@@ -33,23 +32,19 @@ export class HttpRequestInterceptor implements HttpInterceptor{
                     testKey: TEST_KEY
                 }
             });
+            return next.handle(newReq);
         }
         else{
-            newReq = req.clone({
-                setHeaders: {
-                    apiKey: API_KEY,  
-                    testkey: TEST_KEY
-                }
-            });
+            return next.handle(req);
         }
 
         //another way of modifying headers
-        newReq = newReq.clone({
+        /*newReq = newReq.clone({
             headers: newReq.headers.append('auth','test')
-        })
+        })*/
 
-        return next.handle(newReq);
-        
+        /* TESTING ENDS HERE */
+
     }
     
 }

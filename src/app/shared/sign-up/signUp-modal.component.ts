@@ -4,6 +4,8 @@ import { BsModalRef } from 'ngx-bootstrap/modal';
 import { FormGroup, FormControl, Validators, FormBuilder } from '@angular/forms';
 import { customValidator } from 'src/app/validator/custom.validator';
 import { AuthService } from 'src/app/services/auth.service';
+import { CommonService } from 'src/app/services/common.service';
+import { signUpResponse } from 'src/app/interface/project.interface';
 
 @Component({
   selector: 'app-signUp-modal',
@@ -26,7 +28,8 @@ export class SignUpModalComponent implements OnInit {
 
   constructor(public bsModalRef: BsModalRef, 
               private fb: FormBuilder,
-              private authService: AuthService) { }
+              private authService: AuthService,
+              public commonService: CommonService) { }
 
   ngOnInit(): void { 
     this.createSignUpForm();
@@ -53,18 +56,18 @@ export class SignUpModalComponent implements OnInit {
 
   signUpFormClicked(data:FormGroup): void{
     console.log(data.value);
-    this.authService.createUser(data.value).then((res: any)=>{
+    this.authService.createUser(data.value).subscribe((res: signUpResponse)=>{
       console.log("registration done " + JSON.stringify(res));
       this.signUpFailedStatus = false;
       this.signUpSuccessStatus = true;
       this.SignUpMsg = "Sign Up is Successful";
       setTimeout(()=>{
         this.signUpSuccessfulEvent.emit(true);
-      },3000);
+      },2000);
     },
     (error: any)=>{
-      this.signUpFailedStatus = true;
-      this.SignUpMsg = error.message;
+      //this.signUpFailedStatus = true;
+      //this.SignUpMsg = error.message;
     })
   }
 

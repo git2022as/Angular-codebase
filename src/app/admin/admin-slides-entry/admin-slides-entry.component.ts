@@ -21,17 +21,19 @@ export class AdminSlidesEntryComponent implements OnInit, OnDestroy, deactivateI
   imageText: string;
   addSlidesSubscriptiton: Subscription | undefined;
   updateSlidesSubscription: Subscription | undefined;
+  deleteSlideSubscription: Subscription | undefined;
   editMode: boolean = false;
   buttonText: string = "Continue";
   slides: Array<any>;
   selectedID: string = "";
   slidesHeader = ["Slides' Name", "Slides' Details", "Actions"];
-  slidesTableDataSet = [];
+  paginationSlide : Array<any>;
+
   @ViewChild("shortContainer", { read: ViewContainerRef }) shortContainer: any = ViewContainerRef;
   @ViewChild("slidesForm", {read: NgForm}) slidesForm: any;
 
   constructor(private adminService: AdminService,
-              private commonService: CommonService,
+              public commonService: CommonService,
               private bsModalRef: BsModalRef) { }
 
   ngOnInit(): void {
@@ -39,7 +41,7 @@ export class AdminSlidesEntryComponent implements OnInit, OnDestroy, deactivateI
   }
 
   canExit(): boolean{
-    if(this.slidesForm.form.touched && (this.slidesForm.form.valid || this.slidesForm.form.invalid)){
+    if(this.slidesForm.form.valid || this.slidesForm.form.dirty){
       return confirm(StaticMsg.adminDeActivateMsg);
     }
     else{
@@ -57,8 +59,16 @@ export class AdminSlidesEntryComponent implements OnInit, OnDestroy, deactivateI
       return products;
     })).subscribe(((res: any)=>{
       this.slides = res;
-      this.slidesTableDataSet = [...this.slides];
+      this.paginationSlide = this.commonService.loadPagination(this.slides);;
     }));
+  }
+
+  _perPageSelectionChanged(value: number): void{
+    this.paginationSlide = this.commonService.loadPagination(this.slides, value);
+  }
+
+  _paginationButtonChangedEvent(event: any): void{
+    this.paginationSlide = this.commonService.loadPagination(this.slides, event.perPageSelection, event.currentPage);
   }
 
   editSlides(each: any): void{
@@ -66,6 +76,10 @@ export class AdminSlidesEntryComponent implements OnInit, OnDestroy, deactivateI
     this.editMode = true;
     this.selectedID = each.id;
     this.buttonText = "Update";
+    this.updateBlankForm(each);
+  }
+
+  updateBlankForm(each: any): void{
     this.imageSource = each.imageSource;
     this.altText = each.altText;
     this.imageText = each.imageText;
@@ -77,7 +91,7 @@ export class AdminSlidesEntryComponent implements OnInit, OnDestroy, deactivateI
     this.bsModalRef = this.commonService.openConfirmationModal(content,title);
     this.bsModalRef.content.primaryButtonConfirmationEvent.subscribe((res: any) => {
       //when user confirms, call delete functionality
-      this.adminService.deleteSlide(each.id).subscribe((res: any)=>{
+      this.deleteSlideSubscription = this.adminService.deleteSlide(each.id).subscribe((res: any)=>{
         this.bsModalRef.hide();
         const msg = "slide has been deleted";
         const color = 'green';
@@ -92,11 +106,6 @@ export class AdminSlidesEntryComponent implements OnInit, OnDestroy, deactivateI
     });
   }
 
-  ngOnDestroy(): void {
-    this.addSlidesSubscriptiton?.unsubscribe();
-    this.updateSlidesSubscription?.unsubscribe();
-  }
-
   checkDuplicate(value,arr): boolean{
     let dup = false;
     arr.forEach((x)=>{if(x.imageText.toUpperCase() == value.toUpperCase())
@@ -108,7 +117,7 @@ export class AdminSlidesEntryComponent implements OnInit, OnDestroy, deactivateI
   slidesFormSubmit(slidesForm: NgForm): void{
     if(this.editMode){
       //when edit mode is ON, call the update functionality
-      if(slidesForm.untouched){
+      if(!slidesForm.dirty){
         const msg = "It seems, you haven't changed any value yet";
         const color = 'orange';
         this.showShortMsg(msg,color);
@@ -170,6 +179,12 @@ export class AdminSlidesEntryComponent implements OnInit, OnDestroy, deactivateI
 
   removeShortMsg(): void{
     this.shortContainer.clear();
+  }
+
+  ngOnDestroy(): void {
+    this.addSlidesSubscriptiton?.unsubscribe();
+    this.updateSlidesSubscription?.unsubscribe();
+    this.deleteSlideSubscription?.unsubscribe();
   }
 
 }

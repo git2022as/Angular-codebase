@@ -2,18 +2,18 @@
     <div class="mb-3">
         <div class="cart-overview row p-2 m-0">
             <div class="col-md-2 col-3 p-0">
-                <img src="{{cart?.itemId | cartImage : productDetails}}" class="cart-image" alt="{{cart?.itemId | cartImageAlt : productDetails}}">
+                <img src="{{cart?.id | cartImage : productDetails}}" class="cart-image" alt="{{cart?.id | cartImageAlt : productDetails}}">
             </div>
             <div class="cart-value col-md-7 col-9">
                 <div>
-                    <b style="font-size: 20px;">{{cart?.itemId | cartName : productDetails}}</b><!--name-->
+                    <b style="font-size: 20px;">{{cart?.id | cartName : productDetails}}</b><!--name-->
                 </div>
                 <div class="cart-secondary-font mb-1">
-                    {{cart?.itemId | cartDescription : productDetails}}<!--description-->
+                    {{cart?.id | cartDescription : productDetails}}<!--description-->
                 </div>
                 <div class="cart-origin-quantity cart-secondary-font mb-1">
-                    <div>{{cart?.itemId | cartOrigin : productDetails}}/</div><!--origin-->
-                    <div>Qty: {{cart?.itemId | cartProductQuantity : productDetails}}</div><!--product quantity-->
+                    <div>{{cart?.id | cartOrigin : productDetails}}/</div><!--origin-->
+                    <div>Qty: {{cart?.id | cartProductQuantity : productDetails}}</div><!--product quantity-->
                 </div>
                 <div class="cart-secondary-font mb-1" style="font-family: inherit !important;">
                     <section class="cart-extra-section">
@@ -25,17 +25,17 @@
                     </div>
                 </div>
                 <div>
-                    <span><img src="assets/images/rupee.png" width="14px" height="15px"><span><b>{{cart?.tprice}} </b><span class="cart-secondary-font">(Each Item Cost - <img src="assets/images/rupee.png" width="14px" height="15px">{{cart?.itemId | cartItemOriginalPrice : productDetails}})</span></span></span>
+                    <span><img src="assets/images/rupee.png" width="14px" height="15px"><span><b>{{cart?.tprice}} </b><span class="cart-secondary-font">(Each Item Cost - <img src="assets/images/rupee.png" width="14px" height="15px">{{cart?.id | cartItemOriginalPrice : productDetails}})</span></span></span>
                 </div>
             </div>
             <div class="col-md-3 col-xs-12 cart-button-section">      
                 <mat-card-actions class="offer-button-class">
-                    <span class="material-icons" style="color: #3f51b5;margin:7px" (click)="addItem(cart)"> 
-                        add_circle
-                    </span>
-                    <span style="font-size: 18px;color: #555353; position: relative; top: -5px;">{{cart?.quantity}}</span>
                     <span class="material-icons" style="color: #3f51b5;margin:7px" (click)="removeItem(cart)"> 
                         do_not_disturb_on
+                    </span>
+                    <span style="font-size: 18px;color: #555353; position: relative; top: -5px;">{{cart?.quantity}}</span>
+                    <span class="material-icons" style="color: #3f51b5;margin:7px" (click)="addItem(cart)"> 
+                        add_circle
                     </span>
                 </mat-card-actions>
                 <mat-card-actions>

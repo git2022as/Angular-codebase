@@ -5,14 +5,14 @@ import { Pipe, PipeTransform } from '@angular/core';
 })
 export class CartOriginPipe implements PipeTransform {
 
-  transform(itemId: number, product: Array<any>): string {
-    let origin: string = "";
+  transform(id: number, product: Array<any>): string {
+    let dishOrigin: string = "";
     product.forEach(res =>{
-      if(res.itemId == itemId){
-        origin = res.origin;
+      if(res.id == id){
+        dishOrigin = res.dishOrigin;
       }
     });
-    return origin;
+    return dishOrigin;
   }
 
 }

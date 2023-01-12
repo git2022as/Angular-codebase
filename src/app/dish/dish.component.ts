@@ -8,6 +8,7 @@ import { ProductAddOnComponent } from '../shared/product-add-on/product-add-on.c
 import { DataService } from 'src/app/services/data.service';
 import { UtilityService } from '../services/utility.service';
 import { StaticMsg } from '../constants/constant';
+import { AuthService } from '../services/auth.service';
 
 @Component({
   selector: 'app-dish',
@@ -30,7 +31,8 @@ export class DishComponent implements OnInit {
               public bsModalRef: BsModalRef,
               private bsModalService: BsModalService,
               private dataService: DataService,
-              private utilityService: UtilityService
+              private utilityService: UtilityService,
+              private authService: AuthService
               ) { }
 
   ngOnInit(): void {
@@ -87,11 +89,26 @@ export class DishComponent implements OnInit {
           "quantity": 1,
           "addOn": res.addOn,
           "tprice": res.total,
-          "itemId": productDetails.id
+          "id": productDetails.id
         }
-        this.appCacheService._cartDetails.push(cartObject);
-        this.dataService.UPDATE_CART_COUNT.next(true);
-        this.availableIncart = false;
+        const uid = this.appCacheService.UID;
+        if(uid != ""){
+          this.authService.addToCart(uid, cartObject).subscribe((res: any)=>{
+            if(res){
+              console.log("data after add to cart " + res);
+              const updatedCartObject = {cartID: res.name, ...cartObject};
+              this.appCacheService._cartDetails.push(updatedCartObject);
+              this.dataService.UPDATE_CART_COUNT.next(true);
+              this.availableIncart = false;
+            }
+          });
+        }
+        else{
+          //show error when UID is missing
+          //show error modal
+          const errorMsg = StaticMsg.uidMissingError;
+          this.commonService.openErrorModal(errorMsg);
+        }
       });
     }
     else{
@@ -117,16 +134,32 @@ export class DishComponent implements OnInit {
       const title = StaticMsg.removeFromCartTitle;
       this.bsModalRef = this.commonService.openConfirmationModal(content,title);
       this.bsModalRef.content.primaryButtonConfirmationEvent.subscribe((res: any) => {
-        //User clicked remove from cart option
-        this.bsModalRef.hide();
+        //User clicked remove cart option
+        //call CART API DELETE OPERATION
+        const uid = this.appCacheService.UID;
         let ind = 0;
+        let cartID;
         this.appCacheService._cartDetails.forEach((each, index) =>{
-          if(each.itemId == productDetails.itemId)
+          if(each.id == productDetails.id){
             ind = index;
+            cartID = each.cartID;
+          }
         });
-        this.appCacheService._cartDetails.splice(ind,1);
-        this.dataService.UPDATE_CART_COUNT.next(true);
-        this.availableIncart = true;
+        if(uid != ""){
+          this.authService.deleteDishFromCart(uid, cartID).subscribe((res: any)=>{
+            console.log("remove from cart API " + res);
+            this.appCacheService._cartDetails.splice(ind,1);
+            this.dataService.UPDATE_CART_COUNT.next(true);
+            this.availableIncart = true;
+          });
+        }
+        else{
+          //show error when UID is missing
+          //show error modal
+          const errorMsg = StaticMsg.uidMissingError;
+          this.commonService.openErrorModal(errorMsg);
+        }
+        this.bsModalRef.hide();
       });
     }
   }

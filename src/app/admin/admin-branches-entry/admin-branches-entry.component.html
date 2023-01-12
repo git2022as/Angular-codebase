@@ -5,11 +5,14 @@
         <hr style="border-top: 1.5px solid #23222221;">
         <div class="admin-block-sections">
             <div class="col-md-5 col-xs-12 mt-2 mb-3">
-                <div class="mb-2" style="font-size: 16px; color: #3f51b5; font-weight: 600;">Create Branch</div>
+                <div class="mb-2" style="font-size: 16px; color: #3f51b5; font-weight: 600;">Create/Update Branch</div>
                 <form #branchesForm="ngForm" style="display: grid;font-size: 14px;">
                     <mat-form-field class="mb-2">
                         <mat-label>Branch Location</mat-label>
                         <input matInput type="text" maxlength="20" ngModel #location="ngModel" name="branchLocation" [required]=true [(ngModel)]="branchLocation">
+                        <button matSuffix mat-icon-button aria-label="Clear" style="color: deeppink;" tooltip="Example: Kasba (location of branch)" placement="auto" (click)="commonService.clickDisabled($event)">
+                            <mat-icon>info</mat-icon>
+                        </button>
                         <button *ngIf="branchLocation" matSuffix mat-icon-button aria-label="Clear" (click)="branchLocation = ''">
                             <mat-icon>close</mat-icon>
                         </button>
@@ -18,6 +21,9 @@
                     <mat-form-field class="mb-2">
                         <mat-label>Branch's Pincode</mat-label>
                         <input matInput type="text" maxlength="6" minlength="6" ngModel #locPin="ngModel" pattern="[0-9]+$" name="branchPin" [required]=true [(ngModel)]="branchPin">
+                        <button matSuffix mat-icon-button aria-label="Clear" style="color: deeppink;" tooltip="Example: 700107 (location's pin code)" placement="auto" (click)="commonService.clickDisabled($event)">
+                            <mat-icon>info</mat-icon>
+                        </button>
                         <button *ngIf="branchPin" matSuffix mat-icon-button aria-label="Clear" (click)="branchPin = null">
                             <mat-icon>close</mat-icon>
                         </button>
@@ -26,6 +32,9 @@
                     <mat-form-field class="mb-2">
                         <mat-label>Location Image</mat-label>
                         <input matInput type="text" ngModel #locImg="ngModel" maxlength="40" name="locationImage" [required]=true [(ngModel)]="locationImage">
+                        <button matSuffix mat-icon-button aria-label="Clear" style="color: deeppink;" tooltip="Example: kasba.jpg (just give image name & extension)" placement="auto" (click)="commonService.clickDisabled($event)">
+                            <mat-icon>info</mat-icon>
+                        </button>
                         <button *ngIf="locationImage" matSuffix mat-icon-button aria-label="Clear" (click)="locationImage = ''">
                             <mat-icon>close</mat-icon>
                         </button>
@@ -33,7 +42,10 @@
                     </mat-form-field>
                     <mat-form-field class="mb-2">
                         <mat-label>Location's Contact</mat-label>
-                        <input matInput type="text" ngModel #locContact="ngModel" maxlength="10" minlength="10" name="locationContact" [required]=true [(ngModel)]="locationContact" pattern="[0-9]+$" tooltip="exp: 1234567890" placement="auto">
+                        <input matInput type="text" ngModel #locContact="ngModel" maxlength="10" minlength="10" name="locationContact" [required]=true [(ngModel)]="locationContact" pattern="[0-9]+$">
+                        <button matSuffix mat-icon-button aria-label="Clear" style="color: deeppink;" tooltip="Example: 9163123456 (just give 10 digits branch's contact number)" placement="auto" (click)="commonService.clickDisabled($event)">
+                            <mat-icon>info</mat-icon>
+                        </button>
                         <button *ngIf="locationContact" matSuffix mat-icon-button aria-label="Clear" (click)="locationContact = null">
                             <mat-icon>close</mat-icon>
                         </button>
@@ -41,7 +53,10 @@
                     </mat-form-field>
                     <mat-form-field class="mb-2">
                         <mat-label>Branch's Timing</mat-label>
-                        <input matInput type="text" ngModel #locTiming="ngModel" maxlength="20" name="locatiomTiming" [required]=true [(ngModel)]="locatiomTiming" tooltip="exp: - 11AM - 11PM" placement="auto">
+                        <input matInput type="text" ngModel #locTiming="ngModel" maxlength="20" name="locatiomTiming" [required]=true [(ngModel)]="locatiomTiming">
+                        <button matSuffix mat-icon-button aria-label="Clear" style="color: deeppink;" tooltip="Example: 11AM - 11PM (opening time - closing time)" placement="auto" (click)="commonService.clickDisabled($event)">
+                            <mat-icon>info</mat-icon>
+                        </button>
                         <button *ngIf="locatiomTiming" matSuffix mat-icon-button aria-label="Clear" (click)="locatiomTiming = ''">
                             <mat-icon>close</mat-icon>
                         </button>
@@ -49,45 +64,15 @@
                     </mat-form-field>
                 </form>
                 <div class="admin-block-button-section">
-                    <button mat-raised-button style="margin-right: 1rem" color="primary" (click)="branchesFormSubmit(branchesForm)" [disabled]="branchesForm.invalid">Continue</button>
+                    <button mat-raised-button style="margin-right: 1rem" color="primary" (click)="branchesFormSubmit(branchesForm)" [disabled]="branchesForm.invalid">{{buttonText}}</button>
+                    <button *ngIf="editMode" mat-raised-button style="margin-right: 1rem" (click)="editMode = false;branchesForm.resetForm();buttonText = 'Update';selectedID=''">Cancel</button>
                     <button mat-raised-button (click)="branchesFormReset(branchesForm)" [disabled]="branchesForm.untouched">Reset</button>
                 </div>
             </div>
             <div class="col-md-7 col-xs-12 mt-2 mb-3 admin-block-border">
                 <div class="mb-2" style="font-size: 16px; color: #3f51b5; font-weight: 600;">Avaialable Branches</div>
-                <div class="row ml-0">
-                    <table class="mt-3 admin-block-table">
-                        <thead>
-                            <tr>
-                                <th>
-                                    ID
-                                </th>
-                                <th>
-                                    Branch's Name
-                                </th>
-                                <th>
-                                    Actions
-                                </th>
-                            </tr>
-                        </thead>
-                        <tr *ngFor="let each of branches; let i = index;">
-                            <td>
-                                {{i+1}}
-                            </td>
-                            <td>
-                                {{each.branchLocation}}
-                            </td>
-                            <td>
-                                <span class="material-icons" style="color: deeppink;margin:7px; font-size: 20px;"> 
-                                    delete
-                                </span>
-                                <span class="material-icons" style="color: deeppink;margin:7px; font-size: 20px;"> 
-                                    edit
-                                </span>
-                            </td>
-                        </tr>
-                    </table>
-                </div>
+                <app-admin-table [adminHeader]="branchesHeader" [adminTableDataSet]="paginationBranch" adminFirstColumnVariable="branchLocation" adminSecondColumnVariable="locationContact" (deleteClickedEvent)="deleteSlide($event)" (editClickedEvent)="editSlides($event)"></app-admin-table>
+                <app-pagination *ngIf="branches" [currentDataSet]="branches" (perPageSelectionChangedEvent)="_perPageSelectionChanged($event)" (paginationButtonChangedEvent)="_paginationButtonChangedEvent($event)"></app-pagination>
             </div>
         </div>
     </div>

@@ -28,7 +28,8 @@ export const StaticMsg = {
     logoutConfirmationText: "Are you sure want to logout?",
     logoutConfirmationTitle: "Logout",
     deleteItemConfirmationText: "Are you sure want to delete the item?",
-    deleteItemConfirmationTitle: "Delete Item"
+    deleteItemConfirmationTitle: "Delete Item",
+    uidMissingError: "We are not able to add this dish into the cart. Please try again later."
 } as const;
 
 export const staticValue = {
@@ -58,4 +59,10 @@ export const tokenUrL = {
         'dishes.json',
         'offers.json'
     ]
+}
+
+export const firebaseAPI = {
+    APIKey: "AIzaSyDcutmqTaP7lZ_oULyv3_hEIeWmfanBfzY",
+    signUpUrl: "https://identitytoolkit.googleapis.com/v1/accounts:signUp?key=",
+    signInUrl: "https://identitytoolkit.googleapis.com/v1/accounts:signInWithPassword?key="
 }

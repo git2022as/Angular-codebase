@@ -7,7 +7,7 @@ import { Injectable } from "@angular/core";
 export class AppCacheService {
     loggedInUser: boolean = false;
     UID: string = "";
-    refreshToken: string = "";
+    token: string = "";
     loggedInUserName: string = "";
     loggedInUserEmail: string = "";
     dishesDetails: Array<any> = [];
@@ -27,11 +27,11 @@ export class AppCacheService {
         return this.loggedInUser;
     }
 
-    set _refreshToken(token: string){
-        this.refreshToken = token;
+    set _token(token: string){
+        this.token = token;
     }
-    get _refreshToken(): string{
-        return this.refreshToken;
+    get _token(): string{
+        return this.token;
     }
 
     set _loggedInUserName(name: string){

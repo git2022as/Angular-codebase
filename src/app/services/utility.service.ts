@@ -54,7 +54,7 @@ export class UtilityService {
           val = true;
         else{
           this.appCacheService._cartDetails.forEach(each => {
-            if(each.itemId == product.itemId){
+            if(each.id == product.id){
               val = false;
             }
           })

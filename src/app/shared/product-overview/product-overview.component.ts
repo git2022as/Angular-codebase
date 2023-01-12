@@ -7,6 +7,7 @@ import { ProductAddOnComponent } from '../product-add-on/product-add-on.componen
 import { Router } from '@angular/router';
 import { UtilityService } from 'src/app/services/utility.service';
 import { StaticMsg } from 'src/app/constants/constant';
+import { AuthService } from 'src/app/services/auth.service';
 
 @Component({
   selector: 'app-product-overview',
@@ -24,7 +25,8 @@ export class ProductOverviewComponent implements OnInit {
               public bsModalRef: BsModalRef,
               private bsModalService: BsModalService,
               private router: Router,
-              private utilityService: UtilityService) { }
+              private utilityService: UtilityService,
+              private authService: AuthService) { }
 
   ngOnInit(): void {
     this.availableForcart = this.utilityService.checkDishInCart(this.product);
@@ -43,17 +45,33 @@ export class ProductOverviewComponent implements OnInit {
       //code for ADD-ON items
       this.bsModalRef = this.openAddOn(product.dishPrice);
       this.bsModalRef.content.AddOnEvent.subscribe((res: any) => {
-        //code for add to cart after 
+        //code for add to cart after ADD-ON SECTION
+        //Call API to add this value for this user
         this.bsModalRef.hide();
         let cartObject = {
           "quantity": 1,
           "addOn": res.addOn,
           "tprice": res.total,
-          "itemId": product.id
+          "id": product.id
         }
-        this.appCacheService._cartDetails.push(cartObject);
-        this.dataService.UPDATE_CART_COUNT.next(true);
-        this.availableForcart = false;
+        const uid = this.appCacheService.UID;
+        if(uid != ""){
+          this.authService.addToCart(uid, cartObject).subscribe((res: any)=>{
+            if(res){
+              console.log("data after add to cart " + res);
+              const updatedCartObject = {cartID: res.name, ...cartObject};
+              this.appCacheService._cartDetails.push(updatedCartObject);
+              this.dataService.UPDATE_CART_COUNT.next(true);
+              this.availableForcart = false;
+            }
+          });
+        }
+        else{
+          //show error when UID is missing
+          //show error modal
+          const errorMsg = StaticMsg.uidMissingError;
+          this.commonService.openErrorModal(errorMsg);
+        }
       });
     }
     else{
@@ -80,15 +98,31 @@ export class ProductOverviewComponent implements OnInit {
       this.bsModalRef = this.commonService.openConfirmationModal(content,title);
       this.bsModalRef.content.primaryButtonConfirmationEvent.subscribe((res: any) => {
         //User clicked remove cart option
-        this.bsModalRef.hide();
+        //call CART API DELETE OPERATION
+        const uid = this.appCacheService.UID;
         let ind = 0;
+        let cartID;
         this.appCacheService._cartDetails.forEach((each, index) =>{
-          if(each.itemId == product.itemId)
+          if(each.id == product.id){
             ind = index;
+            cartID = each.cartID;
+          }
         });
-        this.appCacheService._cartDetails.splice(ind,1);
-        this.dataService.UPDATE_CART_COUNT.next(true);
-        this.availableForcart = true;
+        if(uid != ""){
+          this.authService.deleteDishFromCart(uid, cartID).subscribe((res: any)=>{
+            console.log("remove from cart API " + res);
+            this.appCacheService._cartDetails.splice(ind,1);
+            this.dataService.UPDATE_CART_COUNT.next(true);
+            this.availableForcart = true;
+          });
+        }
+        else{
+          //show error when UID is missing
+          //show error modal
+          const errorMsg = StaticMsg.uidMissingError;
+          this.commonService.openErrorModal(errorMsg);
+        }
+        this.bsModalRef.hide();
       });
     }
   }

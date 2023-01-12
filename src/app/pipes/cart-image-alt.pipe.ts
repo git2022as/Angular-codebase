@@ -5,14 +5,14 @@ import { Pipe, PipeTransform } from '@angular/core';
 })
 export class CartImageAltPipe implements PipeTransform {
 
-  transform(itemId: number, product: Array<any>): string {
-    let alt: string = "";
+  transform(id: number, product: Array<any>): string {
+    let dishImageText: string = "";
     product.forEach(res =>{
-      if(res.itemId == itemId){
-        alt = res.alt;
+      if(res.id == id){
+        dishImageText = res.dishImageText;
       }
     });
-    return alt;
+    return dishImageText;
   }
 
 }

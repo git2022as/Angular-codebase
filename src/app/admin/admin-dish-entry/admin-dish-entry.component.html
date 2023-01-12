@@ -5,19 +5,24 @@
         <hr style="border-top: 1.5px solid #23222221;">
         <div class="admin-block-sections">
             <div class="col-md-5 col-xs-12 mt-2 mb-3">
-                <div class="mb-2" style="font-size: 16px; color: #3f51b5; font-weight: 600;">Create Dish</div>
+                <div class="mb-2" style="font-size: 16px; color: #3f51b5; font-weight: 600;">Create/Update Dish</div>
                 <form #dishForm="ngForm" style="display: grid;font-size: 14px;">
                     <!--Dish Name-->
                     <mat-form-field class="mb-2">
                         <mat-label>Dish Name</mat-label>
                         <input matInput type="text" maxlength="60" ngModel #dName="ngModel" name="dishName" [required]=true [(ngModel)]="dishName">
+                        <button matSuffix mat-icon-button aria-label="Clear" style="color: deeppink;" tooltip="Example: Paneer Tikka Kebab (name of the dish)" placement="auto" (click)="commonService.clickDisabled($event)">
+                            <mat-icon>info</mat-icon>
+                        </button>
                         <button *ngIf="dishName" matSuffix mat-icon-button aria-label="Clear" (click)="dishName = ''">
                             <mat-icon>close</mat-icon>
                         </button>
                         <mat-error *ngIf="dName.touched && dName.invalid">Enter a valid dish name</mat-error>
                     </mat-form-field>
                     <!--Origin-->
-                    <div style="font-weight: 600;">Dish Origin Details (Veg/Non-Veg)*</div>
+                    <div style="font-weight: 600;">Dish Origin Details (Veg/Non-Veg)* 
+                        <mat-icon style="color: deeppink;font-size: 14px;cursor: pointer;" tooltip="Select dish category as Veg or Non-Veg" placement="auto" (click)="commonService.clickDisabled($event)">info</mat-icon>
+                    </div>
                     <mat-radio-group
                     aria-labelledby="dish-origin-radio-group-label"
                     class="admin-dish-origin-radio-group"
@@ -34,6 +39,9 @@
                     <mat-form-field class="mb-2">
                         <mat-label>Dish Image</mat-label>
                         <input matInput type="text" ngModel #dImg="ngModel" maxlength="40" name="dishImage" [required]=true [(ngModel)]="dishImage">
+                        <button matSuffix mat-icon-button aria-label="Clear" style="color: deeppink;" tooltip="Example: paneer-tikka-small.png (just give image name & extension)" placement="auto" (click)="commonService.clickDisabled($event)">
+                            <mat-icon>info</mat-icon>
+                        </button>
                         <button *ngIf="dishImage" matSuffix mat-icon-button aria-label="Clear" (click)="dishImage = ''">
                             <mat-icon>close</mat-icon>
                         </button>
@@ -43,6 +51,9 @@
                     <mat-form-field class="mb-2">
                         <mat-label>Dish Image Text</mat-label>
                         <input matInput type="text" ngModel #dImgText="ngModel" maxlength="40" name="dishImageText" [required]=true [(ngModel)]="dishImageText">
+                        <button matSuffix mat-icon-button aria-label="Clear" style="color: deeppink;" tooltip="Example: paneer-tikka (if image not available, this will be the text value)" placement="auto" (click)="commonService.clickDisabled($event)">
+                            <mat-icon>info</mat-icon>
+                        </button>
                         <button *ngIf="dishImageText" matSuffix mat-icon-button aria-label="Clear" (click)="dishImageText = ''">
                             <mat-icon>close</mat-icon>
                         </button>
@@ -52,6 +63,9 @@
                     <mat-form-field class="mb-2">
                         <mat-label>Dish Description</mat-label>
                         <textarea matInput type="text" ngModel #dDesc="ngModel" maxlength="300" name="dishDesc" [required]=true [(ngModel)]="dishDesc"></textarea>
+                        <button matSuffix mat-icon-button aria-label="Clear" style="color: deeppink;" tooltip="Example: paneer-tikka is a delicious dish..... upto 300 characters" placement="auto" (click)="commonService.clickDisabled($event)">
+                            <mat-icon>info</mat-icon>
+                        </button>
                         <button *ngIf="dishDesc" matSuffix mat-icon-button aria-label="Clear" (click)="dishDesc = ''">
                             <mat-icon>close</mat-icon>
                         </button>
@@ -65,11 +79,17 @@
                             {{quantity}}
                           </mat-option>
                         </mat-select>
+                        <button matSuffix mat-icon-button aria-label="Clear" style="color: deeppink;" tooltip="Example: 5 (No of pieces for this dish from 1 to 10)" placement="auto" (click)="commonService.clickDisabled($event)">
+                            <mat-icon style="font-size: 14px;">info</mat-icon>
+                        </button>
                     </mat-form-field>
                     <!--Dish Price-->
                     <mat-form-field class="mb-2">
                         <mat-label>Dish Price</mat-label>
                         <input matInput type="text" maxlength="3" minlength="3" ngModel #dPrice="ngModel" pattern="[0-9]+$" name="dishPrice" [required]=true [(ngModel)]="dishPrice">
+                        <button matSuffix mat-icon-button aria-label="Clear" style="color: deeppink;" tooltip="Example: 280 (each dish's price)" placement="auto" (click)="commonService.clickDisabled($event)">
+                            <mat-icon>info</mat-icon>
+                        </button>
                         <button *ngIf="dishPrice" matSuffix mat-icon-button aria-label="Clear" (click)="dishPrice = null">
                             <mat-icon>close</mat-icon>
                         </button>
@@ -78,7 +98,10 @@
                     <!--Dish Add On-->
                     <mat-form-field class="mb-2">
                         <mat-label>Dish Complementary</mat-label>
-                        <input matInput type="text" ngModel #dComplementary="ngModel" maxlength="40" name="dishComplementary" [(ngModel)]="dishComplementary" tooltip="If nothing to add, type NA" placement="auto" tooltip="example: green chatni & meyonnaise" placement="auto">
+                        <input matInput type="text" ngModel #dComplementary="ngModel" maxlength="40" name="dishComplementary" [(ngModel)]="dishComplementary">
+                        <button matSuffix mat-icon-button aria-label="Clear" style="color: deeppink;" tooltip="example: green chatni & meyonnaise (if nothing to add, please leave this field blank)" placement="auto"(click)="commonService.clickDisabled($event)">
+                            <mat-icon>info</mat-icon>
+                        </button>
                         <button *ngIf="dishComplementary" matSuffix mat-icon-button aria-label="Clear" (click)="dishComplementary = ''">
                             <mat-icon>close</mat-icon>
                         </button>
@@ -87,52 +110,58 @@
                     <!--Dish Ingradient-->
                     <mat-form-field class="mb-2">
                         <mat-label>Dish Ingradients</mat-label>
-                        <textarea matInput type="text" ngModel #dIngradient="ngModel" maxlength="300" name="dishIngradient" [required]=true tooltip="exp: Paneer - 200g,Onion - 30g,Masala - 100g,Butter - 10g" placement="auto" [(ngModel)]="dishIngradient"></textarea>
+                        <textarea matInput type="text" ngModel #dIngradient="ngModel" maxlength="300" name="dishIngradient" [required]=true [(ngModel)]="dishIngradient"></textarea>
+                        <button matSuffix mat-icon-button aria-label="Clear" style="color: deeppink;" tooltip="Example: Paneer - 200g,Onion - 30g (ingradient name - used weight)" placement="auto" (click)="commonService.clickDisabled($event)">
+                            <mat-icon>info</mat-icon>
+                        </button>
                         <button *ngIf="dishIngradient" matSuffix mat-icon-button aria-label="Clear" (click)="dishIngradient = ''">
                             <mat-icon>close</mat-icon>
                         </button>
                         <mat-error *ngIf="dIngradient.touched && dIngradient.invalid">Enter allmajor ingradient details</mat-error>
                     </mat-form-field>
                     <!--Dish Calorie Details-->
-                    <div style="font-weight: 600;">Dish Calorie Details (in mg/100g)*</div>
+                    <div style="font-weight: 600;">Dish Calorie Details (in mg/100g)*
+                        <mat-icon style="color: deeppink;font-size: 14px;cursor: pointer;" tooltip="Example: 10 (give number & the value means mg/100g)" placement="auto" (click)="commonService.clickDisabled($event)">info</mat-icon>
+                    </div>
                     <mat-form-field class="mb-2">
                         <mat-label>Fat</mat-label>
-                        <input matInput type="text" ngModel #dFat="ngModel" maxlength="3" minlength="1" name="dishFat" [required]=true pattern="[0-9]+$" tooltip="example: 10" placement="auto">
+                        <input matInput type="text" ngModel #dFat="ngModel" maxlength="3" minlength="1" name="dishFat" [(ngModel)]="dishFat" [required]=true pattern="[0-9]+$" tooltip="example: 10" placement="auto">
                         <mat-error *ngIf="dFat.touched && dFat.invalid">Enter Fat details</mat-error>
                     </mat-form-field>
                     <mat-form-field class="mb-2">
                         <mat-label>Cholesterol</mat-label>
-                        <input matInput type="text" ngModel #dCholesterol="ngModel" maxlength="3" minlength="1" name="dishCholesterol" [required]=true pattern="[0-9]+$" tooltip="example: 10" placement="auto">
+                        <input matInput type="text" ngModel #dCholesterol="ngModel" maxlength="3" minlength="1" name="dishCholesterol" [(ngModel)]="dishCholesterol" [required]=true pattern="[0-9]+$" tooltip="example: 10" placement="auto">
                         <mat-error *ngIf="dCholesterol.touched && dCholesterol.invalid">Enter Cholesterol details</mat-error>
                     </mat-form-field>
                     <mat-form-field class="mb-2">
                         <mat-label>Sodium</mat-label>
-                        <input matInput type="text" ngModel #dSodium="ngModel" maxlength="3" minlength="1" name="dishSodium" [required]=true pattern="[0-9]+$" tooltip="example: 10" placement="auto">
+                        <input matInput type="text" ngModel #dSodium="ngModel" maxlength="3" minlength="1" name="dishSodium" [required]=true [(ngModel)]="dishSodium" pattern="[0-9]+$" tooltip="example: 10" placement="auto">
                         <mat-error *ngIf="dSodium.touched && dSodium.invalid">Enter Sodium details</mat-error>
                     </mat-form-field>
                     <mat-form-field class="mb-2">
                         <mat-label>Carbohydrate</mat-label>
-                        <input matInput type="text" ngModel #dCarbohydrate="ngModel" maxlength="3" minlength="1" name="dishCarbohydrate" [required]=true pattern="[0-9]+$" tooltip="example: 10" placement="auto">
+                        <input matInput type="text" ngModel #dCarbohydrate="ngModel" maxlength="3" minlength="1" name="dishCarbohydrate" [required]=true [(ngModel)]="dishCarbohydrate" pattern="[0-9]+$" tooltip="example: 10" placement="auto">
                         <mat-error *ngIf="dCarbohydrate.touched && dCarbohydrate.invalid">Enter Carbohydrate details</mat-error>
                     </mat-form-field>
                     <mat-form-field class="mb-2">
                         <mat-label>Protein</mat-label>
-                        <input matInput type="text" ngModel #dProtein="ngModel" maxlength="3" minlength="1" name="dishProtein" [required]=true pattern="[0-9]+$" tooltip="example: 10" placement="auto">
+                        <input matInput type="text" ngModel #dProtein="ngModel" maxlength="3" minlength="1" name="dishProtein" [required]=true [(ngModel)]="dishProtein" pattern="[0-9]+$" tooltip="example: 10" placement="auto">
                         <mat-error *ngIf="dProtein.touched && dProtein.invalid">Enter Protein details</mat-error>
                     </mat-form-field>
                     <mat-form-field class="mb-2">
                         <mat-label>Calcium</mat-label>
-                        <input matInput type="text" ngModel #dCalcium="ngModel" maxlength="3" minlength="1" name="dishCalcium" [required]=true pattern="[0-9]+$" tooltip="example: 10" placement="auto">
+                        <input matInput type="text" ngModel #dCalcium="ngModel" maxlength="3" minlength="1" name="dishCalcium" [required]=true [(ngModel)]="dishCalcium" pattern="[0-9]+$" tooltip="example: 10" placement="auto">
                         <mat-error *ngIf="dCalcium.touched && dCalcium.invalid">Enter Calcium details</mat-error>
                     </mat-form-field>
                     <mat-form-field class="mb-2">
                         <mat-label>Potassium</mat-label>
-                        <input matInput type="text" ngModel #dPotassium="ngModel" maxlength="3" minlength="1" name="dishPotassium" [required]=true pattern="[0-9]+$" tooltip="example: 10" placement="auto">
+                        <input matInput type="text" ngModel #dPotassium="ngModel" maxlength="3" minlength="1" name="dishPotassium" [required]=true [(ngModel)]="dishPotassium" pattern="[0-9]+$" tooltip="example: 10" placement="auto">
                         <mat-error *ngIf="dPotassium.touched && dPotassium.invalid">Enter Potassium details</mat-error>
                     </mat-form-field>
                 </form>
                 <div class="admin-block-button-section">
-                    <button mat-raised-button style="margin-right: 1rem" color="primary" (click)="dishFormSubmit(dishForm)" [disabled]="dishForm.invalid">Continue</button>
+                    <button mat-raised-button style="margin-right: 1rem" color="primary" (click)="dishFormSubmit(dishForm)" [disabled]="dishForm.invalid">{{buttonText}}</button>
+                    <button *ngIf="editMode" mat-raised-button style="margin-right: 1rem" (click)="editMode = false;dishForm.resetForm();buttonText = 'Update';selectedID=''">Cancel</button>
                     <button mat-raised-button (click)="dishFormReset(dishForm)" [disabled]="dishForm.untouched">Reset</button>
                 </div>
             </div>

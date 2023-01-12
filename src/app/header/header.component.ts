@@ -36,6 +36,11 @@ export class HeaderComponent implements OnInit {
   }
 
   subscribeDataService(): void{
+    //check for login from local storage
+    const userdata = JSON.parse(localStorage.getItem('userData'));
+    if(userdata){
+      this.manageLoginState(userdata);
+    }
     this.dataService.UPDATE_CART_COUNT.subscribe((res: boolean) => {
       if(this.appCacheService._cartDetails.length > 0){
         let length = this.appCacheService._cartDetails.length;
@@ -59,15 +64,9 @@ export class HeaderComponent implements OnInit {
     this.bsModalRef.content.loginClicked.subscribe((res: any) => {
       //when login is successful
       if(res.login.uid != ""){
-        this.appCacheService._UID = res?.login?.uid;
-        this.appCacheService._loggedInUser = true;
-        this.appCacheService._refreshToken = res?.login?.refreshToken;
-        this.appCacheService._loggedInUserName = res?.login?.name;
-        this.appCacheService._loggedInUserEmail = res?.login?.email;
-        this.appCacheService._cartDetails = res?.cart;
-        this.appCacheService._profileDetails = res?.profile;
-        this.dataService.UPDATED_DISH.next(true);
-        this.dataService.UPDATE_CART_COUNT.next(true);
+        //save data in localstorage to maintain state
+        localStorage.setItem('userData', JSON.stringify(res));
+        this.manageLoginState(res);
       }
       this.bsModalRef?.hide();
     });
@@ -78,6 +77,18 @@ export class HeaderComponent implements OnInit {
         this.openLoginModal();
       }
     });
+  }
+
+  manageLoginState(res: any): void{
+    this.appCacheService._UID = res?.login?.uid;
+    this.appCacheService._loggedInUser = true;
+    this.appCacheService._token = res?.login?.token;
+    //this.appCacheService._loggedInUserName = res?.login?.name;
+    this.appCacheService._loggedInUserEmail = res?.login?.email;
+    this.appCacheService._cartDetails = res?.cart;
+    this.appCacheService._profileDetails = res?.profile;
+    this.dataService.UPDATED_DISH.next(true);
+    this.dataService.UPDATE_CART_COUNT.next(true);
   }
 
   openSignUpModal(): void{

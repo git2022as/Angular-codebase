@@ -6,14 +6,14 @@ import { ProductOverviewComponent } from '../shared/product-overview/product-ove
 })
 export class CartNamePipe implements PipeTransform {
 
-  transform(itemId: number, product: Array<any>): string {
-    let name: string = "";
+  transform(id: number, product: Array<any>): string {
+    let dishName: string = "";
     product.forEach(res =>{
-      if(res.itemId == itemId){
-        name = res.name;
+      if(res.id == id){
+        dishName = res.dishName;
       }
     });
-    return name;
+    return dishName;
   }
 
 }

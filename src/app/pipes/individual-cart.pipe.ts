@@ -11,8 +11,8 @@ export class IndividualCartPipe implements PipeTransform {
     //find each ttem's price
     let price: number = 0;
     product.forEach(res =>{
-      if(res.itemId == cart.itemId){
-        price = res.price;
+      if(res.id == cart.id){
+        price = res.dishPrice;
       }
     });
 

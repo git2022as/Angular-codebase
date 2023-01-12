@@ -34,7 +34,7 @@ export class CommonService {
             //wehn normal user is logged in
             this.appCacheService._loggedInUser = false;
             this.appCacheService._UID = "";
-            this.appCacheService._refreshToken = "";
+            this.appCacheService._token = "";
             this.appCacheService._loggedInUserName = "";
             this.appCacheService._loggedInUserEmail = "";
             this.appCacheService._cartDetails = [];
@@ -42,6 +42,7 @@ export class CommonService {
             this.appCacheService._dishesDetails = [];
             this.appCacheService._offersDetails = [];
             this.appCacheService._profileDetails = {};
+            localStorage.clear();
         }
     }
 
@@ -79,6 +80,11 @@ export class CommonService {
         }
         this.bsModalRef = this.openStaticModal(initialState);
         return this.bsModalRef;
+    }
+
+    //prevent button icon click 
+    clickDisabled(event: Event): void{
+        event.preventDefault();
     }
 
     /* pagination function */

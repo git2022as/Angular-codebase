@@ -5,6 +5,7 @@ import { staticValue, StaticMsg } from 'src/app/constants/constant';
 import { BsModalRef, BsModalService, ModalOptions } from 'ngx-bootstrap/modal';
 import { CommonService } from 'src/app/services/common.service';
 import { AppCacheService } from 'src/app/services/app.cache.service';
+import { AuthService } from 'src/app/services/auth.service';
 
 @Component({
   selector: 'app-cart-overview',
@@ -26,7 +27,8 @@ export class CartOverviewComponent implements OnInit {
               private bsModalRef: BsModalRef,
               private bsModalService: BsModalService,
               private commonService: CommonService,
-              private appCacheService: AppCacheService) { }
+              private appCacheService: AppCacheService,
+              private authService: AuthService) { }
 
   ngOnInit(): void {
     
@@ -39,8 +41,7 @@ export class CartOverviewComponent implements OnInit {
       this.openMessage(StaticMsg.addQuantity);
     }
     cart.tprice = this.individualCartPipe.transform(cart, this.productDetails);
-    this.dataService.UPDATED_CART.next(this.cartDetails);
-    console.log(this.cartDetails);
+    this.updateCartInDB(cart);
   }
 
   removeItem(cart: any): void{
@@ -50,8 +51,17 @@ export class CartOverviewComponent implements OnInit {
       this.openMessage(StaticMsg.removeQuantity);
     }
     cart.tprice = this.individualCartPipe.transform(cart, this.productDetails);
-    this.dataService.UPDATED_CART.next(this.cartDetails);
-    console.log(this.cartDetails);
+    this.updateCartInDB(cart);
+  }
+
+  updateCartInDB(cart: any): void{
+    const uid = this.appCacheService.UID;
+    this.authService.updateDishOnCart(uid, cart.cartID, cart).subscribe((res: any)=>{
+      if(res){
+        console.log("cart has been updated " + res);
+        this.dataService.UPDATED_CART.next(this.cartDetails);
+      }
+    });
   }
 
   addExtraCheckbox(cart: any): void{
@@ -68,16 +78,23 @@ export class CartOverviewComponent implements OnInit {
     const title = StaticMsg.removeFromCartTitle;
     this.bsModalRef = this.commonService.openConfirmationModal(content,title);
     this.bsModalRef.content.primaryButtonConfirmationEvent.subscribe((res: any) => {
-      //User clicked delete cart option
-      this.bsModalRef.hide();
+      //User clicked remove cart option
+      //call CART API DELETE OPERATION
+      const uid = this.appCacheService.UID;
       let ind = 0;
+      let cartID;
       this.appCacheService._cartDetails.forEach((each, index) =>{
-        if(each.itemId == cart.itemId)
+        if(each.id == cart.id)
           ind = index;
+          cartID = cart.cartID;
       });
-      this.appCacheService._cartDetails.splice(ind,1);
-      this.dataService.UPDATED_CART.next(this.cartDetails);
-      this.dataService.UPDATE_CART_COUNT.next(true);
+      this.authService.deleteDishFromCart(uid, cartID).subscribe((res: any)=>{
+        console.log("remove from cart API " + res);
+        this.appCacheService._cartDetails.splice(ind,1);
+        this.dataService.UPDATED_CART.next(true);
+        this.dataService.UPDATE_CART_COUNT.next(true);
+      });
+      this.bsModalRef.hide();
     });
   }
 

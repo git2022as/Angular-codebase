@@ -10,6 +10,9 @@
                     <mat-form-field class="mb-2">
                         <mat-label>Image Source</mat-label>
                         <input matInput type="text" maxlength="40" ngModel #src="ngModel" name="imageSource" [required]=true [(ngModel)]="imageSource">
+                        <button matSuffix mat-icon-button aria-label="Clear" style="color: deeppink;" tooltip="Example: chicken-slider.png (just give image name & extension)" placement="auto" (click)="commonService.clickDisabled($event)">
+                            <mat-icon>info</mat-icon>
+                        </button>
                         <button *ngIf="imageSource" matSuffix mat-icon-button aria-label="Clear" (click)="imageSource = ''">
                             <mat-icon>close</mat-icon>
                         </button>
@@ -18,6 +21,9 @@
                     <mat-form-field class="mb-2">
                         <mat-label>Alt Text</mat-label>
                         <input matInput type="text" ngModel #alt="ngModel" maxlength="40" name="altText" [required]=true [(ngModel)]="altText">
+                        <button matSuffix mat-icon-button aria-label="Clear" style="color: deeppink;" tooltip="Example: chicken-slider (if image not available, this will be the text value)" placement="auto" (click)="commonService.clickDisabled($event)">
+                            <mat-icon>info</mat-icon>
+                        </button>
                         <button *ngIf="altText" matSuffix mat-icon-button aria-label="Clear" (click)="altText = ''">
                             <mat-icon>close</mat-icon>
                         </button>
@@ -26,6 +32,9 @@
                     <mat-form-field class="mb-2">
                         <mat-label>Image Text</mat-label>
                         <input matInput type="text" ngModel #iText="ngModel" maxlength="60" name="imageText" [required]=true [(ngModel)]="imageText">
+                        <button matSuffix mat-icon-button aria-label="Clear" style="color: deeppink;" tooltip="Example: Delicious Chicken Kebab..... upto 60 characters" placement="auto" (click)="commonService.clickDisabled($event)">
+                            <mat-icon>info</mat-icon>
+                        </button>
                         <button *ngIf="imageText" matSuffix mat-icon-button aria-label="Clear" (click)="imageText = ''">
                             <mat-icon>close</mat-icon>
                         </button>
@@ -40,7 +49,8 @@
             </div>
             <div class="col-md-7 col-xs-12 mt-2 mb-3 admin-block-border">
                 <div class="mb-2" style="font-size: 16px; color: #3f51b5; font-weight: 600;">Avaialable Slides</div>
-                <app-admin-table [adminHeader]="slidesHeader" [adminTableDataSet]="slidesTableDataSet" adminFirstColumnVariable="altText" adminSecondColumnVariable="imageText" (deleteClickedEvent)="deleteSlide($event)" (editClickedEvent)="editSlides($event)"></app-admin-table>
+                <app-admin-table [adminHeader]="slidesHeader" [adminTableDataSet]="paginationSlide" adminFirstColumnVariable="altText" adminSecondColumnVariable="imageText" (deleteClickedEvent)="deleteSlide($event)" (editClickedEvent)="editSlides($event)"></app-admin-table>
+                <app-pagination *ngIf="slides" [currentDataSet]="slides" (perPageSelectionChangedEvent)="_perPageSelectionChanged($event)" (paginationButtonChangedEvent)="_paginationButtonChangedEvent($event)"></app-pagination>
             </div>
         </div>
     </div>

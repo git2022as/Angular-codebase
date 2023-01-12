@@ -43,11 +43,11 @@
         <mat-form-field class="modal-form" [ngClass]="{'mb-4': signUpForm.get('password')?.errors?.emailRequirement}">
             <mat-label>Password</mat-label>
             <input matInput type="password" #pass name="password" formControlName="password">
-            <button *ngIf="signUpForm.get('password')?.value != '' && signUpForm.get('password')?.value != null" matSuffix mat-icon-button aria-label="Clear" (click)="clickDisabled($event)" (mouseenter)="showHidePassword();isVisibility = false;" (mouseleave)="showHidePassword();isVisibility = true;">
+            <button *ngIf="signUpForm.get('password')?.value != '' && signUpForm.get('password')?.value != null" matSuffix mat-icon-button aria-label="Clear" (click)="commonService.clickDisabled($event)" (mouseenter)="showHidePassword();isVisibility = false;" (mouseleave)="showHidePassword();isVisibility = true;">
                 <mat-icon *ngIf="isVisibility" style="color: deeppink">visibility</mat-icon>
                 <mat-icon *ngIf="!isVisibility" style="color: deeppink">visibility_off</mat-icon>
             </button>
-            <button matSuffix mat-icon-button aria-label="Clear" tooltip="Password must have one capital, one number, one special charactaer with 6-10 characters" placement="auto" (click)="clickDisabled($event)">
+            <button matSuffix mat-icon-button aria-label="Clear" style="color: deeppink" tooltip="Password must have one capital, one number, one special charactaer with 6-10 characters" placement="auto" (click)="commonService.clickDisabled($event)">
                 <mat-icon>info</mat-icon>
             </button>
             <button *ngIf="signUpForm.get('password')?.value != '' && signUpForm.get('password')?.value != null" matSuffix mat-icon-button aria-label="Clear" (click)="setValue('password')">
