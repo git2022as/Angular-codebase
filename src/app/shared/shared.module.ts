@@ -24,6 +24,10 @@ import { SpinnerComponent } from './spinner/spinner.component';
 import { ForgotPasswordComponent } from './forgot-password/forgot-password.component';
 import { PaginationComponent } from './pagination/pagination.component';
 import { AdminTableComponent } from './admin-table/admin-table.component';
+import { BreadcrumbComponent } from './breadcrumb/breadcrumb.component';
+import { SearchComponent } from './search/search.component';
+import { FilterPipe } from '../pipes/filter.pipe';
+
 /* pipe module */
 import { PipeModule } from '../pipes/pipe.module';
 /* ngx-bootstrap modal*/
@@ -62,7 +66,9 @@ import { MatSelectModule } from '@angular/material/select';
     SpinnerComponent,
     ForgotPasswordComponent,
     PaginationComponent,
-    AdminTableComponent
+    AdminTableComponent,
+    BreadcrumbComponent,
+    SearchComponent
   ],
   imports: [
     CommonModule,
@@ -102,9 +108,11 @@ import { MatSelectModule } from '@angular/material/select';
     SpinnerComponent,
     ForgotPasswordComponent,
     PaginationComponent,
-    AdminTableComponent
+    AdminTableComponent,
+    BreadcrumbComponent,
+    SearchComponent
   ],
-  providers: [IndividualCartPipe]
+  providers: [IndividualCartPipe, FilterPipe]
 })
 
 export class SharedModule { }

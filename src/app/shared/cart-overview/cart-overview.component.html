@@ -2,14 +2,14 @@
     <div class="mb-3">
         <div class="cart-overview row p-2 m-0">
             <div class="col-md-2 col-3 p-0">
-                <img src="{{cart?.id | cartImage : productDetails}}" class="cart-image" alt="{{cart?.id | cartImageAlt : productDetails}}">
+                <img src="{{cart?.id | cartImage : productDetails}}" (click)="goToDishPage(cart.id)" class="cart-image" alt="{{cart?.id | cartImageAlt : productDetails}}" tooltip="click to go back to dish details page" placement="auto">
             </div>
             <div class="cart-value col-md-7 col-9">
                 <div>
-                    <b style="font-size: 20px;">{{cart?.id | cartName : productDetails}}</b><!--name-->
+                    <span (click)="goToDishPage(cart.id)" class="cartDidhHeading" tooltip="click to go back to dish details page" placement="auto"><b style="font-size: 20px;">{{cart?.id | cartName : productDetails}}</b></span><!--name-->
                 </div>
-                <div class="cart-secondary-font mb-1">
-                    {{cart?.id | cartDescription : productDetails}}<!--description-->
+                <div class="cart-secondary-font mb-1" >
+                    <span>{{cart?.id | cartDescription : productDetails}}</span><!--description-->
                 </div>
                 <div class="cart-origin-quantity cart-secondary-font mb-1">
                     <div>{{cart?.id | cartOrigin : productDetails}}/</div><!--origin-->

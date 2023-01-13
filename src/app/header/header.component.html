@@ -15,7 +15,7 @@
 
             <mat-list-item role="listitem" *ngIf="appCacheService._loggedInUser && !appCacheService._adminLoggedIn">Profiles</mat-list-item>
 
-            <mat-list-item role="listitem" *ngIf="appCacheService._loggedInUser && !appCacheService._adminLoggedIn">Wallet</mat-list-item>
+            <mat-list-item role="listitem" *ngIf="appCacheService._loggedInUser && !appCacheService._adminLoggedIn">Delivery Address</mat-list-item>
 
             <mat-list-item role="listitem" *ngIf="!appCacheService._loggedInUser && !appCacheService._adminLoggedIn" (click)="openSignUpModal()">Sign-Up</mat-list-item>
 

@@ -167,8 +167,9 @@
             </div>
             <div class="col-md-7 col-xs-12 mt-2 mb-3 admin-block-border">
                 <div class="mb-2" style="font-size: 16px; color: #3f51b5; font-weight: 600;">Avaialable Dishes</div>
-                <app-admin-table [adminHeader]="dishHeader" [adminTableDataSet]="paginationDishes" adminFirstColumnVariable="dishName" adminSecondColumnVariable="dishPrice" (deleteClickedEvent)="deleteDish($event)" (editClickedEvent)="editDish($event)"></app-admin-table>
-                <app-pagination *ngIf="dishes" [currentDataSet]="dishes" (perPageSelectionChangedEvent)="_perPageSelectionChanged($event)" (paginationButtonChangedEvent)="_paginationButtonChangedEvent($event)"></app-pagination>
+                <app-search *ngIf="dishes" (searchTextEvent)="_searchTextEvent($event)"></app-search>
+                <app-admin-table *ngIf="dishes" [adminHeader]="dishHeader" [adminTableDataSet]="paginationDishes" adminFirstColumnVariable="dishName" adminSecondColumnVariable="dishPrice" (deleteClickedEvent)="deleteDish($event)" (editClickedEvent)="editDish($event)"></app-admin-table>
+                <app-pagination *ngIf="dishes" [currentDataSet]="filterdDish" (perPageSelectionChangedEvent)="_perPageSelectionChanged($event)" (paginationButtonChangedEvent)="_paginationButtonChangedEvent($event)"></app-pagination>
             </div>
         </div>
     </div>

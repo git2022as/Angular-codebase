@@ -9,6 +9,7 @@ import { CartImageAltPipe } from './cart-image-alt.pipe';
 import { CartImagePipe } from './cart-image.pipe';
 import { CartItemOriginalPricePipe } from './cart-item-original-price.pipe';
 import { ProductDescriptionPipe } from './product-description.pipe';
+import { FilterPipe } from './filter.pipe';
 
 @NgModule({
     declarations: [
@@ -21,7 +22,8 @@ import { ProductDescriptionPipe } from './product-description.pipe';
         CartImageAltPipe,
         CartImagePipe,
         CartItemOriginalPricePipe,
-        ProductDescriptionPipe
+        ProductDescriptionPipe,
+        FilterPipe
     ],
     exports: [
         QuantityPipe,
@@ -33,7 +35,8 @@ import { ProductDescriptionPipe } from './product-description.pipe';
         CartImageAltPipe,
         CartImagePipe,
         CartItemOriginalPricePipe,
-        ProductDescriptionPipe
+        ProductDescriptionPipe,
+        FilterPipe
     ]
 })
 

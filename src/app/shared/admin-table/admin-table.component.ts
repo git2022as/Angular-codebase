@@ -14,6 +14,7 @@ export class AdminTableComponent implements OnInit, OnChanges {
   @Output() deleteClickedEvent = new EventEmitter<any>();
   @Output() editClickedEvent = new EventEmitter<any>();
   _adminTableDataSet = [];
+  searchItem: string = "";
 
   constructor() { }
 

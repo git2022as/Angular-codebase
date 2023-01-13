@@ -7,6 +7,8 @@ import { deactivateInterface } from 'src/app/interface/project.interface';
 import { StaticMsg } from 'src/app/constants/constant';
 import { CommonService } from 'src/app/services/common.service';
 import { BsModalRef } from 'ngx-bootstrap/modal';
+import { staticValue } from 'src/app/constants/constant';
+import { FilterPipe } from 'src/app/pipes/filter.pipe';
 
 @Component({
   selector: 'app-admin-dish-entry',
@@ -41,12 +43,15 @@ export class AdminDishEntryComponent implements OnInit, OnDestroy, deactivateInt
   editMode: boolean = false;
   buttonText: string = "Continue";
   selectedID: string = "";
+  updatedItemsPerPage: number = staticValue.paginationPerPageConstant;
+  filterdDish: Array<any>;
   @ViewChild("shortContainer", { read: ViewContainerRef }) shortContainer: any = ViewContainerRef;
   @ViewChild("dishForm", {read: NgForm}) dishForm: any;
 
   constructor(private adminService: AdminService,
               public commonService: CommonService,
-              private bsModalRef: BsModalRef) { }
+              private bsModalRef: BsModalRef,
+              private filterPipe: FilterPipe) { }
 
   ngOnInit(): void {
     this.getDishes();
@@ -61,7 +66,18 @@ export class AdminDishEntryComponent implements OnInit, OnDestroy, deactivateInt
     }
   }
 
-  getDishes(){
+  _searchTextEvent(event: {searchText: string}): void{
+    let filterdData = [];
+    if(event.searchText == ''){
+      this.filterdDish = [...this.dishes];
+    }
+    else{
+      this.filterdDish = this.filterPipe.transform(this.dishes,event.searchText);
+    }
+    this.paginationDishes = this.commonService.loadPagination(this.filterdDish, this.updatedItemsPerPage);
+  }
+
+  getDishes(): void{
     this.adminService.getDishes().pipe(map((data: any)=>{
       let products = [];
       for(let key in data){
@@ -71,6 +87,7 @@ export class AdminDishEntryComponent implements OnInit, OnDestroy, deactivateInt
       return products;
     })).subscribe(((res: any)=>{
       this.dishes = res;
+      this.filterdDish = [...this.dishes];
       this.paginationDishes = this.commonService.loadPagination(this.dishes);
     }))
   }
@@ -124,11 +141,13 @@ export class AdminDishEntryComponent implements OnInit, OnDestroy, deactivateInt
   }
 
   _perPageSelectionChanged(value: number): void{
-    this.paginationDishes = this.commonService.loadPagination(this.dishes, value);
+    this.updatedItemsPerPage = value;
+    this.paginationDishes = this.commonService.loadPagination(this.filterdDish, value);
   }
 
   _paginationButtonChangedEvent(event: any): void{
-    this.paginationDishes = this.commonService.loadPagination(this.dishes, event.perPageSelection, event.currentPage);
+    this.updatedItemsPerPage = event.perPageSelection;
+    this.paginationDishes = this.commonService.loadPagination(this.filterdDish, event.perPageSelection, event.currentPage);
   }
 
   dishFormSubmit(dishForm: NgForm): void{

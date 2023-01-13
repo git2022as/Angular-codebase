@@ -1,5 +1,5 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
-import { ActivatedRouteSnapshot, ActivatedRoute} from '@angular/router';
+import { ActivatedRoute} from '@angular/router';
 import { AppCacheService } from '../services/app.cache.service';
 import { MatAccordion } from '@angular/material';
 import { CommonService } from 'src/app/services/common.service';

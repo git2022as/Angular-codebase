@@ -7,6 +7,7 @@ import { CommonService } from 'src/app/services/common.service';
 import { AppCacheService } from 'src/app/services/app.cache.service';
 import { AuthService } from 'src/app/services/auth.service';
 import { mergeMap, take, tap, map } from 'rxjs/operators';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-cart-overview',
@@ -29,7 +30,8 @@ export class CartOverviewComponent implements OnInit {
               private bsModalService: BsModalService,
               private commonService: CommonService,
               private appCacheService: AppCacheService,
-              private authService: AuthService) { }
+              private authService: AuthService,
+              private router: Router) { }
 
   ngOnInit(): void {
     
@@ -111,6 +113,10 @@ export class CartOverviewComponent implements OnInit {
       });
       this.bsModalRef.hide();
     });
+  }
+
+  goToDishPage(id: string): void{
+    this.router.navigate(['dish/' + id]);
   }
 
 }
