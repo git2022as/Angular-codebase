@@ -35,9 +35,16 @@ export class AuthService {
     }
 
     //forgot password scenario
-    forgotPassword(value: {forgotEmailAdd: string}): Promise<any>{
+    forgotPassword(value: {forgotEmailAdd: string}): Observable<any>{
         const email = value.forgotEmailAdd;
-        return this.angularFireAuth.sendPasswordResetEmail(email);
+        const requestType = "PASSWORD_RESET";
+        const data = {
+            requestType: requestType,
+            email: email
+        }
+        const url = `${firebaseAPI.resetPassLinkUrl}${firebaseAPI.APIKey}`;
+        return this.http.post(url,data);
+        //return this.angularFireAuth.sendPasswordResetEmail(email);
     }
 
     //cart scenario

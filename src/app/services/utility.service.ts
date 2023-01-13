@@ -1,6 +1,5 @@
 import { Injectable } from "@angular/core";
 import { staticValue } from "../constants/constant";
-import { coupon } from "../constants/constant";
 import { AppCacheService } from "./app.cache.service";
 
 @Injectable({
@@ -10,28 +9,28 @@ import { AppCacheService } from "./app.cache.service";
 export class UtilityService {
     constructor(private appCacheService: AppCacheService){}
 
-    calculateAppDiscount(value: any, totalCartValue: number) {
+    calculateAppDiscount(value: any, totalCartValue: number, coupon: any) {
         let totalDiscount : number = 0;
-        let appDiscountDetails = this.findAppDiscountDetails(value);
-        if(appDiscountDetails.discountPercent){
-            totalDiscount = Number(((totalCartValue*appDiscountDetails.discountAmout)/100).toFixed(2));
+        let appDiscountDetails = this.findAppDiscountDetails(value, coupon);
+        if(appDiscountDetails.couponDiscountMethod == 'percentage'){
+            totalDiscount = Number(((totalCartValue*appDiscountDetails.couponDiscount)/100).toFixed(2));
         }
         else{
-            totalDiscount =  appDiscountDetails.discountAmout;
+            totalDiscount =  appDiscountDetails.couponDiscount;
         }
         return totalDiscount;
     }
 
-    findAppDiscountDetails(value: any): any {
+    findAppDiscountDetails(value: any, coupon): any {
         let a = {};
         if(coupon && Array.isArray(coupon)){
             coupon.forEach(each => {
-                if(value == each.code){
-                    a = {discountPercent: each.discountPercent, discountAmout: each.discountAmout};
+                if(value == each.couponCode){
+                    a = {couponDiscountMethod: each.couponDiscountMethod, couponDiscount: each.couponDiscount};
                 }
             });
-            return a;
         }
+        return a;
     }
 
     calculateCartValue(arr: Array<any>): number {

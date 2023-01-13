@@ -131,14 +131,6 @@ export class AdminDishEntryComponent implements OnInit, OnDestroy, deactivateInt
     this.paginationDishes = this.commonService.loadPagination(this.dishes, event.perPageSelection, event.currentPage);
   }
 
-  checkDuplicate(value,arr): boolean{
-    let dup = false;
-    arr.forEach((x)=>{if(x.dishName.toUpperCase() == value.toUpperCase())
-      {dup = true;}
-    });
-    return dup;
-  }
-
   dishFormSubmit(dishForm: NgForm): void{
     if(this.editMode){
       //when edit mode is ON, call the update functionality
@@ -167,7 +159,7 @@ export class AdminDishEntryComponent implements OnInit, OnDestroy, deactivateInt
       });
     }
     else{
-      if(!this.checkDuplicate(dishForm.value.dishName,this.dishes)){ 
+      if(!this.commonService.checkDuplicate(dishForm.value.dishName,this.dishes, 'dishName')){ 
         let data = {};
         data = this.createDataForAddUpdateCall(dishForm);
         console.log(JSON.stringify(data));
@@ -214,6 +206,9 @@ export class AdminDishEntryComponent implements OnInit, OnDestroy, deactivateInt
 
   dishFormReset(dishForm: NgForm): void{
     dishForm.resetForm();
+    this.editMode = false;
+    this.selectedID = "";
+    this.buttonText = "Continue";
   }
 
   showShortMsg(msg: string, color: string): void{

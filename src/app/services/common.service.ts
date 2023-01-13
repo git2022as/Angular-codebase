@@ -29,6 +29,7 @@ export class CommonService {
         //if admin login is true then logout from admin service only
         if(this.appCacheService._adminLoggedIn){
             this.appCacheService._adminLoggedIn = false;
+            localStorage.removeItem('adminLoggedIn');
         }
         else{
             //wehn normal user is logged in
@@ -85,6 +86,17 @@ export class CommonService {
     //prevent button icon click 
     clickDisabled(event: Event): void{
         event.preventDefault();
+    }
+
+    //admin check duplicate value
+    checkDuplicate(value: string,arr: Array<any>,key: any): boolean{
+        let dup = false;
+        if(arr){
+          arr.forEach((x)=>{if(x[key] == value)
+            {dup = true;}
+          });
+        }
+        return dup;
     }
 
     /* pagination function */

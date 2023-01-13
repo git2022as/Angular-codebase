@@ -9,6 +9,8 @@ import { Observable } from "rxjs";
 export class AdminService {
     constructor(private http: HttpClient) {}
 
+    /*$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$ SLIDES API ##############################*/
+
     /* add slides to firebase database */
     addSlides(slides: {imageSource: string, altText: string, imageText: string}): Observable<any>{
         return this.http.post('https://kebab-house-db7f1-default-rtdb.firebaseio.com/slides.json',slides);
@@ -30,6 +32,8 @@ export class AdminService {
     deleteSlide(id: string): Observable<any>{
         return this.http.delete(`https://kebab-house-db7f1-default-rtdb.firebaseio.com/slides/${id}.json`);
     }
+
+    /*$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$ BRANCHES API ##############################*/
 
     /* add branches to firebase database */
     addBranches(branches: {branchLocation: string, locationImage: string, locationContact: number, locatiomTiming: string, branchPin: number}): Observable<any>{
@@ -53,6 +57,8 @@ export class AdminService {
         return this.http.delete(`https://kebab-house-db7f1-default-rtdb.firebaseio.com/shopLocation/${id}.json`);
     }
 
+    /*$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$ DISH API ##############################*/
+
     /* add dishes to firebase database */
     addDishes(dishes: any): Observable<any>{
         return this.http.post('https://kebab-house-db7f1-default-rtdb.firebaseio.com/dishes.json',dishes);
@@ -73,5 +79,29 @@ export class AdminService {
     /* use DELETE request */
     deleteDish(id: string): Observable<any>{
         return this.http.delete(`https://kebab-house-db7f1-default-rtdb.firebaseio.com/dishes/${id}.json`);
+    }
+
+    /*$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$ COUPONS API ##############################*/
+
+    /* add coupons to firebase database */
+    addCoupons(coupons: {couponCode: string, couponDescription: string, couponDiscountMethod: string, couponDiscount: number}): Observable<any>{
+        return this.http.post('https://kebab-house-db7f1-default-rtdb.firebaseio.com/coupons.json',coupons);
+    }
+
+    /* get coupons from firebase database */
+    getCoupons(): Observable<any>{
+        return this.http.get('https://kebab-house-db7f1-default-rtdb.firebaseio.com/coupons.json');
+    }
+
+    /* update coupons on firebase database */
+    /* use PUT request */
+    updateCoupons(id: string, coupons: {couponCode: string, couponDescription: string, couponDiscountMethod: string, couponDiscount: number}): Observable<any>{
+        return this.http.put(`https://kebab-house-db7f1-default-rtdb.firebaseio.com/coupons/${id}.json`,coupons);
+    }
+
+    /* delete coupons on firebase database */
+    /* use DELETE request */
+    deleteCoupon(id: string): Observable<any>{
+        return this.http.delete(`https://kebab-house-db7f1-default-rtdb.firebaseio.com/coupons/${id}.json`);
     }
 }

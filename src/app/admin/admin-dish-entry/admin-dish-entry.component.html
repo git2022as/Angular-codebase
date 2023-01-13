@@ -6,7 +6,7 @@
         <div class="admin-block-sections">
             <div class="col-md-5 col-xs-12 mt-2 mb-3">
                 <div class="mb-2" style="font-size: 16px; color: #3f51b5; font-weight: 600;">Create/Update Dish</div>
-                <form #dishForm="ngForm" style="display: grid;font-size: 14px;">
+                <form #dishForm="ngForm" style="display: grid;font-size: 14px;" (keydown.enter)="dishFormSubmit(dishForm)">
                     <!--Dish Name-->
                     <mat-form-field class="mb-2">
                         <mat-label>Dish Name</mat-label>
@@ -25,12 +25,12 @@
                     </div>
                     <mat-radio-group
                     aria-labelledby="dish-origin-radio-group-label"
-                    class="admin-dish-origin-radio-group"
+                    class="admin-radio-group"
                     [(ngModel)]="dishOrigin" name="dishOrigin" [required]=true  ngModel #dOrigin="ngModel">
-                        <mat-radio-button class="admin-dish-origin-button" value="Veg">
+                        <mat-radio-button class="admin-radio-button" value="Veg">
                         <span style="white-space: normal;">Veg</span>
                         </mat-radio-button>
-                        <mat-radio-button class="admin-dish-origin-button" value="Non-Veg">
+                        <mat-radio-button class="admin-radio-button" value="Non-Veg">
                         <span style="white-space: normal;">Non-Veg</span>
                         </mat-radio-button>
                         <p *ngIf="dOrigin.touched && dOrigin.invalid">Select the proper origin</p>
@@ -161,7 +161,7 @@
                 </form>
                 <div class="admin-block-button-section">
                     <button mat-raised-button style="margin-right: 1rem" color="primary" (click)="dishFormSubmit(dishForm)" [disabled]="dishForm.invalid">{{buttonText}}</button>
-                    <button *ngIf="editMode" mat-raised-button style="margin-right: 1rem" (click)="editMode = false;dishForm.resetForm();buttonText = 'Update';selectedID=''">Cancel</button>
+                    <button *ngIf="editMode" mat-raised-button style="margin-right: 1rem" (click)="editMode = false;dishForm.resetForm();buttonText = 'Continue';selectedID=''">Cancel</button>
                     <button mat-raised-button (click)="dishFormReset(dishForm)" [disabled]="dishForm.untouched">Reset</button>
                 </div>
             </div>

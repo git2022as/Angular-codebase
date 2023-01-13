@@ -106,14 +106,6 @@ export class AdminSlidesEntryComponent implements OnInit, OnDestroy, deactivateI
     });
   }
 
-  checkDuplicate(value,arr): boolean{
-    let dup = false;
-    arr.forEach((x)=>{if(x.imageText.toUpperCase() == value.toUpperCase())
-      {dup = true;}
-    });
-    return dup;
-  }
-
   slidesFormSubmit(slidesForm: NgForm): void{
     if(this.editMode){
       //when edit mode is ON, call the update functionality
@@ -140,7 +132,7 @@ export class AdminSlidesEntryComponent implements OnInit, OnDestroy, deactivateI
       });
     }
     else{
-      if(!this.checkDuplicate(slidesForm.value.imageText,this.slides)){
+      if(!this.commonService.checkDuplicate(slidesForm.value.imageText,this.slides,'imageText')){
         console.log(slidesForm.value);
         this.addSlidesSubscriptiton = this.adminService.addSlides(slidesForm.value).subscribe((res: any)=>{
           this.getSlides();
@@ -160,6 +152,9 @@ export class AdminSlidesEntryComponent implements OnInit, OnDestroy, deactivateI
 
   slidesFormReset(slidesForm: NgForm): void{
     slidesForm.resetForm();
+    this.editMode = false;
+    this.selectedID = "";
+    this.buttonText = "Continue";
   }
 
   showShortMsg(msg: string, color: string): void{

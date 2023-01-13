@@ -3,21 +3,6 @@ export const cartExtraItems = [
     {name: "Oliv Oil Cooking", extraPrice: 30},
 ] as const;
 
-export const coupon = [
-    {
-        code: "JAN2023",
-        offer: "Flat 10% discount on the final CART value",
-        discountPercent: true,
-        discountAmout: 10
-    },
-    {
-        code: "FLAT300",
-        offer: "Flat 300 INR discount on the final CART value",
-        discountPercent: false,
-        discountAmout: 300
-    }
-] as const;
-
 export const StaticMsg = {
     addQuantity: "You can't buy more than 5 quantities of any dish at a time.",
     removeQuantity: "Atleast one quantity should be added.",
@@ -64,5 +49,6 @@ export const tokenUrL = {
 export const firebaseAPI = {
     APIKey: "AIzaSyDcutmqTaP7lZ_oULyv3_hEIeWmfanBfzY",
     signUpUrl: "https://identitytoolkit.googleapis.com/v1/accounts:signUp?key=",
-    signInUrl: "https://identitytoolkit.googleapis.com/v1/accounts:signInWithPassword?key="
+    signInUrl: "https://identitytoolkit.googleapis.com/v1/accounts:signInWithPassword?key=",
+    resetPassLinkUrl: "https://identitytoolkit.googleapis.com/v1/accounts:sendOobCode?key="
 }

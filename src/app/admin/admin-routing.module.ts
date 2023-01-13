@@ -35,6 +35,7 @@ const adminRoutes: Routes = [
             {
                 path: 'coupons',
                 component: AdminCouponsEntryComponent,
+                canDeactivate: [AdminCanDeactivateGuardService]
             },
             {
                 path: 'branches',

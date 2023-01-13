@@ -87,14 +87,6 @@ export class AdminBranchesEntryComponent implements OnInit, OnDestroy, deactivat
     this.branchPin = each.branchPin;
   }
 
-  checkDuplicate(value,arr): boolean{
-    let dup = false;
-    arr.forEach((x)=>{if(x.branchPin == value)
-      {dup = true;}
-    });
-    return dup;
-  }
-
   deleteSlide(each: any): void{
     const content = StaticMsg.deleteItemConfirmationText;
     const title = StaticMsg.deleteItemConfirmationTitle;
@@ -142,7 +134,7 @@ export class AdminBranchesEntryComponent implements OnInit, OnDestroy, deactivat
       });
     }
     else{
-      if(!this.checkDuplicate(branchesForm.value.branchPin,this.branches)){
+      if(!this.commonService.checkDuplicate(branchesForm.value.branchPin,this.branches,'branchPin')){
         console.log(branchesForm.value);
         this.addBranchesSubscriptiton = this.adminService.addBranches(branchesForm.value).subscribe((res: any)=>{
           this.getBranches();
@@ -162,6 +154,9 @@ export class AdminBranchesEntryComponent implements OnInit, OnDestroy, deactivat
 
   branchesFormReset(branchesForm: NgForm): void{
     branchesForm.resetForm();
+    this.editMode = false;
+    this.selectedID = "";
+    this.buttonText = "Continue";
   }
 
   showShortMsg(msg: string, color: string): void{

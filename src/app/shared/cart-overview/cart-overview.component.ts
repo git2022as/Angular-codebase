@@ -6,6 +6,7 @@ import { BsModalRef, BsModalService, ModalOptions } from 'ngx-bootstrap/modal';
 import { CommonService } from 'src/app/services/common.service';
 import { AppCacheService } from 'src/app/services/app.cache.service';
 import { AuthService } from 'src/app/services/auth.service';
+import { mergeMap, take, tap, map } from 'rxjs/operators';
 
 @Component({
   selector: 'app-cart-overview',
@@ -56,17 +57,32 @@ export class CartOverviewComponent implements OnInit {
 
   updateCartInDB(cart: any): void{
     const uid = this.appCacheService.UID;
-    this.authService.updateDishOnCart(uid, cart.cartID, cart).subscribe((res: any)=>{
+    this.authService.updateDishOnCart(uid, cart.cartID, cart).pipe(tap(res=>{
       if(res){
         console.log("cart has been updated " + res);
-        this.dataService.UPDATED_CART.next(this.cartDetails);
+      }
+    }),
+    mergeMap(res=> this.authService.getFromCart(uid)),take(1)).pipe(map((data: any)=>{
+      let cart = [];
+      for(let key in data){
+        if(data.hasOwnProperty(key))
+          cart.push({...data[key], cartID: key});
+      }
+      return cart;
+    })).subscribe((res: any)=>{
+      if(res){
+        //get updated full cart from backend
+        //update the same in appCachedService & localstorage
+        this.appCacheService._cartDetails = res;
+        localStorage.setItem('cartData', JSON.stringify(res));
+        this.cartTotalEvent.emit({cartUpdated: true});
       }
     });
   }
 
   addExtraCheckbox(cart: any): void{
     cart.tprice = this.individualCartPipe.transform(cart, this.productDetails);
-    this.dataService.UPDATED_CART.next(this.cartDetails);
+    this.updateCartInDB(cart);
   }
 
   openMessage(msg: string) {
@@ -91,7 +107,6 @@ export class CartOverviewComponent implements OnInit {
       this.authService.deleteDishFromCart(uid, cartID).subscribe((res: any)=>{
         console.log("remove from cart API " + res);
         this.appCacheService._cartDetails.splice(ind,1);
-        this.dataService.UPDATED_CART.next(true);
         this.dataService.UPDATE_CART_COUNT.next(true);
       });
       this.bsModalRef.hide();

@@ -6,6 +6,7 @@ import { AuthService } from 'src/app/services/auth.service';
 import { ForgotPasswordComponent } from '../forgot-password/forgot-password.component';
 import { signInResponse } from 'src/app/interface/project.interface';
 import { map, mergeMap, take } from 'rxjs/operators';
+import { CommonService } from 'src/app/services/common.service';
 
 @Component({
   selector: 'app-login-modal',
@@ -36,7 +37,8 @@ export class LoginModalComponent implements OnInit {
   constructor(
     public bsModalRef: BsModalRef,
     private bsModalService: BsModalService,
-    private authService: AuthService
+    private authService: AuthService,
+    public commonService: CommonService
   ) {}
 
   ngOnInit(): void {}

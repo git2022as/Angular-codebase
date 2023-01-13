@@ -19,7 +19,7 @@
 
             <mat-list-item role="listitem" *ngIf="!appCacheService._loggedInUser && !appCacheService._adminLoggedIn" (click)="openSignUpModal()">Sign-Up</mat-list-item>
 
-            <mat-list-item role="listitem" routerLinkActive="active" routerLink="/cart">Cart</mat-list-item>
+            <mat-list-item role="listitem" routerLinkActive="active" routerLink="/cart" *ngIf="!appCacheService._adminLoggedIn">Cart</mat-list-item>
 
             <mat-list-item role="listitem" routerLinkActive="active" *ngIf="!appCacheService._adminLoggedIn && !appCacheService._loggedInUser" (click)="openAdminLoginModal()">Admin</mat-list-item>
 
@@ -42,7 +42,7 @@
                 </div>
             </div>
 
-            <mat-icon class="mr-2" [matBadge]="cartItemCount" [matBadgeHidden]="cartBadgeHidden" matBadgeColor="accent" matBadgeSize="small" [matBadgeOverlap]=true style="cursor: pointer;color: deeppink" (click)="openLink('cart');" tooltip="Cart" placement="auto">shopping_cart</mat-icon>
+            <mat-icon class="mr-2" [matBadge]="cartItemCount" [matBadgeHidden]="cartBadgeHidden" matBadgeColor="accent" matBadgeSize="small" [matBadgeOverlap]=true style="cursor: pointer;color: deeppink" (click)="openLink('cart');" tooltip="Cart" placement="auto" *ngIf="!appCacheService._adminLoggedIn">shopping_cart</mat-icon>
 
             <mat-icon class="mr-2" style="cursor: pointer;color: deeppink" (click)="openLoginModal()" *ngIf="!appCacheService._loggedInUser && !appCacheService._adminLoggedIn" tooltip="Login" placement="auto">login</mat-icon>
 

@@ -2,6 +2,7 @@ import { Component, OnInit, EventEmitter } from '@angular/core';
 import { NgForm } from '@angular/forms';
 import { AuthService } from 'src/app/services/auth.service';
 import { BsModalRef } from 'ngx-bootstrap/modal';
+import { CommonService } from 'src/app/services/common.service';
 
 @Component({
   selector: 'app-forgot-password',
@@ -19,16 +20,17 @@ export class ForgotPasswordComponent implements OnInit {
   backToSignInEvent = new EventEmitter<any>();
 
   constructor(private authService: AuthService,
-              public bsModalRef: BsModalRef) { }
+              public bsModalRef: BsModalRef,
+              public commonService: CommonService) { }
 
   ngOnInit(): void {
   }
 
   forgotSendLink(forgotPassForm: NgForm): void{
-    this.authService.forgotPassword(forgotPassForm.value).then((data: any)=>{
+    this.authService.forgotPassword(forgotPassForm.value).subscribe((data: any)=>{
       this.forgotFailedStatus = false;
       this.forgotSuccessStatus = true;
-      this.forgotMsg = "The reset password link has been sent to your registered email address";
+      this.forgotMsg = `The reset password link has been sent to your registered email address - ${data.email}`;
       this.resetLinkSendStatus = true;
     },
     error => {

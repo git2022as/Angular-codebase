@@ -37,10 +37,7 @@ export class HeaderComponent implements OnInit {
 
   subscribeDataService(): void{
     //check for login from local storage
-    const userdata = JSON.parse(localStorage.getItem('userData'));
-    if(userdata){
-      this.manageLoginState(userdata);
-    }
+    this.localHostStateManagement();
     this.dataService.UPDATE_CART_COUNT.subscribe((res: boolean) => {
       if(this.appCacheService._cartDetails.length > 0){
         let length = this.appCacheService._cartDetails.length;
@@ -54,6 +51,40 @@ export class HeaderComponent implements OnInit {
     });
   }
 
+  localHostStateManagement(): void{
+    const userdata = JSON.parse(localStorage.getItem('userData'));
+    const cartData = JSON.parse(localStorage.getItem('cartData'));
+    const profileData = JSON.parse(localStorage.getItem('profileData'));
+    const slides = JSON.parse(localStorage.getItem('slides'));
+    const dishes = JSON.parse(localStorage.getItem('dishes'));
+    const branches = JSON.parse(localStorage.getItem('branches'));
+    const offers = JSON.parse(localStorage.getItem('offers'));
+    const adminLoggedIn = JSON.parse(localStorage.getItem('adminLoggedIn'));
+    if(userdata){
+      this.appCacheService._UID = userdata?.uid;
+      this.appCacheService._loggedInUser = true;
+      this.appCacheService._token = userdata?.token;
+      this.appCacheService._loggedInUserEmail = userdata?.email;
+    }
+    if(cartData){
+      this.appCacheService._cartDetails = cartData;
+      this.dataService.UPDATED_DISH.next(true);
+      this.dataService.UPDATE_CART_COUNT.next(true);
+    }
+    if(profileData){
+      this.appCacheService._profileDetails = profileData;
+    }
+    if(dishes){
+      this.appCacheService._dishesDetails = dishes;
+    }
+    if(offers){
+      this.appCacheService._offersDetails = offers;
+    }
+    if(adminLoggedIn){
+      this.appCacheService._adminLoggedIn = true;
+    }
+  }
+
   openLoginModal(): void{
     const initialState: ModalOptions = {
       initialState: {
@@ -65,7 +96,9 @@ export class HeaderComponent implements OnInit {
       //when login is successful
       if(res.login.uid != ""){
         //save data in localstorage to maintain state
-        localStorage.setItem('userData', JSON.stringify(res));
+        localStorage.setItem('userData', JSON.stringify(res.login));
+        localStorage.setItem('cartData', JSON.stringify(res.cart));
+        localStorage.setItem('profileData', JSON.stringify(res.profile));
         this.manageLoginState(res);
       }
       this.bsModalRef?.hide();
@@ -117,10 +150,12 @@ export class HeaderComponent implements OnInit {
       //when admin login is successful
       if(res){
         this.appCacheService._adminLoggedIn = true;
+        localStorage.setItem('adminLoggedIn','true');
         this.router.navigate(['admin/dashboard']);
       }
       else{
         this.appCacheService._adminLoggedIn = false;
+        localStorage.removeItem('adminLoggedIn');
       }
       this.bsModalRef?.hide();
     });

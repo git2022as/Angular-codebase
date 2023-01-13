@@ -3,7 +3,7 @@
 <div class="container">
     <div class="mt-5 mb-5 heading" style="text-align: center;"><h3>Your Cart</h3></div>
     <ng-container *ngIf="cartAvailable, else no_cart">
-        <app-cart-overview [cartDetails]="cartDetails" [productDetails]="productDetails" (cartAddRemoveEvent)="showShortMsg($event)"></app-cart-overview>
+        <app-cart-overview [cartDetails]="cartDetails" [productDetails]="productDetails" (cartAddRemoveEvent)="showShortMsg($event)" (cartTotalEvent)="_cartTotalEvent($event)"></app-cart-overview>
         <div class="cartAmountSection row m-0 mb-2">
             <div class="cartReady p-2">
                 Bill Details
@@ -45,8 +45,8 @@
                 aria-labelledby="coupon-radio-group-label"
                 class="coupon-radio-group"
                 [(ngModel)]="selectedCoupon">
-                    <mat-radio-button (change)="applySiteCoupon($event)" class="coupon-radio-button" *ngFor="let cou of coupon" [value]="cou.code">
-                    <span style="white-space: normal;"><b>{{cou.code}}</b> - {{cou.offer}}</span>
+                    <mat-radio-button (change)="applySiteCoupon($event.value)" class="coupon-radio-button" *ngFor="let cou of coupons" [value]="cou.couponCode">
+                    <span style="white-space: normal;"><b>{{cou.couponCode}}</b> - {{cou.couponDescription}}</span>
                     </mat-radio-button>
                 </mat-radio-group>
                 <!--<mat-form-field class="">

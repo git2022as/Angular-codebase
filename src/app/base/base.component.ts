@@ -58,6 +58,7 @@ export class BaseComponent implements OnInit, OnDestroy {
     })).subscribe((res: any)=>{
       if(res){
         this.slides = res;
+        localStorage.setItem("slides",JSON.stringify(this.slides));
       }
     });
   }
@@ -74,6 +75,7 @@ export class BaseComponent implements OnInit, OnDestroy {
       if(res){
         this.allProducts = res;
         this.appCacheService._dishesDetails = this.allProducts;
+        localStorage.setItem("dishes",JSON.stringify(this.allProducts));
         console.log(this.allProducts);
       }
     });
@@ -89,6 +91,7 @@ export class BaseComponent implements OnInit, OnDestroy {
     })).subscribe((res: any)=>{
       if(res){
         this.allBranches = res;
+        localStorage.setItem("branches",JSON.stringify(this.allBranches));
       }
     })
   }
@@ -102,6 +105,7 @@ export class BaseComponent implements OnInit, OnDestroy {
       if(res.success){
         this.offers = res.data;
         this.appCacheService._offersDetails = this.offers;
+        localStorage.setItem("offers",JSON.stringify(this.offers));
       }
     })
   }

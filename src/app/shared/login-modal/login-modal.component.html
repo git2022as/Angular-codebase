@@ -15,7 +15,10 @@
         <mat-form-field class="modal-form">
             <mat-label>Email Address</mat-label>
             <input matInput type="text" ngModel #mail="ngModel" name="emailAddress" [(ngModel)]="emailAddress" [required]=true pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}$">
-            <button *ngIf="emailAddress" matSuffix mat-icon-button aria-label="Clear" (click)="emailAddress=''">
+            <button matSuffix mat-icon-button aria-label="Clear" style="color: deeppink" tooltip="Please use your registered email address" placement="auto" (click)="commonService.clickDisabled($event)">
+                <mat-icon>info</mat-icon>
+            </button>
+            <button *ngIf="emailAddress" matSuffix mat-icon-button tabindex="-1" (click)="commonService.clickDisabled($event)">
                 <mat-icon>close</mat-icon>
             </button>
             <mat-error *ngIf="mail.touched && mail.invalid">Enter a valid email address</mat-error>

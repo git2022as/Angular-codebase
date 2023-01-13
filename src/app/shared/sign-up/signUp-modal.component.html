@@ -35,6 +35,9 @@
         <mat-form-field class="modal-form">
             <mat-label>Email</mat-label>
             <input matInput type="text" name="email" formControlName="email">
+            <button matSuffix mat-icon-button aria-label="Clear" style="color: deeppink" tooltip="Please enter proper email address" placement="auto" (click)="commonService.clickDisabled($event)">
+                <mat-icon>info</mat-icon>
+            </button>
             <button *ngIf="signUpForm.get('email')?.value != '' && signUpForm.get('email')?.value != null" matSuffix mat-icon-button aria-label="Clear" (click)="setValue('email')">
                 <mat-icon>close</mat-icon>
             </button>

@@ -6,7 +6,7 @@
         <div class="admin-block-sections">
             <div class="col-md-5 col-xs-12 mt-2 mb-3">
                 <div class="mb-2" style="font-size: 16px; color: #3f51b5; font-weight: 600;">Create/Update Slide</div>
-                <form #slidesForm="ngForm" style="display: grid;font-size: 14px;">
+                <form #slidesForm="ngForm" style="display: grid;font-size: 14px;" (keydown.enter)="slidesFormSubmit(slidesForm)">
                     <mat-form-field class="mb-2">
                         <mat-label>Image Source</mat-label>
                         <input matInput type="text" maxlength="40" ngModel #src="ngModel" name="imageSource" [required]=true [(ngModel)]="imageSource">
@@ -43,7 +43,7 @@
                 </form>
                 <div class="admin-block-button-section">
                     <button mat-raised-button style="margin-right: 1rem" color="primary" (click)="slidesFormSubmit(slidesForm)" [disabled]="slidesForm.invalid">{{buttonText}}</button>
-                    <button *ngIf="editMode" mat-raised-button style="margin-right: 1rem" (click)="editMode = false;slidesForm.resetForm();buttonText = 'Update';selectedID=''">Cancel</button>
+                    <button *ngIf="editMode" mat-raised-button style="margin-right: 1rem" (click)="editMode = false;slidesForm.resetForm();buttonText = 'Continue';selectedID=''">Cancel</button>
                     <button mat-raised-button (click)="slidesFormReset(slidesForm)" [disabled]="slidesForm.untouched">Reset</button>
                 </div>
             </div>

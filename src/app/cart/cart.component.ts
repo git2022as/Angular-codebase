@@ -1,17 +1,20 @@
-import { Component, OnInit, ViewChild, ViewContainerRef } from '@angular/core';
+import { Component, OnInit, ViewChild, ViewContainerRef, OnDestroy } from '@angular/core';
 import { ShortMessageComponent } from '../shared/short-message/short-message.component';
 import { DataService } from '../services/data.service';
 import { UtilityService } from '../services/utility.service';
 import { AppCacheService } from '../services/app.cache.service';
-import { staticValue, coupon } from '../constants/constant';
+import { staticValue } from '../constants/constant';
 import { Router } from '@angular/router';
+import { AdminService } from '../admin/admin.service';
+import { Subscription } from 'rxjs';
+import { map } from 'rxjs/operators';
 
 @Component({
   selector: 'app-cart',
   templateUrl: './cart.component.html',
   styleUrls: ['./cart.component.scss']
 })
-export class CartComponent implements OnInit {
+export class CartComponent implements OnInit, OnDestroy {
 
   @ViewChild("shortContainer", { read: ViewContainerRef }) shortContainer: any = ViewContainerRef;
   cartAvailable: boolean = false;
@@ -24,21 +27,39 @@ export class CartComponent implements OnInit {
   productDetails: Array<any> = [];
   cartDetails : Array<any> = [];
   selectedCoupon: string;
-  coupon = coupon;
+  coupons: Array<any>;
   appDiscountAmount: number = 0;
   showAppDiscount: boolean = false;
   showAppDiscountTooltip : string = "";
   manualCouponCode: string = "";
   couponError: boolean = false;
   couponErroMsg: string = "";
+  couponSubscription: Subscription | undefined;
   constructor(private dataService: DataService,
               private utilityService: UtilityService,
               private appCacheService: AppCacheService,
-              private router: Router) { }
+              private router: Router,
+              private adminService: AdminService) { }
 
   ngOnInit(): void {
     this.checkCart();
-    this.subscribeDataService();
+    this.getCoupons();
+  }
+
+  getCoupons(): void{
+    this.couponSubscription = this.adminService.getCoupons().pipe(map((res:any)=>{
+      let coupon = [];
+      if(res){
+        for(let key in res){
+          if(res.hasOwnProperty(key)){
+            coupon.push({id: key, ...res[key]});
+          }
+        }
+      }
+      return coupon;
+    })).subscribe((res)=>{
+      this.coupons = res;
+    })
   }
 
   checkCart(){
@@ -62,12 +83,6 @@ export class CartComponent implements OnInit {
       this.deliveryFree = false;
     }
     this.calculateGovtTaxPackage();
-  }
-
-  subscribeDataService(): void{
-    this.dataService.UPDATED_CART.subscribe((res: any)=>{
-     this.checkCart();
-    });
   }
 
   calculateGovtTaxPackage(){
@@ -96,7 +111,7 @@ export class CartComponent implements OnInit {
   }
 
   applySiteCoupon(event: any): void{
-    this.appDiscountAmount = this.utilityService.calculateAppDiscount(event.value,this.totalCartValue);
+    this.appDiscountAmount = this.utilityService.calculateAppDiscount(event,this.totalCartValue, this.coupons);
     if(this.appDiscountAmount > 0){
       this.showAppDiscount = true;
       this.showAppDiscountTooltip = `${event.value} is applied`;
@@ -120,6 +135,17 @@ export class CartComponent implements OnInit {
       this.couponError = true;
       this.couponErroMsg = "Invalid coupon code";
     }
+  }
+
+  _cartTotalEvent(event): void{
+    if(event.cartUpdated){
+      this.checkCart();
+      this.applySiteCoupon(this.selectedCoupon);
+    }
+  }
+
+  ngOnDestroy(): void {
+    this.couponSubscription?.unsubscribe();
   }
 
 }
