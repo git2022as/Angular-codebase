@@ -1,22 +1,59 @@
-<div class="rating-section">
-    <div class="list-heading">Rating</div>
-    <div class="rating" [ngClass]="{'goodRating': reviews.rating > 4, 'mediumRating': (reviews.rating > 3 && reviews.rating < 4), 'poorRating': reviews.rating < 3 }">
-        <mat-icon *ngFor="let x of latestWholeRating; let i = index;" style="font-size: 16px;margin-top:3px;">star</mat-icon>
-        <mat-icon *ngIf="latestFractionalRating > 0" style="font-size: 16px;margin-top:3px;">star_half</mat-icon>
-        <span class="finalrating" [ngStyle]="{'background-color': reviews.rating > 4 ? 'green' : (reviews.rating > 3 && reviews.rating < 4) ? '#FF7F50' : 'red'}">{{reviews.rating}}</span>
+<div *ngIf="reviewInputShow" class="mb-3">
+    <form [formGroup]="reviewForm" class="mb-3" style="font-size: 13px;" (keydown.enter)="reviewFormSubmit(reviewForm)">
+        <mat-form-field appearance="fill" class="mr-2 mb-2">
+            <mat-label>Ratings</mat-label>
+            <mat-select formControlName="rating" name="rating">
+              <mat-option *ngFor="let rating of ratingOption" [value]="rating">
+                {{rating}}
+              </mat-option>
+            </mat-select>
+            <button matSuffix mat-icon-button aria-label="Clear" style="color: deeppink;" tooltip="Example: please select rating from 1 to 5" placement="auto" (click)="commonService.clickDisabled($event)">
+                <mat-icon style="font-size: 14px;">info</mat-icon>
+            </button>
+            <mat-error *ngIf="reviewForm.get('rating').touched && reviewForm.get('rating').invalid">Select a rating from 1 to 5</mat-error>
+        </mat-form-field>
+        <mat-form-field class="mr-2 mb-2">
+            <mat-label>Comments</mat-label>
+            <textarea matInput type="text" maxlength="300" name="comment" formControlName="comment"></textarea>
+            <button matSuffix mat-icon-button aria-label="Clear" style="color: deeppink;" tooltip="Example: Kebab is a delicious dish..... upto 300 characters" placement="auto" (click)="commonService.clickDisabled($event)">
+                <mat-icon>info</mat-icon>
+            </button>
+            <button *ngIf="reviewForm.get('comment').value != ''" matSuffix mat-icon-button aria-label="Clear" (click)="setValue('comment')">
+                <mat-icon>close</mat-icon>
+            </button>
+            <mat-error *ngIf="reviewForm.get('comment').touched && reviewForm.get('comment').invalid">Enter proper review</mat-error>
+        </mat-form-field>
+    </form>
+    <div class="admin-block-button-section">
+        <button mat-raised-button style="margin-right: 1rem" color="primary" (click)="reviewFormSubmit(reviewForm)" [disabled]="reviewForm.invalid">Submit</button>
+        <button *ngIf="showCancelButton" mat-raised-button style="margin-right: 1rem" color="primary" (click)="showCancelButton=false;reviewInputShow=false;">Cancel</button>
+        <button mat-raised-button (click)="reviewFormReset(reviewForm)" [disabled]="reviewForm.untouched">Reset</button>
     </div>
 </div>
-<div class="review-section mt-2">
+<div class="rating-section" *ngIf="allReviews && allReviews.length > 0">
+    <div class="list-heading">Rating</div>
+    <div class="rating" [ngClass]="{'goodRating': overallRating > 4, 'mediumRating': (overallRating > 3 && overallRating < 4), 'poorRating': overallRating <= 3 }">
+        <mat-icon *ngFor="let x of latestWholeRating; let i = index;" style="font-size: 16px;margin-top:3px;">star</mat-icon>
+        <mat-icon *ngIf="latestFractionalRating > 0" style="font-size: 16px;margin-top:3px;">star_half</mat-icon>
+        <span class="finalrating" [ngStyle]="{'background-color': overallRating > 4 ? 'green' : (overallRating > 3 && overallRating < 4) ? '#FF7F50' : 'red'}">{{overallRating}}</span>
+    </div>
+</div>
+<div class="review-section mt-2" *ngIf="allReviews && allReviews.length > 0">
     <div class="list-heading">Reviews</div>
-    <div class="mb-3 mt-2" *ngFor="let each of reviews.review">
+    <div class="mb-3 mt-2" *ngFor="let each of allReviews">
         <div style="display: flex; flex-direction: row;">
             <mat-icon class="mr-2" style="cursor: pointer;color: deeppink; font-size: 16px; width: 10px">person</mat-icon>
-            <div *ngIf="each.verifiedUser" style="font-size: 12px;">Verified User</div>
-            <div *ngIf="!each.verifiedUser" style="font-size: 12px;">Unknown User</div>
+            <div style="font-size: 12px;">
+                <span>{{each.user}}</span>
+                <span class="ml-2"><b>({{each.rating}})</b></span>
+                <span *ngIf="appCacheService._loggedInUserEmail == each.user" class="ml-2" style="text-decoration: underline;color: deeppink;font-weight: 600;cursor: pointer;" (click)="editYourComment(each)">Edit</span>
+            </div>
         </div>
         <div style="font-size: 12px; font-weight: 600;">
             "{{each.comment}}"
         </div>
     </div>
 </div>
+<div *ngIf="allReviews.length == 0" class="m-2">There are no reviews yet</div>
+<div #shortMessage></div>
 

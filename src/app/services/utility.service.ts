@@ -61,6 +61,21 @@ export class UtilityService {
         return val;
     }
 
+    checkOverallRating(data: Array<any>): number{
+        let overallRating;
+        let totalRating = 0;
+        let length = data.length;
+        if(length > 0){
+            data.forEach(each=>{
+                if(each.rating){
+                    totalRating = totalRating + Number(each.rating);
+                }  
+            });
+        }
+        overallRating = (totalRating/length).toFixed(2);
+        return Number(overallRating);
+    }
+
     checkWholeRating(val: any): Array<number>{
         let num = [];
         let x = Number(val);

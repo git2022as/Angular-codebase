@@ -49,8 +49,9 @@
             </div>
             <div class="col-md-7 col-xs-12 mt-2 mb-3 admin-block-border">
                 <div class="mb-2" style="font-size: 16px; color: #3f51b5; font-weight: 600;">Avaialable Slides</div>
-                <app-admin-table [adminHeader]="slidesHeader" [adminTableDataSet]="paginationSlide" adminFirstColumnVariable="altText" adminSecondColumnVariable="imageText" (deleteClickedEvent)="deleteSlide($event)" (editClickedEvent)="editSlides($event)"></app-admin-table>
-                <app-pagination *ngIf="slides" [currentDataSet]="slides" (perPageSelectionChangedEvent)="_perPageSelectionChanged($event)" (paginationButtonChangedEvent)="_paginationButtonChangedEvent($event)"></app-pagination>
+                <app-search *ngIf="slides" (searchTextEvent)="_searchTextEvent($event)"></app-search>
+                <app-admin-table *ngIf="slides" [filterDataText]="filterText" [adminHeader]="slidesHeader" [adminTableDataSet]="paginationSlide" adminFirstColumnVariable="altText" adminSecondColumnVariable="imageText" (deleteClickedEvent)="deleteSlide($event)" (editClickedEvent)="editSlides($event)" (tableSortEvent)="_tableSortEvent($event)"></app-admin-table>
+                <app-pagination *ngIf="paginationSlide.length > 0" [currentDataSet]="filterSlides" (perPageSelectionChangedEvent)="_perPageSelectionChanged($event)" (paginationButtonChangedEvent)="_paginationButtonChangedEvent($event)"></app-pagination>
             </div>
         </div>
     </div>

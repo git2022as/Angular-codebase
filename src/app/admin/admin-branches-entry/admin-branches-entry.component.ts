@@ -7,6 +7,8 @@ import { deactivateInterface } from 'src/app/interface/project.interface';
 import { StaticMsg } from 'src/app/constants/constant';
 import { CommonService } from 'src/app/services/common.service';
 import { BsModalRef } from 'ngx-bootstrap/modal';
+import { staticValue } from 'src/app/constants/constant';
+import { FilterPipe } from 'src/app/pipes/filter.pipe';
 
 @Component({
   selector: 'app-admin-branches-entry',
@@ -28,13 +30,17 @@ export class AdminBranchesEntryComponent implements OnInit, OnDestroy, deactivat
   branches: Array<any>;
   selectedID: string = "";
   branchesHeader = ["Branch's Name", "Branch's Contact", "Actions"];
-  paginationBranch : Array<any>;
+  paginationBranch : Array<any> = [];
+  updatedItemsPerPage: number = staticValue.paginationPerPageConstant;
+  filterdBranch: Array<any>;
+  filterText: string = "";
   @ViewChild("shortContainer", { read: ViewContainerRef }) shortContainer: any = ViewContainerRef;
   @ViewChild("branchesForm", {read: NgForm}) branchesForm: any;
 
   constructor(private adminService: AdminService,
               public commonService: CommonService,
-              private bsModalRef: BsModalRef) { }
+              private bsModalRef: BsModalRef,
+              private filterPipe: FilterPipe) { }
 
   ngOnInit(): void {
     this.getBranches();
@@ -49,6 +55,26 @@ export class AdminBranchesEntryComponent implements OnInit, OnDestroy, deactivat
     }
   }
 
+  _tableSortEvent(event: {headerName: string,type: boolean}): void{
+    let product = [];
+    product = [...this.filterdBranch];
+    product.sort((a,b)=>{return event.type ? a[event.headerName].localeCompare(b[event.headerName]) : b[event.headerName].localeCompare(a[event.headerName])});
+    this.filterdBranch = [...product];
+    this.paginationBranch = this.commonService.loadPagination(this.filterdBranch, this.updatedItemsPerPage);
+  }
+
+  _searchTextEvent(event: {searchText: string}): void{
+    let filterdData = [];
+    this.filterText = event.searchText;
+    if(this.filterText == ''){
+      this.filterdBranch = [...this.branches];
+    }
+    else{
+      this.filterdBranch = this.filterPipe.transform(this.branches,this.filterText);
+    }
+    this.paginationBranch = this.commonService.loadPagination(this.filterdBranch, this.updatedItemsPerPage);
+  }
+
   getBranches(){
     this.adminService.getBranches().pipe(map((data: any)=>{
       let products = [];
@@ -59,16 +85,19 @@ export class AdminBranchesEntryComponent implements OnInit, OnDestroy, deactivat
       return products;
     })).subscribe(((res: any)=>{
       this.branches = res;
-      this.paginationBranch = this.commonService.loadPagination(this.branches);;
+      this.filterdBranch = [...this.branches];
+      this.paginationBranch = this.commonService.loadPagination(this.filterdBranch);
     }))
   }
 
   _perPageSelectionChanged(value: number): void{
-    this.paginationBranch = this.commonService.loadPagination(this.branches, value);
+    this.updatedItemsPerPage = value;
+    this.paginationBranch = this.commonService.loadPagination(this.filterdBranch, value);
   }
 
   _paginationButtonChangedEvent(event: any): void{
-    this.paginationBranch = this.commonService.loadPagination(this.branches, event.perPageSelection, event.currentPage);
+    this.updatedItemsPerPage = event.perPageSelection;
+    this.paginationBranch = this.commonService.loadPagination(this.filterdBranch, event.perPageSelection, event.currentPage);
   }
 
   editSlides(each: any): void{

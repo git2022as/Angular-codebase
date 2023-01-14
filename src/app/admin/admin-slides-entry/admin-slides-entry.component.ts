@@ -7,6 +7,8 @@ import { deactivateInterface } from '../../interface/project.interface';
 import { CommonService } from 'src/app/services/common.service';
 import { StaticMsg } from 'src/app/constants/constant';
 import { BsModalRef } from 'ngx-bootstrap/modal';
+import { staticValue } from 'src/app/constants/constant';
+import { FilterPipe } from 'src/app/pipes/filter.pipe';
 
 @Component({
   selector: 'app-admin-slides-entry',
@@ -27,14 +29,18 @@ export class AdminSlidesEntryComponent implements OnInit, OnDestroy, deactivateI
   slides: Array<any>;
   selectedID: string = "";
   slidesHeader = ["Slides' Name", "Slides' Details", "Actions"];
-  paginationSlide : Array<any>;
+  paginationSlide : Array<any> = [];
+  updatedItemsPerPage: number = staticValue.paginationPerPageConstant;
+  filterSlides: Array<any>;
+  filterText: string = "";
 
   @ViewChild("shortContainer", { read: ViewContainerRef }) shortContainer: any = ViewContainerRef;
   @ViewChild("slidesForm", {read: NgForm}) slidesForm: any;
 
   constructor(private adminService: AdminService,
               public commonService: CommonService,
-              private bsModalRef: BsModalRef) { }
+              private bsModalRef: BsModalRef,
+              private filterPipe: FilterPipe) { }
 
   ngOnInit(): void {
     this.getSlides();
@@ -49,6 +55,26 @@ export class AdminSlidesEntryComponent implements OnInit, OnDestroy, deactivateI
     }
   }
 
+  _tableSortEvent(event: {headerName: string,type: boolean}): void{
+    let product = [];
+    product = [...this.filterSlides];
+    product.sort((a,b)=>{return event.type ? a[event.headerName].localeCompare(b[event.headerName]) : b[event.headerName].localeCompare(a[event.headerName])});
+    this.filterSlides = [...product];
+    this.paginationSlide = this.commonService.loadPagination(this.filterSlides, this.updatedItemsPerPage);
+  }
+
+  _searchTextEvent(event: {searchText: string}): void{
+    let filterdData = [];
+    this.filterText = event.searchText;
+    if(this.filterText == ''){
+      this.filterSlides = [...this.slides];
+    }
+    else{
+      this.filterSlides = this.filterPipe.transform(this.slides,this.filterText);
+    }
+    this.paginationSlide = this.commonService.loadPagination(this.filterSlides, this.updatedItemsPerPage);
+  }
+
   getSlides(){
     this.adminService.getSlides().pipe(map((data: any)=>{
       let products = [];
@@ -59,16 +85,19 @@ export class AdminSlidesEntryComponent implements OnInit, OnDestroy, deactivateI
       return products;
     })).subscribe(((res: any)=>{
       this.slides = res;
-      this.paginationSlide = this.commonService.loadPagination(this.slides);;
+      this.filterSlides = [...this.slides];
+      this.paginationSlide = this.commonService.loadPagination(this.filterSlides);
     }));
   }
 
   _perPageSelectionChanged(value: number): void{
-    this.paginationSlide = this.commonService.loadPagination(this.slides, value);
+    this.updatedItemsPerPage = value;
+    this.paginationSlide = this.commonService.loadPagination(this.filterSlides, value);
   }
 
   _paginationButtonChangedEvent(event: any): void{
-    this.paginationSlide = this.commonService.loadPagination(this.slides, event.perPageSelection, event.currentPage);
+    this.updatedItemsPerPage = event.perPageSelection;
+    this.paginationSlide = this.commonService.loadPagination(this.filterSlides, event.perPageSelection, event.currentPage);
   }
 
   editSlides(each: any): void{

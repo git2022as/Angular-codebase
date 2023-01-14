@@ -7,6 +7,8 @@ import { deactivateInterface } from '../../interface/project.interface';
 import { CommonService } from 'src/app/services/common.service';
 import { StaticMsg } from 'src/app/constants/constant';
 import { BsModalRef } from 'ngx-bootstrap/modal';
+import { FilterPipe } from 'src/app/pipes/filter.pipe';
+import { staticValue } from 'src/app/constants/constant';
 
 @Component({
   selector: 'app-admin-coupons-entry',
@@ -27,14 +29,18 @@ export class AdminCouponsEntryComponent implements OnInit, OnDestroy, deactivate
   coupons: Array<any>;
   selectedID: string = "";
   couponsHeader = ["Coupons' Code", "Coupons' Type", "Actions"];
-  paginationCoupon : Array<any>;
+  paginationCoupon : Array<any> = [];
+  updatedItemsPerPage: number = staticValue.paginationPerPageConstant;
+  filterdCoupon: Array<any>;
+  filterText: string = "";
 
   @ViewChild("shortContainer", { read: ViewContainerRef }) shortContainer: any = ViewContainerRef;
   @ViewChild("couponsForm", {read: NgForm}) couponsForm: any;
 
   constructor(private adminService: AdminService,
               public commonService: CommonService,
-              private bsModalRef: BsModalRef) { }
+              private bsModalRef: BsModalRef,
+              private filterPipe: FilterPipe) { }
 
   ngOnInit(): void {
     this.getCoupons();
@@ -49,6 +55,26 @@ export class AdminCouponsEntryComponent implements OnInit, OnDestroy, deactivate
     }
   }
 
+  _tableSortEvent(event: {headerName: string,type: boolean}): void{
+    let product = [];
+    product = [...this.filterdCoupon];
+    product.sort((a,b)=>{return event.type ? a[event.headerName].localeCompare(b[event.headerName]) : b[event.headerName].localeCompare(a[event.headerName])});
+    this.filterdCoupon = [...product];
+    this.paginationCoupon = this.commonService.loadPagination(this.filterdCoupon, this.updatedItemsPerPage);
+  }
+
+  _searchTextEvent(event: {searchText: string}): void{
+    let filterdData = [];
+    this.filterText = event.searchText;
+    if(this.filterText == ''){
+      this.filterdCoupon = [...this.coupons];
+    }
+    else{
+      this.filterdCoupon = this.filterPipe.transform(this.coupons,this.filterText);
+    }
+    this.paginationCoupon = this.commonService.loadPagination(this.filterdCoupon, this.updatedItemsPerPage);
+  }
+
   getCoupons(){
     this.adminService.getCoupons().pipe(map((data: any)=>{
       let products = [];
@@ -59,16 +85,19 @@ export class AdminCouponsEntryComponent implements OnInit, OnDestroy, deactivate
       return products;
     })).subscribe(((res: any)=>{
       this.coupons = res;
-      this.paginationCoupon = this.commonService.loadPagination(this.coupons);;
+      this.filterdCoupon = [...this.coupons]
+      this.paginationCoupon = this.commonService.loadPagination(this.filterdCoupon);
     }));
   }
 
   _perPageSelectionChanged(value: number): void{
-    this.paginationCoupon = this.commonService.loadPagination(this.coupons, value);
+    this.updatedItemsPerPage = value;
+    this.paginationCoupon = this.commonService.loadPagination(this.filterdCoupon, value);
   }
 
   _paginationButtonChangedEvent(event: any): void{
-    this.paginationCoupon = this.commonService.loadPagination(this.coupons, event.perPageSelection, event.currentPage);
+    this.updatedItemsPerPage = event.perPageSelection;
+    this.paginationCoupon = this.commonService.loadPagination(this.filterdCoupon, event.perPageSelection, event.currentPage);
   }
 
   editCoupon(each: any): void{

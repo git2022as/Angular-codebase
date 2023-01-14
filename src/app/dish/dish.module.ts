@@ -8,6 +8,7 @@ import { MatIconModule } from '@angular/material/icon';
 import { MatTabsModule } from '@angular/material/tabs';
 import { MatListModule} from '@angular/material/list';
 import { SharedModule } from "../shared/shared.module";
+import { HttpClientModule } from "@angular/common/http";
 
 @NgModule({
     declarations: [
@@ -21,7 +22,8 @@ import { SharedModule } from "../shared/shared.module";
         MatIconModule,
         MatTabsModule,
         MatListModule,
-        SharedModule
+        SharedModule,
+        HttpClientModule
     ],
     exports: [
         DishComponent

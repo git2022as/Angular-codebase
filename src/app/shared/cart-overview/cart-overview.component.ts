@@ -42,6 +42,7 @@ export class CartOverviewComponent implements OnInit {
     if(cart.quantity > staticValue.maxQuantityInCart){
       cart.quantity = staticValue.maxQuantityInCart;
       this.openMessage(StaticMsg.addQuantity);
+      return;
     }
     cart.tprice = this.individualCartPipe.transform(cart, this.productDetails);
     this.updateCartInDB(cart);
@@ -52,6 +53,7 @@ export class CartOverviewComponent implements OnInit {
     if(cart.quantity < staticValue.minQuantityInCart){
       cart.quantity = staticValue.minQuantityInCart;
       this.openMessage(StaticMsg.removeQuantity);
+      return;
     }
     cart.tprice = this.individualCartPipe.transform(cart, this.productDetails);
     this.updateCartInDB(cart);

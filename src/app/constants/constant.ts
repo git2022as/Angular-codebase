@@ -14,7 +14,8 @@ export const StaticMsg = {
     logoutConfirmationTitle: "Logout",
     deleteItemConfirmationText: "Are you sure want to delete the item?",
     deleteItemConfirmationTitle: "Delete Item",
-    uidMissingError: "We are not able to add this dish into the cart. Please try again later."
+    uidMissingError: "We are not able to add this dish into the cart. Please try again later.",
+    commonError: "We are not able to process your request right now, please try again later."
 } as const;
 
 export const staticValue = {

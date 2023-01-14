@@ -4,6 +4,8 @@ import { BsModalService, BsModalRef, ModalOptions } from 'ngx-bootstrap/modal';
 import { AppCacheService } from './app.cache.service';
 import { DataService } from './data.service';
 import { StaticMsg, staticValue } from '../constants/constant';
+import { HttpClient } from '@angular/common/http';
+import { Observable } from 'rxjs';
 
 @Injectable({
     providedIn: 'root'
@@ -14,7 +16,8 @@ export class CommonService {
     constructor(private bsModalService: BsModalService,
                 private appCacheService: AppCacheService,
                 private dataService: DataService,
-                private bsModalRef: BsModalRef){}
+                private bsModalRef: BsModalRef,
+                private http: HttpClient){}
 
     openStaticModal(data: any): BsModalRef{
         return this.bsModalService.show(
@@ -39,6 +42,8 @@ export class CommonService {
             this.appCacheService._loggedInUserName = "";
             this.appCacheService._loggedInUserEmail = "";
             this.appCacheService._cartDetails = [];
+            this.dataService.UPDATE_CART_COUNT.next(true);
+            this.dataService.UPDATED_DISH.next(true);
             this.appCacheService._carosulDetails = [];
             this.appCacheService._dishesDetails = [];
             this.appCacheService._offersDetails = [];
@@ -97,6 +102,17 @@ export class CommonService {
           });
         }
         return dup;
+    }
+
+    //Review add API call
+    addReviews(id: string, review: {rating: number,comment: string}): Observable<any>{
+        let finalData = {user: this.appCacheService._loggedInUserEmail, ...review};
+        return this.http.post(`https://kebab-house-db7f1-default-rtdb.firebaseio.com/reviews/${id}.json`,finalData);
+    }
+
+    //Review get API call
+    getReviews(id: string): Observable<any>{
+        return this.http.get(`https://kebab-house-db7f1-default-rtdb.firebaseio.com/reviews/${id}.json`);
     }
 
     /* pagination function */

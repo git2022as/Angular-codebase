@@ -18,7 +18,7 @@
             <button matSuffix mat-icon-button aria-label="Clear" style="color: deeppink" tooltip="Please use your registered email address" placement="auto" (click)="commonService.clickDisabled($event)">
                 <mat-icon>info</mat-icon>
             </button>
-            <button *ngIf="emailAddress" matSuffix mat-icon-button tabindex="-1" (click)="commonService.clickDisabled($event)">
+            <button *ngIf="emailAddress" matSuffix mat-icon-button tabindex="-1" (click)="emailAddress = ''">
                 <mat-icon>close</mat-icon>
             </button>
             <mat-error *ngIf="mail.touched && mail.invalid">Enter a valid email address</mat-error>

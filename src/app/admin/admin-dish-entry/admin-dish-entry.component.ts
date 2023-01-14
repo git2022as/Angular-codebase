@@ -38,13 +38,14 @@ export class AdminDishEntryComponent implements OnInit, OnDestroy, deactivateInt
   updateDishSubscription: Subscription | undefined;
   deleteDishSubscription: Subscription | undefined;
   dishes: Array<any>;
-  paginationDishes: Array<any>;
+  paginationDishes: Array<any> = [];
   dishHeader = ["Dish's Name","Dish's Price", "Actions"];
   editMode: boolean = false;
   buttonText: string = "Continue";
   selectedID: string = "";
   updatedItemsPerPage: number = staticValue.paginationPerPageConstant;
   filterdDish: Array<any>;
+  filterText: string = "";
   @ViewChild("shortContainer", { read: ViewContainerRef }) shortContainer: any = ViewContainerRef;
   @ViewChild("dishForm", {read: NgForm}) dishForm: any;
 
@@ -66,13 +67,22 @@ export class AdminDishEntryComponent implements OnInit, OnDestroy, deactivateInt
     }
   }
 
+  _tableSortEvent(event: {headerName: string,type: boolean}): void{
+    let product = [];
+    product = [...this.filterdDish];
+    product.sort((a,b)=>{return event.type ? a[event.headerName].localeCompare(b[event.headerName]) : b[event.headerName].localeCompare(a[event.headerName])});
+    this.filterdDish = [...product];
+    this.paginationDishes = this.commonService.loadPagination(this.filterdDish, this.updatedItemsPerPage);
+  }
+
   _searchTextEvent(event: {searchText: string}): void{
     let filterdData = [];
-    if(event.searchText == ''){
+    this.filterText = event.searchText;
+    if(this.filterText == ''){
       this.filterdDish = [...this.dishes];
     }
     else{
-      this.filterdDish = this.filterPipe.transform(this.dishes,event.searchText);
+      this.filterdDish = this.filterPipe.transform(this.dishes,this.filterText);
     }
     this.paginationDishes = this.commonService.loadPagination(this.filterdDish, this.updatedItemsPerPage);
   }
@@ -88,7 +98,7 @@ export class AdminDishEntryComponent implements OnInit, OnDestroy, deactivateInt
     })).subscribe(((res: any)=>{
       this.dishes = res;
       this.filterdDish = [...this.dishes];
-      this.paginationDishes = this.commonService.loadPagination(this.dishes);
+      this.paginationDishes = this.commonService.loadPagination(this.filterdDish);
     }))
   }
 

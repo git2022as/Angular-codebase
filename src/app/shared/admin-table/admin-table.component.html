@@ -1,8 +1,8 @@
-<div class="admin-table-section">
+<div class="admin-table-section" *ngIf="_adminTableDataSet.length > 0; else no_data_to_display">
     <table class="mt-2 admin-block-table">
         <thead>
             <tr>
-                <th *ngFor="let header of adminHeader; let i = index;">
+                <th *ngFor="let header of adminHeader; let i = index;" style="cursor: pointer;" (click)="toggleSort(i)">
                     {{header}}
                 </th>
             </tr>
@@ -25,3 +25,11 @@
         </tr>
     </table>
 </div>
+<ng-template #no_data_to_display>
+    <div *ngIf="_filterDataText != ''">
+        <span style="font-size: 14px;color: red">No result found for "{{filterDataText}}"</span>
+    </div>
+    <div *ngIf="_filterDataText == ''">
+        <span style="font-size: 14px;color:red">Please add data for this section</span>
+    </div>
+</ng-template>

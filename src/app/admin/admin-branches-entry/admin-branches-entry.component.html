@@ -71,8 +71,9 @@
             </div>
             <div class="col-md-7 col-xs-12 mt-2 mb-3 admin-block-border">
                 <div class="mb-2" style="font-size: 16px; color: #3f51b5; font-weight: 600;">Avaialable Branches</div>
-                <app-admin-table [adminHeader]="branchesHeader" [adminTableDataSet]="paginationBranch" adminFirstColumnVariable="branchLocation" adminSecondColumnVariable="locationContact" (deleteClickedEvent)="deleteSlide($event)" (editClickedEvent)="editSlides($event)"></app-admin-table>
-                <app-pagination *ngIf="branches" [currentDataSet]="branches" (perPageSelectionChangedEvent)="_perPageSelectionChanged($event)" (paginationButtonChangedEvent)="_paginationButtonChangedEvent($event)"></app-pagination>
+                <app-search *ngIf="branches" (searchTextEvent)="_searchTextEvent($event)"></app-search>
+                <app-admin-table *ngIf="branches" [filterDataText]="filterText" [adminHeader]="branchesHeader" [adminTableDataSet]="paginationBranch" adminFirstColumnVariable="branchLocation" adminSecondColumnVariable="locationContact" (deleteClickedEvent)="deleteSlide($event)" (editClickedEvent)="editSlides($event)" (tableSortEvent)="_tableSortEvent($event)"></app-admin-table>
+                <app-pagination *ngIf="paginationBranch.length > 0" [currentDataSet]="filterdBranch" (perPageSelectionChangedEvent)="_perPageSelectionChanged($event)" (paginationButtonChangedEvent)="_paginationButtonChangedEvent($event)"></app-pagination>
             </div>
         </div>
     </div>

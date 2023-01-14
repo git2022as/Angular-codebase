@@ -68,8 +68,9 @@
             </div>
             <div class="col-md-7 col-xs-12 mt-2 mb-3 admin-block-border">
                 <div class="mb-2" style="font-size: 16px; color: #3f51b5; font-weight: 600;">Avaialable Coupons</div>
-                <app-admin-table [adminHeader]="couponsHeader" [adminTableDataSet]="paginationCoupon" adminFirstColumnVariable="couponCode" adminSecondColumnVariable="couponDiscountMethod" (deleteClickedEvent)="deleteCoupon($event)" (editClickedEvent)="editCoupon($event)"></app-admin-table>
-                <app-pagination *ngIf="coupons" [currentDataSet]="coupons" (perPageSelectionChangedEvent)="_perPageSelectionChanged($event)" (paginationButtonChangedEvent)="_paginationButtonChangedEvent($event)"></app-pagination>
+                <app-search *ngIf="coupons" (searchTextEvent)="_searchTextEvent($event)"></app-search>
+                <app-admin-table *ngIf="coupons" [filterDataText]="filterText" [adminHeader]="couponsHeader" [adminTableDataSet]="paginationCoupon" adminFirstColumnVariable="couponCode" adminSecondColumnVariable="couponDiscountMethod" (deleteClickedEvent)="deleteCoupon($event)" (editClickedEvent)="editCoupon($event)"></app-admin-table>
+                <app-pagination *ngIf="paginationCoupon.length>0" [currentDataSet]="filterdCoupon" (perPageSelectionChangedEvent)="_perPageSelectionChanged($event)" (paginationButtonChangedEvent)="_paginationButtonChangedEvent($event)"></app-pagination>
             </div>
         </div>
     </div>
