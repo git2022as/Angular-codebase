@@ -11,28 +11,28 @@
             <div class="cartValue col-md-6 col-xs-12 p-3">
                 <div class="row m-0 cart-sub-parent">
                     <div class="cart-sub-details">Item Total</div>
-                    <div class="cart-sub-details">{{totalCartValue}}</div>
+                    <div class="cart-sub-details">{{cartObj.totalCartValue}}</div>
                 </div>
                 <div class="row m-0 cart-sub-parent">
                     <div class="cart-sub-details">Delivery Fee
                         <mat-icon tooltip="Delivery charges will be FREE above 500 INR order, else 50 INR is needed" placement="auto" style="font-size: 13px;">info</mat-icon>
                     </div>
-                    <div class="cart-sub-details" [ngStyle]="{'color': deliveryFree ? 'green' : 'inherit'}">{{deliveryAmount}}</div>
+                    <div class="cart-sub-details" [ngStyle]="{'color': cartObj.deliveryFree ? 'green' : 'inherit'}">{{cartObj.deliveryAmount}}</div>
                 </div>
                 <div class="row m-0 cart-sub-parent">
                     <div class="cart-sub-details">Govt Taxes & Packaging Charges</div>
-                    <div class="cart-sub-details">{{govtTaxPackage}}</div>
+                    <div class="cart-sub-details">{{cartObj.govtTaxPackage}}</div>
                 </div>
                 <div class="row m-0 cart-sub-parent" *ngIf="showAppDiscount">
                     <div class="cart-sub-details">Discounts
                         <mat-icon [tooltip]="showAppDiscountTooltip" placement="auto" style="font-size: 13px;">info</mat-icon>
                     </div>
-                    <div class="cart-sub-details">{{appDiscountAmount}}</div>
+                    <div class="cart-sub-details">{{cartObj.appDiscountAmount}}</div>
                 </div>
                 <hr style="border-top: 1.5px solid black;margin-bottom: 0px;">
                 <div class="row m-0 cart-sub-parent mt-3">
                     <div class="cart-sub-details-bold">TO PAY</div>
-                    <div class="cart-sub-details-bold">{{(totalCartValue + govtTaxPackage + deliveryAmount)-appDiscountAmount}}</div>
+                    <div class="cart-sub-details-bold">{{cartObj.finalPay}}</div>
                 </div>
                 <hr style="border-top: 1.5px solid black;margin-bottom: 0px;">
                 <div class="mt-2">
@@ -45,19 +45,10 @@
                 aria-labelledby="coupon-radio-group-label"
                 class="coupon-radio-group"
                 [(ngModel)]="selectedCoupon">
-                    <mat-radio-button (change)="applySiteCoupon($event.value)" class="coupon-radio-button" *ngFor="let cou of coupons" [value]="cou.couponCode">
+                    <mat-radio-button (change)="applySiteCoupon($event.value)" class="" *ngFor="let cou of coupons" [value]="cou">
                     <span style="white-space: normal;"><b>{{cou.couponCode}}</b> - {{cou.couponDescription}}</span>
                     </mat-radio-button>
                 </mat-radio-group>
-                <!--<mat-form-field class="">
-                    <mat-label>Enter Coupon Code</mat-label>
-                    <input matInput type="text" ngModel maxlength="7" minlength="7" #couCode="ngModel" name="manualCouponCode" style="font-size: 12px;" [(ngModel)]="manualCouponCode">
-                    <span matSuffix mat-icon-button aria-label="Discount" style="font-size: 10px;">
-                        <mat-icon>close</mat-icon>
-                    </span>
-                </mat-form-field>
-                <p *ngIf="couponError" style="color:red;">{{couponErroMsg}}</p>
-                <button mat-raised-button color="primary" class="product-button ml-3" (click)="applyCoupon()">Apply</button>-->
             </div>
         </div>
         <div #shortContainer></div>

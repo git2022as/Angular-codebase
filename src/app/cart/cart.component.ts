@@ -20,6 +20,7 @@ export class CartComponent implements OnInit, OnDestroy {
   cartAvailable: boolean = false;
   timeForMsg: number = 2000;
   deliveryAmount: number = staticValue.deliveryCharge;
+  cartObj : any;
   totalCartValue: number;
   deliveryFree: boolean = false;
   govtTaxPackage: number = 0;
@@ -67,28 +68,10 @@ export class CartComponent implements OnInit, OnDestroy {
     this.productDetails = this.appCacheService._dishesDetails;
     if(this.cartDetails.length > 0){
       this.cartAvailable = true;
-      this.calculateCartValue(this.cartDetails);
+      this.cartObj = this.utilityService.calculateCartValue(this.cartDetails,this.selectedCoupon); 
     }
     else
       this.cartAvailable = false;
-  }
-
-  calculateCartValue(arr: Array<any>): void{
-    this.totalCartValue = this.utilityService.calculateCartValue(arr);
-    if(this.totalCartValue > 500){
-      this.deliveryFree = true;
-      this.deliveryAmount = 0
-    }else{
-      this.deliveryAmount = staticValue.deliveryCharge;
-      this.deliveryFree = false;
-    }
-    this.calculateGovtTaxPackage();
-  }
-
-  calculateGovtTaxPackage(){
-    let tax = 0;
-    tax = this.utilityService.calculateGovtTax(this.totalCartValue);
-    this.govtTaxPackage = tax +  staticValue.packagingCharge;
   }
 
   showShortMsg(event: any): void{
@@ -111,36 +94,21 @@ export class CartComponent implements OnInit, OnDestroy {
   }
 
   applySiteCoupon(event: any): void{
-    this.appDiscountAmount = this.utilityService.calculateAppDiscount(event,this.totalCartValue, this.coupons);
-    if(this.appDiscountAmount > 0){
+    this.cartObj = this.utilityService.calculateCartValue(this.cartDetails,event); 
+    if(this.cartObj.appDiscountAmount > 0){
       this.showAppDiscount = true;
-      this.showAppDiscountTooltip = `${event.value} is applied`;
+      this.showAppDiscountTooltip = `${event.couponCode} is applied`;
     }
   }
 
   goToPayment(): void{
     //sending QUERY PARAMS to the route
-    this.router.navigate(['payment'],{queryParams: {cartValue: this.totalCartValue, deliveryCharge: this.deliveryAmount, govtTaxPackageCharge: this.govtTaxPackage, discountCharge: this.appDiscountAmount, discountTooltip: this.showAppDiscountTooltip, finalPayable: (this.totalCartValue + this.govtTaxPackage + this.deliveryAmount)-this.appDiscountAmount}});
-  }
-
-  applyCoupon(): void{
-    //API call to check coupon validity
-    if(this.manualCouponCode == ""){
-      this.couponError = true;
-      this.couponErroMsg = "Please enter coupon code";
-    }
-    else{
-      //CALL API with value this.manualCouponCode
-      //write code to validate coupon amount
-      this.couponError = true;
-      this.couponErroMsg = "Invalid coupon code";
-    }
+    this.router.navigate(['payment/'],{queryParams: {selectedCoupon: JSON.stringify(this.selectedCoupon)}});
   }
 
   _cartTotalEvent(event): void{
     if(event.cartUpdated){
       this.checkCart();
-      this.applySiteCoupon(this.selectedCoupon);
     }
   }
 

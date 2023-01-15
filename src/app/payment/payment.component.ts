@@ -1,5 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
+import { AppCacheService } from '../services/app.cache.service';
+import { UtilityService } from '../services/utility.service';
 
 @Component({
   selector: 'app-payment',
@@ -9,28 +11,38 @@ import { ActivatedRoute } from '@angular/router';
 export class PaymentComponent implements OnInit {
 
   showBreakUp: boolean = false;
-  cartValue: number;
-  deliveryCharge: number;
-  govtTaxPackageCharge: number;
-  discountCharge: number;
-  finalPayable: number;
+  cartObj: any;
+  paymentPageReady: boolean = false;
   discountTooltip: string = "";
+  cartDetails: any;
+  appliedCoupon: any;
 
-  constructor(private activatedRoute: ActivatedRoute) { }
+  constructor(private activatedRoute: ActivatedRoute,
+              private appCacheService: AppCacheService,
+              private utilityService: UtilityService) { }
 
   ngOnInit(): void {
     this.routeSubscribe();
+    this.calculatePayment();
   }
 
   routeSubscribe(): void{
-    this.activatedRoute.queryParamMap.subscribe(x=>{
-      this.cartValue = Number(x.get('cartValue'));
-      this.deliveryCharge = Number(x.get('deliveryCharge'));
-      this.govtTaxPackageCharge = Number(x.get('govtTaxPackageCharge'));
-      this.discountCharge = Number(x.get('discountCharge'));
-      this.finalPayable = Number(x.get('finalPayable'));
-      this.discountTooltip = x.get('discountTooltip');
-    });
+    /*this.activatedRoute.queryParamMap.subscribe(x=>{
+      this.appliedCoupon = x.get('selectedCoupon');
+      console.log(this.appliedCoupon);
+    });*/
+    //another way to get query param value
+    //get the value single time during payment page load
+    this.appliedCoupon = JSON.parse(this.activatedRoute.snapshot.queryParamMap.get('selectedCoupon'));
+  }
+
+  calculatePayment(): void{
+    this.cartDetails = this.appCacheService._cartDetails;
+    if(this.appliedCoupon)
+      this.cartObj = this.utilityService.calculateCartValue(this.cartDetails, this.appliedCoupon); 
+    if(this.cartObj.appDiscountAmount > 0){
+      this.discountTooltip = `${this.appliedCoupon.couponCode} is applied`;
+    }
   }
 
 }

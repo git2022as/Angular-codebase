@@ -8,44 +8,66 @@ import { AppCacheService } from "./app.cache.service";
 
 export class UtilityService {
     constructor(private appCacheService: AppCacheService){}
+    cartObject = {
+        totalCartValue: 0,
+        deliveryFree: false,
+        deliveryAmount: 0,
+        govtTaxPackage: 0,
+        appDiscountAmount: 0,
+        finalPay: 0
+    };
 
-    calculateAppDiscount(value: any, totalCartValue: number, coupon: any) {
-        let totalDiscount : number = 0;
-        let appDiscountDetails = this.findAppDiscountDetails(value, coupon);
-        if(appDiscountDetails.couponDiscountMethod == 'percentage'){
-            totalDiscount = Number(((totalCartValue*appDiscountDetails.couponDiscount)/100).toFixed(2));
+    /* calculate value from UI $$$$$$$$$$$ */
+    //1. - check cart
+    calculateCartValue(arr: any, selectedCoupon?: string): {totalCartValue: number, deliveryFree: boolean, deliveryAmount: number, govtTaxPackage: number, appDiscountAmount: number, finalPay: number}{
+        this.cartObject['totalCartValue'] = this.totalCartValue(arr);
+        let totalDiscount: number = 0;
+        if(this.cartObject['totalCartValue'] > 500){
+            this.cartObject['deliveryFree'] = true;
+            this.cartObject['deliveryAmount'] = 0;
         }
         else{
-            totalDiscount =  appDiscountDetails.couponDiscount;
+            this.cartObject['deliveryFree'] = false;
+            this.cartObject['deliveryAmount'] = staticValue.deliveryCharge;
         }
-        return totalDiscount;
+        this.calculateGovtTaxPackage(this.cartObject['totalCartValue']);
+        if(selectedCoupon){
+            totalDiscount = this.calculateAppDiscount(selectedCoupon, this.cartObject['totalCartValue']);
+        }
+        this.cartObject['appDiscountAmount'] = totalDiscount;
+        const finalPay = ((this.cartObject['totalCartValue'] + this.cartObject['govtTaxPackage'] + this.cartObject['deliveryAmount'])-this.cartObject['appDiscountAmount']);
+        this.cartObject['finalPay'] = finalPay;
+        return this.cartObject;
     }
 
-    findAppDiscountDetails(value: any, coupon): any {
-        let a = {};
-        if(coupon && Array.isArray(coupon)){
-            coupon.forEach(each => {
-                if(value == each.couponCode){
-                    a = {couponDiscountMethod: each.couponDiscountMethod, couponDiscount: each.couponDiscount};
-                }
-            });
-        }
-        return a;
-    }
-
-    calculateCartValue(arr: Array<any>): number {
-        let total = 0;
+    //2. - calculate total cart value
+    totalCartValue(arr: Array<any>): number {
+        let total : number = 0;
         arr.forEach(each =>{
             total = each.tprice ? (each.tprice + total) : total;
         });
         return total;
     }
 
-    calculateGovtTax(cartValue: number): number{
-        let val;
-        val = ((cartValue*staticValue.gstPercent)/100).toFixed(2);
-        return Number(val);
+    //3. - calculate govt tax + packaging charge
+    calculateGovtTaxPackage(cartValue: number){
+        const tax = Number(((cartValue*staticValue.gstPercent)/100).toFixed(2));
+        this.cartObject['govtTaxPackage'] = tax +  staticValue.packagingCharge;
     }
+
+    //4. - to calculate discount amount
+    calculateAppDiscount(coupon: any, totalCartValue: number) {
+        let totalDiscount : number = 0;
+        if(coupon.couponDiscountMethod == 'percentage'){
+            totalDiscount = Number(((totalCartValue*coupon.couponDiscount)/100).toFixed(2));
+        }
+        else{
+            totalDiscount =  coupon.couponDiscount;
+        }
+        return totalDiscount;
+    }
+
+    /* calculate value from UI ends here */
 
     checkDishInCart(product: any): boolean{
         let val: boolean = true;
