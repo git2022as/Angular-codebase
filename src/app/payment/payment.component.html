@@ -56,7 +56,7 @@
                         <form #cardForm="ngForm" style="font-size: 14px;">
                             <mat-form-field class="mb-4">
                                 <mat-label>Card Number</mat-label>
-                                <input matInput type="text" cardNumber minlength="19" maxlength="19" #cardNo="ngModel" ngModel name="cardValue" [(ngModel)]="cardValue" pattern="[0-9 ]+$" [required]="true">
+                                <input matInput type="text" cardNumber minlength="19" maxlength="19" #cardNo="ngModel" ngModel name="cardValue" [(ngModel)]="cardValue" [required]="true">
                                 <button matSuffix mat-icon-button aria-label="Clear" style="color: deeppink" tooltip="Example - 1234 5678 9012 3456" placement="auto" (click)="commonService.clickDisabled($event)">
                                     <mat-icon>info</mat-icon>
                                 </button>
@@ -71,7 +71,7 @@
                             <div class="card-module">
                                 <mat-form-field class="mb-2 mr-4" style="width: 32%">
                                     <mat-label>Card Expiry</mat-label>
-                                    <input matInput type="text" cardExpiry minlength="5" maxlength="5" #cardExpiry="ngModel" ngModel name="cardExpiryValue" [(ngModel)]="cardExpiryValue" pattern="[0-9/]+$" [required]="true">
+                                    <input matInput type="text" cardExpiry minlength="5" maxlength="5" #cardExpiry="ngModel" ngModel name="cardExpiryValue" [(ngModel)]="cardExpiryValue" [required]="true">
                                     <button matSuffix mat-icon-button aria-label="Clear" style="color: deeppink" tooltip="Example - 12/25" placement="auto" (click)="commonService.clickDisabled($event)">
                                         <mat-icon>info</mat-icon>
                                     </button>
@@ -123,7 +123,6 @@
                             <button mat-raised-button color="primary" class="payment-button" (click)="confirmPayment('cash')">Payment</button>
                         </div>
                     </div>
-                    <!--<hr style="border-top: 1px solid black;margin-bottom: 0px;">-->
                 </div>
             </div>
         </div>

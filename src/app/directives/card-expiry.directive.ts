@@ -19,7 +19,9 @@ export class CardExpiryDirective implements OnInit{
             this.el.nativeElement.value = `${value}/`;
         }
         else{
-            this.el.nativeElement.value = value.replace(/[^0-9/]*/g, '');
+            let lastChar = value.charAt((value.length-1));
+            lastChar = lastChar.replace(/[^0-9]*/g, '');
+            this.el.nativeElement.value = value.substring(0,(value.length-1)) + lastChar;
         }
 
         if(value != this.el.nativeElement.value){
@@ -34,7 +36,7 @@ export class CardExpiryDirective implements OnInit{
         const lastChar = value.charAt(length-1);
         if(e.key == 'Backspace'){
             if(lastChar == '/'){
-                this.el.nativeElement.value = value.substring(0,(length-2));
+                this.el.nativeElement.value = value.substring(0,(length-1));
             }
         }
     }
