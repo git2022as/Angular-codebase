@@ -27,7 +27,7 @@ export class CartComponent implements OnInit, OnDestroy {
   packagingCharge: number = staticValue.packagingCharge;
   productDetails: Array<any> = [];
   cartDetails : Array<any> = [];
-  selectedCoupon: string;
+  selectedCoupon: string = "";
   coupons: Array<any>;
   appDiscountAmount: number = 0;
   showAppDiscount: boolean = false;

@@ -40,3 +40,18 @@
     height: 24px;
 }
 
+.payment-details{
+    display: flex;
+    flex-direction: row;
+}
+
+.payment-mode{
+    font-size: 14px;
+}
+
+.selectedPaymentMode{
+    color: $pink !important;
+    font-weight: 600;
+    border-bottom-color: $pink !important;
+}
+

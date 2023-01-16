@@ -9,6 +9,7 @@ import { MatRadioModule } from '@angular/material/radio';
 import { FormsModule } from '@angular/forms';
 import { MatButtonModule } from '@angular/material';
 import { MatInputModule } from '@angular/material/input';
+import { DirectiveModule } from '../directives/directives.module';
 
 @NgModule({
   declarations: [CartComponent],
@@ -20,7 +21,8 @@ import { MatInputModule } from '@angular/material/input';
             MatRadioModule,
             FormsModule,
             MatButtonModule,
-            MatInputModule
+            MatInputModule,
+            DirectiveModule
           ],
   exports: [CartComponent]
 })

@@ -40,13 +40,13 @@
                 </div>
             </div>
             <div class="cartCoupon col-md-6 col-xs-12 p-3">
-                <div style="font-size: 13px;">Apply these <span style="font-weight: bold; color: green;">COUPONS</span> to get more discounts</div>
+                <div style="font-size: 13px;">Apply these <span couponGreenColor>COUPONS</span> to get more discounts</div>
                 <mat-radio-group
                 aria-labelledby="coupon-radio-group-label"
                 class="coupon-radio-group"
                 [(ngModel)]="selectedCoupon">
                     <mat-radio-button (change)="applySiteCoupon($event.value)" class="" *ngFor="let cou of coupons" [value]="cou">
-                    <span style="white-space: normal;"><b>{{cou.couponCode}}</b> - {{cou.couponDescription}}</span>
+                    <span style="white-space: normal;"><span couponGreenColor>{{cou.couponCode}}</span> - {{cou.couponDescription}}</span>
                     </mat-radio-button>
                 </mat-radio-group>
             </div>

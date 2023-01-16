@@ -16,6 +16,7 @@ export class PaymentComponent implements OnInit {
   discountTooltip: string = "";
   cartDetails: any;
   appliedCoupon: any;
+  paymentMode: string = 'card';
 
   constructor(private activatedRoute: ActivatedRoute,
               private appCacheService: AppCacheService,
@@ -39,7 +40,9 @@ export class PaymentComponent implements OnInit {
   calculatePayment(): void{
     this.cartDetails = this.appCacheService._cartDetails;
     if(this.appliedCoupon)
-      this.cartObj = this.utilityService.calculateCartValue(this.cartDetails, this.appliedCoupon); 
+      this.cartObj = this.utilityService.calculateCartValue(this.cartDetails, this.appliedCoupon);
+    else
+      this.cartObj = this.utilityService.calculateCartValue(this.cartDetails);
     if(this.cartObj.appDiscountAmount > 0){
       this.discountTooltip = `${this.appliedCoupon.couponCode} is applied`;
     }

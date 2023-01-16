@@ -41,8 +41,22 @@
         </div>
     </div>
     <div class="paymentSection row m-0 mb-2">
-        <div class="paymentSectionHeading p-2">
-            Offers Details
+        <div class="paymentSectionHeading col-12 p-2">
+            Payment Details
+        </div>
+        <div class="col-12 p-2">
+            <div class="payment-details">
+                <div class="col-3 p-0">
+                    <div class="mr-2 pt-2 pb-2 payment-mode" style="border-bottom: 1px solid black;" (click)="paymentMode = 'card'" [ngClass]="{'selectedPaymentMode': paymentMode == 'card'}">Credit/Debit Card</div>
+                    <div class="mr-2 pt-2 pb-2 payment-mode" style="border-bottom: 1px solid black;" (click)="paymentMode = 'upi'" [ngClass]="{'selectedPaymentMode': paymentMode == 'upi'}">UPI</div>
+                    <div class="mr-2 pt-2 pb-2 payment-mode" style="border-bottom: 1px solid black;" (click)="paymentMode = 'cash'" [ngClass]="{'selectedPaymentMode': paymentMode == 'cash'}">Cash on Delivery</div>
+                </div>
+                <div class="col-9 m-0">
+                    <div class="payment-mode-section" *ngIf="paymentMode == 'card'">CARD</div>
+                    <div class="payment-mode-section" *ngIf="paymentMode == 'upi'">UPI</div>
+                    <div class="payment-mode-section" *ngIf="paymentMode == 'cash'">CASH</div>
+                </div>
+            </div>
         </div>
     </div>
 </div>

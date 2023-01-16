@@ -20,6 +20,7 @@ export class AppCacheService {
     
     /* setter & getter concept */
 
+    /*part of LOGIN*/
     set _loggedInUser(ln: boolean){
         this.loggedInUser = ln;
     }
@@ -34,18 +35,27 @@ export class AppCacheService {
         return this.token;
     }
 
-    set _loggedInUserName(name: string){
-        this.loggedInUserName = name;
-    }
-    get _loggedInUserName(): string{
-        return this.loggedInUserName;
-    }
-
     set _loggedInUserEmail(email: string){
         this.loggedInUserEmail = email;
     }
     get _loggedInUserEmail(): string{
         return this.loggedInUserEmail;
+    }
+
+    set _UID(uid: string){
+        this.UID = uid;
+    }
+
+    get _UID(): string{
+        return this.UID;
+    }
+    /* end of LOGIN */
+
+    set _loggedInUserName(name: string){
+        this.loggedInUserName = name;
+    }
+    get _loggedInUserName(): string{
+        return this.loggedInUserName;
     }
 
     set _dishesDetails(dish: any){
@@ -96,14 +106,6 @@ export class AppCacheService {
 
     get _adminLoggedIn(): boolean{
         return this.adminLoggedIn;
-    }
-
-    set _UID(uid: string){
-        this.UID = uid;
-    }
-
-    get _UID(): string{
-        return this.UID;
     }
 
 }
