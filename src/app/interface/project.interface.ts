@@ -4,19 +4,34 @@ export interface cartExtraItem {
     extraPrice: number
 }
 
-export interface deactivateInterface{
+export interface deactivateInterface {
     canExit: () => boolean;
 }
 
-export interface signUpResponse{
+/* sign up */
+
+export interface signUpRequestInterface {
+    email: string,
+    password: string,
+    confirmPassword: string
+}
+
+export interface signUpResponseInterface {
     idToken: string,
     email: string,
     refreshToken: string,
     expiresIn: string,
     localId: string
 }
+/* sign up */
 
-export interface signInResponse{
+/* login */
+export interface signInRequestInterface {
+    emailAddress: string,
+    password: string
+}
+
+export interface signInResponseInterface {
     idToken: string,
     email: string,
     refreshToken: string,
@@ -24,3 +39,4 @@ export interface signInResponse{
     localId: string,
     registered: boolean
 }
+/* login */

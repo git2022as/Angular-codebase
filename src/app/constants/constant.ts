@@ -15,7 +15,8 @@ export const StaticMsg = {
     deleteItemConfirmationText: "Are you sure want to delete the item?",
     deleteItemConfirmationTitle: "Delete Item",
     uidMissingError: "We are not able to add this dish into the cart. Please try again later.",
-    commonError: "We are not able to process your request right now, please try again later."
+    commonError: "We are not able to process your request right now, please try again later.",
+    terms_condition_disclaimer: "By creating an account, I accept the Terms & Conditions & Privacy Policy"
 } as const;
 
 export const staticValue = {
@@ -52,4 +53,16 @@ export const firebaseAPI = {
     signUpUrl: "https://identitytoolkit.googleapis.com/v1/accounts:signUp?key=",
     signInUrl: "https://identitytoolkit.googleapis.com/v1/accounts:signInWithPassword?key=",
     resetPassLinkUrl: "https://identitytoolkit.googleapis.com/v1/accounts:sendOobCode?key="
+}
+
+export const errorMessages = {
+    emailRequired: "Enter a valid email address",
+    passwordRequired: "Enter a valid password",
+    emailRequirement: "Enter 6-10 characters password with one capital, one number and one special character",
+    confirmPasswordRequired: "Confirm password is required",
+    confirmPasswordNoMatch: "The password confirmation doesn't match",
+    invalidUPI: "Please provide a correct UPI ID",
+    invalidCard: "Please provide 16 digits card number",
+    invalidCardExpiry: "Please provide proper card expiry details",
+    invalidCardCvv: "Please provide 3 digits card CVV details"
 }

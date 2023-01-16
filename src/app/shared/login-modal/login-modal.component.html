@@ -21,7 +21,7 @@
             <button *ngIf="emailAddress" matSuffix mat-icon-button tabindex="-1" (click)="emailAddress = ''">
                 <mat-icon>close</mat-icon>
             </button>
-            <mat-error *ngIf="mail.touched && mail.invalid">Enter a valid email address</mat-error>
+            <mat-error *ngIf="mail.touched && mail.invalid">{{errorMessages.emailRequired}}</mat-error>
         </mat-form-field>
         <!--<button mat-raised-button *ngIf="phone.valid" style="margin-left: 2rem;" color="primary" (click)="getOtp(loginForm)">Get OTP</button>-->
         <mat-form-field class="modal-form">
@@ -34,7 +34,7 @@
             <button *ngIf="password" matSuffix mat-icon-button aria-label="Clear" (click)="password=''">
                 <mat-icon>close</mat-icon>
             </button>
-            <mat-error *ngIf="pass.touched && pass.invalid">Enter a valid password</mat-error>
+            <mat-error *ngIf="pass.touched && pass.invalid">{{errorMessages.passwordRequired}}</mat-error>
         </mat-form-field>
     </form>
     <div class="row m-0">

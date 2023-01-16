@@ -1,18 +1,20 @@
-import { Component, OnInit, ElementRef, ViewChild, EventEmitter } from '@angular/core';
+import { Component, OnInit, ElementRef, ViewChild, EventEmitter, OnDestroy } from '@angular/core';
 import { NgForm } from '@angular/forms';
 import { BsModalRef } from 'ngx-bootstrap/modal';
 import { FormGroup, FormControl, Validators, FormBuilder } from '@angular/forms';
 import { customValidator } from 'src/app/validator/custom.validator';
 import { AuthService } from 'src/app/services/auth.service';
 import { CommonService } from 'src/app/services/common.service';
-import { signUpResponse } from 'src/app/interface/project.interface';
+import { signUpResponseInterface } from 'src/app/interface/project.interface';
+import { Subscription } from 'rxjs';
+import { errorMessages, StaticMsg } from '../../constants/constant';
 
 @Component({
   selector: 'app-signUp-modal',
   templateUrl: './signUp-modal.component.html',
   styleUrls: ['./signUp-modal.component.scss']
 })
-export class SignUpModalComponent implements OnInit {
+export class SignUpModalComponent implements OnInit, OnDestroy {
 
   //phoneNumber: any;
   //otp: any;
@@ -23,6 +25,9 @@ export class SignUpModalComponent implements OnInit {
   signUpSuccessStatus: boolean = false;
   SignUpMsg: string = "";
   signUpSuccessfulEvent = new EventEmitter<any>();
+  signUpSubscription: Subscription | undefined;
+  errorMessages = errorMessages;
+  staticMsg = StaticMsg;
 
   @ViewChild('pass', { static: true }) passwrd: ElementRef;
 
@@ -56,19 +61,20 @@ export class SignUpModalComponent implements OnInit {
 
   signUpFormClicked(data:FormGroup): void{
     console.log(data.value);
-    this.authService.createUser(data.value).subscribe((res: signUpResponse)=>{
-      console.log("registration done " + JSON.stringify(res));
-      this.signUpFailedStatus = false;
-      this.signUpSuccessStatus = true;
-      this.SignUpMsg = "Sign Up is Successful";
-      setTimeout(()=>{
-        this.signUpSuccessfulEvent.emit(true);
-      },2000);
-    },
-    (error: any)=>{
-      //this.signUpFailedStatus = true;
-      //this.SignUpMsg = error.message;
-    })
+    this.signUpSubscription = this.authService.createUser(data.value).subscribe((res: signUpResponseInterface)=>{
+        console.log("registration done " + JSON.stringify(res));
+        this.signUpFailedStatus = false;
+        this.signUpSuccessStatus = true;
+        this.SignUpMsg = "Sign Up is Successful";
+        setTimeout(()=>{
+          this.signUpSuccessfulEvent.emit(true);
+        },2000);
+      },
+      (error: any)=>{
+        //this.signUpFailedStatus = true;
+        //this.SignUpMsg = error.message;
+      }
+    )
   }
 
   showHidePassword(): void{
@@ -92,4 +98,9 @@ export class SignUpModalComponent implements OnInit {
   clickDisabled(event: Event): void{
     event.preventDefault();
   }
+
+  ngOnDestroy(): void {
+    this.signUpSubscription?.unsubscribe();
+  }
+
 }

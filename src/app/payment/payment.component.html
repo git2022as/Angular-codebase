@@ -47,14 +47,83 @@
         <div class="col-12 p-2">
             <div class="payment-details">
                 <div class="col-3 p-0">
-                    <div class="mr-2 pt-2 pb-2 payment-mode" style="border-bottom: 1px solid black;" (click)="paymentMode = 'card'" [ngClass]="{'selectedPaymentMode': paymentMode == 'card'}">Credit/Debit Card</div>
-                    <div class="mr-2 pt-2 pb-2 payment-mode" style="border-bottom: 1px solid black;" (click)="paymentMode = 'upi'" [ngClass]="{'selectedPaymentMode': paymentMode == 'upi'}">UPI</div>
-                    <div class="mr-2 pt-2 pb-2 payment-mode" style="border-bottom: 1px solid black;" (click)="paymentMode = 'cash'" [ngClass]="{'selectedPaymentMode': paymentMode == 'cash'}">Cash on Delivery</div>
+                    <div class="mr-2 pt-2 pb-2 payment-mode" style="border-bottom: 1px solid black;cursor: pointer;" (click)="paymentMode = 'card';cardValue=null;cardExpiryValue=null;cardCvvValue=null;" [ngClass]="{'selectedPaymentMode': paymentMode == 'card'}">Credit/Debit Card</div>
+                    <div class="mr-2 pt-2 pb-2 payment-mode" style="border-bottom: 1px solid black;cursor: pointer;" (click)="paymentMode = 'upi';upiValue = '';" [ngClass]="{'selectedPaymentMode': paymentMode == 'upi'}">UPI</div>
+                    <div class="mr-2 pt-2 pb-2 payment-mode" style="border-bottom: 1px solid black;cursor: pointer;" (click)="paymentMode = 'cash';upiValue = '';" [ngClass]="{'selectedPaymentMode': paymentMode == 'cash'}">Cash on Delivery</div>
                 </div>
-                <div class="col-9 m-0">
-                    <div class="payment-mode-section" *ngIf="paymentMode == 'card'">CARD</div>
-                    <div class="payment-mode-section" *ngIf="paymentMode == 'upi'">UPI</div>
-                    <div class="payment-mode-section" *ngIf="paymentMode == 'cash'">CASH</div>
+                <div class="col-9 m-0 payment-mode-divider payment-mode">
+                    <div class="payment-mode-section" *ngIf="paymentMode == 'card'">
+                        <form #cardForm="ngForm" style="font-size: 14px;">
+                            <mat-form-field class="mb-4">
+                                <mat-label>Card Number</mat-label>
+                                <input matInput type="text" cardNumber minlength="19" maxlength="19" #cardNo="ngModel" ngModel name="cardValue" [(ngModel)]="cardValue" pattern="[0-9 ]+$" [required]="true">
+                                <button matSuffix mat-icon-button aria-label="Clear" style="color: deeppink" tooltip="Example - 1234 5678 9012 3456" placement="auto" (click)="commonService.clickDisabled($event)">
+                                    <mat-icon>info</mat-icon>
+                                </button>
+                                <button *ngIf="cardNo.valid" matSuffix mat-icon-button aria-label="Clear" style="color: deeppink" tooltip="Visa" placement="auto" (click)="commonService.clickDisabled($event)">
+                                    <mat-icon>credit_score</mat-icon>
+                                </button>
+                                <button *ngIf="cardValue" matSuffix mat-icon-button aria-label="Clear" (click)="cardValue = null">
+                                    <mat-icon>close</mat-icon>
+                                </button>
+                                <mat-error *ngIf="cardNo.touched && cardNo.invalid">{{errorMessages.invalidCard}}</mat-error>
+                            </mat-form-field>
+                            <div class="card-module">
+                                <mat-form-field class="mb-2 mr-4" style="width: 32%">
+                                    <mat-label>Card Expiry</mat-label>
+                                    <input matInput type="text" cardExpiry minlength="5" maxlength="5" #cardExpiry="ngModel" ngModel name="cardExpiryValue" [(ngModel)]="cardExpiryValue" pattern="[0-9/]+$" [required]="true">
+                                    <button matSuffix mat-icon-button aria-label="Clear" style="color: deeppink" tooltip="Example - 12/25" placement="auto" (click)="commonService.clickDisabled($event)">
+                                        <mat-icon>info</mat-icon>
+                                    </button>
+                                    <button *ngIf="cardExpiryValue" matSuffix mat-icon-button aria-label="Clear" (click)="cardExpiryValue = null">
+                                        <mat-icon>close</mat-icon>
+                                    </button>
+                                    <mat-error *ngIf="cardExpiry.touched && cardExpiry.invalid">{{errorMessages.invalidCardExpiry}}</mat-error>
+                                </mat-form-field>
+                                <mat-form-field class="mb-2" style="width: 32%">
+                                    <mat-label>Card CVV</mat-label>
+                                    <input matInput type="text" minlength="3" maxlength="3" #cardCvv="ngModel" ngModel name="cardCvvValue" [(ngModel)]="cardCvvValue" pattern="[0-9]+$" [required]="true">
+                                    <button matSuffix mat-icon-button aria-label="Clear" style="color: deeppink" tooltip="Example - 007" placement="auto" (click)="commonService.clickDisabled($event)">
+                                        <mat-icon>info</mat-icon>
+                                    </button>
+                                    <button *ngIf="cardCvvValue" matSuffix mat-icon-button aria-label="Clear" (click)="cardCvvValue = null">
+                                        <mat-icon>close</mat-icon>
+                                    </button>
+                                    <mat-error *ngIf="cardCvv.touched && cardCvv.invalid">{{errorMessages.invalidCardCvv}}</mat-error>
+                                </mat-form-field>
+                            </div>
+                        </form>
+                        <div class="mt-2">
+                            <button mat-raised-button color="primary" [disabled]="cardForm.invalid" class="payment-button" (click)="confirmPayment('card')">Payment</button>
+                        </div>
+                    </div>
+                    <div class="payment-mode-section" *ngIf="paymentMode == 'upi'">
+                        <form #upiForm="ngForm" style="font-size: 14px;">
+                            <mat-form-field>
+                                <mat-label>UPI</mat-label>
+                                <input matInput type="text" #upi="ngModel" ngModel name="upiValue" [(ngModel)]="upiValue" pattern="[a-z0-9._%+-]+@[a-z0-9.-]+$" [required]="true">
+                                <button matSuffix mat-icon-button aria-label="Clear" style="color: deeppink" tooltip="Example - (test.99@oksbi)" placement="auto" (click)="commonService.clickDisabled($event)">
+                                    <mat-icon>info</mat-icon>
+                                </button>
+                                <button *ngIf="upiValue" matSuffix mat-icon-button aria-label="Clear" (click)="upiValue = ''">
+                                    <mat-icon>close</mat-icon>
+                                </button>
+                                <mat-error *ngIf="upi.touched && upi.invalid">{{errorMessages.invalidUPI}}</mat-error>
+                            </mat-form-field>
+                        </form>
+                        <div class="mt-2">
+                            <button mat-raised-button color="primary" [disabled]="upiForm.invalid" class="payment-button" (click)="confirmPayment('upi')">Payment</button>
+                        </div>
+                    </div>
+                    <div class="payment-mode-section" *ngIf="paymentMode == 'cash'">
+                        <div>
+                            <span>As you have selected <b>CASH</b> option hence, please be ready with eact amout of cash during delivery.</span>
+                        </div>
+                        <div class="mt-2">
+                            <button mat-raised-button color="primary" class="payment-button" (click)="confirmPayment('cash')">Payment</button>
+                        </div>
+                    </div>
+                    <!--<hr style="border-top: 1px solid black;margin-bottom: 0px;">-->
                 </div>
             </div>
         </div>

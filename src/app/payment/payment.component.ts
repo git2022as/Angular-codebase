@@ -1,7 +1,12 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { AppCacheService } from '../services/app.cache.service';
 import { UtilityService } from '../services/utility.service';
+import { errorMessages } from '../constants/constant';
+import { CommonService } from '../services/common.service';
+import { NgForm } from '@angular/forms';
+import { NgFor } from '@angular/common';
+import { BehaviorSubject } from 'rxjs';
 
 @Component({
   selector: 'app-payment',
@@ -17,10 +22,18 @@ export class PaymentComponent implements OnInit {
   cartDetails: any;
   appliedCoupon: any;
   paymentMode: string = 'card';
+  upiValue: string = "";
+  errorMessages = errorMessages;
+  cardValue: number = null;
+  cardExpiryValue: number = null;
+  cardCvvValue: number = null;
+
+  @ViewChild('upiForm', {static: true}) upiForm: any;
 
   constructor(private activatedRoute: ActivatedRoute,
               private appCacheService: AppCacheService,
-              private utilityService: UtilityService) { }
+              private utilityService: UtilityService,
+              public commonService: CommonService) { }
 
   ngOnInit(): void {
     this.routeSubscribe();
@@ -46,6 +59,10 @@ export class PaymentComponent implements OnInit {
     if(this.cartObj.appDiscountAmount > 0){
       this.discountTooltip = `${this.appliedCoupon.couponCode} is applied`;
     }
+  }
+
+  confirmPayment(sec: string): void{
+    console.log('payment confirmed ' + sec);
   }
 
 }

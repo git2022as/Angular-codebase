@@ -32,7 +32,7 @@
             </button>
             <mat-error *ngIf="signUpForm.get('name')?.invalid && signUpForm.get('name')?.touched">Name is required</mat-error>
         </mat-form-field>-->
-        <mat-form-field class="modal-form">
+        <mat-form-field class="modal-form" [ngClass]="{'mb-4': signUpForm.get('email')?.errors}">
             <mat-label>Email</mat-label>
             <input matInput type="text" name="email" formControlName="email">
             <button matSuffix mat-icon-button aria-label="Clear" style="color: deeppink" tooltip="Please enter proper email address" placement="auto" (click)="commonService.clickDisabled($event)">
@@ -41,9 +41,9 @@
             <button *ngIf="signUpForm.get('email')?.value != '' && signUpForm.get('email')?.value != null" matSuffix mat-icon-button aria-label="Clear" (click)="setValue('email')">
                 <mat-icon>close</mat-icon>
             </button>
-            <mat-error *ngIf="signUpForm.get('email')?.invalid && signUpForm.get('email')?.touched">Proper email address is required</mat-error>
+            <mat-error *ngIf="signUpForm.get('email')?.invalid && signUpForm.get('email')?.touched">{{errorMessages.emailRequired}}</mat-error>
         </mat-form-field>
-        <mat-form-field class="modal-form" [ngClass]="{'mb-4': signUpForm.get('password')?.errors?.emailRequirement}">
+        <mat-form-field class="modal-form" [ngClass]="{'mb-4': signUpForm.get('password')?.errors}">
             <mat-label>Password</mat-label>
             <input matInput type="password" #pass name="password" formControlName="password">
             <button *ngIf="signUpForm.get('password')?.value != '' && signUpForm.get('password')?.value != null" matSuffix mat-icon-button aria-label="Clear" (click)="commonService.clickDisabled($event)" (mouseenter)="showHidePassword();isVisibility = false;" (mouseleave)="showHidePassword();isVisibility = true;">
@@ -56,8 +56,8 @@
             <button *ngIf="signUpForm.get('password')?.value != '' && signUpForm.get('password')?.value != null" matSuffix mat-icon-button aria-label="Clear" (click)="setValue('password')">
                 <mat-icon>close</mat-icon>
             </button>
-            <mat-error *ngIf="signUpForm.get('password')?.errors?.required && signUpForm.get('password')?.touched">Password is required</mat-error>
-            <mat-error *ngIf="signUpForm.get('password')?.errors?.emailRequirement">Enter 6-10 characters password with one capital, one number and one special character</mat-error>
+            <mat-error *ngIf="signUpForm.get('password')?.errors?.required && signUpForm.get('password')?.touched">{{errorMessages.passwordRequired}}</mat-error>
+            <mat-error *ngIf="signUpForm.get('password')?.errors?.emailRequirement">{{errorMessages.emailRequirement}}</mat-error>
         </mat-form-field>
         <mat-form-field class="modal-form">
             <mat-label>Confirm Password</mat-label>
@@ -65,13 +65,13 @@
             <button *ngIf="signUpForm.get('confirmPassword')?.value != '' && signUpForm.get('confirmPassword')?.value != null" matSuffix mat-icon-button aria-label="Clear" (click)="setValue('confirmPassword')">
                 <mat-icon>close</mat-icon>
             </button>
-            <mat-error *ngIf="signUpForm.get('confirmPassword')?.errors?.required && signUpForm.get('confirmPassword')?.touched">Confirm password is required</mat-error>
-            <mat-error *ngIf="signUpForm.get('confirmPassword')?.errors?.noMatch && signUpForm.get('confirmPassword')?.touched">Passwords don't match, please check again</mat-error>
+            <mat-error *ngIf="signUpForm.get('confirmPassword')?.errors?.required && signUpForm.get('confirmPassword')?.touched">{{errorMessages.confirmPasswordRequired}}</mat-error>
+            <mat-error *ngIf="signUpForm.get('confirmPassword')?.errors?.noMatch && signUpForm.get('confirmPassword')?.touched">{{errorMessages.confirmPasswordNoMatch}}</mat-error>
         </mat-form-field>
     </form>
 </div>
 <div class="modal-footer">
     <button mat-raised-button style="margin-right: 1rem" color="primary" [disabled]="signUpForm.invalid" (click)="signUpFormClicked(signUpForm)">Sign Up</button>
     <button mat-raised-button [disabled]="signUpForm.untouched" (click)="signUpFormReset()">Reset</button>
-    <p style="font-size: 10.5px;color: deeppink">By creating an account, I accept the Terms & Conditions & Privacy Policy</p>
+    <p style="font-size: 10.5px;color: deeppink">{{staticMsg.terms_condition_disclaimer}}</p>
 </div>

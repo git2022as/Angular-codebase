@@ -3,7 +3,7 @@ import { AngularFireAuth } from '@angular/fire/compat/auth';
 import { HttpClient } from '@angular/common/http';
 import { firebaseAPI } from '../constants/constant';
 import { Observable } from 'rxjs';
-import { signUpResponse, signInResponse } from '../interface/project.interface';
+import { signUpResponseInterface, signInResponseInterface, signInRequestInterface, signUpRequestInterface } from '../interface/project.interface';
 
 @Injectable({
     providedIn: 'root'
@@ -14,18 +14,18 @@ export class AuthService {
                 private http: HttpClient) {}
 
     //login scenario
-    getLogin(value: any): Observable<any>{
+    getLogin(value: signInRequestInterface): Observable<signInResponseInterface>{
         const userReqObj = {email: value.emailAddress, password: value.password, returnSecureToken: true};
         const url = `${firebaseAPI.signInUrl}${firebaseAPI.APIKey}`;
-        return this.http.post<signInResponse>(url, userReqObj);
+        return this.http.post<signInResponseInterface>(url, userReqObj);
         //return this.angularFireAuth.signInWithEmailAndPassword(email,password);
     }
 
     //signup scenario
-    createUser(value: any): Observable<any>{
+    createUser(value: signUpRequestInterface): Observable<signUpResponseInterface>{
         const userReqObj = {email: value.email, password: value.password, returnSecureToken: true};
         const url = `${firebaseAPI.signUpUrl}${firebaseAPI.APIKey}`
-        return this.http.post<signUpResponse>(url, userReqObj);
+        return this.http.post<signUpResponseInterface>(url, userReqObj);
         //return this.angularFireAuth.createUserWithEmailAndPassword(email,password);
     }
 

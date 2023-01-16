@@ -55,3 +55,21 @@
     border-bottom-color: $pink !important;
 }
 
+.payment-mode-divider{
+    border-left: 2px dashed lightgray;
+}
+
+.payment-button{
+    font-size: 14px;
+}
+
+.card-module{
+    display: flex;
+    flex-direction: row;
+}
+
+@media screen and (max-width: 767px) {
+    //.card-module{
+        //flex-direction: column !important;
+    //}
+}
