@@ -17,6 +17,8 @@ import { HttpClientModule } from "@angular/common/http";
 import { SharedModule } from "../shared/shared.module";
 import { MatRadioModule } from '@angular/material/radio';
 import { MatSelectModule } from '@angular/material/select';
+import { MatCheckboxModule } from '@angular/material/checkbox';
+import { DirectiveModule } from "../directives/directives.module";
 
 /* ngx-modules */
 import { TooltipModule } from 'ngx-bootstrap/tooltip';
@@ -51,7 +53,9 @@ import { TooltipModule } from 'ngx-bootstrap/tooltip';
         HttpClientModule,
         SharedModule,
         MatRadioModule,
-        MatSelectModule
+        MatSelectModule,
+        MatCheckboxModule,
+        DirectiveModule
     ]
 })
 

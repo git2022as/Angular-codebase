@@ -1,1 +1,99 @@
-<p>admin-offers-entry works!</p>
+<div class="container">
+    <div class="mt-5 mb-5 heading" style="text-align: center;" id="top"><h3>Manage Offers</h3></div>
+    <div class="admin-block">
+        <div style="text-align: center;font-size: 20px; color: #3f51b5; font-weight: 600;">Manage Products</div>
+        <hr style="border-top: 1.5px solid #23222221;">
+        <div class="admin-block-sections">
+            <div class="col-md-5 col-xs-12 mt-2 mb-3">
+                <div class="mb-2" style="font-size: 16px; color: #3f51b5; font-weight: 600;">Create/Update Offer</div>
+                <form #offerForm="ngForm" style="display: grid;font-size: 12px;" (keydown.enter)="offersFormSubmit(offerForm)">
+                    <!--offer code-->
+                    <mat-form-field class="mb-2">
+                        <mat-label>Code</mat-label>
+                        <input matInput type="text" maxlength="10" ngModel #code="ngModel" name="offerCode" [required]=true [(ngModel)]="offerCode" (input)="this.offerCode = this.offerCode.toUpperCase()">
+                        <button matSuffix mat-icon-button aria-label="Clear" style="color: deeppink;" tooltip="Example: ABC100" placement="auto" (click)="commonService.clickDisabled($event)">
+                            <mat-icon>info</mat-icon>
+                        </button>
+                        <button *ngIf="offerCode" matSuffix mat-icon-button aria-label="Clear" (click)="offerCode = ''">
+                            <mat-icon>close</mat-icon>
+                        </button>
+                        <mat-error *ngIf="code.touched && code.invalid">Enter a valid offer code</mat-error>
+                    </mat-form-field>
+                    <!--minimum order-->
+                    <!--using onlyNumber diretive => no need to use pattern -->
+                    <mat-form-field class="mb-2">
+                        <mat-label>Minimum Order Amount</mat-label>
+                        <input matInput type="text" ngModel #minimumOrder="ngModel" maxlength="4" minlength="1" name="minimumOrderValue" [(ngModel)]="minimumOrderValue" onlyNumber [required]="true">
+                        <button matSuffix mat-icon-button aria-label="Clear" style="color: deeppink;" tooltip="Example: 100 (if nothing, then leave the field)" placement="auto" (click)="commonService.clickDisabled($event)">
+                            <mat-icon>info</mat-icon>
+                        </button>
+                        <button *ngIf="minimumOrderValue" matSuffix mat-icon-button aria-label="Clear" (click)="minimumOrderValue = null">
+                            <mat-icon>close</mat-icon>
+                        </button>
+                        <mat-error *ngIf="minimumOrder.touched && minimumOrder.invalid">Enter a valid minimum order amount</mat-error>
+                    </mat-form-field>
+                    <!--section & sub-section-->
+                    <div style="font-weight: 600;">Section Details (Bank/Wallet)* 
+                        <mat-icon style="color: deeppink;font-size: 12px;cursor: pointer;" tooltip="Select discount section as offered by bank or wallet" placement="auto" (click)="commonService.clickDisabled($event)">info</mat-icon>
+                    </div>
+                    <mat-radio-group
+                    aria-labelledby="dish-origin-radio-group-label"
+                    class="admin-radio-group"
+                    [(ngModel)]="offerSection" name="offerSection" [required]=true  ngModel #section="ngModel">
+                        <mat-radio-button class="admin-radio-button" value="bank">
+                        <span style="white-space: normal;">Bank</span>
+                        </mat-radio-button>
+                        <mat-radio-button class="admin-radio-button" value="wallet">
+                        <span style="white-space: normal;">Wallet</span>
+                        </mat-radio-button>
+                        <p *ngIf="section.touched && section.invalid">Select the proper section</p>
+                    </mat-radio-group>
+                    <div *ngIf="offerSection == 'bank'">
+                        <div style="font-weight: 600;" >Sub-Section Details (Credit/Debit Card)
+                            <mat-icon style="color: deeppink;font-size: 12px;cursor: pointer;" tooltip="Select the subsection as credit/debit card" placement="auto" (click)="commonService.clickDisabled($event)">info</mat-icon>
+                        </div>
+                        <mat-checkbox class="mr-2" *ngFor="let item of offerSubSection; let j = index;" [(ngModel)]="item.subSectionValue" [checked]="item.subSectionValue" [name]="item.subSectionText">
+                            {{item.subSectionText}}
+                        </mat-checkbox>
+                    </div>
+                    <!--Offered By-->
+                    <mat-form-field class="mb-2">
+                        <mat-label>Offered By</mat-label>
+                        <input matInput type="text" ngModel #offerBy="ngModel" maxlength="60" name="offeredBy" [required]=true [(ngModel)]="offeredBy">
+                        <button matSuffix mat-icon-button aria-label="Clear" style="color: deeppink;" tooltip="Example: State Bank of India" placement="auto" (click)="commonService.clickDisabled($event)">
+                            <mat-icon>info</mat-icon>
+                        </button>
+                        <button *ngIf="offeredBy" matSuffix mat-icon-button aria-label="Clear" (click)="offeredBy = ''">
+                            <mat-icon>close</mat-icon>
+                        </button>
+                        <mat-error *ngIf="offerBy.touched && offerBy.invalid">Enter a valid description</mat-error>
+                    </mat-form-field>
+                    <!--Discount amount-->
+                    <mat-form-field class="mb-2">
+                        <mat-label>Flat Disocunt</mat-label>
+                        <input matInput type="text" ngModel #dis="ngModel" maxlength="60" name="discount" [required]=true [(ngModel)]="discount" onlyNumber>
+                        <button matSuffix mat-icon-button aria-label="Clear" style="color: deeppink;" tooltip="Example: 100" placement="auto" (click)="commonService.clickDisabled($event)">
+                            <mat-icon>info</mat-icon>
+                        </button>
+                        <button *ngIf="discount" matSuffix mat-icon-button aria-label="Clear" (click)="discount = null">
+                            <mat-icon>close</mat-icon>
+                        </button>
+                        <mat-error *ngIf="dis.touched && dis.invalid">Enter flat discount amount</mat-error>
+                    </mat-form-field>
+                </form>
+                <div class="admin-block-button-section">
+                    <button mat-raised-button style="margin-right: 1rem" color="primary" (click)="offersFormSubmit(offerForm)" [disabled]="checkFormStatus()">{{buttonText}}</button>
+                    <button *ngIf="editMode" mat-raised-button style="margin-right: 1rem" (click)="editMode = false;offerForm.resetForm();buttonText = 'Continue';selectedID=''">Cancel</button>
+                    <button mat-raised-button (click)="offersFormReset(offerForm)" [disabled]="offerForm.untouched">Reset</button>
+                </div>
+            </div>
+            <div class="col-md-7 col-xs-12 mt-2 mb-3 admin-block-border">
+                <div class="mb-2" style="font-size: 16px; color: #3f51b5; font-weight: 600;">Avaialable Offers</div>
+                <app-search *ngIf="offers" (searchTextEvent)="_searchTextEvent($event)"></app-search>
+                <app-admin-table *ngIf="offers" [filterDataText]="filterText" [adminHeader]="offersHeader" [adminTableDataSet]="paginationOffer" adminFirstColumnVariable="offerCode" adminSecondColumnVariable="offeredBy" (deleteClickedEvent)="deleteOffer($event)" (editClickedEvent)="editOffer($event)" (tableSortEvent)="_tableSortEvent($event)"></app-admin-table>
+                <app-pagination *ngIf="paginationOffer.length > 0" [currentDataSet]="filterOffers" (perPageSelectionChangedEvent)="_perPageSelectionChanged($event)" (paginationButtonChangedEvent)="_paginationButtonChangedEvent($event)"></app-pagination>
+            </div>
+        </div>
+    </div>
+    <div #shortContainer></div>
+</div>

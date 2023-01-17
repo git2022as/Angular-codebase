@@ -98,12 +98,14 @@ export class BaseComponent implements OnInit, OnDestroy {
 
   getOffers(): void{
     this.offersSubscription = this.baseService.getOffers().pipe(map((data: any)=>{
+      let products = [];
       for(let x in data){
-        return data[x];
+        products.push(data[x]);
       }
+      return products;
     })).subscribe((res: any)=>{
-      if(res.success){
-        this.offers = res.data;
+      if(res){
+        this.offers = res;
         this.appCacheService._offersDetails = this.offers;
         localStorage.setItem("offers",JSON.stringify(this.offers));
       }

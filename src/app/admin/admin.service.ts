@@ -104,4 +104,29 @@ export class AdminService {
     deleteCoupon(id: string): Observable<any>{
         return this.http.delete(`https://kebab-house-db7f1-default-rtdb.firebaseio.com/coupons/${id}.json`);
     }
+
+    /*$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$ OFFERS API ##############################*/
+
+    /* add coupons to firebase database */
+    addOffers(offer: {offerCode: string, minimumOrderValue: number, offerSection: string, offeredBy: string,
+        discount: number, offerSubSection?: Array<any>}): Observable<any>{
+        return this.http.post('https://kebab-house-db7f1-default-rtdb.firebaseio.com/offer.json',offer);
+    }
+
+    /* get coupons from firebase database */
+    getOffers(): Observable<any>{
+        return this.http.get('https://kebab-house-db7f1-default-rtdb.firebaseio.com/offer.json');
+    }
+
+    /* update coupons on firebase database */
+    /* use PUT request */
+    updateOffers(id: string, offer: {offerCode: string, minimumOrderValue: number, offerSection: string, offeredBy: string, discount: number, offerSubSection?: Array<any>}): Observable<any>{
+        return this.http.put(`https://kebab-house-db7f1-default-rtdb.firebaseio.com/offer/${id}.json`,offer);
+    }
+
+    /* delete coupons on firebase database */
+    /* use DELETE request */
+    deleteOffer(id: string): Observable<any>{
+        return this.http.delete(`https://kebab-house-db7f1-default-rtdb.firebaseio.com/offer/${id}.json`);
+    }
 }

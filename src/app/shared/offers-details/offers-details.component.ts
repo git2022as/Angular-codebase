@@ -1,5 +1,5 @@
 import { Component, OnInit, Input } from '@angular/core';
-import { TooltipPosition } from '@angular/material/tooltip';
+import { AppCacheService } from 'src/app/services/app.cache.service';
 
 @Component({
   selector: 'app-offers-details',
@@ -13,9 +13,8 @@ export class OffersDetailsComponent implements OnInit {
   @Input() offers: any;
   showOfferImage: boolean = true;
 
-  constructor() { }
+  constructor(public appCacheService: AppCacheService) { }
 
-  ngOnInit(): void {
-  }
+  ngOnInit(): void {}
 
 }

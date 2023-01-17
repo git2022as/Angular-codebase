@@ -76,7 +76,6 @@ export class AdminDishEntryComponent implements OnInit, OnDestroy, deactivateInt
   }
 
   _searchTextEvent(event: {searchText: string}): void{
-    let filterdData = [];
     this.filterText = event.searchText;
     if(this.filterText == ''){
       this.filterdDish = [...this.dishes];

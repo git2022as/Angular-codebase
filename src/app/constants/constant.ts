@@ -3,6 +3,10 @@ export const cartExtraItems = [
     {name: "Oliv Oil Cooking", extraPrice: 30},
 ] as const;
 
+export const offerSubSections = [
+    "Credit Card", "Debit Card"
+]
+
 export const StaticMsg = {
     addQuantity: "You can't buy more than 5 quantities of any dish at a time.",
     removeQuantity: "Atleast one quantity should be added.",

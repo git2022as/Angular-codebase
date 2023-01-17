@@ -1,12 +1,12 @@
 <div class="container">
     <div class="mt-5 mb-5 heading" style="text-align: center;" id="top"><h3>Manage Branches</h3></div>
     <div class="admin-block">
-        <div style="text-align: center;font-size: 22px; color: #3f51b5; font-weight: 600;">Manage Products</div>
+        <div style="text-align: center;font-size: 20px; color: #3f51b5; font-weight: 600;">Manage Products</div>
         <hr style="border-top: 1.5px solid #23222221;">
         <div class="admin-block-sections">
             <div class="col-md-5 col-xs-12 mt-2 mb-3">
                 <div class="mb-2" style="font-size: 16px; color: #3f51b5; font-weight: 600;">Create/Update Branch</div>
-                <form #branchesForm="ngForm" style="display: grid;font-size: 14px;" (keydown.enter)="branchesFormSubmit(branchesForm)">
+                <form #branchesForm="ngForm" style="display: grid;font-size: 12px;" (keydown.enter)="branchesFormSubmit(branchesForm)">
                     <mat-form-field class="mb-2">
                         <mat-label>Branch Location</mat-label>
                         <input matInput type="text" maxlength="20" ngModel #location="ngModel" name="branchLocation" [required]=true [(ngModel)]="branchLocation">
@@ -20,7 +20,7 @@
                     </mat-form-field>
                     <mat-form-field class="mb-2">
                         <mat-label>Branch's Pincode</mat-label>
-                        <input matInput type="text" maxlength="6" minlength="6" ngModel #locPin="ngModel" pattern="[0-9]+$" name="branchPin" [required]=true [(ngModel)]="branchPin">
+                        <input matInput type="text" maxlength="6" minlength="6" ngModel #locPin="ngModel" name="branchPin" [required]=true [(ngModel)]="branchPin" onlyNumber>
                         <button matSuffix mat-icon-button aria-label="Clear" style="color: deeppink;" tooltip="Example: 700107 (location's pin code)" placement="auto" (click)="commonService.clickDisabled($event)">
                             <mat-icon>info</mat-icon>
                         </button>
@@ -42,7 +42,7 @@
                     </mat-form-field>
                     <mat-form-field class="mb-2">
                         <mat-label>Location's Contact</mat-label>
-                        <input matInput type="text" ngModel #locContact="ngModel" maxlength="10" minlength="10" name="locationContact" [required]=true [(ngModel)]="locationContact" pattern="[0-9]+$">
+                        <input matInput type="text" ngModel #locContact="ngModel" maxlength="10" minlength="10" name="locationContact" [required]=true [(ngModel)]="locationContact" onlyNumber>
                         <button matSuffix mat-icon-button aria-label="Clear" style="color: deeppink;" tooltip="Example: 9163123456 (just give 10 digits branch's contact number)" placement="auto" (click)="commonService.clickDisabled($event)">
                             <mat-icon>info</mat-icon>
                         </button>

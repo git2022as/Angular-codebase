@@ -1,39 +1,28 @@
-<!--material tooltip-->
-<div class="offer-section-image" [ngClass]="{'offer-section-image-fade':!showOfferImage}"  #tooltip="matTooltip"
-matTooltip="Click on show details"
-[matTooltipPosition]="tooltipPos" 
-[matTooltipDisabled]="!showOfferImage">
-    <img src="assets/images/{{offers?.image}}" width="100%" height="300" alt="offers?.projector">
-    <div class="show-offer" *ngIf="showOfferImage" (click)="showOfferImage = false;tooltip.hide()">Show Details</div>
-    <div class="offer-section" *ngIf="!showOfferImage">
-        <div>
-            <b style="font-size: 25px;">{{offers?.projector}}</b>
-        </div>
+<div class="offer-section">
+    <div class="offer-heading">
+        <span>{{offers?.offeredBy}}</span>
+    </div>
+    <div class="offer-details">
         <div>
             <span><b>Offer-Section: </b></span>
-            <span>{{offers?.sub_section}}</span>
+            <span>Nothing</span>
         </div>
         <div>
             <span><b>Discounts: </b></span>
-            <span>{{offers?.discounts}}</span>
+            <span>{{offers?.discount}}</span>
         </div>
         <div>
-            <span><b>Minimum cart value: </b></span>
-            <span>{{offers?.minimum_order}}</span>
+            <span><b>Minimum Cart Value: </b></span>
+            <span>{{offers?.minimumOrderValue}}</span>
         </div>
         <div>
-            <span><b>Discount coupon: </b></span>
-            <span>{{offers?.code}}</span>
+            <span><b>Discount Code: </b></span>
+            <span>{{offers?.offerCode}}</span>
         </div>
-        <div>
-            <span><b>Valid till: </b></span>
-            <span>{{offers?.valid}}</span>
-        </div>
-        <mat-card-actions class="offer-button-class">
-            <button mat-raised-button color="primary" class="mr-3">Apply</button>
-            <button mat-button (click)="showOfferImage = true;">Back</button>
-        </mat-card-actions>
     </div>
+    <mat-card-actions class="offer-button-class" *ngIf="appCacheService._loggedInUser">
+        <button mat-raised-button color="primary" class="mr-3">Apply</button>
+    </mat-card-actions>
 </div>
 
 

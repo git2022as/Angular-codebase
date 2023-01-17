@@ -1,16 +1,16 @@
 <div class="container">
     <div class="mt-5 mb-5 heading" style="text-align: center;" id="top"><h3>Manage Coupons</h3></div>
     <div class="admin-block">
-        <div style="text-align: center;font-size: 22px; color: #3f51b5; font-weight: 600;">Manage Products</div>
+        <div style="text-align: center;font-size: 20px; color: #3f51b5; font-weight: 600;">Manage Products</div>
         <hr style="border-top: 1.5px solid #23222221;">
         <div class="admin-block-sections">
             <div class="col-md-5 col-xs-12 mt-2 mb-3">
                 <div class="mb-2" style="font-size: 16px; color: #3f51b5; font-weight: 600;">Create/Update Coupons</div>
-                <form #couponsForm="ngForm" style="display: grid;font-size: 14px;" (keydown.enter)="couponsFormSubmit(couponsForm)">
+                <form #couponsForm="ngForm" style="display: grid;font-size: 12px;" (keydown.enter)="couponsFormSubmit(couponsForm)">
                     <!--Code-->
                     <mat-form-field class="mb-2">
                         <mat-label>Code</mat-label>
-                        <input matInput type="text" maxlength="10" ngModel #code="ngModel" name="couponCode" [required]=true [(ngModel)]="couponCode">
+                        <input matInput type="text" maxlength="10" ngModel #code="ngModel" name="couponCode" [required]=true [(ngModel)]="couponCode" (input)="this.couponCode = this.couponCode.toUpperCase()">
                         <button matSuffix mat-icon-button aria-label="Clear" style="color: deeppink;" tooltip="Example: JAN2023 (coupon code)" placement="auto" (click)="commonService.clickDisabled($event)">
                             <mat-icon>info</mat-icon>
                         </button>
@@ -33,7 +33,7 @@
                     </mat-form-field>
                     <!--discount method-->
                     <div style="font-weight: 600;">Discount Method Details (Amount/Percentage)* 
-                        <mat-icon style="color: deeppink;font-size: 14px;cursor: pointer;" tooltip="Select Amount or Percentage" placement="auto" (click)="commonService.clickDisabled($event)">info</mat-icon>
+                        <mat-icon style="color: deeppink;font-size: 12px;cursor: pointer;" tooltip="Select Amount or Percentage" placement="auto" (click)="commonService.clickDisabled($event)">info</mat-icon>
                     </div>
                     <mat-radio-group
                     aria-labelledby="dish-origin-radio-group-label"
@@ -50,7 +50,7 @@
                     <!--Discount amount/percentage-->
                     <mat-form-field class="mb-2">
                         <mat-label>Discount Amount/Percentage</mat-label>
-                        <input matInput type="text" ngModel #discount="ngModel" maxlength="4" minlength="1" name="couponDiscount" [required]=true [(ngModel)]="couponDiscount" pattern="[0-9]+$">
+                        <input matInput type="text" ngModel #discount="ngModel" maxlength="4" minlength="1" name="couponDiscount" [required]=true [(ngModel)]="couponDiscount" onlyNumber>
                         <button matSuffix mat-icon-button aria-label="Clear" style="color: deeppink;" tooltip="Example: give 10 (in case of percentage) & 100 (in case of amount)" placement="auto" (click)="commonService.clickDisabled($event)">
                             <mat-icon>info</mat-icon>
                         </button>

@@ -40,3 +40,9 @@ export interface signInResponseInterface {
     registered: boolean
 }
 /* login */
+
+/* offers - sub-section */
+export interface offersSubSectionInterface{
+    subSectionValue: boolean,
+    subSectionText: string
+}
