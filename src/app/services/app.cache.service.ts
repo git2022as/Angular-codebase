@@ -1,4 +1,5 @@
 import { Injectable } from "@angular/core";
+import { couponInterface } from "../interface/project.interface";
 
 @Injectable({
     providedIn: 'root'
@@ -12,11 +13,15 @@ export class AppCacheService {
     loggedInUserEmail: string = "";
     dishesDetails: Array<any> = [];
     offersDetails: Array<any> = [];
+    couponDetails: Array<any> = [];
     carosulDetails: Array<any> = [];
     aboutUSDetails: any;
     cartDetails: Array<any> = [];
     profileDetails: any;
     adminLoggedIn: boolean = false;
+    cartValue: number = null;
+    appliedOffer: any;
+    appliedCoupon: string;
     
     /* setter & getter concept */
 
@@ -106,6 +111,51 @@ export class AppCacheService {
 
     get _adminLoggedIn(): boolean{
         return this.adminLoggedIn;
+    }
+
+    set _cartValue(value: number){
+        this.cartValue = value;
+        localStorage.setItem('cartValue', JSON.stringify(this.cartValue));
+    }
+
+    get _cartValue(): number{
+        return this.cartValue;
+    }
+
+    set _appliedOffer(value: any){
+        this.appliedOffer = value;
+        localStorage.setItem('appliedOffer', JSON.stringify(this.appliedOffer));
+    }
+
+    get _appliedOffer(): any{
+        return this.appliedOffer;
+    }
+
+    set _appliedCoupon(value: string){
+        this.appliedCoupon = value;
+        localStorage.setItem('appliedCoupon', JSON.stringify(this.appliedCoupon));
+    }
+
+    get _appliedCoupon(): any{
+        return this.appliedCoupon;
+    }
+
+    set _couponDetails(value: any){
+        this.couponDetails = value;
+        localStorage.setItem('couponDetails', JSON.stringify(this.couponDetails));
+    }
+
+    get _couponDetails(): any{
+        return this.couponDetails;
+    }
+
+    /* cart add & delete to localstorage method */
+    addCartToLocalStorage(): void{
+        localStorage.setItem('cartData', JSON.stringify(this.cartDetails));
+    }
+
+    deleteCartFromLocalStorage(): void{
+        localStorage.removeItem('cartData');
     }
 
 }

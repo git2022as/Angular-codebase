@@ -8,6 +8,7 @@ import { Router } from '@angular/router';
 import { UtilityService } from 'src/app/services/utility.service';
 import { StaticMsg } from 'src/app/constants/constant';
 import { AuthService } from 'src/app/services/auth.service';
+import { throwMatDialogContentAlreadyAttachedError } from '@angular/material';
 
 @Component({
   selector: 'app-product-overview',
@@ -61,6 +62,7 @@ export class ProductOverviewComponent implements OnInit {
               console.log("data after add to cart " + res);
               const updatedCartObject = {cartID: res.name, ...cartObject};
               this.appCacheService._cartDetails.push(updatedCartObject);
+              this.appCacheService.addCartToLocalStorage();
               this.dataService.UPDATE_CART_COUNT.next(true);
               this.availableForcart = false;
             }
@@ -112,6 +114,7 @@ export class ProductOverviewComponent implements OnInit {
           this.authService.deleteDishFromCart(uid, cartID).subscribe((res: any)=>{
             console.log("remove from cart API " + res);
             this.appCacheService._cartDetails.splice(ind,1);
+            this.appCacheService.addCartToLocalStorage();
             this.dataService.UPDATE_CART_COUNT.next(true);
             this.availableForcart = true;
           });

@@ -60,7 +60,8 @@ export class LoginModalComponent implements OnInit, OnDestroy {
         this.loginMsg = "";
         this.login.uid = res.localId ? res.localId : "";
         this.login.email = res.email ? res.email : "";
-        this.login.token = res.idToken ? res.idToken : ""; "";
+        this.login.token = res.idToken ? res.idToken : "";
+        this.login.expires = res.expiresIn ? res.expiresIn : "";
         return res;
       }),
       //CART API with MERGEMAP

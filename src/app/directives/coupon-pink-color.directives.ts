@@ -1,10 +1,10 @@
 import { Directive, ElementRef, OnInit, Renderer2 } from "@angular/core";
 
 @Directive({
-    selector: '[couponGreenColor]'
+    selector: '[couponPinkColor]'
 })
 
-export class CouponGreenColorDirective implements OnInit {
+export class CouponPinkColorDirective implements OnInit {
     constructor(private el: ElementRef,
                 private renderer: Renderer2){}
 
@@ -14,7 +14,7 @@ export class CouponGreenColorDirective implements OnInit {
         //this.el.nativeElement.style.fontWeight = "bold";
 
         /* with renderer => set style, ass class & add attribute*/
-        this.renderer.setStyle(this.el.nativeElement, 'color', 'green');
+        this.renderer.setStyle(this.el.nativeElement, 'color', 'deeppink');
         this.renderer.setStyle(this.el.nativeElement, 'fontWeight', 'bold');
         this.renderer.addClass(this.el.nativeElement, 'couponUnderline');
         this.renderer.setAttribute(this.el.nativeElement, 'tabindex', '0');

@@ -7,6 +7,8 @@ import { CommonService } from '../services/common.service';
 import { NgForm } from '@angular/forms';
 import { NgFor } from '@angular/common';
 import { BehaviorSubject } from 'rxjs';
+import { Router } from '@angular/router';
+import { finalPaymentInterface } from '../interface/project.interface';
 
 @Component({
   selector: 'app-payment',
@@ -16,7 +18,7 @@ import { BehaviorSubject } from 'rxjs';
 export class PaymentComponent implements OnInit {
 
   showBreakUp: boolean = false;
-  cartObj: any;
+  cartObj: finalPaymentInterface;
   paymentPageReady: boolean = false;
   discountTooltip: string = "";
   cartDetails: any;
@@ -27,13 +29,18 @@ export class PaymentComponent implements OnInit {
   cardValue: number = null;
   cardExpiryValue: number = null;
   cardCvvValue: number = null;
+  offerApplied: boolean = false;
+  offersAvailableCount: number = 0; 
+  offerAppliedCode: string = "";
+  offerDiscount: number = null;
 
   @ViewChild('upiForm', {static: true}) upiForm: any;
 
   constructor(private activatedRoute: ActivatedRoute,
               private appCacheService: AppCacheService,
               private utilityService: UtilityService,
-              public commonService: CommonService) { }
+              public commonService: CommonService,
+              private router: Router) { }
 
   ngOnInit(): void {
     this.routeSubscribe();
@@ -47,7 +54,8 @@ export class PaymentComponent implements OnInit {
     });*/
     //another way to get query param value
     //get the value single time during payment page load
-    this.appliedCoupon = JSON.parse(this.activatedRoute.snapshot.queryParamMap.get('selectedCoupon'));
+    //this.appliedCoupon = JSON.parse(this.activatedRoute.snapshot.queryParamMap.get('selectedCoupon'));
+    this.appliedCoupon = this.appCacheService._appliedCoupon;
   }
 
   calculatePayment(): void{
@@ -59,10 +67,29 @@ export class PaymentComponent implements OnInit {
     if(this.cartObj.appDiscountAmount > 0){
       this.discountTooltip = `${this.appliedCoupon.couponCode} is applied`;
     }
+    this.offersAvailableCount = this.utilityService.calculateAvailableOffers(this.cartObj.finalPay);
+    const offer = this.appCacheService._appliedOffer;
+    if(offer){
+      this.offerAppliedCode = offer?.offerCode;
+      this.cartObj.finalPay = this.utilityService.calculateFinalCartAfterOffer(this.cartObj.finalPay,offer);
+      this.offerDiscount = offer?.discount;
+    }
   }
 
   confirmPayment(sec: string): void{
     console.log('payment confirmed ' + sec);
+  }
+
+  goToOfferPage(): void{
+    if(this.offerAppliedCode != ''){
+      this.appCacheService._appliedOffer = null;
+      this.offerAppliedCode = "";
+      this.calculatePayment();
+    }
+    else{
+      this.appCacheService._cartValue = this.cartObj.finalPay;
+      this.router.navigate(['/offers']);
+    }
   }
 
 }

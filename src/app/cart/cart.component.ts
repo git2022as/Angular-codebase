@@ -8,6 +8,7 @@ import { Router } from '@angular/router';
 import { AdminService } from '../admin/admin.service';
 import { Subscription } from 'rxjs';
 import { map } from 'rxjs/operators';
+import { finalPaymentInterface } from '../interface/project.interface';
 
 @Component({
   selector: 'app-cart',
@@ -60,12 +61,14 @@ export class CartComponent implements OnInit, OnDestroy {
       return coupon;
     })).subscribe((res)=>{
       this.coupons = res;
+      this.appCacheService._couponDetails = this.coupons;
     })
   }
 
   checkCart(){
     this.cartDetails = this.appCacheService._cartDetails;
     this.productDetails = this.appCacheService._dishesDetails;
+    this.selectedCoupon = this.appCacheService._appliedCoupon;
     if(this.cartDetails.length > 0){
       this.cartAvailable = true;
       this.cartObj = this.utilityService.calculateCartValue(this.cartDetails,this.selectedCoupon); 
@@ -94,7 +97,8 @@ export class CartComponent implements OnInit, OnDestroy {
   }
 
   applySiteCoupon(event: any): void{
-    this.cartObj = this.utilityService.calculateCartValue(this.cartDetails,event); 
+    this.appCacheService._appliedCoupon = this.selectedCoupon = event;
+    this.cartObj = this.utilityService.calculateCartValue(this.cartDetails,this.selectedCoupon); 
     if(this.cartObj.appDiscountAmount > 0){
       this.showAppDiscount = true;
       this.showAppDiscountTooltip = `${event.couponCode} is applied`;

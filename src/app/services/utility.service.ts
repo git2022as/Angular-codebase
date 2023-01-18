@@ -1,5 +1,6 @@
 import { Injectable } from "@angular/core";
 import { staticValue } from "../constants/constant";
+import { couponInterface } from "../interface/project.interface";
 import { AppCacheService } from "./app.cache.service";
 
 @Injectable({
@@ -56,8 +57,17 @@ export class UtilityService {
     }
 
     //4. - to calculate discount amount
-    calculateAppDiscount(coupon: any, totalCartValue: number) {
+    calculateAppDiscount(selectedCoupon: string, totalCartValue: number) {
         let totalDiscount : number = 0;
+        let coupon: couponInterface;
+        const coupons = this.appCacheService._couponDetails;
+        if(coupons){
+            coupons.forEach(each=>{
+                if(each.couponCode == selectedCoupon){
+                    coupon = each;
+                }
+            });
+        }
         if(coupon.couponDiscountMethod == 'percentage'){
             totalDiscount = Number(((totalCartValue*coupon.couponDiscount)/100).toFixed(2));
         }
@@ -65,6 +75,25 @@ export class UtilityService {
             totalDiscount =  coupon.couponDiscount;
         }
         return totalDiscount;
+    }
+
+    //5. to calculate available offers in the payment page (banks/wallets) */
+    calculateAvailableOffers(cartValue: number): number{
+        const offers = this.appCacheService._offersDetails;
+        let count = 0;
+        if(offers && offers.length > 0){
+            offers.forEach(each=>{
+                if(cartValue > each.minimumOrderValue){
+                    count++;
+                }
+            })
+        }
+        return count;
+    }
+
+    //6. calculate offer applied & return final cart value => payment page
+    calculateFinalCartAfterOffer(currentFinalValue: number,offer: any){
+        return offer ? (currentFinalValue-Number(offer.discount)) : currentFinalValue;
     }
 
     /* calculate value from UI ends here */

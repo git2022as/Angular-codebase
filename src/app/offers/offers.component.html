@@ -4,7 +4,7 @@
     <div class="row">
         <ng-container *ngFor="let offer of offerDetails; let i = index;">
             <div class="col-md-4 col-xs-12 mb-3">
-                <app-offers-details [offers]="offer"></app-offers-details>
+                <app-offers-details [offer]="offer" [cartValue]="cartValue"></app-offers-details>
             </div>
         </ng-container>
     </div>

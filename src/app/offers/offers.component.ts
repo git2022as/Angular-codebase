@@ -10,10 +10,12 @@ import { AppCacheService } from '../services/app.cache.service';
 export class OffersComponent implements OnInit {
 
   offerDetails: Array<any> = [];
+  cartValue: number = null;
   constructor(private appCacheService: AppCacheService) { }
 
   ngOnInit(): void {
     this.offerDetails = this.appCacheService._offersDetails;
+    this.cartValue = this.appCacheService._cartValue;
   }
 
 }

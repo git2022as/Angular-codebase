@@ -46,3 +46,20 @@ export interface offersSubSectionInterface{
     subSectionValue: boolean,
     subSectionText: string
 }
+
+export interface finalPaymentInterface {
+    appDiscountAmount: number,
+    deliveryAmount: number,
+    deliveryFree: boolean,
+    finalPay: number,
+    govtTaxPackage: number,
+    totalCartValue: number
+}
+
+export interface couponInterface {
+    couponCode: string,
+    couponDescription: string,
+    couponDiscount: number,
+    couponDiscountMethod: string,
+    id: string
+}

@@ -1,6 +1,6 @@
 <div class="offer-section">
     <div class="offer-heading">
-        <span>{{offers?.offeredBy}}</span>
+        <span>{{offer?.offeredBy}}</span>
     </div>
     <div class="offer-details">
         <div>
@@ -9,19 +9,19 @@
         </div>
         <div>
             <span><b>Discounts: </b></span>
-            <span>{{offers?.discount}}</span>
+            <span>{{offer?.discount}}</span>
         </div>
         <div>
             <span><b>Minimum Cart Value: </b></span>
-            <span>{{offers?.minimumOrderValue}}</span>
+            <span>{{offer?.minimumOrderValue}}</span>
         </div>
         <div>
             <span><b>Discount Code: </b></span>
-            <span>{{offers?.offerCode}}</span>
+            <span>{{offer?.offerCode}}</span>
         </div>
     </div>
     <mat-card-actions class="offer-button-class" *ngIf="appCacheService._loggedInUser">
-        <button mat-raised-button color="primary" class="mr-3">Apply</button>
+        <button mat-raised-button color="primary" class="mr-3" (click)="appliedOffer(offer)" [disabled]="checkCartReq(cartValue, offer.minimumOrderValue)">Apply</button>
     </mat-card-actions>
 </div>
 

@@ -58,9 +58,14 @@ export class HeaderComponent implements OnInit {
     const slides = JSON.parse(localStorage.getItem('slides'));
     const dishes = JSON.parse(localStorage.getItem('dishes'));
     const branches = JSON.parse(localStorage.getItem('branches'));
-    const offers = JSON.parse(localStorage.getItem('offers'));
+    const offersDetails = JSON.parse(localStorage.getItem('offersDetails'));
+    const couponDetails = JSON.parse(localStorage.getItem('couponDetails'));
+    const cartValue = JSON.parse(localStorage.getItem('cartValue'));
+    const appliedOffer = JSON.parse(localStorage.getItem('appliedOffer'));
+    const appliedCoupon = JSON.parse(localStorage.getItem('appliedCoupon'));
     const adminLoggedIn = JSON.parse(localStorage.getItem('adminLoggedIn'));
     if(userdata){
+      this.autoSignOut(userdata);
       this.appCacheService._UID = userdata?.uid;
       this.appCacheService._loggedInUser = true;
       this.appCacheService._token = userdata?.token;
@@ -71,14 +76,26 @@ export class HeaderComponent implements OnInit {
       this.dataService.UPDATED_DISH.next(true);
       this.dataService.UPDATE_CART_COUNT.next(true);
     }
+    if(cartValue){
+      this.appCacheService._cartValue = cartValue;
+    }
+    if(appliedOffer){
+      this.appCacheService._appliedOffer = appliedOffer;
+    }
+    if(appliedCoupon){
+      this.appCacheService._appliedCoupon = appliedCoupon;
+    }
+    if(couponDetails){
+      this.appCacheService._couponDetails = couponDetails;
+    }
+    if(offersDetails){
+      this.appCacheService._offersDetails = offersDetails;
+    }
     if(profileData){
       this.appCacheService._profileDetails = profileData;
     }
     if(dishes){
       this.appCacheService._dishesDetails = dishes;
-    }
-    if(offers){
-      this.appCacheService._offersDetails = offers;
     }
     if(adminLoggedIn){
       this.appCacheService._adminLoggedIn = true;
@@ -100,6 +117,7 @@ export class HeaderComponent implements OnInit {
         localStorage.setItem('cartData', JSON.stringify(res.cart));
         localStorage.setItem('profileData', JSON.stringify(res.profile));
         this.manageLoginState(res);
+        this.autoSignOut(res.login);
       }
       this.bsModalRef?.hide();
     });
@@ -185,6 +203,14 @@ export class HeaderComponent implements OnInit {
     }
     else
       this.router.navigateByUrl(val);
+  }
+
+  autoSignOut(user: any){
+    const expiresData = user.expires;
+    setTimeout(()=>{
+      this.commonService.logoutService();
+      this.router.navigateByUrl('base');
+    },expiresData*1000)
   }
 
 }

@@ -78,7 +78,7 @@ export class CartOverviewComponent implements OnInit {
         //get updated full cart from backend
         //update the same in appCachedService & localstorage
         this.appCacheService._cartDetails = res;
-        localStorage.setItem('cartData', JSON.stringify(res));
+        this.appCacheService.addCartToLocalStorage();
         this.cartTotalEvent.emit({cartUpdated: true});
       }
     });
@@ -111,6 +111,8 @@ export class CartOverviewComponent implements OnInit {
       this.authService.deleteDishFromCart(uid, cartID).subscribe((res: any)=>{
         console.log("remove from cart API " + res);
         this.appCacheService._cartDetails.splice(ind,1);
+        this.appCacheService.addCartToLocalStorage();
+        this.cartTotalEvent.emit({cartUpdated: true});
         this.dataService.UPDATE_CART_COUNT.next(true);
       });
       this.bsModalRef.hide();

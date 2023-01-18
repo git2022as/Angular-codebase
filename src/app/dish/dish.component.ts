@@ -98,6 +98,7 @@ export class DishComponent implements OnInit {
               console.log("data after add to cart " + res);
               const updatedCartObject = {cartID: res.name, ...cartObject};
               this.appCacheService._cartDetails.push(updatedCartObject);
+              this.appCacheService.addCartToLocalStorage();
               this.dataService.UPDATE_CART_COUNT.next(true);
               this.availableIncart = false;
             }
@@ -149,6 +150,7 @@ export class DishComponent implements OnInit {
           this.authService.deleteDishFromCart(uid, cartID).subscribe((res: any)=>{
             console.log("remove from cart API " + res);
             this.appCacheService._cartDetails.splice(ind,1);
+            this.appCacheService.addCartToLocalStorage();
             this.dataService.UPDATE_CART_COUNT.next(true);
             this.availableIncart = true;
           });

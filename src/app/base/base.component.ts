@@ -107,7 +107,7 @@ export class BaseComponent implements OnInit, OnDestroy {
       if(res){
         this.offers = res;
         this.appCacheService._offersDetails = this.offers;
-        localStorage.setItem("offers",JSON.stringify(this.offers));
+        localStorage.setItem("offersDetails",JSON.stringify(this.offers));
       }
     })
   }

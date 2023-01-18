@@ -11,6 +11,7 @@ export const StaticMsg = {
     addQuantity: "You can't buy more than 5 quantities of any dish at a time.",
     removeQuantity: "Atleast one quantity should be added.",
     withoutLoginNoCartAccess: "Please login first to add this dish in the cart",
+    withoutCartNoPaymentAccess: "Please add any item to cart to view payment page",
     adminDeActivateMsg: "You have unsaved changes. Do you really want to discard these chages?",
     removeFromCartConfirmation: "Are you sure want to remove this item from cart?",
     removeFromCartTitle: "Remove From Cart",

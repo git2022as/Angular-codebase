@@ -6,6 +6,7 @@ import { LoginAuthCanActivateGuardService } from './guard/loginAuthCanActivate.g
 import { OffersComponent } from './offers/offers.component';
 import { PageNotFoundComponent } from './shared/page-not-found/page-not-found.component';
 import { AdminCanDeactivateGuardService } from './guard/adminCanDeactivate.guard';
+import { PaymentModuleAuthenticationGuardService } from './guard/paymentModuleAuthenticationCanActivate.guard';
 
 //example of normal routing
 /*const routes: Routes = [
@@ -43,7 +44,8 @@ const lazyRoutes: Routes = [
   },
   {
     path: 'payment',
-    loadChildren: () => import('./payment/payment.module').then(a => a.PaymentModule)
+    loadChildren: () => import('./payment/payment.module').then(a => a.PaymentModule),
+    canActivate: [PaymentModuleAuthenticationGuardService]
   },
   {
     path: 'admin',
