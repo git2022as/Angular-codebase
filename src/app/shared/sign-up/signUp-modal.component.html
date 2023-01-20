@@ -32,41 +32,41 @@
             </button>
             <mat-error *ngIf="signUpForm.get('name')?.invalid && signUpForm.get('name')?.touched">Name is required</mat-error>
         </mat-form-field>-->
-        <mat-form-field class="modal-form" [ngClass]="{'mb-4': signUpForm.get('email')?.errors}">
+        <mat-form-field class="modal-form" [ngClass]="{'mb-4': signForm.email.errors}">
             <mat-label>Email</mat-label>
             <input matInput type="text" name="email" formControlName="email">
             <button matSuffix mat-icon-button aria-label="Clear" style="color: deeppink" tooltip="Please enter proper email address" placement="auto" (click)="commonService.clickDisabled($event)">
                 <mat-icon>info</mat-icon>
             </button>
-            <button *ngIf="signUpForm.get('email')?.value != '' && signUpForm.get('email')?.value != null" matSuffix mat-icon-button aria-label="Clear" (click)="setValue('email')">
+            <button *ngIf="signForm.email.value != '' && signForm.email.value != null" matSuffix mat-icon-button aria-label="Clear" (click)="setValue('email')">
                 <mat-icon>close</mat-icon>
             </button>
-            <mat-error *ngIf="signUpForm.get('email')?.invalid && signUpForm.get('email')?.touched">{{errorMessages.emailRequired}}</mat-error>
+            <mat-error *ngIf="signForm.email.invalid && signForm.email.touched">{{errorMessages.emailRequired}}</mat-error>
         </mat-form-field>
-        <mat-form-field class="modal-form" [ngClass]="{'mb-4': signUpForm.get('password')?.errors}">
+        <mat-form-field class="modal-form" [ngClass]="{'mb-4': signForm.password.errors}">
             <mat-label>Password</mat-label>
             <input matInput type="password" #pass name="password" formControlName="password">
-            <button *ngIf="signUpForm.get('password')?.value != '' && signUpForm.get('password')?.value != null" matSuffix mat-icon-button aria-label="Clear" (click)="commonService.clickDisabled($event)" (mouseenter)="showHidePassword();isVisibility = false;" (mouseleave)="showHidePassword();isVisibility = true;">
+            <button *ngIf="signForm.password.value != '' && signForm.password.value != null" matSuffix mat-icon-button aria-label="Clear" (click)="commonService.clickDisabled($event)" (mouseenter)="showHidePassword();isVisibility = false;" (mouseleave)="showHidePassword();isVisibility = true;">
                 <mat-icon *ngIf="isVisibility" style="color: deeppink">visibility</mat-icon>
                 <mat-icon *ngIf="!isVisibility" style="color: deeppink">visibility_off</mat-icon>
             </button>
             <button matSuffix mat-icon-button aria-label="Clear" style="color: deeppink" tooltip="Password must have one capital, one number, one special charactaer with 6-10 characters" placement="auto" (click)="commonService.clickDisabled($event)">
                 <mat-icon>info</mat-icon>
             </button>
-            <button *ngIf="signUpForm.get('password')?.value != '' && signUpForm.get('password')?.value != null" matSuffix mat-icon-button aria-label="Clear" (click)="setValue('password')">
+            <button *ngIf="signForm.password.value != '' && signForm.password.value != null" matSuffix mat-icon-button aria-label="Clear" (click)="setValue('password')">
                 <mat-icon>close</mat-icon>
             </button>
-            <mat-error *ngIf="signUpForm.get('password')?.errors?.required && signUpForm.get('password')?.touched">{{errorMessages.passwordRequired}}</mat-error>
-            <mat-error *ngIf="signUpForm.get('password')?.errors?.emailRequirement">{{errorMessages.emailRequirement}}</mat-error>
+            <mat-error *ngIf="signForm.password.errors?.required && signForm.password.touched">{{errorMessages.passwordRequired}}</mat-error>
+            <mat-error *ngIf="signForm.password.errors?.emailRequirement">{{errorMessages.emailRequirement}}</mat-error>
         </mat-form-field>
         <mat-form-field class="modal-form">
             <mat-label>Confirm Password</mat-label>
             <input matInput type="password" name="confirmPassword" formControlName="confirmPassword">
-            <button *ngIf="signUpForm.get('confirmPassword')?.value != '' && signUpForm.get('confirmPassword')?.value != null" matSuffix mat-icon-button aria-label="Clear" (click)="setValue('confirmPassword')">
+            <button *ngIf="signForm.confirmPassword.value != '' && signForm.confirmPassword.value != null" matSuffix mat-icon-button aria-label="Clear" (click)="setValue('confirmPassword')">
                 <mat-icon>close</mat-icon>
             </button>
-            <mat-error *ngIf="signUpForm.get('confirmPassword')?.errors?.required && signUpForm.get('confirmPassword')?.touched">{{errorMessages.confirmPasswordRequired}}</mat-error>
-            <mat-error *ngIf="signUpForm.get('confirmPassword')?.errors?.noMatch && signUpForm.get('confirmPassword')?.touched">{{errorMessages.confirmPasswordNoMatch}}</mat-error>
+            <mat-error *ngIf="signForm.confirmPassword.errors?.required && signForm.confirmPassword.touched">{{errorMessages.confirmPasswordRequired}}</mat-error>
+            <mat-error *ngIf="signForm.confirmPassword.errors?.noMatch && signForm.confirmPassword.touched">{{errorMessages.confirmPasswordNoMatch}}</mat-error>
         </mat-form-field>
     </form>
 </div>

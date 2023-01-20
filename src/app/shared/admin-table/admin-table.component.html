@@ -3,7 +3,8 @@
         <thead>
             <tr>
                 <th *ngFor="let header of adminHeader; let i = index;" style="cursor: pointer;" (click)="toggleSort(i)">
-                    {{header}}
+                    {{header}} 
+                    <mat-icon *ngIf="i<2" style="color: deeppink;font-size: 12px" [tooltip]="staticMsg.admin_table_header_sort_tooltip" placement="auto" (click)="commonService.clickDisabled($event)">info</mat-icon>
                 </th>
             </tr>
         </thead>

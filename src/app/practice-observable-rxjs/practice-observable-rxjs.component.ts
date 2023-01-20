@@ -1,6 +1,6 @@
 import { Component, OnInit, AfterViewInit } from '@angular/core';
 import { combineLatest, from, fromEvent, interval, Observable, of, forkJoin } from 'rxjs';
-import { catchError, delay, filter, map, retry, take, takeUntil } from 'rxjs/operators';
+import { catchError, concatMap, delay, filter, map, mergeMap, retry, switchMap, take, takeUntil } from 'rxjs/operators';
 import { ajax } from 'rxjs/ajax';
 import { Subscription } from 'rxjs'
 import { formatCurrency } from '@angular/common';
@@ -117,6 +117,31 @@ export class PracticeObservableRxjsComponent implements OnInit, AfterViewInit {
   testForkJoin1 = of(1,2,3,4);
   testForkJoin2 = of('a','b');
 
+  //MERGEMAP operator
+  //it will flatteren the observable
+  //it will take the first response from one observable & use that response in the second observable. we can use subscribe only single time to get the final data
+  testMergeMap = from(["Krishna", "Kabul", "Kumkum"]);
+  testMergeMap2 = function(data){
+    return of(`Hi My Name is ${data}`).pipe(delay(2000))//return an observable
+  }
+
+  //CONCATMAP operator
+  //it will flatteren the observable
+  //it is same as MERGEMAP BUT IN A ORDERED MANNER
+  //it will emit data on a specific order
+  testConcatMap = from(["Krishna", "Kabul", "Kumkum"]);
+  testConcatMap2 = function(data){
+    return of(`Hi My Name is ${data}`).pipe(delay(2000))//delaying the return by 2 seconda
+  }
+
+  //SWITCHMAP operator
+  //it will flatteren the observable
+  //it will ONLY emit the final data 
+  testSwitchMap = from(["Krishna", "Kabul", "Kumkum"]);
+  testSwitchMap2 = function(data){
+    return of(`Hi My Name is ${data}`).pipe(delay(2000))//delaying the return by 2 seconda
+  }
+
   ngOnInit(): void {
     this.subscribeAllObservable();
   }
@@ -218,26 +243,54 @@ export class PracticeObservableRxjsComponent implements OnInit, AfterViewInit {
     })*/
 
     //observable DELAY operator
-    this.testDelay.pipe(delay(2000)).subscribe((x)=>{
-      console.log(x);//delay the data for 2 seconds
-    })
+    /*this.testDelay.pipe(delay(2000)).subscribe((x)=>{
+      console.log("delay" + x);//delay the data for 2 seconds
+    })*/
 
     //observable RETRY operator
-    this.testRetry.pipe(retry(2), catchError(x=>{return of('a','b')})).subscribe((x)=>{
+    /*this.testRetry.pipe(retry(2), catchError(x=>{return of('a','b')})).subscribe((x)=>{
       console.log(x);
-    });
+    });*/
 
     //observable COMBINELATEST
     //CombineLatest is a function & take observables as an array
     //returns value in array => print [1,5] after 5 sec
     /*combineLatest([this.testCombineLatest1,this.testCombineLatest2]).subscribe((x:any)=>{
-      console.log(x);
+      console.log("combineLatest response " + x[0] + " and " + x[1]);
     });*/
 
     //observable FORKJOIN
-    forkJoin([this.testForkJoin1,this.testForkJoin2]).subscribe(x=>{
-      console.log(x);
+    //Always return value in an array & return the latest values only
+    /*forkJoin([this.testForkJoin1,this.testForkJoin2]).subscribe(x=>{
+      console.log("forkJoin response " + x[0] + " and " + x[1]);
+    });*/
+
+    //observable MERGEMAP
+    //flatteren an observable so that we can use subscribe method only single time 
+    this.testMergeMap.pipe(mergeMap((res)=>
+      this.testMergeMap2(res)
+    )).subscribe((res1: any)=>{
+      console.log("this is a mergeMap example " + res1);
     });
+
+    //observable MERGEMAP
+    //flatteren an observable so that we can use subscribe method only single time
+    //until & unless observable emits one data, it will not switch to next data
+    this.testConcatMap.pipe(
+      concatMap(res => this.testConcatMap2(res)
+    )).subscribe((res1: any)=>{
+      console.log("this is a concatMap example " + res1);
+    });
+
+    //observable SWITCHMAP
+    //flatteren an observable so that we can use subscribe method only single time
+    //it will cancel all previous request & give only the final emited value
+    this.testSwitchMap.pipe(
+      switchMap(res=> this.testSwitchMap2(res))
+    ).subscribe((res)=>{
+      console.log("this is a switchMap example " + res);
+    })
+
 
   }
 

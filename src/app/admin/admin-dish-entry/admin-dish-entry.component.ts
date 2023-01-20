@@ -1,14 +1,14 @@
 import { Component, OnInit, OnDestroy, ViewContainerRef, ViewChild } from '@angular/core';
 import { NgForm } from '@angular/forms';
-import { map, Subscription } from 'rxjs';
+import { Subscription } from 'rxjs';
 import { AdminService } from '../admin.service';
 import { ShortMessageComponent } from 'src/app/shared/short-message/short-message.component';
 import { deactivateInterface } from 'src/app/interface/project.interface';
-import { StaticMsg } from 'src/app/constants/constant';
+import { StaticMsg, staticValue, admin_headers } from 'src/app/constants/constant';
 import { CommonService } from 'src/app/services/common.service';
 import { BsModalRef } from 'ngx-bootstrap/modal';
-import { staticValue } from 'src/app/constants/constant';
 import { FilterPipe } from 'src/app/pipes/filter.pipe';
+import { map, take } from 'rxjs/operators';
 
 @Component({
   selector: 'app-admin-dish-entry',
@@ -39,7 +39,7 @@ export class AdminDishEntryComponent implements OnInit, OnDestroy, deactivateInt
   deleteDishSubscription: Subscription | undefined;
   dishes: Array<any>;
   paginationDishes: Array<any> = [];
-  dishHeader = ["Dish's Name","Dish's Price", "Actions"];
+  dishHeader = admin_headers.dish;
   editMode: boolean = false;
   buttonText: string = "Continue";
   selectedID: string = "";
@@ -94,7 +94,7 @@ export class AdminDishEntryComponent implements OnInit, OnDestroy, deactivateInt
           products.push({...data[key], id: key});
       }
       return products;
-    })).subscribe(((res: any)=>{
+    },take(1))).subscribe(((res: any)=>{
       this.dishes = res;
       this.filterdDish = [...this.dishes];
       this.paginationDishes = this.commonService.loadPagination(this.filterdDish);
@@ -109,15 +109,13 @@ export class AdminDishEntryComponent implements OnInit, OnDestroy, deactivateInt
       //when user confirms, call delete functionality
       this.deleteDishSubscription = this.adminService.deleteDish(each.id).subscribe((res: any)=>{
         this.bsModalRef.hide();
-        const msg = "dish has been deleted";
+        const msg = `dish ${StaticMsg.admin_data_deleted}`;
         const color = 'green';
         this.showShortMsg(msg,color);
         this.getDishes();
       },
       (error: any)=>{
-        const msg = error.message;
-        const color = 'red';
-        this.showShortMsg(msg,color);
+        //handled globally from interceptor
       });
     });
   }
@@ -163,15 +161,14 @@ export class AdminDishEntryComponent implements OnInit, OnDestroy, deactivateInt
     if(this.editMode){
       //when edit mode is ON, call the update functionality
       if(!dishForm.dirty){
-        const msg = "It seems, you haven't changed any value yet";
+        const msg = StaticMsg.admin_no_data_change;
         const color = 'orange';
         this.showShortMsg(msg,color);
         return;
       }
-      let data = {};
-      data = this.createDataForAddUpdateCall(dishForm);
+      const data = this.createDataForAddUpdateCall(dishForm);
       this.updateDishSubscription = this.adminService.updateDishes(this.selectedID,data).subscribe((data: any)=>{
-        const msg = "dish has been updated";
+        const msg = `dish ${StaticMsg.admin_data_updated}`;
         const color = 'green';
         this.showShortMsg(msg,color);
         this.editMode = false;
@@ -180,29 +177,30 @@ export class AdminDishEntryComponent implements OnInit, OnDestroy, deactivateInt
         this.dishFormReset(dishForm);
         this.getDishes();
       },
-      error=>{
-        const msg = error.message;
-        const color = 'red';
-        this.showShortMsg(msg,color);
+      (error: any)=>{
+        //handled globally from interceptor
       });
     }
     else{
       if(!this.commonService.checkDuplicate(dishForm.value.dishName,this.dishes, 'dishName')){ 
-        let data = {};
-        data = this.createDataForAddUpdateCall(dishForm);
-        console.log(JSON.stringify(data));
+        const data = this.createDataForAddUpdateCall(dishForm);
         this.addDishesSubscriptiton = this.adminService.addDishes(data).subscribe((res: any)=>{
           this.getDishes();
-          const msg = "dish has been added";
+          const msg = `dish ${StaticMsg.admin_data_added}`;
           const color = 'green';
           this.showShortMsg(msg,color);
           this.dishFormReset(dishForm);
           document.getElementById('top').scrollIntoView({behavior: 'smooth'});
+        },
+        (error: any)=>{
+          //handled globally from interceptor
         });
       }
       else{
         //Duplicate scene
-        this.showShortMsg('Duplicate item, please add a new item.','red');
+        const color = 'red';
+        const msg = StaticMsg.admin_data_duplicate;
+        this.showShortMsg(msg, color);
       }
     }
   }

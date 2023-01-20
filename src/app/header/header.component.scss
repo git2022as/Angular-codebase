@@ -91,3 +91,14 @@
 .active{
     background-color: $site-theme;
 }
+
+.mat-menu-item{
+    color:$pink;
+    &:hover{
+        font-weight: 600;
+    }
+}
+
+.mat-menu-content:not(:empty){
+    padding: 0 !important;
+}

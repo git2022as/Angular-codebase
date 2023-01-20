@@ -1,5 +1,6 @@
-import { outputAst } from '@angular/compiler';
 import { Component, OnInit, Input, OnChanges, SimpleChanges, Output, EventEmitter } from '@angular/core';
+import { StaticMsg } from 'src/app/constants/constant';
+import { CommonService } from 'src/app/services/common.service';
 
 @Component({
   selector: 'app-admin-table',
@@ -21,8 +22,9 @@ export class AdminTableComponent implements OnInit, OnChanges {
   _filterDataText: string = "";
   tableHeaderClicked: number = 0;
   tableHeaderClickedPattern: boolean = true;//ascending
+  staticMsg = StaticMsg;
 
-  constructor() { }
+  constructor(public commonService: CommonService) { }
 
   ngOnInit(): void {
     this._adminTableDataSet = this.adminTableDataSet;
@@ -50,6 +52,7 @@ export class AdminTableComponent implements OnInit, OnChanges {
       else{
         this.tableHeaderClickedPattern = !this.tableHeaderClickedPattern;
       }
+      
       let headerName;
       if(i == 0){
         headerName = this.adminFirstColumnVariable;

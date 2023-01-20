@@ -1,5 +1,5 @@
 import { Component, OnInit, ElementRef, ViewChild, EventEmitter, OnDestroy } from '@angular/core';
-import { NgForm } from '@angular/forms';
+import { AbstractControl, NgForm } from '@angular/forms';
 import { BsModalRef } from 'ngx-bootstrap/modal';
 import { FormGroup, FormControl, Validators, FormBuilder } from '@angular/forms';
 import { customValidator } from 'src/app/validator/custom.validator';
@@ -75,6 +75,11 @@ export class SignUpModalComponent implements OnInit, OnDestroy {
         //this.SignUpMsg = error.message;
       }
     )
+  }
+
+  /*access form control - getter method*/
+  get signForm(){
+    return this.signUpForm.controls;
   }
 
   showHidePassword(): void{

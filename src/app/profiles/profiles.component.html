@@ -1,0 +1,147 @@
+<div class="container">
+    <div class="mt-5 mb-5 heading" style="text-align: center;"><h3>Your Profile</h3></div>
+    <div>
+        <form [formGroup]="profileForm" class="profileForm">
+            <!--name-->
+            <mat-form-field class="mb-3">
+                <mat-label>Name</mat-label>
+                <input matInput type="text" name="name" formControlName="name">
+                <button matSuffix mat-icon-button aria-label="Clear" style="color: deeppink;" tooltip="Example: Tommy Singh" placement="auto" (click)="commonService.clickDisabled($event)">
+                    <mat-icon>info</mat-icon>
+                </button>
+                <button *ngIf="proForm.name.value != ''" matSuffix mat-icon-button aria-label="Clear" (click)="setControlsValueToBlank('name','text', profileForm)">
+                    <mat-icon>close</mat-icon>
+                </button>
+                <mat-error *ngIf="proForm.name.touched && proForm.name.invalid">Enter a valid name & minimum charcater requirements is 2</mat-error>
+            </mat-form-field>
+            <!--phone number-->
+            <mat-form-field class="mb-3">
+                <mat-label>Phone Number</mat-label>
+                <input matInput type="text" onlyNumber name="phoneNumber" maxlength="10" formControlName="phoneNumber">
+                <button matSuffix mat-icon-button aria-label="Clear" style="color: deeppink;" tooltip="Example: 1234567890" placement="auto" (click)="commonService.clickDisabled($event)">
+                    <mat-icon>info</mat-icon>
+                </button>
+                <button *ngIf="proForm.phoneNumber.value != null" matSuffix mat-icon-button aria-label="Clear" (click)="setControlsValueToBlank('phoneNumber','number', profileForm)">
+                    <mat-icon>close</mat-icon>
+                </button>
+                <mat-error *ngIf="proForm.phoneNumber.touched && proForm.phoneNumber.errors">Enter a valid 10 digits phone number</mat-error>
+            </mat-form-field>
+            <div formGroupName="deliveryAddress" class="profileForm">
+                <div style="font-size: 15px;font-weight: 600;text-decoration: underline;" class="mb-2">Delivery Address</div>
+                <!--street-->
+                <mat-form-field class="mb-3">
+                    <mat-label>House & Street Details</mat-label>
+                    <input matInput type="text" name="street" formControlName="street">
+                    <button matSuffix mat-icon-button aria-label="Clear" style="color: deeppink;" tooltip="Example: Santi Appartment, 123 N Main Street" placement="auto" (click)="commonService.clickDisabled($event)">
+                        <mat-icon>info</mat-icon>
+                    </button>
+                    <button *ngIf="proForm.deliveryAddress.get('street').value != ''" matSuffix mat-icon-button aria-label="Clear" (click)="setControlsValueToBlank('street','text', proForm.deliveryAddress)">
+                        <mat-icon>close</mat-icon>
+                    </button>
+                    <mat-error *ngIf="proForm.deliveryAddress.get('street').touched && proForm.deliveryAddress.get('street').errors">Enter a valid house & street details</mat-error>
+                </mat-form-field>
+                <!--city-->
+                <mat-form-field appearance="fill" class="mb-3">
+                    <mat-label>City</mat-label>
+                    <mat-select formControlName="city" name="city">
+                      <mat-option *ngFor="let ct of availableCities" [value]="ct">
+                        {{ct}}
+                      </mat-option>
+                    </mat-select>
+                    <button matSuffix mat-icon-button aria-label="Clear" style="color: deeppink;" tooltip="Example: select city from the dropdown options">
+                        <mat-icon style="font-size: 12px;">info</mat-icon>
+                    </button>
+                    <mat-error *ngIf="proForm.deliveryAddress.get('city').touched && proForm.deliveryAddress.get('city').errors">Please select the proper city</mat-error>
+                </mat-form-field>
+                <!--Pincode-->
+                <mat-form-field class="mb-3">
+                    <mat-label>Pincode</mat-label>
+                    <input matInput type="text" onlyNumber name="pincode" maxlength="6" formControlName="pincode">
+                    <button matSuffix mat-icon-button aria-label="Clear" style="color: deeppink;" tooltip="Example: 1234567890" placement="auto" (click)="commonService.clickDisabled($event)">
+                        <mat-icon>info</mat-icon>
+                    </button>
+                    <button *ngIf="proForm.deliveryAddress.get('pincode').value != null" matSuffix mat-icon-button aria-label="Clear" (click)="setControlsValueToBlank('pincode','number', proForm.deliveryAddress)">
+                        <mat-icon>close</mat-icon>
+                    </button>
+                    <mat-error *ngIf="proForm.deliveryAddress.get('pincode').touched && proForm.deliveryAddress.get('pincode').errors">Enter a valid 6 digits pincode</mat-error>
+                </mat-form-field>
+                <!--state-->
+                <mat-form-field appearance="fill" class="mb-3">
+                    <mat-label>State</mat-label>
+                    <mat-select formControlName="state" name="state">
+                      <mat-option *ngFor="let st of availableStates" [value]="st">
+                        {{st}}
+                      </mat-option>
+                    </mat-select>
+                    <button matSuffix mat-icon-button aria-label="Clear" style="color: deeppink;" tooltip="Example: select state from the dropdown options">
+                        <mat-icon style="font-size: 12px;">info</mat-icon>
+                    </button>
+                    <mat-error *ngIf="proForm.deliveryAddress.get('street').touched && proForm.deliveryAddress.get('street').errors">Please select the proper city</mat-error>
+                </mat-form-field>
+            </div>
+            <div formArrayname="secondDeliveryAddress">
+                <button mat-raised-button style="margin-right: 1rem; width: 45%" class="mb-3" (click)="addMoreAddress()" [disabled]="extraAddressFormCount>1" color="primary">Add More Addresses</button>
+                <mat-icon style="position: relative;top: 3px;font-size: 13px;color: deeppink;cursor: pointer;" tooltip="You can add maximum 3 delivery addresses" placement="auto">info</mat-icon>
+                <div *ngFor="let each of secondDeliveryAddress.controls;let i = index">
+                    <div style="font-size: 15px;font-weight: 600;text-decoration: underline;" class="mb-2">Delivery Address {{i+2}}</div>
+                    <div [formGroup]="each" class="profileForm">
+                        <mat-form-field class="mb-3">
+                            <mat-label>House & Street Details</mat-label>
+                            <input matInput type="text" name="street" formControlName="street">
+                            <button matSuffix mat-icon-button aria-label="Clear" style="color: deeppink;" tooltip="Example: Santi Appartment, 123 N Main Street" placement="auto" (click)="commonService.clickDisabled($event)">
+                                <mat-icon>info</mat-icon>
+                            </button>
+                            <button *ngIf="each.get('street').value != ''" matSuffix mat-icon-button aria-label="Clear" (click)="setControlsValueToBlank('street','text', each)">
+                                <mat-icon>close</mat-icon>
+                            </button>
+                            <mat-error *ngIf="each.get('street').touched && each.get('street').errors">Enter a valid house & street details</mat-error>
+                        </mat-form-field>
+                        <!--city-->
+                        <mat-form-field appearance="fill" class="mb-3">
+                            <mat-label>City</mat-label>
+                            <mat-select formControlName="city" name="city">
+                              <mat-option *ngFor="let ct of availableCities" [value]="ct">
+                                {{ct}}
+                              </mat-option>
+                            </mat-select>
+                            <button matSuffix mat-icon-button aria-label="Clear" style="color: deeppink;" tooltip="Example: select city from the dropdown options">
+                                <mat-icon style="font-size: 12px;">info</mat-icon>
+                            </button>
+                            <mat-error *ngIf="each.get('city').touched && each.get('city').errors">Please select the proper city</mat-error>
+                        </mat-form-field>
+                        <!--Pincode-->
+                        <mat-form-field class="mb-3">
+                            <mat-label>Pincode</mat-label>
+                            <input matInput type="text" onlyNumber maxlength="6" name="pincode" formControlName="pincode">
+                            <button matSuffix mat-icon-button aria-label="Clear" style="color: deeppink;" tooltip="Example: 1234567890" placement="auto" (click)="commonService.clickDisabled($event)">
+                                <mat-icon>info</mat-icon>
+                            </button>
+                            <button *ngIf="each.get('pincode').value != null" matSuffix mat-icon-button aria-label="Clear" (click)="setControlsValueToBlank('pincode','number', each)">
+                                <mat-icon>close</mat-icon>
+                            </button>
+                            <mat-error *ngIf="each.get('pincode').touched && each.get('pincode').errors">Enter a valid 6 digits pincode</mat-error>
+                        </mat-form-field>
+                        <!--state-->
+                        <mat-form-field appearance="fill" class="mb-3">
+                            <mat-label>State</mat-label>
+                            <mat-select formControlName="state" name="state">
+                              <mat-option *ngFor="let st of availableStates" [value]="st">
+                                {{st}}
+                              </mat-option>
+                            </mat-select>
+                            <button matSuffix mat-icon-button aria-label="Clear" style="color: deeppink;" tooltip="Example: select state from the dropdown options">
+                                <mat-icon style="font-size: 12px;">info</mat-icon>
+                            </button>
+                            <mat-error *ngIf="each.get('street').touched && each.get('street').errors">Please select the proper city</mat-error>
+                        </mat-form-field>
+                    </div>
+                    <button mat-raised-button style="margin-right: 1rem; width: 35%" class="mb-3" (click)="deleteAddress(i)" [disabled]="" color="primary">Delete Address {{i+2}}</button>
+                </div>
+            </div>
+        </form>
+        <div class="admin-block-button-section">
+            <button mat-raised-button style="margin-right: 1rem" color="primary" [disabled]="profileForm.invalid">Save</button>
+            <button mat-raised-button [disabled]="profileForm.untouched" (click)="resetprofileForm()">Reset</button>
+        </div>
+    </div>
+</div>

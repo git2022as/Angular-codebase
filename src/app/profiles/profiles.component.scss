@@ -1,0 +1,16 @@
+@import "../../mixin";
+@import "../../variable";
+
+.heading{
+    @include header-logo($pink);
+}
+
+.profileForm{
+    display: flex;
+    flex-direction: column;
+    font-size: 13px;
+}
+
+.mat-form-field-appearance-fill .mat-form-field-subscript-wrapper{
+    padding: 0px !important;
+}

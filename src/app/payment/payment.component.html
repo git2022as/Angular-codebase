@@ -15,8 +15,8 @@
         <div class="col-12 p-2">
             <div class="row m-0" style="font-size: 12px;">
                 <span (click)="goToOfferPage()" style="text-decoration: underline;color: deeppink; cursor: pointer;font-size: 12px;"><b>{{offerAppliedCode !="" ? 'remove offer' : 'apply offer'}}</b></span>
-                <span class="ml-2" style="text-decoration: underline;color: deeppink;font-size: 12px;" *ngIf="offerAppliedCode != ''"><b>{{offerAppliedCode}}</b></span>
-                <span class="ml-2" style="color: green; cursor: pointer;font-size: 11px;"> *check other bank/wallet offers <b>({{offersAvailableCount}})</b> to get more discount on the final cart amount</span>
+                <span class="ml-2 mr-2" style="text-decoration: underline;color: deeppink;font-size: 12px;" *ngIf="offerAppliedCode != ''"><b>{{offerAppliedCode}}</b></span>
+                <span style="color: green; cursor: pointer;font-size: 11px;"> *check other bank/wallet offers <b>({{offersAvailableCount}})</b> to get more discount on the final cart amount</span>
             </div>
         </div>
         <div class="paymentBreakupSection mt-3 p-2 ml-2 mb-2" *ngIf="showBreakUp">

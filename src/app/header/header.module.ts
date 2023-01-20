@@ -13,6 +13,7 @@ import { ModalModule } from 'ngx-bootstrap/modal';
 import { MatBadgeModule } from '@angular/material/badge';
 import { TooltipModule } from 'ngx-bootstrap/tooltip';
 import { SharedModule } from '../shared/shared.module';
+import { MatMenuModule } from '@angular/material/menu';
 
 @NgModule({
     declarations: [
@@ -31,7 +32,8 @@ import { SharedModule } from '../shared/shared.module';
         ModalModule.forChild(),
         MatBadgeModule,
         TooltipModule,
-        SharedModule
+        SharedModule,
+        MatMenuModule
     ],
     exports: [
         HeaderComponent

@@ -28,7 +28,7 @@ export class AdminCouponsEntryComponent implements OnInit, OnDestroy, deactivate
   buttonText: string = "Continue";
   coupons: Array<any>;
   selectedID: string = "";
-  couponsHeader = ["Coupons' Code", "Coupons' Type", "Actions"];
+  couponsHeader = ["Coupon Code", "Coupon Type", "Actions"];
   paginationCoupon : Array<any> = [];
   updatedItemsPerPage: number = staticValue.paginationPerPageConstant;
   filterdCoupon: Array<any>;

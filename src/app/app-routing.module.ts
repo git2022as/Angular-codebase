@@ -55,6 +55,10 @@ const lazyRoutes: Routes = [
     path: 'practice',
     loadChildren: () => import('./practice-observable-rxjs/practice-observable-rxjs.module').then(a => a.PracticeObservableRxjsModule)
   },
+  {
+    path: 'profiles',
+    loadChildren: () => import('./profiles/profiles.module').then(a => a.ProfilesModule)
+  },
   { 
     path: '', 
     redirectTo: 'base', 
@@ -62,7 +66,7 @@ const lazyRoutes: Routes = [
   },
   { path: '**', 
     component: PageNotFoundComponent  
-  }//this will show th error page
+  }//this will show the error page & it should be present at the bottom
 ];
 
 @NgModule({

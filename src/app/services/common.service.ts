@@ -6,6 +6,7 @@ import { DataService } from './data.service';
 import { StaticMsg, staticValue } from '../constants/constant';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
+import { FormGroup } from '@angular/forms';
 
 @Injectable({
     providedIn: 'root'
@@ -26,6 +27,10 @@ export class CommonService {
 
     CommonGoToTopEvent(id: string): void{
         document.getElementById(id).scrollIntoView({behavior: 'smooth'});
+    }
+
+    setControlsValueToBlank(control: string, value: string, formname: FormGroup): void{
+        value == 'text' ? formname.get(control).setValue('') : formname.get(control).setValue(null);
     }
 
     logoutService(): void{
