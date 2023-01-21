@@ -8,5 +8,6 @@ export const environment = {
     authDomain: 'kebab-house-db7f1.firebaseapp.com',
     messagingSenderId: '846668655747',
   },
-  production: true
+  production: true,
+  firbaseAPI: "https://kebab-house-db7f1-default-rtdb.firebaseio.com"
 };

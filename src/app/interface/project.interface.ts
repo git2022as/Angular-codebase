@@ -63,3 +63,23 @@ export interface couponInterface {
     couponDiscountMethod: string,
     id: string
 }
+
+/* profile interface */
+export interface profileInterface {
+    name: string,
+    phoneNumber: number,
+    deliveryAddress: {
+        city: string,
+        pincode: number,
+        state: string,
+        street: string
+    },
+    secondDeliveryAddress: [
+        {
+            city: string,
+            pincode: number,
+            state: string,
+            street: string
+        }
+    ] | []
+}

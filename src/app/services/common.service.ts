@@ -7,12 +7,15 @@ import { StaticMsg, staticValue } from '../constants/constant';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { FormGroup } from '@angular/forms';
+import { environment } from 'src/environments/environment';
 
 @Injectable({
     providedIn: 'root'
 })
 
 export class CommonService {
+
+    baseUrl = environment.firbaseAPI;
 
     constructor(private bsModalService: BsModalService,
                 private appCacheService: AppCacheService,
@@ -112,12 +115,12 @@ export class CommonService {
     //Review add API call
     addReviews(id: string, review: {rating: number,comment: string}): Observable<any>{
         let finalData = {user: this.appCacheService._loggedInUserEmail, ...review};
-        return this.http.post(`https://kebab-house-db7f1-default-rtdb.firebaseio.com/reviews/${id}.json`,finalData);
+        return this.http.post(`${this.baseUrl}/reviews/${id}.json`,finalData);
     }
 
     //Review get API call
     getReviews(id: string): Observable<any>{
-        return this.http.get(`https://kebab-house-db7f1-default-rtdb.firebaseio.com/reviews/${id}.json`);
+        return this.http.get(`${this.baseUrl}/reviews/${id}.json`);
     }
 
     /* pagination function */
