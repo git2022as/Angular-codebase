@@ -20,4 +20,14 @@ export class customValidator {
         else    
             return {noMatch: true};
     }
+
+    /*confirm password for Password change validation checking */
+    static passwordChangeMatch(control: AbstractControl): ValidationErrors| null {
+        const confirmPass = control.value;
+        const pass = control?.parent?.value.newPassword;
+        if(confirmPass == '' || confirmPass == null || confirmPass == pass)
+            return null;
+        else    
+            return {noMatch: true};
+    }
 }

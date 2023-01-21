@@ -22,15 +22,9 @@ export class ProfileService {
         return this.http.post(`${this.baseUrl}/profile/${uid}.json`,profile);
     }
 
-    /* delete profile from firebase database */
-    /* use DELETE request */
-    deleteProfileAddress(uid: string, id: string): Observable<any>{
-        return this.http.delete(`${this.baseUrl}/cart/${uid}/${id}.json`);
-    }
-
     /* update profile from firebase database */
     /* use PUT request */
     updateProfile(uid: string, id: string, profile: any): Observable<any>{
-        return this.http.put(`${this.baseUrl}/cart/${uid}/${id}.json`,profile);
+        return this.http.put(`${this.baseUrl}/profile/${uid}/${id}.json`,profile);
     }
 }

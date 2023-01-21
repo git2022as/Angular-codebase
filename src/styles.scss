@@ -90,6 +90,7 @@ table.admin-block-table th {
 .newAcc {
     text-decoration: underline;
     color: $pink;
+    font-size: 14px;
     &:hover{
         color: $site-theme;
         cursor: pointer;

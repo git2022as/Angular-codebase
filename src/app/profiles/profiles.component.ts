@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewContainerRef, ViewChild, OnDestroy } from '@angular/core';
 import { FormGroup, FormBuilder, FormArray, Validators, NgForm } from '@angular/forms';
 import { CommonService } from '../services/common.service';
 import { city, state } from '../constants/constant';
@@ -6,13 +6,17 @@ import { ProfileService } from './profiles.service';
 import { AppCacheService } from '../services/app.cache.service';
 import { map } from 'rxjs/operators';
 import { profileInterface } from '../interface/project.interface';
+import { ShortMessageComponent } from '../shared/short-message/short-message.component';
+import { Subscription } from 'rxjs';
+import { ChangePasswordComponent } from '../shared/change-password/change-password.component';
+import { ModalOptions, BsModalRef, BsModalService } from 'ngx-bootstrap/modal';
 
 @Component({
   selector: 'app-profiles',
   templateUrl: './profiles.component.html',
   styleUrls: ['./profiles.component.scss']
 })
-export class ProfilesComponent implements OnInit {
+export class ProfilesComponent implements OnInit, OnDestroy {
 
   profileForm: FormGroup;
   availableCities = city;
@@ -21,22 +25,29 @@ export class ProfilesComponent implements OnInit {
   editForm: boolean = false;
   buttonText: string = "Save";
   uid: string;
+  uniqueID: string;
   profileData: any;
   profileFormReady: boolean = false;
+  profileAddSubscription: Subscription | undefined;
+  profileGetSubscription: Subscription | undefined;
+  profileUpdateSubscription: Subscription | undefined;
+
+  @ViewChild("shortContainer", { read: ViewContainerRef }) shortContainer: any = ViewContainerRef;
 
   constructor(private fb : FormBuilder, 
               public commonService: CommonService,
               private profileService: ProfileService,
-              private appCacheService: AppCacheService) {}
+              private appCacheService: AppCacheService,
+              public bsModalRef: BsModalRef,
+              private modalService: BsModalService) {}
 
   ngOnInit(): void {
-    this.createProfileForm();
     this.uid = this.appCacheService._UID;
     this.getProfiles();
   }
 
   getProfiles(): void{
-    this.profileService.getProfile(this.uid).pipe(map((res: any)=>{
+    this.profileGetSubscription = this.profileService.getProfile(this.uid).pipe(map((res: any)=>{
       let profiles = [];
       if(res){
         for(let key in res){
@@ -51,6 +62,8 @@ export class ProfilesComponent implements OnInit {
         this.profileData = res;
         if(this.profileData){
           this.buttonText = "Update";
+          this.editForm = true;
+          this.uniqueID = this.profileData[0].id;
           this.populateProfile(this.profileData);
         }
       }
@@ -58,6 +71,7 @@ export class ProfilesComponent implements OnInit {
   }
 
   populateProfile(data: any): void{
+    this.createProfileForm();
     if(this.profileFormReady){
       this.profileForm.patchValue({
         name: data[0].name,
@@ -95,13 +109,13 @@ export class ProfilesComponent implements OnInit {
 
   createProfileForm(): void{
     this.profileForm = this.fb.group({
-      name: ['', [Validators.required, Validators.minLength(2), Validators.maxLength(40)]],
-      phoneNumber: [null, [Validators.required, Validators.minLength(10), Validators.maxLength(10)]],
+      name: [{value: '', disabled: this.editForm},[Validators.required, Validators.minLength(2), Validators.maxLength(40)]],
+      phoneNumber: [{value: null,disabled: this.editForm },[Validators.required, Validators.minLength(10), Validators.maxLength(10)]],
       deliveryAddress: this.fb.group({
-        street: ['', [Validators.required, Validators.maxLength(100)]],
-        city: ['',[Validators.required]],
-        pincode: [null, [Validators.required, Validators.minLength(6), Validators.maxLength(6)]],
-        state: ['',[Validators.required]]
+        street: [{value: '',disabled: this.editForm},[Validators.required, Validators.maxLength(100)]],
+        city: [{value: '',disabled: this.editForm},[Validators.required]],
+        pincode: [{value: null,disabled: this.editForm},[Validators.required, Validators.minLength(6), Validators.maxLength(6)]],
+        state: [{value: '',disabled: this.editForm},[Validators.required]]
       }),
       secondDeliveryAddress: this.fb.array([])
     });
@@ -124,10 +138,10 @@ export class ProfilesComponent implements OnInit {
   addMoreAddress(): void{
     this.secondDeliveryAddress.push(
       this.fb.group({
-        street: ['', [Validators.required, Validators.maxLength(100)]],
-        city: ['',[Validators.required]],
-        pincode: [null, [Validators.required, Validators.minLength(6), Validators.maxLength(6)]],
-        state: ['',[Validators.required]]
+        street: [{value: '',disabled: this.editForm},[Validators.required, Validators.maxLength(100)]],
+        city: [{value: '',disabled: this.editForm},[Validators.required]],
+        pincode: [{value: null,disabled: this.editForm},[Validators.required, Validators.minLength(6), Validators.maxLength(6)]],
+        state: [{value: '',disabled: this.editForm},[Validators.required]]
       })
     )
     this.extraAddressFormCount++;
@@ -144,14 +158,72 @@ export class ProfilesComponent implements OnInit {
   }
 
   addProfile(profileForm: FormGroup): void{
-    if(this.editForm){
-      this.profileService.addProfile(this.uid,profileForm.value).subscribe((res: any)=>{
+    if(this.buttonText == 'Save'){
+      this.profileAddSubscription = this.profileService.addProfile(this.uid,profileForm.value).subscribe((res: any)=>{
         if(res){
+          this.editForm = true;
           console.log("profile has been added " + res);
-          //call update profile API & make the form non-editable
+          const color = "green";
+          const message = "Profile has been added";
+          this.showShortMsg(message,color);
         }
-      })
+      });
     }
+    else{
+      this.profileUpdateSubscription = this.profileService.updateProfile(this.uid,this.uniqueID,profileForm.value).subscribe((res: any)=>{
+        if(res){
+          this.editForm = true;
+          console.log("profile has been updated " + res);
+          const color = "green";
+          const message = "Profile has been updated";
+          this.showShortMsg(message,color);
+        }
+      });
+    }
+  }
+
+  showShortMsg(msg: string, color: string): void{
+    const componentRef = this.shortContainer.createComponent(ShortMessageComponent);
+    componentRef.instance.message = msg;
+    componentRef.instance.color = color;
+    componentRef.instance.parent = this.getParent();
+  }
+
+  getParent(): any{
+    return {
+      callParentMethod: () => {
+        this.removeShortMsg();
+      }
+    }
+  }
+
+  removeShortMsg(): void{
+    this.shortContainer.clear();
+  }
+
+  makeFormEditable(): void{
+    this.profileForm.enable();
+  }
+
+  changePassword(): void{
+    const initialState: ModalOptions = {
+      initialState: {
+        title: "Change Password"
+      }
+    };
+    this.bsModalRef = this.modalService.show(ChangePasswordComponent, initialState);
+    this.bsModalRef.content.changesPasswordSuccessEvent.subscribe((res: any) => {
+      this.bsModalRef?.hide();
+      const message = "Password has been updated";
+      const color = "green";
+      this.showShortMsg(message, color);
+    });
+  }
+
+  ngOnDestroy(): void {
+    this.profileAddSubscription?.unsubscribe();
+    this.profileGetSubscription?.unsubscribe();
+    this.profileUpdateSubscription?.unsubscribe();
   }
 
 }

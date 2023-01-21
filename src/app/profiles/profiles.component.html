@@ -135,13 +135,16 @@
                             <mat-error *ngIf="each.controls.state.touched && each.controls.state.errors">Please select the proper city</mat-error>
                         </mat-form-field>
                     </div>
-                    <button mat-raised-button style="margin-right: 1rem; width: 35%" class="mb-3" (click)="deleteAddress(i)" [disabled]="" color="primary">Delete Address {{i+2}}</button>
+                    <button mat-raised-button style="margin-right: 1rem;" class="mb-3" (click)="deleteAddress(i)" [disabled]="editForm" color="primary">Delete Address {{i+2}}</button>
                 </div>
             </div>
         </form>
         <div class="admin-block-button-section mb-2">
-            <button mat-raised-button style="margin-right: 1rem" color="primary" [disabled]="profileForm.invalid || !profileForm.dirty" (click)="addProfile(profileForm)">{{buttonText}}</button>
+            <button mat-raised-button style="margin-right: 1rem" color="primary" [disabled]="profileForm.invalid || !profileForm.dirty || editForm" (click)="addProfile(profileForm)">{{buttonText}}</button>
+            <button mat-raised-button style="margin-right: 1rem" color="primary" *ngIf="editForm" (click)="editForm = false;makeFormEditable()">Edit</button>
             <button mat-raised-button [disabled]="profileForm.untouched" (click)="resetprofileForm()">Reset</button>
+            <a class="newAcc ml-2 mt-2" (click)="changePassword()">Change password</a>
         </div>
     </div>
+    <div #shortContainer></div>
 </div>

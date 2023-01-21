@@ -25,7 +25,8 @@ const adminRoutes: Routes = [
             },
             {
                 path: 'offers',
-                component: AdminOffersEntryComponent
+                component: AdminOffersEntryComponent,
+                canDeactivate: [AdminCanDeactivateGuardService]
             },
             {
                 path: 'slides',

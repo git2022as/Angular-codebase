@@ -43,6 +43,7 @@ import { MatInputModule } from '@angular/material/input';
 import { MatRadioModule } from '@angular/material/radio';
 import { MatCheckboxModule } from '@angular/material/checkbox';
 import { MatSelectModule } from '@angular/material/select';
+import { ChangePasswordComponent } from './change-password/change-password.component';
 
 @NgModule({
   declarations: [
@@ -68,7 +69,8 @@ import { MatSelectModule } from '@angular/material/select';
     PaginationComponent,
     AdminTableComponent,
     BreadcrumbComponent,
-    SearchComponent
+    SearchComponent,
+    ChangePasswordComponent
   ],
   imports: [
     CommonModule,
@@ -110,7 +112,8 @@ import { MatSelectModule } from '@angular/material/select';
     PaginationComponent,
     AdminTableComponent,
     BreadcrumbComponent,
-    SearchComponent
+    SearchComponent,
+    ChangePasswordComponent
   ],
   providers: [IndividualCartPipe, FilterPipe]
 })

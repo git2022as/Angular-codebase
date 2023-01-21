@@ -51,6 +51,13 @@ export class AuthService {
         //return this.angularFireAuth.sendPasswordResetEmail(email);
     }
 
+    //password change scenario
+    changePassword(value: {idToken: string, password: string}): Observable<any>{
+        const newValue = {returnSecureToken: true, ...value};
+        const url = `${firebaseAPI.changePasswordUrl}${firebaseAPI.APIKey}`;
+        return this.http.post(url, newValue);
+    }
+
     //cart scenario
     /* get cart from firebase database for logged-in user */
     getFromCart(uid: string): Observable<any>{

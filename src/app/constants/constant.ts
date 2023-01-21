@@ -71,7 +71,8 @@ export const firebaseAPI = {
     APIKey: "AIzaSyDcutmqTaP7lZ_oULyv3_hEIeWmfanBfzY",
     signUpUrl: "https://identitytoolkit.googleapis.com/v1/accounts:signUp?key=",
     signInUrl: "https://identitytoolkit.googleapis.com/v1/accounts:signInWithPassword?key=",
-    resetPassLinkUrl: "https://identitytoolkit.googleapis.com/v1/accounts:sendOobCode?key="
+    resetPassLinkUrl: "https://identitytoolkit.googleapis.com/v1/accounts:sendOobCode?key=",
+    changePasswordUrl: "https://identitytoolkit.googleapis.com/v1/accounts:update?key="
 }
 
 export const errorMessages = {
