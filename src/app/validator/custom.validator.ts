@@ -8,7 +8,7 @@ export class customValidator {
         if(pass == '' || pass == null || validationRegex.test(pass))
             return null;
         else
-            return {emailRequirement: true}
+            return {passwordRequirement: true}
     }
 
     /*confirm password validation checking */

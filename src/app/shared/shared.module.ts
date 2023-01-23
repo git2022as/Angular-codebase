@@ -44,6 +44,7 @@ import { MatRadioModule } from '@angular/material/radio';
 import { MatCheckboxModule } from '@angular/material/checkbox';
 import { MatSelectModule } from '@angular/material/select';
 import { ChangePasswordComponent } from './change-password/change-password.component';
+import { ChangeEmailComponent } from './change-email/change-email.component';
 
 @NgModule({
   declarations: [
@@ -70,7 +71,8 @@ import { ChangePasswordComponent } from './change-password/change-password.compo
     AdminTableComponent,
     BreadcrumbComponent,
     SearchComponent,
-    ChangePasswordComponent
+    ChangePasswordComponent,
+    ChangeEmailComponent
   ],
   imports: [
     CommonModule,
@@ -113,7 +115,8 @@ import { ChangePasswordComponent } from './change-password/change-password.compo
     AdminTableComponent,
     BreadcrumbComponent,
     SearchComponent,
-    ChangePasswordComponent
+    ChangePasswordComponent,
+    ChangeEmailComponent
   ],
   providers: [IndividualCartPipe, FilterPipe]
 })

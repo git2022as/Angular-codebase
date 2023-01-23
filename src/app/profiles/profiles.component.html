@@ -143,7 +143,8 @@
             <button mat-raised-button style="margin-right: 1rem" color="primary" [disabled]="profileForm.invalid || !profileForm.dirty || editForm" (click)="addProfile(profileForm)">{{buttonText}}</button>
             <button mat-raised-button style="margin-right: 1rem" color="primary" *ngIf="editForm" (click)="editForm = false;makeFormEditable()">Edit</button>
             <button mat-raised-button [disabled]="profileForm.untouched" (click)="resetprofileForm()">Reset</button>
-            <a class="newAcc ml-2 mt-2" (click)="changePassword()">Change password</a>
+            <a class="newAcc ml-2 mt-2" (click)="changePassword()">change password</a>
+            <a class="newAcc ml-2 mt-2" (click)="changeEmail()">change email</a>
         </div>
     </div>
     <div #shortContainer></div>

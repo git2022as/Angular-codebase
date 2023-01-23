@@ -49,7 +49,9 @@ export class ReviewsComponent implements OnInit {
 
   reviewFormSubmit(reviewForm: FormGroup): void{
     if(this.itemUniqueID != ""){
-      this.commonService.addReviews(this.itemUniqueID,this.reviewForm.value).pipe(
+      const uid = this.appCacheService._UID;
+      const method = this.showCancelButton ? 'update' : 'add';
+      this.commonService.addReviews(this.itemUniqueID,uid, this.reviewForm.value,method).pipe(
         tap((res: any)=>{
           console.log("Review has been submitted");
           this.reviewInputShow = false;
@@ -88,7 +90,11 @@ export class ReviewsComponent implements OnInit {
       if(res){
         for(let key in res){
           if(res.hasOwnProperty(key)){
-            reviews.push({...res[key], id: key});
+            for(let key1 in res[key]){
+              if(res[key].hasOwnProperty(key1)){
+                reviews.push({...res[key][key1], id: key1});
+              }
+            }
           }
         }
       }

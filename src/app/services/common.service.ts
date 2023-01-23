@@ -112,10 +112,13 @@ export class CommonService {
         return dup;
     }
 
-    //Review add API call
-    addReviews(id: string, review: {rating: number,comment: string}): Observable<any>{
+    //Review ADD/UPDATE API call
+    addReviews(id: string, uid: string, review: {rating: number,comment: string},method: string): Observable<any>{
         let finalData = {user: this.appCacheService._loggedInUserEmail, ...review};
-        return this.http.post(`${this.baseUrl}/reviews/${id}.json`,finalData);
+        if(method == 'add')
+            return this.http.post(`${this.baseUrl}/reviews/${id}/${uid}.json`,finalData);
+        else
+            return this.http.put(`${this.baseUrl}/reviews/${id}/${uid}.json`,finalData); 
     }
 
     //Review get API call

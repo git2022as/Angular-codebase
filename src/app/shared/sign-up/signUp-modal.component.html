@@ -57,7 +57,7 @@
                 <mat-icon>close</mat-icon>
             </button>
             <mat-error *ngIf="signForm.password.errors?.required && signForm.password.touched">{{errorMessages.passwordRequired}}</mat-error>
-            <mat-error *ngIf="signForm.password.errors?.emailRequirement">{{errorMessages.emailRequirement}}</mat-error>
+            <mat-error *ngIf="signForm.password.errors?.passwordRequirement">{{errorMessages.passwordRequirement}}</mat-error>
         </mat-form-field>
         <mat-form-field class="modal-form">
             <mat-label>Confirm Password</mat-label>

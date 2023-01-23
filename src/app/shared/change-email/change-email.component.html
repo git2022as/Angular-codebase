@@ -1,0 +1,33 @@
+<!--Example of TEMPLATE DRIVEN FORMs-->
+<div class="modal-header">
+    <span class="material-icons" style="color: deeppink;margin:7px; font-size: 28px;"> 
+        mail
+    </span>
+    <h4 class="modal-title pull-left">{{title}}</h4>
+    <button type="button" class="btn-close close pull-right" aria-label="Close" (click)="bsModalRef.hide()">
+        <span aria-hidden="true" class="visually-hidden">&times;</span>
+    </button>
+</div>
+<div class="modal-body">
+    <form [formGroup]="changeEmailForm" (keydown.enter)="changeEmail(changeEmailForm)">
+        <mat-form-field class="modal-form">
+            <mat-label>New Email</mat-label>
+            <input matInput type="text" name="newEmail" formControlName="newEmail">
+            <button matSuffix mat-icon-button aria-label="Clear" style="color: deeppink" tooltip="Enter valid email like test@test.com" placement="auto" (click)="commonService.clickDisabled($event)">
+                <mat-icon>info</mat-icon>
+            </button>
+            <button *ngIf="changeEForm.newEmail.value != ''" matSuffix mat-icon-button aria-label="Clear" (click)="setValue('newEmail')">
+                <mat-icon>close</mat-icon>
+            </button>
+            <mat-error *ngIf="changeEForm.newEmail.errors">{{errorMessages.emailRequired}}</mat-error>
+        </mat-form-field>
+    </form>
+</div>
+<div class="modal-footer">
+    <div>
+        <button mat-raised-button style="margin-right: 1rem" color="primary" (click)="changeEmail(changeEmailForm)" [disabled]="changeEmailForm.invalid">change email</button>
+    </div>
+    <div>
+        <button mat-raised-button style="margin-right: 1rem" color="primary" (click)="bsModalRef.hide()">Cancel</button>
+    </div>
+</div>

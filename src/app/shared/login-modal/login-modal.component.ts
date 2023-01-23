@@ -80,7 +80,7 @@ export class LoginModalComponent implements OnInit, OnDestroy {
     },
     (error: any)=>{
       this.loginFailedStatus = true;
-      this.loginMsg = error.message;
+      this.loginMsg = error.error.error.message;
     });
   };
 

@@ -32,7 +32,7 @@
 </div>
 <div class="rating-section" *ngIf="allReviews && allReviews.length > 0">
     <div class="list-heading">Rating</div>
-    <div class="rating" [ngClass]="{'goodRating': overallRating > 4, 'mediumRating': (overallRating > 3 && overallRating < 4), 'poorRating': overallRating <= 3 }">
+    <div class="rating" [ngClass]="{'goodRating': overallRating >= 4, 'mediumRating': (overallRating > 3 && overallRating < 4), 'poorRating': overallRating <= 3 }">
         <mat-icon *ngFor="let x of latestWholeRating; let i = index;" style="font-size: 16px;margin-top:3px;">star</mat-icon>
         <mat-icon *ngIf="latestFractionalRating > 0" style="font-size: 16px;margin-top:3px;">star_half</mat-icon>
         <span class="finalrating" [ngStyle]="{'background-color': overallRating > 4 ? 'green' : (overallRating > 3 && overallRating < 4) ? '#FF7F50' : 'red'}">{{overallRating}}</span>

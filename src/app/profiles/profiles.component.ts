@@ -10,6 +10,7 @@ import { ShortMessageComponent } from '../shared/short-message/short-message.com
 import { Subscription } from 'rxjs';
 import { ChangePasswordComponent } from '../shared/change-password/change-password.component';
 import { ModalOptions, BsModalRef, BsModalService } from 'ngx-bootstrap/modal';
+import { ChangeEmailComponent } from '../shared/change-email/change-email.component';
 
 @Component({
   selector: 'app-profiles',
@@ -58,7 +59,7 @@ export class ProfilesComponent implements OnInit, OnDestroy {
       }
       return profiles;
     })).subscribe((res: any)=>{
-      if(res){
+      if(res && res.length>0){
         this.profileData = res;
         if(this.profileData){
           this.buttonText = "Update";
@@ -66,6 +67,9 @@ export class ProfilesComponent implements OnInit, OnDestroy {
           this.uniqueID = this.profileData[0].id;
           this.populateProfile(this.profileData);
         }
+      }
+      else{
+        this.populateProfile(this.profileData);
       }
     });
   }
@@ -215,6 +219,21 @@ export class ProfilesComponent implements OnInit, OnDestroy {
     this.bsModalRef.content.changesPasswordSuccessEvent.subscribe((res: any) => {
       this.bsModalRef?.hide();
       const message = "Password has been updated";
+      const color = "green";
+      this.showShortMsg(message, color);
+    });
+  }
+
+  changeEmail(): void{
+    const initialState: ModalOptions = {
+      initialState: {
+        title: "Change Email"
+      }
+    };
+    this.bsModalRef = this.modalService.show(ChangeEmailComponent, initialState);
+    this.bsModalRef.content.changeEmailSuccessEvent.subscribe((res: any) => {
+      this.bsModalRef?.hide();
+      const message = "Email has been updated";
       const color = "green";
       this.showShortMsg(message, color);
     });

@@ -71,8 +71,9 @@ export class SignUpModalComponent implements OnInit, OnDestroy {
         },2000);
       },
       (error: any)=>{
-        //this.signUpFailedStatus = true;
-        //this.SignUpMsg = error.message;
+        //handled globally from interceptor
+        this.signUpFailedStatus = true;
+        this.SignUpMsg = error.error.error.message;
       }
     )
   }
