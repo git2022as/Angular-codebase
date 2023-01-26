@@ -16,7 +16,7 @@
             <div class="row m-0" style="font-size: 12px;">
                 <span (click)="goToOfferPage()" style="text-decoration: underline;color: deeppink; cursor: pointer;font-size: 12px;"><b>{{offerAppliedCode !="" ? 'remove offer' : 'apply offer'}}</b></span>
                 <span class="ml-2 mr-2" style="text-decoration: underline;color: deeppink;font-size: 12px;" *ngIf="offerAppliedCode != ''"><b>{{offerAppliedCode}}</b></span>
-                <span style="color: green; cursor: pointer;font-size: 11px;"> *check other bank/wallet offers <b>({{offersAvailableCount}})</b> to get more discount on the final cart amount</span>
+                <span class="ml-2 mr-2" style="color: green; cursor: pointer;font-size: 11px;">*check other bank/wallet offers <b>({{offersAvailableCount}})</b> to get more discount on the final cart amount</span>
             </div>
         </div>
         <div class="paymentBreakupSection mt-3 p-2 ml-2 mb-2" *ngIf="showBreakUp">
@@ -56,6 +56,40 @@
                 </div>
             </div>
         </div>
+    </div>
+    <div class="paymentSection row m-0 mb-3">
+        <div class="paymentSectionHeading col-12 p-2">
+            Delivery Address Details
+        </div>
+        <div class="col-12 p-2" *ngIf="dAddressAvailable else no_delivery_address">
+            <div class="row m-0">
+                <form #deliverAddressForm="ngForm">
+                    <div style="font-weight: 600;">
+                        <mat-icon style="color: deeppink;font-size: 14px;cursor: pointer;" tooltip="Select dish category as Veg or Non-Veg" placement="auto" (click)="commonService.clickDisabled($event)">fact_check</mat-icon>
+                        <span style="font-size: 14px;">Please select from these addresses to deliver the item - *</span> 
+                    </div>
+                    <mat-radio-group
+                    aria-labelledby="dish-origin-radio-group-label"
+                    class="admin-radio-group"
+                    [(ngModel)]="selectedDeliverAddress" (change)="addressChange($event.value)" name="selectedDeliverAddress" [required]=true  ngModel #dAdd="ngModel">
+                        <mat-radio-button class="admin-radio-button" *ngFor="let each of dAddressDetails; let i = index;" [value]="each">
+                            <div style="white-space: normal;">
+                                {{each.street}}, {{each.city}} - {{each.pincode}}, {{each.state}}
+                            </div>
+                        </mat-radio-button>
+                        <p *ngIf="dAdd.touched && dAdd.invalid">Select the delivery address</p>
+                    </mat-radio-group>
+                </form>
+            </div>
+        </div>
+        <ng-template #no_delivery_address>
+            <span style="font-size: 14px;">
+                Delivery address is not available, please add first to make a payment.
+            </span>
+            <span class="ml-3" style="text-decoration: underline;" (click)="addProfile()">
+                Add Address
+            </span>
+        </ng-template>
     </div>
     <div class="paymentSection row m-0 mb-2">
         <div class="paymentSectionHeading col-12 p-2">
@@ -111,7 +145,7 @@
                             </div>
                         </form>
                         <div class="mt-2">
-                            <button mat-raised-button color="primary" [disabled]="cardForm.invalid" class="payment-button" (click)="confirmPayment('card')">Payment</button>
+                            <button mat-raised-button color="primary" [disabled]="cardForm.invalid ||deliverAddressForm.invalid || !dAddressAvailable" class="payment-button" (click)="confirmPayment('card')">Payment</button>
                         </div>
                     </div>
                     <div class="payment-mode-section" *ngIf="paymentMode == 'upi'">
@@ -129,7 +163,7 @@
                             </mat-form-field>
                         </form>
                         <div class="mt-2">
-                            <button mat-raised-button color="primary" [disabled]="upiForm.invalid" class="payment-button" (click)="confirmPayment('upi')">Payment</button>
+                            <button mat-raised-button color="primary" [disabled]="upiForm.invalid || deliverAddressForm.invalid || !dAddressAvailable" class="payment-button" (click)="confirmPayment('upi')">Payment</button>
                         </div>
                     </div>
                     <div class="payment-mode-section" *ngIf="paymentMode == 'cash'">
@@ -137,7 +171,7 @@
                             <span>As you have selected <b>CASH</b> option hence, please be ready with eact amout of cash during delivery.</span>
                         </div>
                         <div class="mt-2">
-                            <button mat-raised-button color="primary" class="payment-button" (click)="confirmPayment('cash')">Payment</button>
+                            <button mat-raised-button color="primary" class="payment-button" [disabled]="deliverAddressForm.invalid || !dAddressAvailable" (click)="confirmPayment('cash')">Payment</button>
                         </div>
                     </div>
                 </div>

@@ -89,4 +89,10 @@ export class AuthService {
         return this.http.put(`${this.baseUrl}/cart/${uid}/${id}.json`,cart);
     }
 
+    /* clear cart scenario */
+    /* when order is placed, cart has to be cleared */
+    clearCart(uid: string): Observable<any>{
+        return this.http.delete(`${this.baseUrl}/cart/${uid}.json`);
+    }
+
 }

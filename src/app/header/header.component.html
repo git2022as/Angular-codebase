@@ -7,7 +7,7 @@
 
             <mat-list-item role="listitem" routerLinkActive="active" routerLink="/cart" *ngIf="!appCacheService._adminLoggedIn">Cart</mat-list-item>
 
-            <mat-list-item role="listitem" routerLinkActive="active" routerLink="/offers" *ngIf="appCacheService._loggedInUser && !appCacheService._adminLoggedIn">Orders</mat-list-item>
+            <mat-list-item role="listitem" routerLinkActive="active" routerLink="/orders" *ngIf="appCacheService._loggedInUser && !appCacheService._adminLoggedIn">Orders</mat-list-item>
 
             <mat-list-item role="listitem" routerLinkActive="active" routerLink="/profiles" *ngIf="appCacheService._loggedInUser && !appCacheService._adminLoggedIn">Profiles</mat-list-item>
 

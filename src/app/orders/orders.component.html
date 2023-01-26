@@ -1,0 +1,10 @@
+<div class="container">
+    <div class="mt-5 mb-5 heading" style="text-align: center;"><h3>Your Orders</h3></div>
+    <ng-container *ngIf="orderAvailable, else no_orders">
+        <!--orderview component-->
+        ORDERS SHOWN HERE
+    </ng-container>
+    <ng-template #no_orders>
+        <app-no-items section="Orders"></app-no-items>
+    </ng-template>
+</div>

@@ -90,11 +90,7 @@ export class ReviewsComponent implements OnInit {
       if(res){
         for(let key in res){
           if(res.hasOwnProperty(key)){
-            for(let key1 in res[key]){
-              if(res[key].hasOwnProperty(key1)){
-                reviews.push({...res[key][key1], id: key1});
-              }
-            }
+              reviews.push({...res[key], id: key});
           }
         }
       }

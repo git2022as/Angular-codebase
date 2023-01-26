@@ -126,6 +126,16 @@ export class CommonService {
         return this.http.get(`${this.baseUrl}/reviews/${id}.json`);
     }
 
+    //add orders API CALL
+    addOrders(uid: string, order: any): Observable<any>{
+        return this.http.post(`${this.baseUrl}/orders/${uid}.json`, order);
+    }
+
+    //get orders API CALL
+    getOrders(uid: string): Observable<any>{
+        return this.http.get(`${this.baseUrl}/orders/${uid}.json`);
+    }
+
     /* pagination function */
     //call from component
     loadPagination(data: Array<any>, perPageData?: number, curretPage?: number): Array<any>{

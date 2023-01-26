@@ -16,7 +16,7 @@ export class PaymentModuleAuthenticationGuardService implements CanActivate {
                 private commonService: CommonService){}
 
     canActivate(route: ActivatedRouteSnapshot, state: RouterStateSnapshot): boolean {
-        if(this.appCacheService._cartDetails.length > 0){
+        if(this.appCacheService._loggedInUser && this.appCacheService._cartDetails.length > 0){
             return true;
         }
         else{

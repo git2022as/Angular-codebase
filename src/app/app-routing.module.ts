@@ -59,6 +59,11 @@ const lazyRoutes: Routes = [
     path: 'profiles',
     loadChildren: () => import('./profiles/profiles.module').then(a => a.ProfilesModule)
   },
+  {
+    path: 'orders',
+    loadChildren: ()=> import('../app/orders/orders.module').then(a => a.OrdersModule),
+    canActivate: [LoginAuthCanActivateGuardService]
+  },
   { 
     path: '', 
     redirectTo: 'base', 

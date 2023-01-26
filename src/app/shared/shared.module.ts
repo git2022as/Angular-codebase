@@ -27,6 +27,7 @@ import { AdminTableComponent } from './admin-table/admin-table.component';
 import { BreadcrumbComponent } from './breadcrumb/breadcrumb.component';
 import { SearchComponent } from './search/search.component';
 import { FilterPipe } from '../pipes/filter.pipe';
+import { OrderViewComponent } from './order-view/order-view.component';
 
 /* pipe module */
 import { PipeModule } from '../pipes/pipe.module';
@@ -72,7 +73,8 @@ import { ChangeEmailComponent } from './change-email/change-email.component';
     BreadcrumbComponent,
     SearchComponent,
     ChangePasswordComponent,
-    ChangeEmailComponent
+    ChangeEmailComponent,
+    OrderViewComponent
   ],
   imports: [
     CommonModule,
@@ -116,7 +118,8 @@ import { ChangeEmailComponent } from './change-email/change-email.component';
     BreadcrumbComponent,
     SearchComponent,
     ChangePasswordComponent,
-    ChangeEmailComponent
+    ChangeEmailComponent,
+    OrderViewComponent
   ],
   providers: [IndividualCartPipe, FilterPipe]
 })

@@ -1,21 +1,24 @@
-import { Component, OnInit, ViewChild } from '@angular/core';
+import { Component, OnInit, ViewChild, OnDestroy } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { AppCacheService } from '../services/app.cache.service';
 import { UtilityService } from '../services/utility.service';
 import { errorMessages } from '../constants/constant';
 import { CommonService } from '../services/common.service';
 import { NgForm } from '@angular/forms';
-import { NgFor } from '@angular/common';
-import { BehaviorSubject } from 'rxjs';
 import { Router } from '@angular/router';
 import { finalPaymentInterface } from '../interface/project.interface';
+import { ProfileService } from '../profiles/profiles.service';
+import { Subscription } from 'rxjs';
+import { catchError, map, mergeMap, take } from 'rxjs/operators';
+import { AuthService } from '../services/auth.service';
+import { DataService } from '../services/data.service';
 
 @Component({
   selector: 'app-payment',
   templateUrl: './payment.component.html',
   styleUrls: ['./payment.component.scss']
 })
-export class PaymentComponent implements OnInit {
+export class PaymentComponent implements OnInit, OnDestroy {
 
   showBreakUp: boolean = false;
   cartObj: finalPaymentInterface;
@@ -33,14 +36,23 @@ export class PaymentComponent implements OnInit {
   offersAvailableCount: number = 0; 
   offerAppliedCode: string = "";
   offerDiscount: number = null;
+  deliverAddressSubscription: Subscription | undefined;
+  orderSubscription: Subscription | undefined;
+  dAddressAvailable: boolean = false;
+  dAddressDetails: any;
+  selectedDeliverAddress: any;
 
   @ViewChild('upiForm', {static: true}) upiForm: any;
+  @ViewChild('deliverAddressForm', {read: NgForm}) deliverAddressForm: any;
 
   constructor(private activatedRoute: ActivatedRoute,
               private appCacheService: AppCacheService,
               private utilityService: UtilityService,
               public commonService: CommonService,
-              private router: Router) { }
+              private router: Router,
+              private profileService: ProfileService,
+              private authService: AuthService,
+              private dataService: DataService) { }
 
   ngOnInit(): void {
     this.routeSubscribe();
@@ -56,6 +68,40 @@ export class PaymentComponent implements OnInit {
     //get the value single time during payment page load
     //this.appliedCoupon = JSON.parse(this.activatedRoute.snapshot.queryParamMap.get('selectedCoupon'));
     this.appliedCoupon = this.appCacheService._appliedCoupon;
+    this.getDeliveryAddrees();
+  }
+
+  getDeliveryAddrees(){
+    const uid = this.appCacheService._UID;
+    this.deliverAddressSubscription = this.profileService.getProfile(uid).pipe(map((res: any)=>{
+      let dAddress = [];
+      if(res){
+        for(let key in res){
+          if(res.hasOwnProperty(key)){
+            dAddress.push({...res[key], id: key});
+          }
+        }
+      }
+      return dAddress;
+    })).subscribe((res: any)=>{
+      if(res && res.length>0){
+        this.dAddressAvailable = true;
+        this.dAddressDetails = this.calculateAvailableDeliveryAddress(res[0]);
+      }
+      else{
+        this.dAddressAvailable = false;
+      }
+    });
+  }
+
+  calculateAvailableDeliveryAddress(data: Array<any>): Array<any>{
+    let final = [];
+    final.push(data['deliveryAddress']);
+    return final = [...final, ...data['secondDeliveryAddress']];
+  }
+
+  addressChange(event): void{
+    console.log(event);
   }
 
   calculatePayment(): void{
@@ -77,7 +123,36 @@ export class PaymentComponent implements OnInit {
   }
 
   confirmPayment(sec: string): void{
+    console.log('cart object' + JSON.stringify(this.cartObj));
     console.log('payment confirmed ' + sec);
+    console.log("delivery address" + JSON.stringify(this.selectedDeliverAddress));
+    console.log("cart details " + JSON.stringify(this.appCacheService.cartDetails));
+    let data = {};
+    data['cartPrice'] = this.cartObj;
+    data['paymentsection'] = sec;
+    data['deliveryAddress'] = this.selectedDeliverAddress;
+    data['cartDetails'] = this.cartDetails;
+    data['orderStatus'] = 'ordered'; //total 5 status as => ordered, dispatched, delivered, cancelled, returned
+    this.orderItem(data);
+  }
+
+  orderItem(data: any): void{
+    const uid = this.appCacheService._UID; 
+    this.orderSubscription = this.commonService.addOrders(uid, data).pipe(
+      map(res=>{return res ? res : catchError(res => 'Order is not successful')}),
+      mergeMap(res => this.authService.clearCart(uid)),
+      take(1)
+    ).subscribe((res:any)=>{
+      //when order is successful
+      //clear cart & clear data from localstorage
+      this.appCacheService._cartDetails = [];
+      this.appCacheService.deleteCartFromLocalStorage();
+      this.dataService.UPDATE_CART_COUNT.next(true);
+      this.router.navigate(['/orders']);
+    },
+    (error: any)=>{
+      //Handled Globally
+    })
   }
 
   goToOfferPage(): void{
@@ -90,6 +165,15 @@ export class PaymentComponent implements OnInit {
       this.appCacheService._cartValue = this.cartObj.finalPay;
       this.router.navigate(['/offers']);
     }
+  }
+
+  ngOnDestroy(): void {
+    this.deliverAddressSubscription?.unsubscribe();
+    this.orderSubscription?.unsubscribe();
+  }
+
+  addProfile(): void{
+    this.router.navigate(['/profile']);
   }
 
 }
