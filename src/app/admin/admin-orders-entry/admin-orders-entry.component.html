@@ -1,0 +1,14 @@
+<div class="container">
+    <div class="mt-5 mb-5 heading" style="text-align: center;" id="top"><h3>Manage Orders</h3></div>
+    <div class="admin-block">
+        <hr style="border-top: 1.5px solid #23222221;">
+        <div class="admin-block-sections">
+            <div class="col-12 mt-2 mb-3">
+                <div class="mb-2" style="font-size: 16px; color: #3f51b5; font-weight: 600;text-align: center;">Avaialable Undelivered Orders</div>
+                <app-order-view [orders]="paginationOrder" [productDetails]="dishes" [editMode]="true" (editOrderEvent)="_editOrderEvent($event)"></app-order-view>
+                <app-pagination *ngIf="paginationOrder.length > 0" [currentDataSet]="orders" (perPageSelectionChangedEvent)="_perPageSelectionChanged($event)" (paginationButtonChangedEvent)="_paginationButtonChangedEvent($event)"></app-pagination>
+            </div>
+        </div>
+    </div>
+    <div #shortContainer></div>
+</div>

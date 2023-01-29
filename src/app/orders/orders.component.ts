@@ -15,10 +15,12 @@ export class OrdersComponent implements OnInit, OnDestroy {
   orderSubscription: Subscription | undefined;
   orders: any[];
   orderAvailable: boolean = false;
+  productDetails: any;
   constructor(private appCacheService: AppCacheService,
               private commonService: CommonService) {}
 
   ngOnInit(): void {
+    this.productDetails = this.appCacheService._dishesDetails;
     this.getOrder();
   }
 
@@ -38,6 +40,7 @@ export class OrdersComponent implements OnInit, OnDestroy {
       if(res.length > 0){
         console.log(res);
         this.orders = res;
+        this.orders = this.orders.reverse();
         this.orderAvailable = true;
       }
       else{

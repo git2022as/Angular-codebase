@@ -22,6 +22,7 @@ import { DirectiveModule } from "../directives/directives.module";
 
 /* ngx-modules */
 import { TooltipModule } from 'ngx-bootstrap/tooltip';
+import { AdminOrdersEntryComponent } from './admin-orders-entry/admin-orders-entry.component';
 
 @NgModule({
     declarations: [
@@ -31,7 +32,8 @@ import { TooltipModule } from 'ngx-bootstrap/tooltip';
         AdminDishEntryComponent,
         AdminOffersEntryComponent,
         AdminSlidesEntryComponent,
-        AdminDashboardComponent
+        AdminDashboardComponent,
+        AdminOrdersEntryComponent
     ],
     exports: [
         AdminComponent, 
@@ -39,7 +41,8 @@ import { TooltipModule } from 'ngx-bootstrap/tooltip';
         AdminCouponsEntryComponent,
         AdminDishEntryComponent,
         AdminOffersEntryComponent,
-        AdminSlidesEntryComponent
+        AdminSlidesEntryComponent,
+        AdminOrdersEntryComponent
     ],
     imports: [
         CommonModule,

@@ -28,6 +28,9 @@ import { BreadcrumbComponent } from './breadcrumb/breadcrumb.component';
 import { SearchComponent } from './search/search.component';
 import { FilterPipe } from '../pipes/filter.pipe';
 import { OrderViewComponent } from './order-view/order-view.component';
+import { ChangePasswordComponent } from './change-password/change-password.component';
+import { ChangeEmailComponent } from './change-email/change-email.component';
+import { OrderStatusChangeComponent } from './order-status-change/order-status-change.component';
 
 /* pipe module */
 import { PipeModule } from '../pipes/pipe.module';
@@ -44,8 +47,7 @@ import { MatInputModule } from '@angular/material/input';
 import { MatRadioModule } from '@angular/material/radio';
 import { MatCheckboxModule } from '@angular/material/checkbox';
 import { MatSelectModule } from '@angular/material/select';
-import { ChangePasswordComponent } from './change-password/change-password.component';
-import { ChangeEmailComponent } from './change-email/change-email.component';
+import { MatProgressBarModule } from '@angular/material/progress-bar';
 
 @NgModule({
   declarations: [
@@ -74,7 +76,8 @@ import { ChangeEmailComponent } from './change-email/change-email.component';
     SearchComponent,
     ChangePasswordComponent,
     ChangeEmailComponent,
-    OrderViewComponent
+    OrderViewComponent,
+    OrderStatusChangeComponent
   ],
   imports: [
     CommonModule,
@@ -91,7 +94,8 @@ import { ChangeEmailComponent } from './change-email/change-email.component';
     TooltipModule.forRoot(),
     MatRadioModule,
     MatCheckboxModule,
-    MatSelectModule
+    MatSelectModule,
+    MatProgressBarModule
   ],
   exports: [
     SignUpModalComponent,
@@ -119,7 +123,8 @@ import { ChangeEmailComponent } from './change-email/change-email.component';
     SearchComponent,
     ChangePasswordComponent,
     ChangeEmailComponent,
-    OrderViewComponent
+    OrderViewComponent,
+    OrderStatusChangeComponent
   ],
   providers: [IndividualCartPipe, FilterPipe]
 })

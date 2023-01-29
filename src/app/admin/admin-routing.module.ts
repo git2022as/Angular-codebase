@@ -6,6 +6,7 @@ import { AdminCouponsEntryComponent } from "./admin-coupons-entry/admin-coupons-
 import { AdminDashboardComponent } from "./admin-dashboard/admin-dashboard.component";
 import { AdminDishEntryComponent } from "./admin-dish-entry/admin-dish-entry.component";
 import { AdminOffersEntryComponent } from "./admin-offers-entry/admin-offers-entry.component";
+import { AdminOrdersEntryComponent } from "./admin-orders-entry/admin-orders-entry.component";
 import { AdminSlidesEntryComponent } from "./admin-slides-entry/admin-slides-entry.component";
 import { AdminComponent } from "./admin.component";
 
@@ -22,6 +23,10 @@ const adminRoutes: Routes = [
                 path: 'dishes',
                 component: AdminDishEntryComponent,
                 canDeactivate: [AdminCanDeactivateGuardService]
+            },
+            {
+                path: 'orders',
+                component: AdminOrdersEntryComponent
             },
             {
                 path: 'offers',

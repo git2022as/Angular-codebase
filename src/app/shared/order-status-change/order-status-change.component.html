@@ -1,0 +1,26 @@
+<div class="modal-header">
+    <span class="material-icons" style="color: deeppink;margin:7px; font-size: 28px;"> 
+        edit
+    </span>
+    <h4 class="modal-title pull-left">{{title}}</h4>
+    <button type="button" class="btn-close close pull-right" aria-label="Close" (click)="bsModalRef.hide()">
+        <span aria-hidden="true" class="visually-hidden">&times;</span>
+    </button>
+</div>
+<div class="modal-body">
+    <form [formGroup]="statusChange">
+        <mat-radio-group
+        aria-labelledby="coupon-radio-group-label"
+        class="coupon-radio-group"
+        formControlName="selectedStatus" name="selectedStatus" *ngIf="availableStatus && availableStatus.length > 0">
+            <mat-radio-button *ngFor="let status of availableStatus" [value]="status.key">
+                <span style="white-space: normal;font-size: 14px;margin-right: 10px;">{{status.value}}</span>
+            </mat-radio-button>
+        </mat-radio-group>
+    </form>
+</div>
+<div class="modal-footer">
+    <!--angular material button used inside ngx-bootstrap-->
+    <button mat-raised-button style="margin-right: 1rem" color="primary" [disabled]="statusChange.invalid" (click)="changeStatus()">Change Status</button>
+    <button mat-raised-button (click)="bsModalRef.hide()">Cancel</button>
+</div>

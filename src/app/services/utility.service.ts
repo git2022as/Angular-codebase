@@ -145,4 +145,14 @@ export class UtilityService {
         let a = val % 1;
         return a;
     }
+
+    calculateCurrentTime(): string{
+        const date = new Date();
+        const dateString = date.toDateString();
+        const timeString = date.toTimeString();
+        const GPos = timeString.indexOf('G');
+        const newTimeString = timeString.substring(0, (GPos-1));
+        const latestTime = `${dateString} ${newTimeString}`;
+        return latestTime;
+    }
 }

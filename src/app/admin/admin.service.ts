@@ -133,4 +133,22 @@ export class AdminService {
     deleteOffer(id: string): Observable<any>{
         return this.http.delete(`${this.baseUrl}/offer/${id}.json`);
     }
+
+    /*$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$ ORDERS API ##############################*/
+
+    /* get orders from firebase database */
+    getAllOrders(): Observable<any>{
+        return this.http.get(`${this.baseUrl}/orders.json`);
+    }
+
+    /* update orders on firebase database */
+    /* use PUT request */
+    updateOrders(id: string, uid: string, order: any): Observable<any>{
+        //update order where delete uid & id from that object
+        let newOrder = {...order};
+        delete newOrder.id;
+        delete newOrder.uid;
+        return this.http.put(`${this.baseUrl}/orders/${uid}/${id}.json`, newOrder);
+    }
+
 }

@@ -132,7 +132,9 @@ export class PaymentComponent implements OnInit, OnDestroy {
     data['paymentsection'] = sec;
     data['deliveryAddress'] = this.selectedDeliverAddress;
     data['cartDetails'] = this.cartDetails;
-    data['orderStatus'] = 'ordered'; //total 5 status as => ordered, dispatched, delivered, cancelled, returned
+    data['orderStatus'] = 'ordered'; //total 3 status as => ordered, intrans, delivered
+    data['orderTime'] = this.utilityService.calculateCurrentTime();
+    data['deliveryTime'] = 'NA';
     this.orderItem(data);
   }
 
