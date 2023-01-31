@@ -3,9 +3,9 @@
         <div class="order-overview p-2 m-0">
             <div class="order-cart-overview">
                 <div class="mb-3 mr-3" *ngFor="let cart of order.cartDetails; let j = index;">
-                    <img src="{{cart?.id | cartImage : productDetails}}" class="cart-image" alt="{{cart?.id | cartImageAlt : productDetails}}" tooltip="click to go back to dish details page" placement="auto">
+                    <img src="{{cart?.id | cartImage : productDetails}}" class="cart-image" alt="{{cart?.id | cartImageAlt : productDetails}}" [routerLink]= "['/dish/', cart.id]" tooltip="click to go back to dish details page" placement="auto">
                     <div style="text-align: center;">
-                        <span class="cartPrice" tooltip="click to go back to dish details page" placement="auto">{{cart?.id | cartName : productDetails}}</span>
+                        <span style="color: #3f51b5;font-size: 13px;font-weight: 600;cursor: pointer;text-decoration: underline;" tooltip="click to go back to dish details page" placement="auto" [routerLink]= "['/dish/', cart.id]">{{cart?.id | cartName : productDetails}}</span>
                     </div>
                     <div style="text-align: center;">
                         <span class="orderSecondaryDesc">Quantity: {{cart?.quantity}}</span>

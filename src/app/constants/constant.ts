@@ -55,6 +55,20 @@ export const staticValue = {
         'rgb(122 97 171)',
         'rgb(22 205 234)'
     ],
+    itemBackgroudColor: [
+        'red',
+        'green',
+        'blue',
+        'yellow',
+        'pink',
+        'black',
+        'brown',
+        'violet',
+        'cyan',
+        'gold',
+        'chocolate',
+        'gray'
+    ],
     paginationPerPageConstant : 5
 }
 
@@ -101,7 +115,7 @@ export const city = [
     "Patna",
     "Kolkata",
     "Guahati"
-] as const;
+];
 
 export const state = [
     "Delhi",
@@ -114,7 +128,7 @@ export const state = [
     "Bihar",
     "West Bengal",
     "Assam"
-] as const;
+];
 
 export enum pp {
     name = "tom",

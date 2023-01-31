@@ -31,6 +31,7 @@ import { OrderViewComponent } from './order-view/order-view.component';
 import { ChangePasswordComponent } from './change-password/change-password.component';
 import { ChangeEmailComponent } from './change-email/change-email.component';
 import { OrderStatusChangeComponent } from './order-status-change/order-status-change.component';
+import { RouterModule } from '@angular/router';
 
 /* pipe module */
 import { PipeModule } from '../pipes/pipe.module';
@@ -95,7 +96,8 @@ import { MatProgressBarModule } from '@angular/material/progress-bar';
     MatRadioModule,
     MatCheckboxModule,
     MatSelectModule,
-    MatProgressBarModule
+    MatProgressBarModule,
+    RouterModule
   ],
   exports: [
     SignUpModalComponent,

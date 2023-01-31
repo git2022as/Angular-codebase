@@ -5,7 +5,6 @@ import { city, state } from '../constants/constant';
 import { ProfileService } from './profiles.service';
 import { AppCacheService } from '../services/app.cache.service';
 import { map } from 'rxjs/operators';
-import { profileInterface } from '../interface/project.interface';
 import { ShortMessageComponent } from '../shared/short-message/short-message.component';
 import { Subscription } from 'rxjs';
 import { ChangePasswordComponent } from '../shared/change-password/change-password.component';
@@ -123,6 +122,8 @@ export class ProfilesComponent implements OnInit, OnDestroy {
       }),
       secondDeliveryAddress: this.fb.array([])
     });
+    this.availableCities = this.availableCities.sort((a,b)=> a.localeCompare(b));
+    this.availableStates = this.availableStates.sort((a,b)=>a.localeCompare(b));
     this.profileFormReady = true;
   }
 
@@ -151,7 +152,7 @@ export class ProfilesComponent implements OnInit, OnDestroy {
     this.extraAddressFormCount++;
   }
 
-  resetprofileForm(): void{
+  resetProfileForm(): void{
     console.log(this.profileForm);
     this.profileForm.reset();
   }

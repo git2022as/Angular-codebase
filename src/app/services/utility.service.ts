@@ -98,6 +98,95 @@ export class UtilityService {
 
     /* calculate value from UI ends here */
 
+    /* calculation of dashboard */
+
+    calculateDashboardBasicDetails(data: any): {totalNoOfOrders: number, avgDishPerOrder: number, avgPricePerOrder: number, maxUsedPaymentOption: string}{
+        let obj = {totalNoOfOrders: 0, avgDishPerOrder: 0, avgPricePerOrder: 0, maxUsedPaymentOption: ''};
+        obj.totalNoOfOrders = Array.isArray(data) ? data.length : 0;
+        obj.avgDishPerOrder = this.calculateAvgDishPerOrder(data,obj.totalNoOfOrders);
+        obj.avgPricePerOrder = this.calculateAvgPricePerOrde(data,obj.totalNoOfOrders);
+        obj.maxUsedPaymentOption = this.calculateMaxUsedPaymentOption(data, obj.totalNoOfOrders);
+        return obj;
+    }
+
+    calculateAvgDishPerOrder(data, len): number{
+        let no = 0;
+        let avgDishPerOrder = 0;
+        if(len>0){
+            data.forEach(each=>{
+                if(each.cartDetails && each.cartDetails.length > 0){
+                    no = no + each.cartDetails.length;
+                }
+            });
+            avgDishPerOrder = (no/len);
+        }
+        return avgDishPerOrder;
+    }
+
+    calculateAvgPricePerOrde(data, len): number{
+        let no = 0;
+        let avgPricePerOrder = 0;
+        if(len>0){
+            data.forEach(each=>{
+                if(each.cartPrice && each.cartPrice.totalCartValue > 0){
+                    no = no + each.cartPrice.totalCartValue;
+                }
+            });
+            avgPricePerOrder = (no/len);
+        }
+        return avgPricePerOrder;
+    }
+
+    calculateMaxUsedPaymentOption(data, len): string{
+        let final = '';
+        let cashPayment = 0;
+        let cardPayment = 0;
+        let upiPayment = 0;
+
+        if(len>0){
+            data.forEach(each=>{
+                if(each.paymentsection != ''){
+                    if(each.paymentsection == 'upi'){
+                        ++upiPayment;
+                    }
+                    else if(each.paymentsection == 'cash'){
+                        ++cashPayment;
+                    }
+                    else{
+                        ++cardPayment;
+                    }
+                }
+            });
+        }
+        return final = cashPayment > cardPayment ? (cashPayment > upiPayment ? 'CASH' : 'UPI') : (cardPayment > upiPayment ? 'CARD' : 'UPI');
+    }
+
+    calculateItemAnalysis(products, orders): any[]{
+        let data = [];
+        if(products && products.length > 0){
+            products.forEach(each=>{
+                let ind = {id: each.id, count: 0, quantity: 0, origin: each.dishOrigin, name: each.dishName};
+                if(orders && orders.length > 0){
+                    orders.forEach(each1 =>{
+                        let cartDetails = each1.cartDetails;
+                        if(cartDetails){
+                            cartDetails.forEach(each2=>{
+                                if(each2.id == ind.id){
+                                    ++ind.count;
+                                    ind.quantity = ind.quantity + each2.quantity;
+                                }
+                            })
+                        }
+                    })
+                }
+                data.push(ind);
+            })
+        }
+        return data;
+    }
+
+    /* calculation of dashboard ends here */
+
     checkDishInCart(product: any): boolean{
         let val: boolean = true;
         if(this.appCacheService._cartDetails.length == 0)

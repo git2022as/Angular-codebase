@@ -7,6 +7,7 @@ import { CommonService } from 'src/app/services/common.service';
 import { StaticMsg } from '../../constants/constant';
 import { mergeMap, take, tap, map } from 'rxjs/operators';
 import { ShortMessageComponent } from '../short-message/short-message.component';
+import { ActivatedRoute } from '@angular/router';
 
 @Component({
   selector: 'app-reviews',
@@ -25,15 +26,21 @@ export class ReviewsComponent implements OnInit {
   allReviews: any = [];
   overallRating: any;
   showCancelButton: boolean = false;
+  reviewId: string = "";
+
   @ViewChild("shortMessage", {read: ViewContainerRef}) shortMessage: ViewContainerRef;
 
   constructor(private utilityService: UtilityService,
               private dishService: DishService,
               public appCacheService: AppCacheService,
               private fb: FormBuilder,
-              public commonService: CommonService) { }
+              public commonService: CommonService,
+              private activatedRoute: ActivatedRoute) { }
 
   ngOnInit(): void {
+    this.activatedRoute.paramMap.subscribe(res=>{
+      this.itemUniqueID = res.get('id');
+    })
     this.getFullRating();
   }
 
@@ -51,7 +58,7 @@ export class ReviewsComponent implements OnInit {
     if(this.itemUniqueID != ""){
       const uid = this.appCacheService._UID;
       const method = this.showCancelButton ? 'update' : 'add';
-      this.commonService.addReviews(this.itemUniqueID,uid, this.reviewForm.value,method).pipe(
+      this.commonService.addReviews(this.itemUniqueID, uid, reviewForm.value, method, this.reviewId).pipe(
         tap((res: any)=>{
           console.log("Review has been submitted");
           this.reviewInputShow = false;
@@ -64,7 +71,13 @@ export class ReviewsComponent implements OnInit {
         if(res){
           for(let key in res){
             if(res.hasOwnProperty(key)){
-              reviews.push({...res[key], id: key});
+              if(res[key]){
+                for(let key1 in res[key]){
+                  if(res[key].hasOwnProperty(key1)){
+                    reviews.push({...res[key][key1], id: key, reviewId: key1});
+                  }
+                }
+              }
             }
           }
         }
@@ -90,7 +103,13 @@ export class ReviewsComponent implements OnInit {
       if(res){
         for(let key in res){
           if(res.hasOwnProperty(key)){
-              reviews.push({...res[key], id: key});
+            if(res[key]){
+              for(let key1 in res[key]){
+                if(res[key].hasOwnProperty(key1)){
+                  reviews.push({...res[key][key1], id: key, reviewId: key1});
+                }
+              }
+            }
           }
         }
       }
@@ -120,6 +139,7 @@ export class ReviewsComponent implements OnInit {
   }
 
   editYourComment(each: any): void{
+    this.reviewId = each.reviewId;
     this.createReviewForm();
     this.reviewForm.setValue({
       rating: each.rating,
