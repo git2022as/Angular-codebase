@@ -7,13 +7,18 @@ export interface userInterface {
 }
 
 export interface registerUserInterface {
-    user: {
-        email: string,
-        password: string,
-        username: string
-    }
+    email: string,
+    password: string,
+    username: string
+}
+
+export interface backendErrorsInterface {
+    [key: string] : string[]
 }
 
 export interface RegisterAuthInterface {
-    isSubmitted: boolean
+    isSubmitted: boolean,
+    currentUser: userInterface | null,
+    isLoggedIn: boolean | null,
+    validationErrors: backendErrorsInterface | null
 }

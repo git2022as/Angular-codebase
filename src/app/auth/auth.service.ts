@@ -14,7 +14,7 @@ export class AuthService {
 
     constructor(private http: HttpClient) {}
 
-    signUpUser(data: registerUserInterface): Observable<any>{
+    signUpUser(data : {user: registerUserInterface}): Observable<any>{
         return this.http.post(`${baseUrl}api/users`, data);
     }
 

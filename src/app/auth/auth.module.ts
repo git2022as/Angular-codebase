@@ -6,13 +6,16 @@ import { AuthRoutingModule } from "./auth-routing.module";
 import { ReactiveFormsModule } from "@angular/forms";
 import { StoreModule } from '@ngrx/store';
 import { regReducer } from "../store/reducers";
+import { EffectsModule } from '@ngrx/effects';
+import { RegisterEffects } from "../store/effects";
 
 @NgModule({
     imports: [
         CommonModule, 
         AuthRoutingModule, 
         ReactiveFormsModule,
-        StoreModule.forFeature('registerAuth', regReducer) //first argument is feature name (give any name) & 2nd argument is the exported reducer function
+        StoreModule.forFeature('registerAuth', regReducer), //first argument is feature name (give any name) & 2nd argument is the exported reducer function
+        EffectsModule.forFeature([RegisterEffects])
     ],
     declarations: [
         RegisterComponent, 

@@ -44,13 +44,16 @@ export class RegisterComponent implements OnInit {
 
   signUpSubmit(): void{
     console.log(this.registerForm.value);
-    this.store.dispatch(registerAction(this.registerForm.value));
-    this.authService.signUpUser({user: this.registerForm.value}).pipe(map((res: userInterface)=>{
+    let data = {
+      user: this.registerForm.value
+    }
+    this.store.dispatch(registerAction(data));
+    /*this.authService.signUpUser(data).pipe(map((res: userInterface)=>{
       return res['user'];
     })).subscribe(res=>{
       console.log(JSON.stringify(res));
     })
-    this.router.navigate(['/auth/login']);
+    this.router.navigate(['/auth/login']);*/
   }
 
 }
