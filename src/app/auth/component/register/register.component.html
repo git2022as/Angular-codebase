@@ -1,0 +1,12 @@
+<div class="container">
+    <form [formGroup]="registerForm" (ngSubmit)="signUpSubmit()">
+        <h5 class="text-center">Sign Up</h5>
+        <p *ngIf="registerForm.errors">Backend error messages</p>
+        <div class="m-5">
+            <input class="form-control mb-2" placeholder="Username" type="text" formControlName="username" name="username">
+            <input class="form-control mb-2" placeholder="Email" type="text" formControlName="email" name="email">
+            <input class="form-control mb-2" placeholder="Password" type="password" formControlName="password" name="password">
+            <button class="btm btn-primary mt-3" [disabled]="isSubmitted$ | async">Sign Up</button>
+        </div>
+    </form>
+</div>
