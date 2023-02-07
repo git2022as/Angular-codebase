@@ -40,10 +40,6 @@ export class RegisterComponent implements OnInit {
       email: ['',[Validators.email, Validators.required]],
       password: ['',[Validators.required]]
     });
-
-
-
-    
   }
 
   signUpSubmit(): void{
