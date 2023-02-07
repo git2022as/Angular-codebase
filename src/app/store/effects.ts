@@ -20,13 +20,15 @@ export class RegisterEffects {
         this.action$.pipe(
             ofType(registerAction),
             switchMap((data)=>{
-                return this.authService.signUpUser(data).pipe(map((currentUser: userInterface)=>
-                    {
-                    return registerSuccessAction({currentUser})
-                    }   
-                ))
-            }),
-            catchError((errorResponse: HttpErrorResponse) => {return of(registerFailureAction(errorResponse.error.errors))})
+                return this.authService.signUpUser(data).pipe(
+                    map((currentUser: userInterface)=>{
+                        return registerSuccessAction({currentUser})
+                    }),
+                    catchError((errorResponse: HttpErrorResponse) => {
+                        return of(registerFailureAction(errorResponse.error))
+                    })
+                )
+            })
         )
     )
 

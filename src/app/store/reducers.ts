@@ -30,13 +30,15 @@ const registerReducer = createReducer(
   ),
   on(
     registerFailureAction,
-    (state, action) => ({
-      ...state,
-      isSubmitted: false,
-      currentUser: null,
-      isLoggedIn: null,
-      validationErrors: action.errors
-    })
+    (state: RegisterAuthInterface, action) => (
+      {
+        ...state,
+        isSubmitted: false,
+        currentUser: null,
+        isLoggedIn: null,
+        validationErrors: action.errors
+      }
+    )
   )
 )
 

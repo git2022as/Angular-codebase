@@ -1,7 +1,11 @@
 <div class="container">
     <form [formGroup]="registerForm" (ngSubmit)="signUpSubmit()">
         <h5 class="text-center">Sign Up</h5>
-        <p *ngIf="registerForm.errors">Backend error messages</p>
+        <div *ngIf="validationErrors$ | async">
+            <p>
+                {{validationErrors$ | async}}
+            </p>
+        </div>
         <div class="m-5">
             <input class="form-control mb-2" placeholder="Username" type="text" formControlName="username" name="username">
             <input class="form-control mb-2" placeholder="Email" type="text" formControlName="email" name="email">

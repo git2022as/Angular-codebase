@@ -4,10 +4,10 @@ import { AuthService } from '../../auth.service';
 import { select, Store } from '@ngrx/store'; 
 import { registerAction } from 'src/app/store/actions';
 import { Observable } from 'rxjs';
-import { isSubmittedSelector } from 'src/app/store/selectors';
+import { isSubmittedSelector, validationErrorsSelector } from 'src/app/store/selectors';
 import { Router } from '@angular/router';
 import { map } from 'rxjs/operators';
-import { userInterface } from 'src/app/shared/interface/user.interface';
+import { backendErrorsInterface, userInterface } from 'src/app/shared/interface/user.interface';
 
 @Component({
   selector: 'app-register',
@@ -18,6 +18,7 @@ export class RegisterComponent implements OnInit {
 
   registerForm: FormGroup;
   isSubmitted$: Observable<boolean>;
+  validationErrors$: Observable<backendErrorsInterface | null>
 
   constructor(private fb: FormBuilder, 
     private authService: AuthService, 
@@ -31,6 +32,7 @@ export class RegisterComponent implements OnInit {
 
   registerSelectorInit(): void{
     this.isSubmitted$ = this.store.pipe(select(isSubmittedSelector));
+    this.validationErrors$ = this.store.pipe(select(validationErrorsSelector));
     //this "isSubmittedSelector" selector returns an observable hence always use pipe method to decode this
   }
 
