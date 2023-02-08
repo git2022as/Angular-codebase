@@ -34,6 +34,9 @@ export class RegisterComponent implements OnInit {
     this.isSubmitted$ = this.store.pipe(select(isSubmittedSelector));
     this.validationErrors$ = this.store.pipe(select(validationErrorsSelector));
     //this "isSubmittedSelector" selector returns an observable hence always use pipe method to decode this
+    this.validationErrors$.subscribe(res=>{
+      console.log("this is backend validation error " + JSON.stringify(res));
+    })
   }
 
   createRegisterForm(){

@@ -3,9 +3,10 @@ import { Injectable } from '@angular/core';
 import { AuthService } from '../auth/auth.service';
 import { registerAction, registerFailureAction, registerSuccessAction } from './actions';
 import { of, switchMap } from 'rxjs';
-import { catchError, map } from 'rxjs/operators';
+import { catchError, map, tap } from 'rxjs/operators';
 import { registerUserInterface, userInterface } from '../shared/interface/user.interface';
 import { HttpErrorResponse } from '@angular/common/http';
+import { Router } from '@angular/router';
 
 @Injectable({
     providedIn: 'root'
@@ -14,9 +15,10 @@ import { HttpErrorResponse } from '@angular/common/http';
 export class RegisterEffects {
 
     constructor(private authService: AuthService,
-                private action$: Actions) {}
+                private action$: Actions,
+                private router: Router) {}
 
-    register$ = createEffect(()=>
+    register$ = createEffect(()=> (
         this.action$.pipe(
             ofType(registerAction),
             switchMap((data)=>{
@@ -29,7 +31,20 @@ export class RegisterEffects {
                     })
                 )
             })
-        )
+        ))
+    )
+
+    registerSuccess$ = createEffect(()=>(
+            this.action$.pipe(
+                ofType(registerSuccessAction),
+                tap(()=>{
+                    console.log("register success triggered");
+                    this.router.navigate(['/auth/login']);
+                })
+            )
+
+        ),
+        {dispatch: false} //so that this effect doesn't return anything //VVIMP
     )
 
 }

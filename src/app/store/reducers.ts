@@ -12,7 +12,9 @@ const registerReducer = createReducer(
     (state: RegisterAuthInterface, action) => (
         { ...state,
           isSubmitted : true,
-          validationErrors: null
+          validationErrors: null,
+          isLoggedIn: null,
+          currentUser: null
         }
       )
   ),

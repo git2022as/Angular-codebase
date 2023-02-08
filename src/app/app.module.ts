@@ -20,7 +20,7 @@ import { EffectsModule } from '@ngrx/effects';
     StoreDevtoolsModule.instrument({
       maxAge: 25, // Retains last 25 states
       logOnly: true //use it for environment for production only
-    }),
+    }),//This is for REDUX DEV TOOL
     HttpClientModule
   ],
   providers: [],
