@@ -126,6 +126,11 @@ export class CommonService {
         return this.http.get(`${this.baseUrl}/reviews/${id}.json`);
     }
 
+    //Review delete API call
+    deleteReviews(id: string, uid: string): Observable<any>{
+        return this.http.delete(`${this.baseUrl}/reviews/${id}/${uid}.json`);
+    }
+
     //add orders API CALL
     addOrders(uid: string, order: any): Observable<any>{
         return this.http.post(`${this.baseUrl}/orders/${uid}.json`, order);

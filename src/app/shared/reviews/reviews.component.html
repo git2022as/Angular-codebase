@@ -42,11 +42,17 @@
     <div class="list-heading">Reviews</div>
     <div class="mb-3 mt-2" *ngFor="let each of allReviews">
         <div style="display: flex; flex-direction: row;">
-            <mat-icon class="mr-2" style="cursor: pointer;color: deeppink; font-size: 16px; width: 10px">person</mat-icon>
+            <mat-icon class="mr-2" style="cursor: pointer;color: deeppink; font-size: 16px; width: 10px;margin-top: 5px;">person</mat-icon>
             <div style="font-size: 12px;">
                 <span>{{each.user}}</span>
-                <span class="ml-2"><b>({{each.rating}})</b></span>
-                <span *ngIf="appCacheService._loggedInUserEmail == each.user" class="ml-2" style="text-decoration: underline;color: deeppink;font-weight: 600;cursor: pointer;" (click)="editYourComment(each)">Edit</span>
+                <span class="ml-2"><b>{{each.rating}}</b></span>
+                <span class="material-icons admin-icons ml-1" style="font-size: 14px;margin-top:3px;"> star</span>
+                <span *ngIf="appCacheService._loggedInUserEmail == each.user" class="material-icons admin-icons ml-2" style="text-decoration:underline;color: deeppink;font-weight: 600;cursor: pointer;font-size: 14px;" (click)="editYourComment(each)"> 
+                    edit
+                </span>
+                <span *ngIf="appCacheService._loggedInUserEmail == each.user" class="material-icons admin-icons ml-2" style="text-decoration:underline;color: deeppink;font-weight: 600;cursor: pointer;font-size: 14px;" (click)="deleteYourComment(each)"> 
+                    delete
+                </span>
             </div>
         </div>
         <div style="font-size: 12px; font-weight: 600;">

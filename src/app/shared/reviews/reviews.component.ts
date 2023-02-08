@@ -63,7 +63,6 @@ export class ReviewsComponent implements OnInit {
           console.log("Review has been submitted");
           this.reviewInputShow = false;
           this.showCancelButton = false;
-          console.log("your review has been udated");
         }),
         mergeMap(res=>this.commonService.getReviews(this.itemUniqueID))
       ,take(1)).pipe(map((res: any)=>{
@@ -146,6 +145,52 @@ export class ReviewsComponent implements OnInit {
       comment: each.comment
     });
     this.showCancelButton = true;
+  }
+
+  deleteYourComment(each: any): void{
+    if(this.itemUniqueID != ""){
+      const uid = this.appCacheService._UID;
+      this.commonService.deleteReviews(this.itemUniqueID, uid).pipe(
+        tap((res: any)=>{
+          console.log("Review has been deleted");
+          this.reviewInputShow = true;
+          this.showCancelButton = false;
+          this.createReviewForm();
+          this.reviewForm.setValue({
+            rating: null,
+            comment: ''
+          });
+        }),
+        mergeMap(res=>this.commonService.getReviews(this.itemUniqueID))
+      ,take(1)).pipe(map((res: any)=>{
+        let reviews = [];
+        if(res){
+          for(let key in res){
+            if(res.hasOwnProperty(key)){
+              if(res[key]){
+                for(let key1 in res[key]){
+                  if(res[key].hasOwnProperty(key1)){
+                    reviews.push({...res[key][key1], id: key, reviewId: key1});
+                  }
+                }
+              }
+            }
+          }
+        }
+        return reviews;
+      })).subscribe((res: any)=>{
+        if(res){
+          this.allReviews = res;
+          this.checkReviews();
+          if(this.allReviews.length > 0)
+            this.showShortMsg('Reviews have been updated.','green');
+        }
+      });
+    }
+    else{
+      const errorMsg = StaticMsg.commonError;
+      this.commonService.openErrorModal(errorMsg);
+    }
   }
 
   showShortMsg(msg: string, color: string): void{
