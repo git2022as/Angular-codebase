@@ -21,6 +21,8 @@ export class AdminBranchesEntryComponent implements OnInit, OnDestroy, deactivat
   locationImage: string;
   locationContact: number = null;
   locatiomTiming: string;
+  latitude: number = null;
+  longitude: number = null;
   branchPin: number = null;
   addBranchesSubscriptiton: Subscription | undefined;
   updateBranchesSubscription: Subscription | undefined;
@@ -114,6 +116,8 @@ export class AdminBranchesEntryComponent implements OnInit, OnDestroy, deactivat
     this.locationContact = each.locationContact;
     this.locatiomTiming = each.locatiomTiming;
     this.branchPin = each.branchPin;
+    this.latitude = each.latitude;
+    this.longitude = each.longitude;
   }
 
   deleteSlide(each: any): void{

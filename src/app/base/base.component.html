@@ -31,7 +31,7 @@
     <div class="row">
         <ng-container *ngFor="let branch of allBranches; let i = index;">
             <div class="col-md-4 col-xs-12 mb-3" *ngIf="i<3">
-                <app-branches [branch]="branch" (callOptionClicked)="openPhoneDialog($event)"></app-branches>
+                <app-branches [branch]="branch" (callOptionClicked)="openDialog($event)"></app-branches>
             </div>
         </ng-container>
     </div>

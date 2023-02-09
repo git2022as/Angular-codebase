@@ -1,0 +1,28 @@
+<!--NGSWITCH example-->
+<div class="modal-header">
+    <span class="material-icons" style="color: green;margin:7px; font-size: 28px;">
+        info
+    </span>
+    <h4 class="modal-title pull-left">{{title}}</h4>
+    <button type="button" class="btn-close close pull-right" aria-label="Close" (click)="bsModalRef.hide()">
+        <span aria-hidden="true" class="visually-hidden">&times;</span>
+    </button>
+</div>
+<div class="modal-body" style="width:400px;">
+    <google-map height="400px"
+            width="350px"
+            [center]="center"
+            [zoom]="zoom"
+            (mapClick)="moveMap($event)"
+            (mapMousemove)="move($event)">
+    </google-map>
+</div>
+<div class="modal-footer">
+    <!--angular material button used inside ngx-bootstrap-->
+    <button mat-raised-button *ngIf="primaryButton" color="primary" (click)="bsModalRef.hide()">{{primaryButtonText}}</button>
+</div>
+
+
+
+
+

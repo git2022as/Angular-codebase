@@ -1,9 +1,10 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
-import { BsModalRef, ModalOptions } from 'ngx-bootstrap/modal';
+import { BsModalRef, ModalOptions, BsModalService } from 'ngx-bootstrap/modal';
 import { StaticDialogNgxBootstrapComponent } from '../shared/static-dialog-material/static-dialog-ngxBootstrap.component';
 import { AppCacheService } from '../services/app.cache.service';
 import { CommonService } from '../services/common.service';
 import { BaseService } from './base.service';
+import { GoogleMapComponent } from '../shared/google-map/google-map.component';
 
 /*Example of observable */
 import {map, Observable, of} from 'rxjs'
@@ -30,7 +31,8 @@ export class BaseComponent implements OnInit, OnDestroy {
     private appCacheService: AppCacheService,
     private commonService: CommonService,
     private bsModalRef: BsModalRef,
-    private baseService: BaseService
+    private baseService: BaseService,
+    private bsModalService: BsModalService
   ) {}
 
   ngOnDestroy(): void {
@@ -126,20 +128,35 @@ export class BaseComponent implements OnInit, OnDestroy {
     this.allBranches.push(firstValue)
   }
 
-  openPhoneDialog(event: any): void {
-    const number = Array.isArray(event.locationContact) ? event.locationContact.split(',') : event.locationContact;
-    const timing = event.locatiomTiming;
-    let content = [`Contact Number: ${number}`,`Timing: ${timing}`];
-    const initialState: ModalOptions = {
-      initialState: {
-        content: content,
-        title: `${event.branchLocation}'s Contact Details`,
-        type: 'info',
-        data: 'list',
-        primaryButtonText: 'Cancel',
-      },
+  openDialog(event: any): void {
+    if(event.sec == 'call'){
+      const number = Array.isArray(event.data.locationContact) ? event.data.locationContact.split(',') : event.data.locationContact;
+      const timing = event.data.locatiomTiming;
+      let content = [`Contact Number: ${number}`,`Timing: ${timing}`];
+      const initialState: ModalOptions = {
+        initialState: {
+          content: content,
+          title: `${event.data.branchLocation}'s Contact Details`,
+          type: 'info',
+          data: 'list',
+          primaryButtonText: 'Cancel',
+        },
+      }
+      this.bsModalRef = this.commonService.openStaticModal(initialState)
     }
-    this.bsModalRef = this.commonService.openStaticModal(initialState)
+    else{
+      const latitude = event.data.latitude ? event.data.latitude : 22.5195;
+      const longitude = event.data.longitude ? event.data.longitude : 88.3828;
+      const initialState: ModalOptions = {
+        initialState: {
+          latitude: latitude,
+          longitude: longitude,
+          title: `${event.data.branchLocation}'s Location Details`,
+        }
+      }
+      this.bsModalService.show(
+        GoogleMapComponent, initialState)
+    }
   }
 
   goToTopClicked(event): void{

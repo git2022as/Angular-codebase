@@ -30,6 +30,28 @@
                         <mat-error *ngIf="locPin.touched && locPin.invalid">Enter a valid location pincode</mat-error>
                     </mat-form-field>
                     <mat-form-field class="mb-2">
+                        <mat-label>Branch's Latitude</mat-label>
+                        <input matInput type="text" ngModel #lati="ngModel" name="latitude" [required]=true [(ngModel)]="latitude" onlyNumber>
+                        <button matSuffix mat-icon-button aria-label="Clear" style="color: deeppink;" tooltip="Example: 22.2354" placement="auto" (click)="commonService.clickDisabled($event)">
+                            <mat-icon>info</mat-icon>
+                        </button>
+                        <button *ngIf="latitude" matSuffix mat-icon-button aria-label="Clear" (click)="latitude = null">
+                            <mat-icon>close</mat-icon>
+                        </button>
+                        <mat-error *ngIf="lati.touched && lati.invalid">Enter a valid location latitude</mat-error>
+                    </mat-form-field>
+                    <mat-form-field class="mb-2">
+                        <mat-label>Branch's Longitude</mat-label>
+                        <input matInput type="text" ngModel #longi="ngModel" name="longitude" [required]=true [(ngModel)]="longitude" onlyNumber>
+                        <button matSuffix mat-icon-button aria-label="Clear" style="color: deeppink;" tooltip="Example: 88.1678" placement="auto" (click)="commonService.clickDisabled($event)">
+                            <mat-icon>info</mat-icon>
+                        </button>
+                        <button *ngIf="longitude" matSuffix mat-icon-button aria-label="Clear" (click)="longitude = null">
+                            <mat-icon>close</mat-icon>
+                        </button>
+                        <mat-error *ngIf="longi.touched && longi.invalid">Enter a valid location latitude</mat-error>
+                    </mat-form-field>
+                    <mat-form-field class="mb-2">
                         <mat-label>Location Image</mat-label>
                         <input matInput type="text" ngModel #locImg="ngModel" maxlength="40" name="locationImage" [required]=true [(ngModel)]="locationImage">
                         <button matSuffix mat-icon-button aria-label="Clear" style="color: deeppink;" tooltip="Example: kasba.jpg (just give image name & extension)" placement="auto" (click)="commonService.clickDisabled($event)">

@@ -16,7 +16,11 @@ export class BranchesComponent implements OnInit {
   }
 
   openCallDialog(branch: any): void {
-    this.callOptionClicked.emit(branch);
+    this.callOptionClicked.emit({data: branch, sec: 'call'});
+  }
+
+  openLocationMapDialog(branch: any): void{
+    this.callOptionClicked.emit({data: branch, sec: 'location'});
   }
 
 }

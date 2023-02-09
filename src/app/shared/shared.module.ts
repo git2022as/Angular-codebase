@@ -32,6 +32,7 @@ import { ChangePasswordComponent } from './change-password/change-password.compo
 import { ChangeEmailComponent } from './change-email/change-email.component';
 import { OrderStatusChangeComponent } from './order-status-change/order-status-change.component';
 import { RouterModule } from '@angular/router';
+import { GoogleMapsModule } from '@angular/google-maps';
 
 /* pipe module */
 import { PipeModule } from '../pipes/pipe.module';
@@ -49,6 +50,7 @@ import { MatRadioModule } from '@angular/material/radio';
 import { MatCheckboxModule } from '@angular/material/checkbox';
 import { MatSelectModule } from '@angular/material/select';
 import { MatProgressBarModule } from '@angular/material/progress-bar';
+import { GoogleMapComponent } from './google-map/google-map.component';
 
 @NgModule({
   declarations: [
@@ -78,7 +80,8 @@ import { MatProgressBarModule } from '@angular/material/progress-bar';
     ChangePasswordComponent,
     ChangeEmailComponent,
     OrderViewComponent,
-    OrderStatusChangeComponent
+    OrderStatusChangeComponent,
+    GoogleMapComponent
   ],
   imports: [
     CommonModule,
@@ -97,7 +100,8 @@ import { MatProgressBarModule } from '@angular/material/progress-bar';
     MatCheckboxModule,
     MatSelectModule,
     MatProgressBarModule,
-    RouterModule
+    RouterModule,
+    GoogleMapsModule
   ],
   exports: [
     SignUpModalComponent,
@@ -126,7 +130,8 @@ import { MatProgressBarModule } from '@angular/material/progress-bar';
     ChangePasswordComponent,
     ChangeEmailComponent,
     OrderViewComponent,
-    OrderStatusChangeComponent
+    OrderStatusChangeComponent,
+    GoogleMapComponent
   ],
   providers: [IndividualCartPipe, FilterPipe]
 })
