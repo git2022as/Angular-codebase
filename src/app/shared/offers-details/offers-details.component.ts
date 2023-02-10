@@ -26,7 +26,7 @@ export class OffersDetailsComponent implements OnInit {
 
   appliedOffer(offer: any): void{
     this.appCacheService._appliedOffer = offer;
-    this.router.navigate(['/payment']);
+    this.router.navigate(['layout/payment']);
   }
 
 }

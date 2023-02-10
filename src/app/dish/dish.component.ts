@@ -26,7 +26,7 @@ export class DishComponent implements OnInit {
   availableIncart: boolean = true;
 
   constructor(private route: ActivatedRoute,
-              private appCacheService: AppCacheService,
+              public appCacheService: AppCacheService,
               private commonService: CommonService,
               public bsModalRef: BsModalRef,
               private bsModalService: BsModalService,
@@ -81,7 +81,7 @@ export class DishComponent implements OnInit {
   addToCart(productDetails: any): void{
     if(this.appCacheService._loggedInUser){
       //code for ADD-ON items
-      this.bsModalRef = this.openAddOn(productDetails.dishPrice);
+      this.bsModalRef = this.commonService.openAddOn(productDetails.dishPrice);
       this.bsModalRef.content.AddOnEvent.subscribe((res: any) => {
         //code for add to cart after 
         this.bsModalRef.hide();
@@ -91,7 +91,7 @@ export class DishComponent implements OnInit {
           "tprice": res.total,
           "id": productDetails.id
         }
-        const uid = this.appCacheService.UID;
+        const uid = this.appCacheService._UID;
         if(uid != ""){
           this.authService.addToCart(uid, cartObject).subscribe((res: any)=>{
             if(res){
@@ -123,7 +123,7 @@ export class DishComponent implements OnInit {
     const initialState: ModalOptions = {
       initialState: {
         EachItemPrice: price,
-        title: 'Add-On Items',
+        title: this.appCacheService._content.addOnItems
       },
     }
     return this.bsModalService.show(ProductAddOnComponent,initialState);
@@ -137,7 +137,7 @@ export class DishComponent implements OnInit {
       this.bsModalRef.content.primaryButtonConfirmationEvent.subscribe((res: any) => {
         //User clicked remove cart option
         //call CART API DELETE OPERATION
-        const uid = this.appCacheService.UID;
+        const uid = this.appCacheService._UID;
         let ind = 0;
         let cartID;
         this.appCacheService._cartDetails.forEach((each, index) =>{

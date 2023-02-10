@@ -9,6 +9,7 @@ import { map, mergeMap, take } from 'rxjs/operators';
 import { CommonService } from 'src/app/services/common.service';
 import { Subscription } from 'rxjs';
 import { errorMessages } from '../../constants/constant';
+import { AppCacheService } from 'src/app/services/app.cache.service';
 
 @Component({
   selector: 'app-login-modal',
@@ -18,7 +19,7 @@ import { errorMessages } from '../../constants/constant';
 export class LoginModalComponent implements OnInit, OnDestroy {
   emailAddress: string;
   password: string;
-  title?: string = 'Default Modal';
+  title?: string;
   loginMsg: string = "";
   loginFailedStatus: boolean = false;
   isVisibility: boolean = true;
@@ -30,7 +31,8 @@ export class LoginModalComponent implements OnInit, OnDestroy {
   login: any = {
     uid: '',
     email: '',
-    token: ''
+    token: '',
+    expires: ''
   };
   profile: any = {};
   loginSubscription: Subscription | undefined;
@@ -42,7 +44,8 @@ export class LoginModalComponent implements OnInit, OnDestroy {
     public bsModalRef: BsModalRef,
     private bsModalService: BsModalService,
     private authService: AuthService,
-    public commonService: CommonService
+    public commonService: CommonService,
+    public appCacheService: AppCacheService
   ) {}
 
   ngOnInit(): void {}
@@ -88,7 +91,7 @@ export class LoginModalComponent implements OnInit, OnDestroy {
     this.bsModalRef.hide();
     const initialState: ModalOptions = {
       initialState: {
-        title: 'Forgot Password'
+        title: this.appCacheService._content.header.forgotPassword
       }
     }
     this.bsModalRef = this.bsModalService.show(
@@ -115,7 +118,8 @@ export class LoginModalComponent implements OnInit, OnDestroy {
     this.bsModalRef.hide();
     const initialState: ModalOptions = {
       initialState: {
-        title: 'Sign Up',
+        title: this.appCacheService._content.header.signUp
+        ,
       }
     }
     this.bsModalRef = this.bsModalService.show(

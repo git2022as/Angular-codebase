@@ -150,7 +150,7 @@ export class PaymentComponent implements OnInit, OnDestroy {
       this.appCacheService._cartDetails = [];
       this.appCacheService.deleteCartFromLocalStorage();
       this.dataService.UPDATE_CART_COUNT.next(true);
-      this.router.navigate(['/orders']);
+      this.router.navigate(['layout/orders']);
     },
     (error: any)=>{
       //Handled Globally
@@ -165,7 +165,7 @@ export class PaymentComponent implements OnInit, OnDestroy {
     }
     else{
       this.appCacheService._cartValue = this.cartObj.finalPay;
-      this.router.navigate(['/offers']);
+      this.router.navigate(['layout/offers']);
     }
   }
 
@@ -175,7 +175,7 @@ export class PaymentComponent implements OnInit, OnDestroy {
   }
 
   addProfile(): void{
-    this.router.navigate(['/profile']);
+    this.router.navigate(['layout/profile']);
   }
 
 }

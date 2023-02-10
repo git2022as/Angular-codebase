@@ -13,9 +13,9 @@
     <div *ngIf="loginSuccessStatus" class="modalSuccessfulMsgSec mb-3">{{loginMsg}}</div>
     <form #loginForm="ngForm" (keydown.enter)="submitForm(loginForm)">
         <mat-form-field class="modal-form">
-            <mat-label>Email Address</mat-label>
+            <mat-label>{{appCacheService._content.emailAdd}}</mat-label>
             <input matInput type="text" ngModel #mail="ngModel" name="emailAddress" [(ngModel)]="emailAddress" [required]=true pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}$">
-            <button matSuffix mat-icon-button aria-label="Clear" style="color: deeppink" tooltip="Please use your registered email address" placement="auto" (click)="commonService.clickDisabled($event)">
+            <button matSuffix mat-icon-button aria-label="Clear" style="color: deeppink" tooltip="{{appCacheService._content.emailAddTooltip}}" placement="auto" (click)="commonService.clickDisabled($event)">
                 <mat-icon>info</mat-icon>
             </button>
             <button *ngIf="emailAddress" matSuffix mat-icon-button tabindex="-1" (click)="emailAddress = ''">
@@ -25,7 +25,7 @@
         </mat-form-field>
         <!--<button mat-raised-button *ngIf="phone.valid" style="margin-left: 2rem;" color="primary" (click)="getOtp(loginForm)">Get OTP</button>-->
         <mat-form-field class="modal-form">
-            <mat-label>Password</mat-label>
+            <mat-label>{{appCacheService._content.password}}</mat-label>
             <input matInput type="password" ngModel #loginPass maxlength="10" minlength="6" name="password" #pass="ngModel" [(ngModel)]="password" [required]="true">
             <button *ngIf="password" matSuffix mat-icon-button aria-label="Clear" (click)="$event.preventDefault()" (mouseenter)="showHidePassword();isVisibility = false;" (mouseleave)="showHidePassword();isVisibility = true;">
                 <mat-icon *ngIf="isVisibility" style="color: deeppink">visibility</mat-icon>
@@ -38,13 +38,13 @@
         </mat-form-field>
     </form>
     <div class="row m-0">
-        <div class="newAcc mr-3 mt-2" (click)="signUpModal()">create new account</div>
-        <div class="newAcc mr-3 mt-2" (click)="openForgotPassModal()">forgot password</div>
+        <div class="newAcc mr-3 mt-2" (click)="signUpModal()">{{appCacheService._content.createNewAccount}}</div>
+        <div class="newAcc mr-3 mt-2" (click)="openForgotPassModal()">{{appCacheService._content.forgotPassword}}</div>
     </div>
 </div>
 <div class="modal-footer">
     <div>
-        <button mat-raised-button style="margin-right: 1rem" color="primary" (click)="submitForm(loginForm)" [disabled]="loginForm.invalid">Continue</button>
-        <button mat-raised-button (click)="resetForm(loginForm)" [disabled]="loginForm.untouched">Reset</button>
+        <button mat-raised-button style="margin-right: 1rem" color="primary" (click)="submitForm(loginForm)" [disabled]="loginForm.invalid">{{appCacheService._content.continueButton}}</button>
+        <button mat-raised-button (click)="resetForm(loginForm)" [disabled]="loginForm.untouched">{{appCacheService._content.resetButton}}</button>
     </div>
 </div>

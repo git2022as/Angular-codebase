@@ -5,6 +5,8 @@ import { AppCacheService } from '../services/app.cache.service';
 import { CommonService } from '../services/common.service';
 import { BaseService } from './base.service';
 import { GoogleMapComponent } from '../shared/google-map/google-map.component';
+import { ActivatedRoute } from '@angular/router';
+import { staticValue } from '../constants/constant';
 
 /*Example of observable */
 import {map, Observable, of} from 'rxjs'
@@ -16,8 +18,7 @@ import {Subscription} from 'rxjs'
   styleUrls: ['./base.component.scss'],
 })
 export class BaseComponent implements OnInit, OnDestroy {
-  title: string = 'kebabHouse'
-  caouselInterval: number = 2000;
+  caouselInterval: number = staticValue.caouselInterval;
   slides: any;
   allProducts: any;
   allBranches: any;
@@ -26,13 +27,15 @@ export class BaseComponent implements OnInit, OnDestroy {
   dishSubscription: Subscription | undefined;
   branchSubscription: Subscription | undefined;
   offersSubscription: Subscription | undefined;
+  content: any;
 
   constructor(
     private appCacheService: AppCacheService,
     private commonService: CommonService,
     private bsModalRef: BsModalRef,
     private baseService: BaseService,
-    private bsModalService: BsModalService
+    private bsModalService: BsModalService,
+    private activatedRoute: ActivatedRoute
   ) {}
 
   ngOnDestroy(): void {
@@ -43,6 +46,8 @@ export class BaseComponent implements OnInit, OnDestroy {
   }
 
   ngOnInit(): void {
+    //get CONTENT DATA
+    this.content = this.appCacheService._content;
     //call 4 APIs => dish, offers, card-carosul & branches
     this.getCarouselSlides();
     this.getDishDetails();
@@ -114,10 +119,6 @@ export class BaseComponent implements OnInit, OnDestroy {
     })
   }
 
-  myEvent(evt: string) {
-    console.log(evt)
-  }
-
   previous(): void {
     let lastValue = this.allBranches.pop()!
     this.allBranches.unshift(lastValue)
@@ -142,7 +143,7 @@ export class BaseComponent implements OnInit, OnDestroy {
           primaryButtonText: 'Cancel',
         },
       }
-      this.bsModalRef = this.commonService.openStaticModal(initialState)
+      this.bsModalRef = this.commonService.openStaticModal(initialState);
     }
     else{
       const latitude = event.data.latitude ? event.data.latitude : 22.5195;
@@ -159,7 +160,7 @@ export class BaseComponent implements OnInit, OnDestroy {
     }
   }
 
-  goToTopClicked(event): void{
+  goToTopClicked(event: any): void{
     this.commonService.CommonGoToTopEvent('top');
   }
 

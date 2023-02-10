@@ -14,6 +14,6 @@
 </div>
 <div class="modal-footer">
     <!--angular material button used inside ngx-bootstrap-->
-    <div class="mr-3">Total: <span><img src="assets/images/rupee.png" width="20px" height="15px"></span><b>{{totalPrice}}</b></div>
-    <button mat-raised-button style="margin-right: 1rem" color="primary" (click)="addOnItem()" >Add Item</button>
+    <div class="mr-3">{{appCacheService._content.totalText}}: <span><img src="assets/images/rupee.png" width="20px" height="15px"></span><b>{{totalPrice}}</b></div>
+    <button mat-raised-button style="margin-right: 1rem" color="primary" (click)="addOnItem()">{{appCacheService._content.addItemButton}}</button>
 </div>

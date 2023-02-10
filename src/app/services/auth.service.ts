@@ -95,4 +95,9 @@ export class AuthService {
         return this.http.delete(`${this.baseUrl}/cart/${uid}.json`);
     }
 
+    /* CALL CONTENT FROM DB */
+    contentCall(): Observable<any>{
+        return this.http.get(`${this.baseUrl}/content.json`);
+    }
+
 }

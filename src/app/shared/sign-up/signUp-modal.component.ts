@@ -7,7 +7,8 @@ import { AuthService } from 'src/app/services/auth.service';
 import { CommonService } from 'src/app/services/common.service';
 import { signUpResponseInterface } from 'src/app/interface/project.interface';
 import { Subscription } from 'rxjs';
-import { errorMessages, StaticMsg } from '../../constants/constant';
+import { errorMessages, staticValue } from '../../constants/constant';
+import { AppCacheService } from 'src/app/services/app.cache.service';
 
 @Component({
   selector: 'app-signUp-modal',
@@ -16,9 +17,7 @@ import { errorMessages, StaticMsg } from '../../constants/constant';
 })
 export class SignUpModalComponent implements OnInit, OnDestroy {
 
-  //phoneNumber: any;
-  //otp: any;
-  title?: string = "Default Modal";
+  title?: string;
   signUpForm: any = FormGroup;
   isVisibility: boolean = true;
   signUpFailedStatus: boolean = false;
@@ -27,14 +26,14 @@ export class SignUpModalComponent implements OnInit, OnDestroy {
   signUpSuccessfulEvent = new EventEmitter<any>();
   signUpSubscription: Subscription | undefined;
   errorMessages = errorMessages;
-  staticMsg = StaticMsg;
 
   @ViewChild('pass', { static: true }) passwrd: ElementRef;
 
   constructor(public bsModalRef: BsModalRef, 
               private fb: FormBuilder,
               private authService: AuthService,
-              public commonService: CommonService) { }
+              public commonService: CommonService,
+              public appCacheService: AppCacheService) { }
 
   ngOnInit(): void { 
     this.createSignUpForm();
@@ -45,8 +44,8 @@ export class SignUpModalComponent implements OnInit, OnDestroy {
       //phoneNumber: new FormControl('', [Validators.required, Validators.maxLength(10), Validators.minLength(10), Validators.pattern('[0-9]+$')]),
       //name: new FormControl('', [Validators.required, Validators.maxLength(40)]),
       email: new FormControl('', [Validators.required, Validators.email]),
-      password: new FormControl('', [Validators.required, customValidator.passwordRequirement, Validators.maxLength(10), Validators.minLength(6)]),
-      confirmPassword: new FormControl('',[Validators.required, customValidator.passwordMatch, Validators.maxLength(10), Validators.minLength(6)])
+      password: new FormControl('', [Validators.required, customValidator.passwordRequirement, Validators.maxLength(staticValue.passwordMaxLength), Validators.minLength(staticValue.passwordMinLength)]),
+      confirmPassword: new FormControl('',[Validators.required, customValidator.passwordMatch, Validators.maxLength(staticValue.passwordMaxLength), Validators.minLength(staticValue.passwordMinLength)])
     })
 
     //another way to create reactive forms with FROMBUILDER
@@ -65,7 +64,7 @@ export class SignUpModalComponent implements OnInit, OnDestroy {
         console.log("registration done " + JSON.stringify(res));
         this.signUpFailedStatus = false;
         this.signUpSuccessStatus = true;
-        this.SignUpMsg = "Sign Up is Successful";
+        this.SignUpMsg = this.appCacheService._content.signUpSuccessMsg;
         setTimeout(()=>{
           this.signUpSuccessfulEvent.emit(true);
         },2000);

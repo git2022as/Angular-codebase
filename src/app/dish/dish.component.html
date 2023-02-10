@@ -1,17 +1,17 @@
 <div class="container">
-    <div class="mt-5 mb-5 heading" style="text-align: center;"><h3>Inside the Dish</h3></div>
+    <div class="mt-5 mb-5 heading" style="text-align: center;"><h3>{{appCacheService._content.insideDishHeading}}</h3></div>
     <div class="mb-3">
-        <button mat-raised-button color="primary" class="mr-3" (click)="accordion.openAll()">Expand All</button>
-        <button mat-raised-button color="primary" (click)="accordion.closeAll()">Collapse All</button>
+        <button mat-raised-button color="primary" class="mr-3" (click)="accordion.openAll()">{{appCacheService._content.expandAllButton}}</button>
+        <button mat-raised-button color="primary" (click)="accordion.closeAll()">{{appCacheService._content.collapseAllButton}}</button>
     </div>
-    <mat-accordion class="example-headers-align" multi>
+    <mat-accordion class="example-headers-align mb-2" multi>
         <mat-expansion-panel>
             <mat-expansion-panel-header [collapsedHeight]="'50px'" [expandedHeight]="'50px'">
                 <mat-panel-title>
-                    Basic Details
+                    {{appCacheService._content.dishBasicDetailsText}}
                 </mat-panel-title>
                 <mat-panel-description>
-                    Dish's description & price
+                    {{appCacheService._content.dishDescText}}
                     <mat-icon style="color: deeppink;font-size: 20px;margin-top:3px;">kebab_dining</mat-icon>
                 </mat-panel-description>
             </mat-expansion-panel-header>
@@ -29,14 +29,14 @@
                         </div>
                         <div class="cart-origin-quantity cart-secondary-font mb-1">
                             <div>{{productDetails.dishOrigin}}/</div><!--origin-->
-                            <div>Qty: {{productDetails.dishQuantity}}</div><!--product quantity-->
+                            <div>{{appCacheService._content.quantityText}}: {{productDetails.dishQuantity}}</div><!--product quantity-->
                         </div>
                         <div>
-                            <span class="cart-origin-quantity cart-secondary-font">(Each Item Cost - <img src="assets/images/rupee.png" width="14px" height="15px">{{productDetails.dishPrice}})</span>
+                            <span class="cart-origin-quantity cart-secondary-font">({{appCacheService._content.eachItemCostText}}<img src="assets/images/rupee.png" width="14px" height="15px">{{productDetails.dishPrice}})</span>
                         </div>
                         <div class="mt-2">
-                            <button mat-raised-button color="primary" class="product-button" *ngIf="availableIncart" (click)="addToCart(productDetails)">Add to Cart</button>
-                            <button mat-raised-button color="primary" class="product-button" *ngIf="!availableIncart" (click)="removeFromCart(productDetails)">Remove from Cart</button>
+                            <button mat-raised-button color="primary" class="product-button" *ngIf="availableIncart" (click)="addToCart(productDetails)">{{appCacheService._content.addToCartButton}}</button>
+                            <button mat-raised-button color="primary" class="product-button" *ngIf="!availableIncart" (click)="removeFromCart(productDetails)">{{appCacheService._content.removeFromCartButton}}</button>
                         </div>
                     </div>
                 </div> 
@@ -45,34 +45,34 @@
         <mat-expansion-panel>
             <mat-expansion-panel-header [collapsedHeight]="'50px'" [expandedHeight]="'50px'">
                 <mat-panel-title>
-                    Miscellaneous
+                    {{appCacheService._content.miscellaneousDishText}}
                 </mat-panel-title>
                 <mat-panel-description>
-                    Reviews & Availability
+                    {{appCacheService._content.reviewDishText}}
                     <mat-icon style="color: deeppink;font-size: 20px;margin-top:3px;">star</mat-icon>
                 </mat-panel-description>
             </mat-expansion-panel-header>
             <div class="dish_basic_details">
                 <div class="dynamic_tabs">
                     <a href="#" [ngClass]="{'default_tabs_active': showIngradient}" (click)="doNothing($event);openSection('ingradient')">
-                        Ingradient & Calories
+                        {{appCacheService._content.calorieDishText}}
                     </a>
                 </div>
                 <div class="dynamic_tabs">
                     <a href="#" [ngClass]="{'default_tabs_active': showAvailability}" (click)="doNothing($event);openSection('availability')">
-                        Availability
+                        {{appCacheService._content.availabilityDishText}}
                     </a>
                 </div>
                 <div class="dynamic_tabs">
                     <a href="#" [ngClass]="{'default_tabs_active': showReviews}" (click)="doNothing($event);openSection('reviews')">
-                        Reviews
+                        {{appCacheService._content.reviewDishText}}
                     </a>
                 </div>
             </div>
             <div class="dish_basic_details_section mt-3 p-3">
                 <ng-container *ngIf="showIngradient">
                     <div class="ingradient_section">
-                        <div class="list-heading">Ingradient List</div>
+                        <div class="list-heading">{{appCacheService._content.ingradientListDishText}}</div>
                         <mat-list role="list" class="pb-3">
                             <mat-list-item role="listitem" *ngFor="let product of productDetails.dishIngradient">
                                 <mat-icon style="color: deeppink;margin-right:5px;" matListItemIcon>
@@ -86,7 +86,7 @@
                     </div>
                     <div class="calorie_section mr-md-5">
                         <!--use chart component-->
-                        <div class="list-heading mb-3">Calorie Chart</div>
+                        <div class="list-heading mb-3">{{appCacheService._content.calorieChartDishText}}</div>
                         <app-calorie-chart [cartData]="productDetails.dishCalorie"></app-calorie-chart>
                     </div>
                 </ng-container>

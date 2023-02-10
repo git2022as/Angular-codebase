@@ -18,11 +18,11 @@ export class HttpResponseInterceptor implements HttpInterceptor{
         return next.handle(req).pipe(
             tap((event)=>{
                 if(event instanceof HttpResponse){
-                    setTimeout(()=>{
+                    //setTimeout(()=>{
                         this.commonService.hideSpinner();
                         console.log("Response from interceptor");
                         console.log(event);
-                    },2000) 
+                    //},2000) 
                 }
             }),
             catchError((error: HttpErrorResponse)=>{

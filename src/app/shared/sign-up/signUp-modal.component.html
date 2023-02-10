@@ -33,9 +33,9 @@
             <mat-error *ngIf="signUpForm.get('name')?.invalid && signUpForm.get('name')?.touched">Name is required</mat-error>
         </mat-form-field>-->
         <mat-form-field class="modal-form" [ngClass]="{'mb-4': signForm.email.errors}">
-            <mat-label>Email</mat-label>
+            <mat-label>{{appCacheService._content.emailAdd}}</mat-label>
             <input matInput type="text" name="email" formControlName="email">
-            <button matSuffix mat-icon-button aria-label="Clear" style="color: deeppink" tooltip="Please enter proper email address" placement="auto" (click)="commonService.clickDisabled($event)">
+            <button matSuffix mat-icon-button aria-label="Clear" style="color: deeppink" tooltip="{{appCacheService._content.emailAddTooltip}}" placement="auto" (click)="commonService.clickDisabled($event)">
                 <mat-icon>info</mat-icon>
             </button>
             <button *ngIf="signForm.email.value != '' && signForm.email.value != null" matSuffix mat-icon-button aria-label="Clear" (click)="setValue('email')">
@@ -44,13 +44,13 @@
             <mat-error *ngIf="signForm.email.invalid && signForm.email.touched">{{errorMessages.emailRequired}}</mat-error>
         </mat-form-field>
         <mat-form-field class="modal-form" [ngClass]="{'mb-4': signForm.password.errors}">
-            <mat-label>Password</mat-label>
+            <mat-label>{{appCacheService._content.password}}</mat-label>
             <input matInput type="password" #pass name="password" formControlName="password">
             <button *ngIf="signForm.password.value != '' && signForm.password.value != null" matSuffix mat-icon-button aria-label="Clear" (click)="commonService.clickDisabled($event)" (mouseenter)="showHidePassword();isVisibility = false;" (mouseleave)="showHidePassword();isVisibility = true;">
                 <mat-icon *ngIf="isVisibility" style="color: deeppink">visibility</mat-icon>
                 <mat-icon *ngIf="!isVisibility" style="color: deeppink">visibility_off</mat-icon>
             </button>
-            <button matSuffix mat-icon-button aria-label="Clear" style="color: deeppink" tooltip="Password must have one capital, one number, one special charactaer with 6-10 characters" placement="auto" (click)="commonService.clickDisabled($event)">
+            <button matSuffix mat-icon-button aria-label="Clear" style="color: deeppink" tooltip="{{appCacheService._content.passwordTooltip}}" placement="auto" (click)="commonService.clickDisabled($event)">
                 <mat-icon>info</mat-icon>
             </button>
             <button *ngIf="signForm.password.value != '' && signForm.password.value != null" matSuffix mat-icon-button aria-label="Clear" (click)="setValue('password')">
@@ -60,7 +60,7 @@
             <mat-error *ngIf="signForm.password.errors?.passwordRequirement">{{errorMessages.passwordRequirement}}</mat-error>
         </mat-form-field>
         <mat-form-field class="modal-form">
-            <mat-label>Confirm Password</mat-label>
+            <mat-label>{{appCacheService._content.confirmPassword}}</mat-label>
             <input matInput type="password" name="confirmPassword" formControlName="confirmPassword">
             <button *ngIf="signForm.confirmPassword.value != '' && signForm.confirmPassword.value != null" matSuffix mat-icon-button aria-label="Clear" (click)="setValue('confirmPassword')">
                 <mat-icon>close</mat-icon>
@@ -71,7 +71,7 @@
     </form>
 </div>
 <div class="modal-footer">
-    <button mat-raised-button style="margin-right: 1rem" color="primary" [disabled]="signUpForm.invalid" (click)="signUpFormClicked(signUpForm)">Sign Up</button>
-    <button mat-raised-button [disabled]="signUpForm.untouched" (click)="signUpFormReset()">Reset</button>
-    <p style="font-size: 10.5px;color: deeppink">{{staticMsg.terms_condition_disclaimer}}</p>
+    <button mat-raised-button style="margin-right: 1rem" color="primary" [disabled]="signUpForm.invalid" (click)="signUpFormClicked(signUpForm)">{{appCacheService._content.signUpButton}}</button>
+    <button mat-raised-button [disabled]="signUpForm.untouched" (click)="signUpFormReset()">{{appCacheService._content.resetButton}}</button>
+    <p style="font-size: 10.5px;color: deeppink">{{appCacheService._content.signUpTermsCond}}</p>
 </div>

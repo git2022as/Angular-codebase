@@ -21,6 +21,7 @@ export class HeaderComponent implements OnInit {
   loggedInUserName: string = "";
   cartBadgeHidden: boolean = true;
   cartItemCount: string = "0";
+  content: any;
 
   constructor(private modalService: BsModalService,
               private router: Router,
@@ -105,7 +106,7 @@ export class HeaderComponent implements OnInit {
   openLoginModal(): void{
     const initialState: ModalOptions = {
       initialState: {
-        title: "Login"
+        title: this.appCacheService._content.header.login
       }
     };
     this.bsModalRef = this.modalService.show(LoginModalComponent, initialState);
@@ -134,7 +135,6 @@ export class HeaderComponent implements OnInit {
     this.appCacheService._UID = res?.login?.uid;
     this.appCacheService._loggedInUser = true;
     this.appCacheService._token = res?.login?.token;
-    //this.appCacheService._loggedInUserName = res?.login?.name;
     this.appCacheService._loggedInUserEmail = res?.login?.email;
     this.appCacheService._cartDetails = res?.cart;
     this.appCacheService._profileDetails = res?.profile;
@@ -145,7 +145,7 @@ export class HeaderComponent implements OnInit {
   openSignUpModal(): void{
     const initialState: ModalOptions = {
       initialState: {
-        title: "Sign Up"
+        title: this.appCacheService._content.header.signUp
       }
     };
     this.bsModalRef = this.modalService.show(SignUpModalComponent, initialState);
@@ -160,7 +160,7 @@ export class HeaderComponent implements OnInit {
   openAdminLoginModal(): void{
     const initialState: ModalOptions = {
       initialState: {
-        title: "Admin Login"
+        title: this.appCacheService._content.header.adminLogin
       }
     };
     this.bsModalRef = this.modalService.show(AdminLoginModalComponent, initialState);
@@ -169,7 +169,7 @@ export class HeaderComponent implements OnInit {
       if(res){
         this.appCacheService._adminLoggedIn = true;
         localStorage.setItem('adminLoggedIn','true');
-        this.router.navigate(['admin/dashboard']);
+        this.router.navigate(['layout/admin/dashboard']);
       }
       else{
         this.appCacheService._adminLoggedIn = false;
@@ -188,7 +188,7 @@ export class HeaderComponent implements OnInit {
       this.authService.logoutUser().then((res: any)=>{
         console.log("logout called " + JSON.stringify(res));
         this.commonService.logoutService();
-        this.router.navigateByUrl('base');
+        this.router.navigate(['layout/base']);
       },
       (error: any)=>{
         alert(error.message);
@@ -202,14 +202,14 @@ export class HeaderComponent implements OnInit {
       this.openLogoutModal();
     }
     else
-      this.router.navigateByUrl(val);
+      this.router.navigate(['layout/' + val]);
   }
 
   autoSignOut(user: any){
     const expiresData = user.expires;
     setTimeout(()=>{
       this.commonService.logoutService();
-      this.router.navigateByUrl('base');
+      this.router.navigate(['layout/base']);
     },expiresData*1000)
   }
 

@@ -107,7 +107,7 @@ export class CartComponent implements OnInit, OnDestroy {
 
   goToPayment(): void{
     //sending QUERY PARAMS to the route
-    this.router.navigate(['payment/'],{queryParams: {selectedCoupon: JSON.stringify(this.selectedCoupon)}});
+    this.router.navigate(['layout/payment/'],{queryParams: {selectedCoupon: JSON.stringify(this.selectedCoupon)}});
   }
 
   _cartTotalEvent(event): void{

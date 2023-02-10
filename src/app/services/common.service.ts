@@ -8,6 +8,8 @@ import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { FormGroup } from '@angular/forms';
 import { environment } from 'src/environments/environment';
+import { ProductAddOnComponent } from '../shared/product-add-on/product-add-on.component';
+import { AuthService } from './auth.service';
 
 @Injectable({
     providedIn: 'root'
@@ -21,7 +23,8 @@ export class CommonService {
                 private appCacheService: AppCacheService,
                 private dataService: DataService,
                 private bsModalRef: BsModalRef,
-                private http: HttpClient){}
+                private http: HttpClient,
+                private authService: AuthService){}
 
     openStaticModal(data: any): BsModalRef{
         return this.bsModalService.show(
@@ -37,10 +40,11 @@ export class CommonService {
     }
 
     logoutService(): void{
+        localStorage.clear();
         //if admin login is true then logout from admin service only
         if(this.appCacheService._adminLoggedIn){
             this.appCacheService._adminLoggedIn = false;
-            localStorage.removeItem('adminLoggedIn');
+            //localStorage.removeItem('adminLoggedIn');
         }
         else{
             //wehn normal user is logged in
@@ -56,7 +60,6 @@ export class CommonService {
             this.appCacheService._dishesDetails = [];
             this.appCacheService._offersDetails = [];
             this.appCacheService._profileDetails = {};
-            localStorage.clear();
         }
     }
 
@@ -75,7 +78,7 @@ export class CommonService {
               title: 'Error',
               type: 'error',
               data: 'para',
-              primaryButtonText: 'Ok',
+              primaryButtonText: 'OK',
             },
         }
         this.bsModalRef = this.openStaticModal(initialState);
@@ -217,4 +220,17 @@ export class CommonService {
 
         return obj;
     }
+
+    /* open Add-on Modal common service code */
+
+    openAddOn(price): any{
+        const initialState: ModalOptions = {
+          initialState: {
+            EachItemPrice: price,
+            title: this.appCacheService._content.addOnItems
+          },
+        }
+        return this.bsModalService.show(ProductAddOnComponent,initialState);
+    }
+    
 }

@@ -60,7 +60,7 @@ export class CartOverviewComponent implements OnInit {
   }
 
   updateCartInDB(cart: any): void{
-    const uid = this.appCacheService.UID;
+    const uid = this.appCacheService._UID;
     this.authService.updateDishOnCart(uid, cart.cartID, cart).pipe(tap(res=>{
       if(res){
         console.log("cart has been updated " + res);
@@ -100,7 +100,7 @@ export class CartOverviewComponent implements OnInit {
     this.bsModalRef.content.primaryButtonConfirmationEvent.subscribe((res: any) => {
       //User clicked remove cart option
       //call CART API DELETE OPERATION
-      const uid = this.appCacheService.UID;
+      const uid = this.appCacheService._UID;
       let ind = 0;
       let cartID;
       this.appCacheService._cartDetails.forEach((each, index) =>{
@@ -120,7 +120,7 @@ export class CartOverviewComponent implements OnInit {
   }
 
   goToDishPage(id: string): void{
-    this.router.navigate(['dish/' + id]);
+    this.router.navigate(['layout/dish/' + id]);
   }
 
 }

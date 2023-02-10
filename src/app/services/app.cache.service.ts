@@ -22,6 +22,7 @@ export class AppCacheService {
     cartValue: number = null;
     appliedOffer: any;
     appliedCoupon: string;
+    contentData: any;
     
     /* setter & getter concept */
 
@@ -156,6 +157,21 @@ export class AppCacheService {
 
     deleteCartFromLocalStorage(): void{
         localStorage.removeItem('cartData');
+    }
+
+    /*content data */
+    set _content(value: any){
+        this.contentData = value;
+        localStorage.setItem('content', JSON.stringify(this.contentData));
+    }
+
+    get _content(): any{
+        if(this.contentData){
+            return this.contentData;
+        }
+        else{
+            return JSON.parse(localStorage.getItem('content'));
+        }
     }
 
 }

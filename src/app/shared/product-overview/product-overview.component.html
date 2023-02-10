@@ -14,23 +14,23 @@
         <div class="product-desc">
             <div [tooltip]="product?.dishDesc" placement="auto">{{product?.dishDesc | productDescription}}</div>
             <div>
-                <span>Quantity: </span>
+                <span>{{appCacheService._content.quantityText}}: </span>
                 <span style="font-weight: 600;">{{product?.dishQuantity | quantityPipe}}</span>
             </div>
             <div>
-                <span>Price:</span>
+                <span>{{appCacheService._content.priceText}}:</span>
                 <span style="font-weight: 600;">
                     <img src="assets/images/rupee.png" width="20px" height="15px">{{product?.dishPrice}}</span>
             </div>
             <div>
-                <span>Complementary: </span>
+                <span>{{appCacheService._content.complementaryText}}: </span>
                 <span>{{product?.dishComplementary}}</span>
             </div>
         </div>
     </mat-card-content>
     <mat-card-actions>
-        <button mat-raised-button color="primary" class="product-button" *ngIf="availableForcart" (click)="addToCart(product)">Add to Cart</button>
-        <button mat-raised-button color="primary" class="product-button" *ngIf="!availableForcart" (click)="removeFromCart(product)">Remove from Cart</button>
-        <button mat-button color="primary" class="product-button product-view-details" (click)="viewDetails(product)">View Details</button>
+        <button mat-raised-button color="primary" class="product-button" *ngIf="availableForcart" (click)="addToCart(product)">{{appCacheService._content.addToCartButton}}</button>
+        <button mat-raised-button color="primary" class="product-button" *ngIf="!availableForcart" (click)="removeFromCart(product)">{{appCacheService._content.removeFromCartButton}}</button>
+        <button mat-button color="primary" class="product-button product-view-details" (click)="viewDetails(product)">{{appCacheService._content.viewDishDetailsButton}}</button>
     </mat-card-actions>
 </mat-card>

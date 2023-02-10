@@ -44,7 +44,7 @@ export class ProductOverviewComponent implements OnInit {
   addToCart(product: any): void{
     if(this.appCacheService._loggedInUser){
       //code for ADD-ON items
-      this.bsModalRef = this.openAddOn(product.dishPrice);
+      this.bsModalRef = this.commonService.openAddOn(product.dishPrice);
       this.bsModalRef.content.AddOnEvent.subscribe((res: any) => {
         //code for add to cart after ADD-ON SECTION
         //Call API to add this value for this user
@@ -55,7 +55,7 @@ export class ProductOverviewComponent implements OnInit {
           "tprice": res.total,
           "id": product.id
         }
-        const uid = this.appCacheService.UID;
+        const uid = this.appCacheService._UID;
         if(uid != ""){
           this.authService.addToCart(uid, cartObject).subscribe((res: any)=>{
             if(res){
@@ -87,7 +87,7 @@ export class ProductOverviewComponent implements OnInit {
     const initialState: ModalOptions = {
       initialState: {
         EachItemPrice: price,
-        title: 'Add-On Items',
+        title: this.appCacheService._content.addOnItems
       },
     }
     return this.bsModalService.show(ProductAddOnComponent,initialState);
@@ -101,7 +101,7 @@ export class ProductOverviewComponent implements OnInit {
       this.bsModalRef.content.primaryButtonConfirmationEvent.subscribe((res: any) => {
         //User clicked remove cart option
         //call CART API DELETE OPERATION
-        const uid = this.appCacheService.UID;
+        const uid = this.appCacheService._UID;
         let ind = 0;
         let cartID;
         this.appCacheService._cartDetails.forEach((each, index) =>{
@@ -131,7 +131,7 @@ export class ProductOverviewComponent implements OnInit {
   }
 
   viewDetails(product: any): void{
-    this.router.navigate(['dish/' + product.id]);
+    this.router.navigate(['layout/dish/' + product.id]);
   }
 
 }

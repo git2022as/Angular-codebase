@@ -44,6 +44,9 @@ export const staticValue = {
     deliveryCharge: 50,
     packagingCharge: 30,
     gstPercent: 10,
+    caouselInterval: 2000,
+    passwordMaxLength: 10,
+    passwordMinLength: 6,
     chartBackgroudColor: [
         'rgb(255, 99, 132)',
         'rgb(54, 162, 235)',

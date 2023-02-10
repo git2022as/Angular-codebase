@@ -2,6 +2,7 @@ import { Component, OnInit, EventEmitter } from '@angular/core';
 import { BsModalRef } from 'ngx-bootstrap/modal';
 import { cartExtraItems } from 'src/app/constants/constant';
 import { cartExtraItem } from 'src/app/interface/project.interface';
+import { AppCacheService } from 'src/app/services/app.cache.service';
 
 @Component({
   selector: 'app-product-add-on',
@@ -12,13 +13,14 @@ import { cartExtraItem } from 'src/app/interface/project.interface';
 export class ProductAddOnComponent implements OnInit {
 
   EachItemPrice?: number = 0;
-  title?: string = 'Add-On Items';
+  title?: string;
   AddOnEvent = new EventEmitter<any>();
   extraItem : Array<any> = [];
   totalPrice: number = 0;
   cartAddOnItemsConstant = cartExtraItems;
 
-  constructor(public bsModalRef: BsModalRef) { }
+  constructor(public bsModalRef: BsModalRef,
+              public appCacheService: AppCacheService) { }
 
   ngOnInit(): void {
     this.createExtraItems();
