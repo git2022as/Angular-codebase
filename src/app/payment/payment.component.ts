@@ -97,7 +97,7 @@ export class PaymentComponent implements OnInit, OnDestroy {
   calculateAvailableDeliveryAddress(data: Array<any>): Array<any>{
     let final = [];
     final.push(data['deliveryAddress']);
-    return final = [...final, ...data['secondDeliveryAddress']];
+    return  data.hasOwnProperty('secondDeliveryAddress') ? [...final, ...data['secondDeliveryAddress']] : [...final];
   }
 
   addressChange(event): void{

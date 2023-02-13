@@ -1,0 +1,33 @@
+@import "../../variable";
+@import "../../mixin";
+
+.heading{
+    @include header-logo($pink);
+}
+
+.intro{
+    width: 300px;
+    font-weight: 600;
+    font-style: italic;
+    padding: 5px;
+}
+
+.boxImage{
+    position: absolute;
+    right: 0;
+    top: 0;
+    opacity: 0.8;
+}
+
+.back-img{
+    background: url("/assets/images/design.jpg") no-repeat;
+    width: auto;
+    height: 300px;
+    background-size: cover;
+}
+
+.myImage{
+    width: 200px;
+    height: 200px;
+    border-radius: 100px;
+}

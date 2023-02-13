@@ -1,172 +1,172 @@
 <div class="container">
-    <div class="mt-5 mb-5 heading" style="text-align: center;" id="top"><h3>Manage Dishes</h3></div>
+    <div class="mt-5 mb-5 heading" style="text-align: center;" id="top"><h3>{{appCacheService._content.adminManageDishHeading}}</h3></div>
     <div class="admin-block">
-        <div style="text-align: center;font-size: 20px; color: #3f51b5; font-weight: 600;">Manage Products</div>
+        <div style="text-align: center;font-size: 20px; color: #3f51b5; font-weight: 600;">{{appCacheService._content.adminManageProductText}}</div>
         <hr style="border-top: 1.5px solid #23222221;">
         <div class="admin-block-sections">
             <div class="col-md-5 col-xs-12 mt-2 mb-3">
-                <div class="mb-2" style="font-size: 16px; color: #3f51b5; font-weight: 600;">Create/Update Dish</div>
+                <div class="mb-2" style="font-size: 16px; color: #3f51b5; font-weight: 600;">{{appCacheService._content.updateDishText}}</div>
                 <form #dishForm="ngForm" style="display: grid;font-size: 12px;" (keydown.enter)="dishFormSubmit(dishForm)">
                     <!--Dish Name-->
                     <mat-form-field class="mb-2">
-                        <mat-label>Dish Name</mat-label>
+                        <mat-label>{{appCacheService._content.adminDishNameText}}</mat-label>
                         <input matInput type="text" maxlength="60" ngModel #dName="ngModel" name="dishName" [required]=true [(ngModel)]="dishName">
-                        <button matSuffix mat-icon-button aria-label="Clear" style="color: deeppink;" tooltip="Example: Paneer Tikka Kebab (name of the dish)" placement="auto" (click)="commonService.clickDisabled($event)">
+                        <button matSuffix mat-icon-button aria-label="Clear" style="color: deeppink;" tooltip="{{appCacheService._content.adminDishNameTooltip}}" placement="auto" (click)="commonService.clickDisabled($event)">
                             <mat-icon>info</mat-icon>
                         </button>
                         <button *ngIf="dishName" matSuffix mat-icon-button aria-label="Clear" (click)="dishName = ''">
                             <mat-icon>close</mat-icon>
                         </button>
-                        <mat-error *ngIf="dName.touched && dName.invalid">Enter a valid dish name</mat-error>
+                        <mat-error *ngIf="dName.touched && dName.invalid">{{errorMessages.adminDishNameRequired}}</mat-error>
                     </mat-form-field>
                     <!--Origin-->
-                    <div style="font-weight: 600;">Dish Origin Details (Veg/Non-Veg)* 
-                        <mat-icon style="color: deeppink;font-size: 12px;cursor: pointer;" tooltip="Select dish category as Veg or Non-Veg" placement="auto" (click)="commonService.clickDisabled($event)">info</mat-icon>
+                    <div style="font-weight: 600;">{{appCacheService._content.adminDishOriginText}} 
+                        <mat-icon style="color: deeppink;font-size: 12px;cursor: pointer;" tooltip="{{appCacheService._content.adminDishOriginTooltip}}" placement="auto" (click)="commonService.clickDisabled($event)">info</mat-icon>
                     </div>
                     <mat-radio-group
                     aria-labelledby="dish-origin-radio-group-label"
                     class="admin-radio-group"
                     [(ngModel)]="dishOrigin" name="dishOrigin" [required]=true  ngModel #dOrigin="ngModel">
                         <mat-radio-button class="admin-radio-button" value="Veg">
-                        <span style="white-space: normal;">Veg</span>
+                        <span style="white-space: normal;">{{appCacheService._content.adminDishVegText}}</span>
                         </mat-radio-button>
                         <mat-radio-button class="admin-radio-button" value="Non-Veg">
-                        <span style="white-space: normal;">Non-Veg</span>
+                        <span style="white-space: normal;">{{appCacheService._content.adminDishNonVegText}}</span>
                         </mat-radio-button>
-                        <p *ngIf="dOrigin.touched && dOrigin.invalid">Select the proper origin</p>
+                        <p *ngIf="dOrigin.touched && dOrigin.invalid">{{errorMessages.adminDishOriginRequired}}</p>
                     </mat-radio-group>
                     <!--Dish Image-->
                     <mat-form-field class="mb-2">
-                        <mat-label>Dish Image</mat-label>
+                        <mat-label>{{appCacheService._content.adminDishImageText}}</mat-label>
                         <input matInput type="text" ngModel #dImg="ngModel" maxlength="40" name="dishImage" [required]=true [(ngModel)]="dishImage">
-                        <button matSuffix mat-icon-button aria-label="Clear" style="color: deeppink;" tooltip="Example: paneer-tikka-small.png (just give image name & extension)" placement="auto" (click)="commonService.clickDisabled($event)">
+                        <button matSuffix mat-icon-button aria-label="Clear" style="color: deeppink;" tooltip="{{appCacheService._content.adminDishImageTooltip}}" placement="auto" (click)="commonService.clickDisabled($event)">
                             <mat-icon>info</mat-icon>
                         </button>
                         <button *ngIf="dishImage" matSuffix mat-icon-button aria-label="Clear" (click)="dishImage = ''">
                             <mat-icon>close</mat-icon>
                         </button>
-                        <mat-error *ngIf="dImg.touched && dImg.invalid">Enter a valid dish image</mat-error>
+                        <mat-error *ngIf="dImg.touched && dImg.invalid">{{errorMessages.adminDishImageRequired}}</mat-error>
                     </mat-form-field>
                     <!--Dish Image Alt Text-->
                     <mat-form-field class="mb-2">
-                        <mat-label>Dish Image Text</mat-label>
+                        <mat-label>{{appCacheService._content.adminDishImageAlt}}</mat-label>
                         <input matInput type="text" ngModel #dImgText="ngModel" maxlength="40" name="dishImageText" [required]=true [(ngModel)]="dishImageText">
-                        <button matSuffix mat-icon-button aria-label="Clear" style="color: deeppink;" tooltip="Example: paneer-tikka (if image not available, this will be the text value)" placement="auto" (click)="commonService.clickDisabled($event)">
+                        <button matSuffix mat-icon-button aria-label="Clear" style="color: deeppink;" tooltip="{{appCacheService._content.adminDishImageAltTooltip}}" placement="auto" (click)="commonService.clickDisabled($event)">
                             <mat-icon>info</mat-icon>
                         </button>
                         <button *ngIf="dishImageText" matSuffix mat-icon-button aria-label="Clear" (click)="dishImageText = ''">
                             <mat-icon>close</mat-icon>
                         </button>
-                        <mat-error *ngIf="dImgText.touched && dImgText.invalid">Enter a valid dish image text</mat-error>
+                        <mat-error *ngIf="dImgText.touched && dImgText.invalid">{{errorMessages.adminDishImageAltRequired}}</mat-error>
                     </mat-form-field>
                     <!--Dish Description-->
                     <mat-form-field class="mb-2">
-                        <mat-label>Dish Description</mat-label>
+                        <mat-label>{{appCacheService._content.adminDishDescText}}</mat-label>
                         <textarea matInput type="text" ngModel #dDesc="ngModel" maxlength="300" name="dishDesc" [required]=true [(ngModel)]="dishDesc"></textarea>
-                        <button matSuffix mat-icon-button aria-label="Clear" style="color: deeppink;" tooltip="Example: paneer-tikka is a delicious dish..... upto 300 characters" placement="auto" (click)="commonService.clickDisabled($event)">
+                        <button matSuffix mat-icon-button aria-label="Clear" style="color: deeppink;" tooltip="{{appCacheService._content.adminDishDescTooltip}}" placement="auto" (click)="commonService.clickDisabled($event)">
                             <mat-icon>info</mat-icon>
                         </button>
                         <button *ngIf="dishDesc" matSuffix mat-icon-button aria-label="Clear" (click)="dishDesc = ''">
                             <mat-icon>close</mat-icon>
                         </button>
-                        <mat-error *ngIf="dDesc.touched && dDesc.invalid">Enter a proper description for the dish</mat-error>
+                        <mat-error *ngIf="dDesc.touched && dDesc.invalid">{{errorMessages.adminDishDescRequired}}</mat-error>
                     </mat-form-field>
                     <!--Dish Piece Quantity-->
                     <mat-form-field appearance="fill">
-                        <mat-label>Product Quantity</mat-label>
+                        <mat-label>{{appCacheService._content.adminDishQuantityText}}</mat-label>
                         <mat-select [(ngModel)]="dishQuantity" name="dishQuantity" [required]=true>
                           <mat-option *ngFor="let quantity of Quantity" [value]="quantity">
                             {{quantity}}
                           </mat-option>
                         </mat-select>
-                        <button matSuffix mat-icon-button aria-label="Clear" style="color: deeppink;" tooltip="Example: 5 (No of pieces for this dish from 1 to 10)" placement="auto" (click)="commonService.clickDisabled($event)">
+                        <button matSuffix mat-icon-button aria-label="Clear" style="color: deeppink;" tooltip="{{appCacheService._content.adminDishQuantityTooltip}}" placement="auto" (click)="commonService.clickDisabled($event)">
                             <mat-icon style="font-size: 12px;">info</mat-icon>
                         </button>
                     </mat-form-field>
                     <!--Dish Price-->
                     <mat-form-field class="mb-2">
-                        <mat-label>Dish Price</mat-label>
+                        <mat-label>{{appCacheService._content.adminDishPriceText}}</mat-label>
                         <input matInput type="text" maxlength="3" minlength="3" ngModel #dPrice="ngModel" name="dishPrice" [required]=true [(ngModel)]="dishPrice" onlyNumber>
-                        <button matSuffix mat-icon-button aria-label="Clear" style="color: deeppink;" tooltip="Example: 280 (each dish's price)" placement="auto" (click)="commonService.clickDisabled($event)">
+                        <button matSuffix mat-icon-button aria-label="Clear" style="color: deeppink;" tooltip="{{appCacheService._content.adminDishPriceTooltip}}" placement="auto" (click)="commonService.clickDisabled($event)">
                             <mat-icon>info</mat-icon>
                         </button>
                         <button *ngIf="dishPrice" matSuffix mat-icon-button aria-label="Clear" (click)="dishPrice = null">
                             <mat-icon>close</mat-icon>
                         </button>
-                        <mat-error *ngIf="dPrice.touched && dPrice.invalid">Enter a valid price</mat-error>
+                        <mat-error *ngIf="dPrice.touched && dPrice.invalid">{{errorMessages.adminDishPriceRequired}}</mat-error>
                     </mat-form-field>
                     <!--Dish Add On-->
                     <mat-form-field class="mb-2">
-                        <mat-label>Dish Complementary</mat-label>
+                        <mat-label>{{appCacheService._content.adminDishCompText}}</mat-label>
                         <input matInput type="text" ngModel #dComplementary="ngModel" maxlength="40" name="dishComplementary" [(ngModel)]="dishComplementary">
-                        <button matSuffix mat-icon-button aria-label="Clear" style="color: deeppink;" tooltip="example: green chatni & meyonnaise (if nothing to add, please leave this field blank)" placement="auto"(click)="commonService.clickDisabled($event)">
+                        <button matSuffix mat-icon-button aria-label="Clear" style="color: deeppink;" tooltip="{{appCacheService._content.adminDishCompTooltip}}" placement="auto"(click)="commonService.clickDisabled($event)">
                             <mat-icon>info</mat-icon>
                         </button>
                         <button *ngIf="dishComplementary" matSuffix mat-icon-button aria-label="Clear" (click)="dishComplementary = ''">
                             <mat-icon>close</mat-icon>
                         </button>
-                        <mat-error *ngIf="dComplementary.touched && dComplementary.invalid">Enter details of complementary item</mat-error>
+                        <mat-error *ngIf="dComplementary.touched && dComplementary.invalid">{{errorMessages.adminDishCompRequired}}</mat-error>
                     </mat-form-field>
                     <!--Dish Ingradient-->
                     <mat-form-field class="mb-2">
-                        <mat-label>Dish Ingradients</mat-label>
+                        <mat-label>{{appCacheService._content.adminDishIngText}}</mat-label>
                         <textarea matInput type="text" ngModel #dIngradient="ngModel" maxlength="300" name="dishIngradient" [required]=true [(ngModel)]="dishIngradient"></textarea>
-                        <button matSuffix mat-icon-button aria-label="Clear" style="color: deeppink;" tooltip="Example: Paneer - 200g,Onion - 30g (ingradient name - used weight)" placement="auto" (click)="commonService.clickDisabled($event)">
+                        <button matSuffix mat-icon-button aria-label="Clear" style="color: deeppink;" tooltip="{{appCacheService._content.adminDishIngTooltip}}" placement="auto" (click)="commonService.clickDisabled($event)">
                             <mat-icon>info</mat-icon>
                         </button>
                         <button *ngIf="dishIngradient" matSuffix mat-icon-button aria-label="Clear" (click)="dishIngradient = ''">
                             <mat-icon>close</mat-icon>
                         </button>
-                        <mat-error *ngIf="dIngradient.touched && dIngradient.invalid">Enter allmajor ingradient details</mat-error>
+                        <mat-error *ngIf="dIngradient.touched && dIngradient.invalid">{{errorMessages.adminDishIngRequired}}</mat-error>
                     </mat-form-field>
                     <!--Dish Calorie Details-->
-                    <div style="font-weight: 600;">Dish Calorie Details (in mg/100g)*
-                        <mat-icon style="color: deeppink;font-size: 12px;cursor: pointer;" tooltip="Example: 10 (give number & the value means mg/100g)" placement="auto" (click)="commonService.clickDisabled($event)">info</mat-icon>
+                    <div style="font-weight: 600;">{{appCacheService._content.adminDishColorieText}}
+                        <mat-icon style="color: deeppink;font-size: 12px;cursor: pointer;" tooltip="{{appCacheService._content.adminDishColorieTooltip}}" placement="auto" (click)="commonService.clickDisabled($event)">info</mat-icon>
                     </div>
                     <mat-form-field class="mb-2">
-                        <mat-label>Fat</mat-label>
-                        <input matInput type="text" ngModel #dFat="ngModel" maxlength="3" minlength="1" name="dishFat" [(ngModel)]="dishFat" [required]=true onlyNumber tooltip="example: 10" placement="auto">
-                        <mat-error *ngIf="dFat.touched && dFat.invalid">Enter Fat details</mat-error>
+                        <mat-label>{{appCacheService._content.adminDishFat}}</mat-label>
+                        <input matInput type="text" ngModel #dFat="ngModel" maxlength="3" minlength="1" name="dishFat" [(ngModel)]="dishFat" [required]=true onlyNumber tooltip="{{appCacheService._content.adminIngTooltip}}" placement="auto">
+                        <mat-error *ngIf="dFat.touched && dFat.invalid">{{errorMessages.adminDishIngFatRequired}}</mat-error>
                     </mat-form-field>
                     <mat-form-field class="mb-2">
-                        <mat-label>Cholesterol</mat-label>
-                        <input matInput type="text" ngModel #dCholesterol="ngModel" maxlength="3" minlength="1" name="dishCholesterol" [(ngModel)]="dishCholesterol" [required]=true onlyNumber tooltip="example: 10" placement="auto">
-                        <mat-error *ngIf="dCholesterol.touched && dCholesterol.invalid">Enter Cholesterol details</mat-error>
+                        <mat-label>{{appCacheService._content.adminDishCho}}</mat-label>
+                        <input matInput type="text" ngModel #dCholesterol="ngModel" maxlength="3" minlength="1" name="dishCholesterol" [(ngModel)]="dishCholesterol" [required]=true onlyNumber tooltip="{{appCacheService._content.adminIngTooltip}}" placement="auto">
+                        <mat-error *ngIf="dCholesterol.touched && dCholesterol.invalid">{{errorMessages.adminDishIngChoRequired}}</mat-error>
                     </mat-form-field>
                     <mat-form-field class="mb-2">
-                        <mat-label>Sodium</mat-label>
-                        <input matInput type="text" ngModel #dSodium="ngModel" maxlength="3" minlength="1" name="dishSodium" [required]=true [(ngModel)]="dishSodium" onlyNumber tooltip="example: 10" placement="auto">
-                        <mat-error *ngIf="dSodium.touched && dSodium.invalid">Enter Sodium details</mat-error>
+                        <mat-label>{{appCacheService._content.adminDishSo}}</mat-label>
+                        <input matInput type="text" ngModel #dSodium="ngModel" maxlength="3" minlength="1" name="dishSodium" [required]=true [(ngModel)]="dishSodium" onlyNumber tooltip="{{appCacheService._content.adminIngTooltip}}" placement="auto">
+                        <mat-error *ngIf="dSodium.touched && dSodium.invalid">{{errorMessages.adminDishIngSodiumRequired}}</mat-error>
                     </mat-form-field>
                     <mat-form-field class="mb-2">
-                        <mat-label>Carbohydrate</mat-label>
-                        <input matInput type="text" ngModel #dCarbohydrate="ngModel" maxlength="3" minlength="1" name="dishCarbohydrate" [required]=true [(ngModel)]="dishCarbohydrate" onlyNumber tooltip="example: 10" placement="auto">
-                        <mat-error *ngIf="dCarbohydrate.touched && dCarbohydrate.invalid">Enter Carbohydrate details</mat-error>
+                        <mat-label>{{appCacheService._content.adminDishCar}}</mat-label>
+                        <input matInput type="text" ngModel #dCarbohydrate="ngModel" maxlength="3" minlength="1" name="dishCarbohydrate" [required]=true [(ngModel)]="dishCarbohydrate" onlyNumber tooltip="{{appCacheService._content.adminIngTooltip}}" placement="auto">
+                        <mat-error *ngIf="dCarbohydrate.touched && dCarbohydrate.invalid">{{errorMessages.adminDishIngCarRequired}}</mat-error>
                     </mat-form-field>
                     <mat-form-field class="mb-2">
-                        <mat-label>Protein</mat-label>
-                        <input matInput type="text" ngModel #dProtein="ngModel" maxlength="3" minlength="1" name="dishProtein" [required]=true [(ngModel)]="dishProtein" onlyNumber tooltip="example: 10" placement="auto">
-                        <mat-error *ngIf="dProtein.touched && dProtein.invalid">Enter Protein details</mat-error>
+                        <mat-label>{{appCacheService._content.adminDishPro}}</mat-label>
+                        <input matInput type="text" ngModel #dProtein="ngModel" maxlength="3" minlength="1" name="dishProtein" [required]=true [(ngModel)]="dishProtein" onlyNumber tooltip="{{appCacheService._content.adminIngTooltip}}" placement="auto">
+                        <mat-error *ngIf="dProtein.touched && dProtein.invalid">{{errorMessages.adminDishIngProRequired}}</mat-error>
                     </mat-form-field>
                     <mat-form-field class="mb-2">
-                        <mat-label>Calcium</mat-label>
-                        <input matInput type="text" ngModel #dCalcium="ngModel" maxlength="3" minlength="1" name="dishCalcium" [required]=true [(ngModel)]="dishCalcium" onlyNumber tooltip="example: 10" placement="auto">
-                        <mat-error *ngIf="dCalcium.touched && dCalcium.invalid">Enter Calcium details</mat-error>
+                        <mat-label>{{appCacheService._content.adminDishCal}}</mat-label>
+                        <input matInput type="text" ngModel #dCalcium="ngModel" maxlength="3" minlength="1" name="dishCalcium" [required]=true [(ngModel)]="dishCalcium" onlyNumber tooltip="{{appCacheService._content.adminIngTooltip}}" placement="auto">
+                        <mat-error *ngIf="dCalcium.touched && dCalcium.invalid">{{errorMessages.adminDishIngCalRequired}}</mat-error>
                     </mat-form-field>
                     <mat-form-field class="mb-2">
-                        <mat-label>Potassium</mat-label>
-                        <input matInput type="text" ngModel #dPotassium="ngModel" maxlength="3" minlength="1" name="dishPotassium" [required]=true [(ngModel)]="dishPotassium" onlyNumber tooltip="example: 10" placement="auto">
-                        <mat-error *ngIf="dPotassium.touched && dPotassium.invalid">Enter Potassium details</mat-error>
+                        <mat-label>{{appCacheService._content.adminDishPota}}</mat-label>
+                        <input matInput type="text" ngModel #dPotassium="ngModel" maxlength="3" minlength="1" name="dishPotassium" [required]=true [(ngModel)]="dishPotassium" onlyNumber tooltip="{{appCacheService._content.adminIngTooltip}}" placement="auto">
+                        <mat-error *ngIf="dPotassium.touched && dPotassium.invalid">{{errorMessages.adminDishIngPotaRequired}}</mat-error>
                     </mat-form-field>
                 </form>
                 <div class="admin-block-button-section">
                     <button mat-raised-button style="margin-right: 1rem" color="primary" (click)="dishFormSubmit(dishForm)" [disabled]="dishForm.invalid">{{buttonText}}</button>
-                    <button *ngIf="editMode" mat-raised-button style="margin-right: 1rem" (click)="editMode = false;dishForm.resetForm();buttonText = 'Continue';selectedID=''">Cancel</button>
-                    <button mat-raised-button (click)="dishFormReset(dishForm)" [disabled]="dishForm.untouched">Reset</button>
+                    <button *ngIf="editMode" mat-raised-button style="margin-right: 1rem" (click)="editMode = false;dishForm.resetForm();buttonText = 'Continue';selectedID=''">{{appCacheService._content.cancelButton}}</button>
+                    <button mat-raised-button (click)="dishFormReset(dishForm)" [disabled]="dishForm.untouched">{{appCacheService._content.resetButton}}</button>
                 </div>
             </div>
             <div class="col-md-7 col-xs-12 mt-2 mb-3 admin-block-border">
-                <div class="mb-2" style="font-size: 16px; color: #3f51b5; font-weight: 600;">Avaialable Dishes</div>
+                <div class="mb-2" style="font-size: 16px; color: #3f51b5; font-weight: 600;">{{appCacheService._content.adminDishAvlDishText}}</div>
                 <app-search *ngIf="dishes" (searchTextEvent)="_searchTextEvent($event)"></app-search>
                 <app-admin-table *ngIf="dishes" [filterDataText]="filterText" [adminHeader]="dishHeader" [adminTableDataSet]="paginationDishes" adminFirstColumnVariable="dishName" adminSecondColumnVariable="dishPrice" (deleteClickedEvent)="deleteDish($event)" (editClickedEvent)="editDish($event)" (tableSortEvent)="_tableSortEvent($event)"></app-admin-table>
                 <app-pagination *ngIf="paginationDishes.length > 0" [currentDataSet]="filterdDish" (perPageSelectionChangedEvent)="_perPageSelectionChanged($event)" (paginationButtonChangedEvent)="_paginationButtonChangedEvent($event)"></app-pagination>

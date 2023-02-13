@@ -4,7 +4,8 @@ import { AdminService } from '../admin.service';
 import { map, take } from 'rxjs/operators';
 import { UtilityService } from 'src/app/services/utility.service';
 import { Chart, BarElement, BarController, CategoryScale, Decimation, Filler, Legend, Title, Tooltip, LinearScale, DoughnutController, ArcElement} from 'chart.js';
-import { staticValue } from 'src/app/constants/constant';
+import { staticValue, admin_headers, StaticMsg } from 'src/app/constants/constant';
+import { AppCacheService } from 'src/app/services/app.cache.service';
 
 @Component({
   selector: 'app-admin-dashboard',
@@ -13,8 +14,8 @@ import { staticValue } from 'src/app/constants/constant';
 })
 export class AdminDashboardComponent implements OnInit, OnDestroy, AfterViewInit {
 
-  adminDashboardHeader: any[] = ["Total Orders", "Average Dish/Order", "Average Price/Order", "Maximum Used Payment Option"];
-  adminItemAnalysisHeader: any[] = ["Maximum Ordered Item", "Maximum Ordered Item Quantity", "Minimum Ordered Item", "Minimum Ordered Item Quantity", "Top Veg Item", "Top Non-veg Item"]
+  adminDashboardOrderAnalysisHeader: any[] = admin_headers.dashboardOrderAnalysis;
+  adminItemAnalysisHeader: any[] = admin_headers.dashboardItemAnalysis;
   getOrderSubscription: Subscription | undefined;
   getDishSubscription: Subscription | undefined;
   orders: any;
@@ -32,10 +33,10 @@ export class AdminDashboardComponent implements OnInit, OnDestroy, AfterViewInit
   data = {
     labels: [],
     datasets: [{
-      label: 'Ordered Quantity',
+      label: StaticMsg.admin_dashboard_table_lable,
       data: [],
       backgroundColor: [],
-      hoverOffset: 4
+      hoverOffset: staticValue.calorieHoverOffset
     }]
   };
 
@@ -49,7 +50,8 @@ export class AdminDashboardComponent implements OnInit, OnDestroy, AfterViewInit
     -------------------------------------
 */
   constructor(private adminService: AdminService,
-              private utilityService: UtilityService) { 
+              private utilityService: UtilityService,
+              public appCacheService: AppCacheService) { 
                 Chart.register(BarElement, BarController, CategoryScale, Decimation, Filler, Legend, Title, Tooltip, LinearScale, DoughnutController, ArcElement);
               }
 
@@ -58,6 +60,8 @@ export class AdminDashboardComponent implements OnInit, OnDestroy, AfterViewInit
     this.getDishes();
   }
 
+  //&& (res[key][key1].orderStatus == 'ordered' || res[key][key1].orderStatus == 'intrans')
+  //above code is for 'ordered' & 'intrans' cases
   getAllOrders(){
     this.getOrderSubscription = this.adminService.getAllOrders().pipe(map(res=>{
       let data = [];
@@ -65,7 +69,7 @@ export class AdminDashboardComponent implements OnInit, OnDestroy, AfterViewInit
         for(let key in res){
           if(res.hasOwnProperty(key)){
             for(let key1 in res[key]){
-              if(res[key].hasOwnProperty(key1) && (res[key][key1].orderStatus == 'ordered' || res[key][key1].orderStatus == 'intrans')){
+              if(res[key].hasOwnProperty(key1)){//checking all orders 
                 data.push({uid: key, id: key1, ...res[key][key1]});
               }
             }
@@ -126,7 +130,7 @@ export class AdminDashboardComponent implements OnInit, OnDestroy, AfterViewInit
     this.data.datasets[0].backgroundColor = this.chartBackGroudColor;
     this.canvas = this.itemChart.nativeElement.getContext('2d');
     new Chart(this.canvas, {
-      type: 'doughnut',
+      type: StaticMsg.calorie_chart_type,
       data: this.data
     });
   }

@@ -1,7 +1,7 @@
 import { Component, OnInit, ViewContainerRef, ViewChild, OnDestroy } from '@angular/core';
 import { FormGroup, FormBuilder, FormArray, Validators, NgForm } from '@angular/forms';
 import { CommonService } from '../services/common.service';
-import { city, state } from '../constants/constant';
+import { city, state, errorMessages, staticValue, StaticMsg } from '../constants/constant';
 import { ProfileService } from './profiles.service';
 import { AppCacheService } from '../services/app.cache.service';
 import { map } from 'rxjs/operators';
@@ -21,7 +21,7 @@ export class ProfilesComponent implements OnInit, OnDestroy {
   profileForm: FormGroup;
   availableCities = city;
   availableStates = state;
-  extraAddressFormCount: number = 0;
+  extraAddressFormCount: number = staticValue.extraAddressFormCount;
   editForm: boolean = false;
   buttonText: string = "Save";
   uid: string;
@@ -31,13 +31,14 @@ export class ProfilesComponent implements OnInit, OnDestroy {
   profileAddSubscription: Subscription | undefined;
   profileGetSubscription: Subscription | undefined;
   profileUpdateSubscription: Subscription | undefined;
+  errorMessages = errorMessages;
 
   @ViewChild("shortContainer", { read: ViewContainerRef }) shortContainer: any = ViewContainerRef;
 
   constructor(private fb : FormBuilder, 
               public commonService: CommonService,
               private profileService: ProfileService,
-              private appCacheService: AppCacheService,
+              public appCacheService: AppCacheService,
               public bsModalRef: BsModalRef,
               private modalService: BsModalService) {}
 
@@ -112,13 +113,13 @@ export class ProfilesComponent implements OnInit, OnDestroy {
 
   createProfileForm(): void{
     this.profileForm = this.fb.group({
-      name: [{value: '', disabled: this.editForm},[Validators.required, Validators.minLength(2), Validators.maxLength(40)]],
-      phoneNumber: [{value: null,disabled: this.editForm },[Validators.required, Validators.minLength(10), Validators.maxLength(10)]],
+      name: [{value: '', disabled: this.editForm},[Validators.required, Validators.minLength(staticValue.profileNameMinLength), Validators.maxLength(staticValue.profileNameMaxLenght)]],
+      phoneNumber: [{value: null, disabled: this.editForm },[Validators.required, Validators.minLength(staticValue.phoneNumberLength), Validators.maxLength(staticValue.phoneNumberLength)]],
       deliveryAddress: this.fb.group({
-        street: [{value: '',disabled: this.editForm},[Validators.required, Validators.maxLength(100)]],
-        city: [{value: '',disabled: this.editForm},[Validators.required]],
-        pincode: [{value: null,disabled: this.editForm},[Validators.required, Validators.minLength(6), Validators.maxLength(6)]],
-        state: [{value: '',disabled: this.editForm},[Validators.required]]
+        street: [{value: '', disabled: this.editForm},[Validators.required, Validators.maxLength(staticValue.streetMaxLength)]],
+        city: [{value: '', disabled: this.editForm},[Validators.required]],
+        pincode: [{value: null, disabled: this.editForm},[Validators.required, Validators.minLength(staticValue.pincodeLength), Validators.maxLength(staticValue.pincodeLength)]],
+        state: [{value: '', disabled: this.editForm},[Validators.required]]
       }),
       secondDeliveryAddress: this.fb.array([])
     });
@@ -142,11 +143,12 @@ export class ProfilesComponent implements OnInit, OnDestroy {
 
   addMoreAddress(): void{
     this.secondDeliveryAddress.push(
+      //pushing whole group or we can push single form control too
       this.fb.group({
-        street: [{value: '',disabled: this.editForm},[Validators.required, Validators.maxLength(100)]],
-        city: [{value: '',disabled: this.editForm},[Validators.required]],
-        pincode: [{value: null,disabled: this.editForm},[Validators.required, Validators.minLength(6), Validators.maxLength(6)]],
-        state: [{value: '',disabled: this.editForm},[Validators.required]]
+        street: [{value: '', disabled: this.editForm},[Validators.required, Validators.maxLength(staticValue.streetMaxLength)]],
+        city: [{value: '', disabled: this.editForm},[Validators.required]],
+        pincode: [{value: null, disabled: this.editForm},[Validators.required, Validators.minLength(staticValue.pincodeLength), Validators.maxLength(staticValue.pincodeLength)]],
+        state: [{value: '', disabled: this.editForm},[Validators.required]]
       })
     )
     this.extraAddressFormCount++;
@@ -160,6 +162,7 @@ export class ProfilesComponent implements OnInit, OnDestroy {
   deleteAddress(i: number): void{
     this.secondDeliveryAddress.removeAt(i);
     this.extraAddressFormCount--;
+    this.profileForm.markAsDirty();
   }
 
   addProfile(profileForm: FormGroup): void{
@@ -169,7 +172,7 @@ export class ProfilesComponent implements OnInit, OnDestroy {
           this.editForm = true;
           console.log("profile has been added " + res);
           const color = "green";
-          const message = "Profile has been added";
+          const message = StaticMsg.profile_add_success;
           this.showShortMsg(message,color);
         }
       });
@@ -180,7 +183,7 @@ export class ProfilesComponent implements OnInit, OnDestroy {
           this.editForm = true;
           console.log("profile has been updated " + res);
           const color = "green";
-          const message = "Profile has been updated";
+          const message = StaticMsg.profile_update_success;
           this.showShortMsg(message,color);
         }
       });
@@ -213,13 +216,13 @@ export class ProfilesComponent implements OnInit, OnDestroy {
   changePassword(): void{
     const initialState: ModalOptions = {
       initialState: {
-        title: "Change Password"
+        title: this.appCacheService._content.changePassButton
       }
     };
     this.bsModalRef = this.modalService.show(ChangePasswordComponent, initialState);
     this.bsModalRef.content.changesPasswordSuccessEvent.subscribe((res: any) => {
       this.bsModalRef?.hide();
-      const message = "Password has been updated";
+      const message = StaticMsg.password_update_success;
       const color = "green";
       this.showShortMsg(message, color);
     });
@@ -228,13 +231,13 @@ export class ProfilesComponent implements OnInit, OnDestroy {
   changeEmail(): void{
     const initialState: ModalOptions = {
       initialState: {
-        title: "Change Email"
+        title: this.appCacheService._content.changeEmailButton
       }
     };
     this.bsModalRef = this.modalService.show(ChangeEmailComponent, initialState);
     this.bsModalRef.content.changeEmailSuccessEvent.subscribe((res: any) => {
       this.bsModalRef?.hide();
-      const message = "Email has been updated";
+      const message = StaticMsg.email_update_success;
       const color = "green";
       this.showShortMsg(message, color);
     });

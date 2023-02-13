@@ -1,15 +1,15 @@
 <div class="container">
-    <div class="mt-5 mb-5 heading" style="text-align: center;" id="top"><h3>Order Dashboard</h3></div>
+    <div class="mt-5 mb-5 heading" style="text-align: center;" id="top"><h3>{{appCacheService._content.adminOrderDashboardHeading}}</h3></div>
     <div class="admin-block">
         <hr style="border-top: 1.5px solid #23222221;">
         <div class="admin-block-sections row">
             <div class="col-12 mt-2 mb-3">
-                <div class="mb-2" style="font-size: 16px; color: #3f51b5; font-weight: 600;text-align: center;">Order Analysis</div>
+                <div class="mb-2" style="font-size: 16px; color: #3f51b5; font-weight: 600;text-align: center;">{{appCacheService._content.adminOrderAnalysisText}}</div>
                 <div>
                     <table class="mt-2 admin-block-table">
                         <thead>
                             <tr>
-                                <th *ngFor="let header of adminDashboardHeader; let i = index;">
+                                <th *ngFor="let header of adminDashboardOrderAnalysisHeader; let i = index;">
                                     {{header}} 
                                 </th>
                             </tr>
@@ -32,7 +32,7 @@
                 </div>
             </div>
             <div class="col-12 mt-2 mb-3" >
-                <div class="mb-2" style="font-size: 16px; color: #3f51b5; font-weight: 600;text-align: center;">Item Analysis</div>
+                <div class="mb-2" style="font-size: 16px; color: #3f51b5; font-weight: 600;text-align: center;">{{appCacheService._content.adminItemAnalysistext}}</div>
                 <div class="row">
                     <div style="display: flex;justify-content: center;align-items: center;" class="col-md-7 col-12 pb-2">
                         <canvas #itemChart width="auto" height="auto"></canvas>

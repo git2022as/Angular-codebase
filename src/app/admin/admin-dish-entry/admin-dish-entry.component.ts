@@ -4,11 +4,12 @@ import { Subscription } from 'rxjs';
 import { AdminService } from '../admin.service';
 import { ShortMessageComponent } from 'src/app/shared/short-message/short-message.component';
 import { deactivateInterface } from 'src/app/interface/project.interface';
-import { StaticMsg, staticValue, admin_headers } from 'src/app/constants/constant';
+import { StaticMsg, staticValue, admin_headers, errorMessages } from 'src/app/constants/constant';
 import { CommonService } from 'src/app/services/common.service';
 import { BsModalRef } from 'ngx-bootstrap/modal';
 import { FilterPipe } from 'src/app/pipes/filter.pipe';
 import { map, take } from 'rxjs/operators';
+import { AppCacheService } from 'src/app/services/app.cache.service';
 
 @Component({
   selector: 'app-admin-dish-entry',
@@ -46,13 +47,15 @@ export class AdminDishEntryComponent implements OnInit, OnDestroy, deactivateInt
   updatedItemsPerPage: number = staticValue.paginationPerPageConstant;
   filterdDish: Array<any>;
   filterText: string = "";
+  errorMessages = errorMessages;
   @ViewChild("shortContainer", { read: ViewContainerRef }) shortContainer: any = ViewContainerRef;
   @ViewChild("dishForm", {read: NgForm}) dishForm: any;
 
   constructor(private adminService: AdminService,
               public commonService: CommonService,
               private bsModalRef: BsModalRef,
-              private filterPipe: FilterPipe) { }
+              private filterPipe: FilterPipe,
+              public appCacheService: AppCacheService) { }
 
   ngOnInit(): void {
     this.getDishes();

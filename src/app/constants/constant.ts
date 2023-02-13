@@ -35,7 +35,13 @@ export const StaticMsg = {
     admin_deliveredKeyStatus: "delivered",
     calorie_lable: "Calorie Details (in mg)",
     calorie_chart_type: "doughnut",
-    pin_available_success: "Delivery is available to this location"
+    pin_available_success: "Delivery is available to this location",
+    profile_update_success: "Profile has been updated",
+    profile_add_success: "Profile has been added",
+    password_update_success: "Password has been updated",
+    email_update_success: "Email has been updated",
+    admin_dashboard_table_lable: "Ordered Quantity",
+    admin_duplicate: "Duplicate slides, please add a new slides."
 } as const;
 
 export const admin_headers = {
@@ -43,7 +49,9 @@ export const admin_headers = {
     slide: ["Slide Name", "Slide Details", "Actions"],
     offer: ["Slide Name", "Slide Details", "Actions"],
     coupon: ["Coupon Code", "Coupon Type", "Actions"],
-    branch: ["Branch Name", "Branch Contact", "Actions"]
+    branch: ["Branch Name", "Branch Contact", "Actions"],
+    dashboardOrderAnalysis: ["Total Orders", "Average Dish/Order", "Average Price/Order", "Maximum Used Payment Option"],
+    dashboardItemAnalysis: ["Maximum Ordered Item", "Maximum Ordered Item Quantity", "Minimum Ordered Item", "Minimum Ordered Item Quantity", "Top Veg Item", "Top Non-veg Item"]
 }
 
 export const staticValue = {
@@ -63,9 +71,13 @@ export const staticValue = {
     perPageOptions: [5,10,15,20],
     mapZoom: 4,
     calorieHoverOffset: 4,
-    maxPin: 5,
-    minPin: 5,
+    pincodeLength: 6,
     offersAvailableCount: 0,
+    extraAddressFormCount: 0,
+    phoneNumberLength: 10, 
+    streetMaxLength: 100, 
+    profileNameMaxLenght: 40,
+    profileNameMinLength: 2,
     chartBackgroudColor: [
         'rgb(255, 99, 132)',
         'rgb(54, 162, 235)',
@@ -124,10 +136,35 @@ export const errorMessages = {
     invalidCardCvv: "Please provide 3 digits card CVV details",
     ratingRequired: "Select a rating from 1 to 5",
     commentRequired: "Enter a valid review/comment",
-    pincodeRequired: "Enter a 5 digits pincode in number only",
+    pincodeRequired: "Enter a 6 digits pincode in number only",
     adminLoginError: "Admin login failed, please check credentials.",
     adminLoginRequired: "Enter a valid user name",
-    paymentDeliveryAddRequired: "Select the delivery address"
+    paymentDeliveryAddRequired: "Select the delivery address",
+    profileNameRequired: "Enter a valid name & minimum charcater requirements is 2",
+    profilePhoneRequired: "Enter a valid 10 digits phone number",
+    profileHouseRequired: "Enter a valid house & street details",
+    profileCityRequired: "Please select the proper city",
+    profileStateRequired: "Please select the proper state applicable for the city.",
+    adminDishNameRequired: "Enter a valid dish name",
+    adminDishOriginRequired: "Select the proper dish origin",
+    adminDishImageRequired: "Enter a valid dish image",
+    adminDishImageAltRequired: "Enter a valid dish image alt text",
+    adminDishDescRequired: "Enter a proper description for the dish",
+    adminDishPriceRequired: "Enter a valid price for the dish",
+    adminDishCompRequired: "Enter details of complementary items",
+    adminDishIngRequired: "Enter all major ingradient details",
+    adminDishIngFatRequired: "Enter Fat details",
+    adminDishIngChoRequired: "Enter Cholesterol details",
+    adminDishIngSodiumRequired: "Enter Sodium details",
+    adminDishIngCarRequired: "Enter Carbohydrate details",
+    adminDishIngProRequired: "Enter Protein details",
+    adminDishIngCalRequired: "Enter Calcium details",
+    adminDishIngPotaRequired: "Enter Potassium details",
+    adminOfferCodeRequired: "Enter a valid offer code",
+    adminOfferMinRequired: "Enter a valid minimum order amount",
+    adminOfferSecRequired: "Select the proper section",
+    adminOfferByRequired: "Enter a valid offered by institution name",
+    adminOfferDisRequired: "Enter the flat discount amount"
 }
 
 export const city = [

@@ -5,10 +5,11 @@ import { AdminService } from '../admin.service';
 import { ShortMessageComponent } from 'src/app/shared/short-message/short-message.component';
 import { deactivateInterface, offersSubSectionInterface } from '../../interface/project.interface';
 import { CommonService } from 'src/app/services/common.service';
-import { StaticMsg, offerSubSections } from 'src/app/constants/constant';
+import { StaticMsg, offerSubSections, errorMessages, admin_headers } from 'src/app/constants/constant';
 import { BsModalRef } from 'ngx-bootstrap/modal';
 import { staticValue } from 'src/app/constants/constant';
 import { FilterPipe } from 'src/app/pipes/filter.pipe';
+import { AppCacheService } from 'src/app/services/app.cache.service';
 
 @Component({
   selector: 'app-admin-offers-entry',
@@ -30,12 +31,12 @@ export class AdminOffersEntryComponent implements OnInit, OnDestroy, deactivateI
   buttonText: string = "Continue";
   offers: Array<any>;
   selectedID: string = "";
-  offersHeader = ["Slides' Name", "Slides' Details", "Actions"];
+  offersHeader = admin_headers.offer;
   paginationOffer : Array<any> = [];
   updatedItemsPerPage: number = staticValue.paginationPerPageConstant;
   filterOffers: Array<any>;
   filterText: string = "";
-
+  errorMessages = errorMessages;
 
   @ViewChild("shortContainer", { read: ViewContainerRef }) shortContainer: any = ViewContainerRef;
   @ViewChild("offerForm", {read: NgForm}) offerForm: any;
@@ -43,7 +44,8 @@ export class AdminOffersEntryComponent implements OnInit, OnDestroy, deactivateI
   constructor(private adminService: AdminService,
               public commonService: CommonService,
               private bsModalRef: BsModalRef,
-              private filterPipe: FilterPipe) { }
+              private filterPipe: FilterPipe,
+              public appCacheService: AppCacheService) { }
 
   ngOnInit(): void {
     this.createOfferSubSec();
@@ -137,7 +139,7 @@ export class AdminOffersEntryComponent implements OnInit, OnDestroy, deactivateI
       //when user confirms, call delete functionality
       this.deleteOffersSubscription = this.adminService.deleteOffer(each.id).subscribe((res: any)=>{
         this.bsModalRef.hide();
-        const msg = "offer has been deleted";
+        const msg = `offer ${StaticMsg.admin_data_deleted}`;
         const color = 'green';
         this.showShortMsg(msg,color);
         this.getOffers();
@@ -154,13 +156,13 @@ export class AdminOffersEntryComponent implements OnInit, OnDestroy, deactivateI
     if(this.editMode){
       //when edit mode is ON, call the update functionality
       if(!offerForm.dirty){
-        const msg = "It seems, you haven't changed any value yet";
+        const msg = `${StaticMsg.admin_no_data_change}`;
         const color = 'orange';
         this.showShortMsg(msg,color);
         return;
       }
       this.updateOffersSubscription = this.adminService.updateOffers(this.selectedID,offerForm.value).subscribe((data: any)=>{
-        const msg = "offer has been updated";
+        const msg = `offer ${StaticMsg.admin_data_updated}`;
         const color = 'green';
         this.showShortMsg(msg,color);
         this.editMode = false;
@@ -180,7 +182,7 @@ export class AdminOffersEntryComponent implements OnInit, OnDestroy, deactivateI
         console.log(offerForm.value);
         this.addOffersSubscriptiton = this.adminService.addOffers(offerForm.value).subscribe((res: any)=>{
           this.getOffers();
-          const msg = "offer has been added";
+          const msg = `offer ${StaticMsg.admin_data_added}`;
           const color = 'green';
           this.showShortMsg(msg,color);
           this.offersFormReset(offerForm);
@@ -189,7 +191,7 @@ export class AdminOffersEntryComponent implements OnInit, OnDestroy, deactivateI
       }
       else{
         //Duplicate scene
-        this.showShortMsg('Duplicate slides, please add a new slides.','red');
+        this.showShortMsg(`${StaticMsg.admin_duplicate}`,'red');
       }
     }
   }

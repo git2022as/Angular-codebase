@@ -4,11 +4,11 @@ import { map, Subscription } from 'rxjs';
 import { AdminService } from '../admin.service';
 import { ShortMessageComponent } from 'src/app/shared/short-message/short-message.component';
 import { deactivateInterface } from 'src/app/interface/project.interface';
-import { StaticMsg } from 'src/app/constants/constant';
 import { CommonService } from 'src/app/services/common.service';
 import { BsModalRef } from 'ngx-bootstrap/modal';
-import { staticValue } from 'src/app/constants/constant';
+import { staticValue, errorMessages, StaticMsg, admin_headers } from 'src/app/constants/constant';
 import { FilterPipe } from 'src/app/pipes/filter.pipe';
+import { AppCacheService } from 'src/app/services/app.cache.service';
 
 @Component({
   selector: 'app-admin-branches-entry',
@@ -31,7 +31,7 @@ export class AdminBranchesEntryComponent implements OnInit, OnDestroy, deactivat
   buttonText: string = "Continue";
   branches: Array<any>;
   selectedID: string = "";
-  branchesHeader = ["Branch's Name", "Branch's Contact", "Actions"];
+  branchesHeader = admin_headers.branch;
   paginationBranch : Array<any> = [];
   updatedItemsPerPage: number = staticValue.paginationPerPageConstant;
   filterdBranch: Array<any>;
@@ -42,7 +42,8 @@ export class AdminBranchesEntryComponent implements OnInit, OnDestroy, deactivat
   constructor(private adminService: AdminService,
               public commonService: CommonService,
               private bsModalRef: BsModalRef,
-              private filterPipe: FilterPipe) { }
+              private filterPipe: FilterPipe,
+              public appCacheService: AppCacheService) { }
 
   ngOnInit(): void {
     this.getBranches();
@@ -128,7 +129,7 @@ export class AdminBranchesEntryComponent implements OnInit, OnDestroy, deactivat
       //when user confirms, call delete functionality
       this.deleteBrancheSubscription = this.adminService.deleteBranch(each.id).subscribe((res: any)=>{
         this.bsModalRef.hide();
-        const msg = "branch has been deleted";
+        const msg = `branch ${StaticMsg.admin_data_deleted}`;
         const color = 'green';
         this.showShortMsg(msg,color);
         this.getBranches();
@@ -145,13 +146,13 @@ export class AdminBranchesEntryComponent implements OnInit, OnDestroy, deactivat
     if(this.editMode){
       //when edit mode is ON, call the update functionality
       if(!branchesForm.dirty){
-        const msg = "It seems, you haven't changed any value yet";
+        const msg = `${StaticMsg.admin_no_data_change}`;
         const color = 'orange';
         this.showShortMsg(msg,color);
         return;
       }
       this.updateBranchesSubscription = this.adminService.updateBranches(this.selectedID,branchesForm.value).subscribe((data: any)=>{
-        const msg = "branch has been updated";
+        const msg = `branch ${StaticMsg.admin_data_updated}`;
         const color = 'green';
         this.showShortMsg(msg,color);
         this.editMode = false;
@@ -171,7 +172,7 @@ export class AdminBranchesEntryComponent implements OnInit, OnDestroy, deactivat
         console.log(branchesForm.value);
         this.addBranchesSubscriptiton = this.adminService.addBranches(branchesForm.value).subscribe((res: any)=>{
           this.getBranches();
-          const msg = "branch has been added";
+          const msg = `branch ${StaticMsg.admin_data_added}`;
           const color = 'green';
           this.showShortMsg(msg,color);
           this.branchesFormReset(branchesForm);
@@ -180,7 +181,7 @@ export class AdminBranchesEntryComponent implements OnInit, OnDestroy, deactivat
       }
       else{
         //Duplicate scene
-        this.showShortMsg('Duplicate branch, please add a new branch.','red');
+        this.showShortMsg(`${StaticMsg.admin_duplicate}`,'red');
       }
     }
   }

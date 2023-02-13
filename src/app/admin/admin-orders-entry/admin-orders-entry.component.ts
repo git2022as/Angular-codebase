@@ -6,9 +6,10 @@ import { AdminService } from '../admin.service';
 import { ShortMessageComponent } from 'src/app/shared/short-message/short-message.component';
 import { CommonService } from 'src/app/services/common.service';
 import { BsModalRef, ModalOptions, BsModalService } from 'ngx-bootstrap/modal';
-import { staticValue } from 'src/app/constants/constant';
+import { staticValue, StaticMsg } from 'src/app/constants/constant';
 import { OrderStatusChangeComponent } from 'src/app/shared/order-status-change/order-status-change.component';
 import { UtilityService } from 'src/app/services/utility.service';
+import { AppCacheService } from 'src/app/services/app.cache.service';
 
 @Component({
   selector: 'app-admin-orders-entry',
@@ -33,7 +34,8 @@ export class AdminOrdersEntryComponent implements OnInit, OnDestroy {
               public commonService: CommonService,
               private bsModalRef: BsModalRef,
               private bsModalService: BsModalService,
-              private utilityService: UtilityService) { }
+              private utilityService: UtilityService,
+              public appCacheService: AppCacheService) { }
 
   ngOnInit(): void {
     this.getDishes();
@@ -91,7 +93,7 @@ export class AdminOrdersEntryComponent implements OnInit, OnDestroy {
     this.selectedOrder = order;
     const initialState: ModalOptions = {
       initialState: {
-        title: 'Order Status Change',
+        title: this.appCacheService._content.adminOrderChangeText,
         currectStatus: order.orderStatus
       }
     }
@@ -115,7 +117,7 @@ export class AdminOrdersEntryComponent implements OnInit, OnDestroy {
     this.selectedOrder.orderStatus = updatedStatus;
     this.selectedOrder.deliveryTime = this.utilityService.calculateCurrentTime();
     this.updateOrdersSubscription = this.adminService.updateOrders(id, uid, this.selectedOrder).subscribe((data: any)=>{
-      const msg = "Order Status has been updated";
+      const msg = `Order Status ${StaticMsg.admin_data_updated}`;
       const color = 'green';
       this.showShortMsg(msg,color);
       this.selectedOrder = {};

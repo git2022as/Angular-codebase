@@ -2,7 +2,7 @@
     <div>
         <mat-form-field>
             <mat-label>{{appCacheService._content.pincodeText}}</mat-label>
-            <input matInput type="text" ngModel maxlength="5" minlength="5" #pin="ngModel" name="pincode" [(ngModel)]="pincode" pattern="[0-9]+$" [required]=true>
+            <input matInput type="text" ngModel maxlength="6" minlength="6" #pin="ngModel" name="pincode" [(ngModel)]="pincode" pattern="[0-9]+$" [required]=true>
             <button *ngIf="pincode" matSuffix mat-icon-button aria-label="Clear" (click)="pincode=null;pincodeChecked=false;">
                 <mat-icon>close</mat-icon>
             </button>
