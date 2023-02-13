@@ -2,6 +2,7 @@ import { Component, OnInit, Input, Output, EventEmitter, OnChanges, SimpleChange
 import { CommonService } from 'src/app/services/common.service';
 import { staticValue } from 'src/app/constants/constant';
 import { outputAst } from '@angular/compiler';
+import { AppCacheService } from 'src/app/services/app.cache.service';
 
 @Component({
   selector: 'app-pagination',
@@ -12,8 +13,8 @@ import { outputAst } from '@angular/compiler';
 export class PaginationComponent implements OnInit, OnChanges {
 
   @Input() currentDataSet: Array<any>;
-  totalNoOfPage : number = 0;
-  currentPage: number = 1;
+  totalNoOfPage : number = staticValue.totalNoOfPage;
+  currentPage: number = staticValue.currentPage;
   perPageSelection: number = staticValue.paginationPerPageConstant;
   @Output() perPageSelectionChangedEvent = new EventEmitter<any>();
   @Output() paginationButtonChangedEvent = new EventEmitter<any>();
@@ -24,9 +25,10 @@ export class PaginationComponent implements OnInit, OnChanges {
     last: false
   };
 
-  perPageOptions = [5,10,15,20];
+  perPageOptions = staticValue.perPageOptions;
 
-  constructor(private commonService: CommonService) { }
+  constructor(private commonService: CommonService,
+              public appCacheService: AppCacheService) { }
 
   ngOnInit(): void {
     this.pageCalculation();

@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { AppCacheService } from 'src/app/services/app.cache.service';
 
 @Component({
   selector: 'app-page-not-found',
@@ -7,7 +8,7 @@ import { Component, OnInit } from '@angular/core';
 })
 export class PageNotFoundComponent implements OnInit {
 
-  constructor() { }
+  constructor(public appCacheService: AppCacheService) { }
 
   ngOnInit(): void {
   }

@@ -1,6 +1,8 @@
 import { Component, OnInit, EventEmitter } from '@angular/core';
 import { BsModalRef } from 'ngx-bootstrap/modal';
 import { FormGroup, FormBuilder, Validators} from '@angular/forms';
+import { AppCacheService } from 'src/app/services/app.cache.service';
+import { StaticMsg } from 'src/app/constants/constant';
 
 @Component({
   selector: 'app-order-status-change',
@@ -10,14 +12,15 @@ import { FormGroup, FormBuilder, Validators} from '@angular/forms';
 
 export class OrderStatusChangeComponent implements OnInit {
 
-  title?: string = 'Order Status Change';
-  currectStatus: string = 'ordered';
+  title?: string;
+  currectStatus: string = StaticMsg.admin_orderedKeyStatus;
   availableStatus: any[];
   statusChangeEvent = new EventEmitter<any>();
   statusChange: FormGroup;
 
   constructor(public bsModalRef: BsModalRef,
-              private fb : FormBuilder) { }
+              private fb : FormBuilder,
+              public appCacheService: AppCacheService) { }
 
   ngOnInit(): void {
     this.setAvailableStatus();
@@ -25,11 +28,11 @@ export class OrderStatusChangeComponent implements OnInit {
   }
 
   setAvailableStatus(): void{
-    if(this.currectStatus == 'ordered'){
-      this.availableStatus = [{key: 'intrans', value: 'In-Transit'},{key: 'delivered', value: 'Delivered'}];
+    if(this.currectStatus == StaticMsg.admin_orderedKeyStatus){
+      this.availableStatus = [{key: StaticMsg.admin_inTransKeyStatus, value: StaticMsg.admin_inTransStatus},{key: StaticMsg.admin_deliveredKeyStatus, value: StaticMsg.admin_deliveredStatus}];
     }
     else{
-      this.availableStatus = [{key: 'delivered', value: 'Delivered'}];
+      this.availableStatus = [{key: StaticMsg.admin_deliveredKeyStatus, value: StaticMsg.admin_deliveredStatus}];
     }
   }
 

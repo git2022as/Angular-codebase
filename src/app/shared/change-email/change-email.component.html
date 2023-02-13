@@ -11,9 +11,9 @@
 <div class="modal-body">
     <form [formGroup]="changeEmailForm" (keydown.enter)="changeEmail(changeEmailForm)">
         <mat-form-field class="modal-form">
-            <mat-label>New Email</mat-label>
+            <mat-label>{{appCacheService._content.newEmailText}}</mat-label>
             <input matInput type="text" name="newEmail" formControlName="newEmail">
-            <button matSuffix mat-icon-button aria-label="Clear" style="color: deeppink" tooltip="Enter valid email like test@test.com" placement="auto" (click)="commonService.clickDisabled($event)">
+            <button matSuffix mat-icon-button aria-label="Clear" style="color: deeppink" tooltip="{{appCacheService._content.newEmailTooltip}}" placement="auto" (click)="commonService.clickDisabled($event)">
                 <mat-icon>info</mat-icon>
             </button>
             <button *ngIf="changeEForm.newEmail.value != ''" matSuffix mat-icon-button aria-label="Clear" (click)="setValue('newEmail')">
@@ -25,9 +25,9 @@
 </div>
 <div class="modal-footer">
     <div>
-        <button mat-raised-button style="margin-right: 1rem" color="primary" (click)="changeEmail(changeEmailForm)" [disabled]="changeEmailForm.invalid">change email</button>
+        <button mat-raised-button style="margin-right: 1rem" color="primary" (click)="changeEmail(changeEmailForm)" [disabled]="changeEmailForm.invalid">{{appCacheService._content.changeEmailButton}}</button>
     </div>
     <div>
-        <button mat-raised-button style="margin-right: 1rem" color="primary" (click)="bsModalRef.hide()">Cancel</button>
+        <button mat-raised-button style="margin-right: 1rem" color="primary" (click)="bsModalRef.hide()">{{appCacheService._content.cancelButton}}</button>
     </div>
 </div>

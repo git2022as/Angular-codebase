@@ -11,7 +11,7 @@ export class OffersComponent implements OnInit {
 
   offerDetails: Array<any> = [];
   cartValue: number = null;
-  constructor(private appCacheService: AppCacheService) { }
+  constructor(public appCacheService: AppCacheService) { }
 
   ngOnInit(): void {
     this.offerDetails = this.appCacheService._offersDetails;

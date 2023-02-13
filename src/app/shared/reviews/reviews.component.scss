@@ -25,10 +25,20 @@
 
 .finalrating{
     font-size: 14px;
-    padding: 2px;
+    padding: 5px;
     font-weight: 700;
     color: $white;
-    width: auto;
-    height: 23px;
+    width: 30px;
+    height: auto;
     text-align: center;
+}
+
+.individualrating{
+    font-size: 14px;
+    padding: 5px;
+    font-weight: 700;
+    width: auto;
+    height: auto;
+    text-align: center;
+    border-radius: 13px;
 }

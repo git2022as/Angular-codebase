@@ -21,6 +21,6 @@
 </div>
 <div class="modal-footer">
     <!--angular material button used inside ngx-bootstrap-->
-    <button mat-raised-button style="margin-right: 1rem" color="primary" [disabled]="statusChange.invalid" (click)="changeStatus()">Change Status</button>
-    <button mat-raised-button (click)="bsModalRef.hide()">Cancel</button>
+    <button mat-raised-button style="margin-right: 1rem" color="primary" [disabled]="statusChange.invalid" (click)="changeStatus()">{{appCacheService._content.changeStatusButton}}</button>
+    <button mat-raised-button (click)="bsModalRef.hide()">{{appCacheService._content.cancelButton}}</button>
 </div>

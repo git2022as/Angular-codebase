@@ -1,4 +1,5 @@
 import { Component, Input, Output, EventEmitter } from '@angular/core';
+import { AppCacheService } from 'src/app/services/app.cache.service';
 
 @Component({
   selector: 'app-order-view',
@@ -11,6 +12,8 @@ export class OrderViewComponent {
   @Input() productDetails: any;
   @Input() editMode: boolean = false;
   @Output() editOrderEvent = new EventEmitter<any>();
+
+  constructor(public appCacheService: AppCacheService) {}
 
   editOrder(order: any){
     this.editOrderEvent.emit(order);

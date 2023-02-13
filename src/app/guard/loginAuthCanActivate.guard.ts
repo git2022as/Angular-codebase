@@ -15,7 +15,8 @@ export class LoginAuthCanActivateGuardService implements CanActivate{
                 private commonService: CommonService) {}
 
     canActivate(route: ActivatedRouteSnapshot, state: RouterStateSnapshot): boolean {
-        if(this.appCacheService._loggedInUser){
+        const userdata = JSON.parse(localStorage.getItem('userData'));
+        if(userdata){
             return true;
         }
         else{

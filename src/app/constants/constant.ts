@@ -27,7 +27,15 @@ export const StaticMsg = {
     admin_data_added: "has been added",
     admin_data_duplicate: "Duplicate item, please add a new item",
     admin_data_deleted: "has been deleted",
-    admin_table_header_sort_tooltip: "Click on header to sort the respective column data"
+    admin_table_header_sort_tooltip: "Click on header to sort the respective column data",
+    admin_orderedKeyStatus: "ordered",
+    admin_inTransStatus: "In-Transit",
+    admin_inTransKeyStatus: "In-Transit",
+    admin_deliveredStatus: "Delivered",
+    admin_deliveredKeyStatus: "delivered",
+    calorie_lable: "Calorie Details (in mg)",
+    calorie_chart_type: "doughnut",
+    pin_available_success: "Delivery is available to this location"
 } as const;
 
 export const admin_headers = {
@@ -47,6 +55,17 @@ export const staticValue = {
     caouselInterval: 2000,
     passwordMaxLength: 10,
     passwordMinLength: 6,
+    timeForMsg: 2000,
+    govtTaxPackage: 0,
+    appDiscountAmount: 0,
+    totalNoOfPage: 0,
+    currentPage: 1,
+    perPageOptions: [5,10,15,20],
+    mapZoom: 4,
+    calorieHoverOffset: 4,
+    maxPin: 5,
+    minPin: 5,
+    offersAvailableCount: 0,
     chartBackgroudColor: [
         'rgb(255, 99, 132)',
         'rgb(54, 162, 235)',
@@ -102,7 +121,13 @@ export const errorMessages = {
     invalidUPI: "Please provide a correct UPI ID",
     invalidCard: "Please provide 16 digits card number",
     invalidCardExpiry: "Please provide proper card expiry details",
-    invalidCardCvv: "Please provide 3 digits card CVV details"
+    invalidCardCvv: "Please provide 3 digits card CVV details",
+    ratingRequired: "Select a rating from 1 to 5",
+    commentRequired: "Enter a valid review/comment",
+    pincodeRequired: "Enter a 5 digits pincode in number only",
+    adminLoginError: "Admin login failed, please check credentials.",
+    adminLoginRequired: "Enter a valid user name",
+    paymentDeliveryAddRequired: "Select the delivery address"
 }
 
 export const city = [

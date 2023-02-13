@@ -2,6 +2,8 @@ import { Component, OnInit, EventEmitter } from '@angular/core';
 import { NgForm } from '@angular/forms';
 import { Router } from '@angular/router';
 import { BsModalRef } from 'ngx-bootstrap/modal';
+import { AppCacheService } from 'src/app/services/app.cache.service';
+import { errorMessages } from 'src/app/constants/constant';
 
 @Component({
   selector: 'app-admin-login-modal',
@@ -12,13 +14,15 @@ export class AdminLoginModalComponent implements OnInit {
 
   adminUserName: string;
   adminPassword: string;
-  title?: string = 'Admin Modal';
+  title?: string;
   adminAuthFailedMsg: string = "";
   adminAuthFailedStatus: boolean = false; //false means SUCCESS & true means TRUE
+  errorMessages = errorMessages;
   adminLoginClicked = new EventEmitter<any>();
 
   constructor(private router: Router,
-              public bsModalRef: BsModalRef) { }
+              public bsModalRef: BsModalRef,
+              public appCacheService: AppCacheService) { }
 
   ngOnInit(): void {
   }
@@ -31,7 +35,7 @@ export class AdminLoginModalComponent implements OnInit {
       this.adminLoginClicked.emit(true);
     }
     else{
-      this.adminAuthFailedMsg = "Login failed, please check credentials.";
+      this.adminAuthFailedMsg = errorMessages.adminLoginError;
       this.adminAuthFailedStatus = true;
     }
   }

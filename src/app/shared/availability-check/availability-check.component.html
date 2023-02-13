@@ -1,14 +1,14 @@
 <div class="avl_check">
     <div>
         <mat-form-field>
-            <mat-label>Pincode</mat-label>
+            <mat-label>{{appCacheService._content.pincodeText}}</mat-label>
             <input matInput type="text" ngModel maxlength="5" minlength="5" #pin="ngModel" name="pincode" [(ngModel)]="pincode" pattern="[0-9]+$" [required]=true>
             <button *ngIf="pincode" matSuffix mat-icon-button aria-label="Clear" (click)="pincode=null;pincodeChecked=false;">
                 <mat-icon>close</mat-icon>
             </button>
-            <mat-error *ngIf="pin.touched && pin.invalid">Enter 5 digits number only</mat-error>
+            <mat-error *ngIf="pin.touched && pin.invalid">{{errorMessages.pincodeRequired}}</mat-error>
         </mat-form-field>
         <div *ngIf="pincodeChecked && pincode != null" [ngClass]="{'success' : pincodeChecked && pincodeSuccess, 'error': pincodeChecked && !pincodeSuccess}">{{pinMessage}}</div>
     </div>
-    <button mat-raised-button [disabled]="pin.invalid" class="check-button" color="primary" (click)="check(pincode)">Check Availability</button>
+    <button mat-raised-button [disabled]="pin.invalid" class="check-button" color="primary" (click)="check(pincode)">{{appCacheService._content.checkAvlButton}}</button>
 </div>

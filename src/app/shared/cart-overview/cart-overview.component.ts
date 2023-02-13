@@ -18,8 +18,6 @@ export class CartOverviewComponent implements OnInit {
 
   @Input() cartDetails: any;
   @Input() productDetails: any;
-  durationStaysInSeconds = 5000;
-
   @Output() cartAddRemoveEvent = new EventEmitter<any>();
   @Output() cartTotalEvent = new EventEmitter<any>();
 
@@ -29,7 +27,7 @@ export class CartOverviewComponent implements OnInit {
               private bsModalRef: BsModalRef,
               private bsModalService: BsModalService,
               private commonService: CommonService,
-              private appCacheService: AppCacheService,
+              public appCacheService: AppCacheService,
               private authService: AuthService,
               private router: Router) { }
 

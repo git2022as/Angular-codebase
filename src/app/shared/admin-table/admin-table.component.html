@@ -28,9 +28,9 @@
 </div>
 <ng-template #no_data_to_display>
     <div *ngIf="_filterDataText != ''">
-        <span style="font-size: 14px;color: red">No result found for "{{filterDataText}}"</span>
+        <span style="font-size: 14px;color: red">{{appCacheService._content.adminSearchNotFoundText}}"{{filterDataText}}"</span>
     </div>
     <div *ngIf="_filterDataText == ''">
-        <span style="font-size: 14px;color:red">Please add data for this section</span>
+        <span style="font-size: 14px;color:red">{{appCacheService._content.adminSearchNoData}}</span>
     </div>
 </ng-template>

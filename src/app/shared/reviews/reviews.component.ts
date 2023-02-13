@@ -4,7 +4,7 @@ import { DishService } from 'src/app/dish/dish.service';
 import { AppCacheService } from 'src/app/services/app.cache.service';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { CommonService } from 'src/app/services/common.service';
-import { StaticMsg } from '../../constants/constant';
+import { StaticMsg, errorMessages } from '../../constants/constant';
 import { mergeMap, take, tap, map } from 'rxjs/operators';
 import { ShortMessageComponent } from '../short-message/short-message.component';
 import { ActivatedRoute } from '@angular/router';
@@ -27,6 +27,7 @@ export class ReviewsComponent implements OnInit {
   overallRating: any;
   showCancelButton: boolean = false;
   reviewId: string = "";
+  errorMessages = errorMessages;
 
   @ViewChild("shortMessage", {read: ViewContainerRef}) shortMessage: ViewContainerRef;
 
@@ -225,6 +226,10 @@ export class ReviewsComponent implements OnInit {
     this.overallRating = this.utilityService.checkOverallRating(this.allReviews);
     this.latestWholeRating = this.utilityService.checkWholeRating(this.overallRating);
     this.latestFractionalRating = this.utilityService.checkFractionalRating(this.overallRating);
+  }
+
+  convertRatingToArray(rating: number): Array<any>{
+    return Array(rating).fill(1);
   }
 
 }

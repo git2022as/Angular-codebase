@@ -16,7 +16,9 @@ export class PaymentModuleAuthenticationGuardService implements CanActivate {
                 private commonService: CommonService){}
 
     canActivate(route: ActivatedRouteSnapshot, state: RouterStateSnapshot): boolean {
-        if(this.appCacheService._loggedInUser && this.appCacheService._cartDetails.length > 0){
+        const userdata = JSON.parse(localStorage.getItem('userData'));
+        const cartData = JSON.parse(localStorage.getItem('cartData'));
+        if(userdata && cartData){
             return true;
         }
         else{

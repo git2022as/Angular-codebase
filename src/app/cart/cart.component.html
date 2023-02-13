@@ -1,55 +1,57 @@
 <!--html + css + bootstrap => CART -->
 <!--without angular material & ngx-bootstrap -->
 <div class="container">
-    <div class="mt-5 mb-5 heading" style="text-align: center;"><h3>Your Cart</h3></div>
+    <div class="mt-5 mb-5 heading" style="text-align: center;"><h3>{{appCacheService._content.cartHeading}}</h3></div>
     <ng-container *ngIf="cartAvailable, else no_cart">
         <app-cart-overview [cartDetails]="cartDetails" [productDetails]="productDetails" (cartAddRemoveEvent)="showShortMsg($event)" (cartTotalEvent)="_cartTotalEvent($event)"></app-cart-overview>
         <div class="cartAmountSection row m-0 mb-2">
             <div class="cartReady p-2">
-                Bill Details
+                {{appCacheService._content.billDetailsText}}
             </div>
             <div class="cartValue col-md-6 col-xs-12 p-3">
                 <div class="row m-0 cart-sub-parent">
-                    <div class="cart-sub-details">Item Total</div>
+                    <div class="cart-sub-details">{{appCacheService._content.totalCartValueText}}</div>
                     <div class="cart-sub-details">{{cartObj.totalCartValue}}</div>
                 </div>
                 <div class="row m-0 cart-sub-parent">
-                    <div class="cart-sub-details">Delivery Fee
-                        <mat-icon tooltip="Delivery charges will be FREE above 500 INR order, else 50 INR is needed" placement="auto" style="font-size: 13px;">info</mat-icon>
+                    <div class="cart-sub-details">{{appCacheService._content.deliverChargeText}}
+                        <mat-icon tooltip="{{appCacheService._content.deliveryChargeTooltip}}" placement="auto" style="font-size: 13px;">info</mat-icon>
                     </div>
                     <div class="cart-sub-details" [ngStyle]="{'color': cartObj.deliveryFree ? 'green' : 'inherit'}">{{cartObj.deliveryAmount}}</div>
                 </div>
                 <div class="row m-0 cart-sub-parent">
-                    <div class="cart-sub-details">Govt Taxes & Packaging Charges</div>
+                    <div class="cart-sub-details">{{appCacheService._content.govtTaxPackText}}</div>
                     <div class="cart-sub-details">{{cartObj.govtTaxPackage}}</div>
                 </div>
                 <div class="row m-0 cart-sub-parent" *ngIf="showAppDiscount">
-                    <div class="cart-sub-details">Discounts
+                    <div class="cart-sub-details">{{appCacheService._content.discountsText}}
                         <mat-icon [tooltip]="showAppDiscountTooltip" placement="auto" style="font-size: 13px;">info</mat-icon>
                     </div>
                     <div class="cart-sub-details">{{cartObj.appDiscountAmount}}</div>
                 </div>
                 <hr style="border-top: 1.5px solid black;margin-bottom: 0px;">
                 <div class="row m-0 cart-sub-parent mt-3">
-                    <div class="cart-sub-details-bold">TO PAY</div>
+                    <div class="cart-sub-details-bold">{{appCacheService._content.finalPayText}}</div>
                     <div class="cart-sub-details-bold">{{cartObj.finalPay}}</div>
                 </div>
                 <hr style="border-top: 1.5px solid black;margin-bottom: 0px;">
                 <div class="mt-2">
-                    <button mat-raised-button color="primary" class="product-button" (click)="goToPayment()">PAY</button>
+                    <button mat-raised-button color="primary" class="product-button" (click)="goToPayment()">{{appCacheService._content.payButton}}</button>
                 </div>
             </div>
             <div class="cartCoupon col-md-6 col-xs-12 p-3">
-                <div style="font-size: 13px;">Apply from these <span couponPinkColor *ngIf="coupons && coupons.length > 0">COUPONS</span> to get more discounts</div>
-                <mat-radio-group
-                aria-labelledby="coupon-radio-group-label"
-                class="coupon-radio-group"
-                [(ngModel)]="selectedCoupon" *ngIf="coupons && coupons.length > 0">
-                    <mat-radio-button (change)="applySiteCoupon($event.value)" [checked]="selectedCoupon == cou.couponCode" *ngFor="let cou of coupons" [value]="cou.couponCode">
-                        <span style="white-space: normal;"><span couponPinkColor>{{cou.couponCode}}</span> - {{cou.couponDescription}}</span>
-                    </mat-radio-button>
-                </mat-radio-group>
-                <div *ngIf="coupons && coupons.length == 0">No Coupon is avaiable right now.</div>
+                <div *ngIf="coupons && coupons.length > 0;else noCoupon">
+                    <div style="font-size: 13px;font-weight: 600;">{{appCacheService._content.couponHeadingText}}</div>
+                    <mat-radio-group
+                    aria-labelledby="coupon-radio-group-label"
+                    class="coupon-radio-group"
+                    [(ngModel)]="selectedCoupon" *ngIf="coupons && coupons.length > 0">
+                        <mat-radio-button (change)="applySiteCoupon($event.value)" [checked]="selectedCoupon == cou.couponCode" *ngFor="let cou of coupons" [value]="cou.couponCode">
+                            <span style="white-space: normal;"><span couponPinkColor>{{cou.couponCode}}</span> - {{cou.couponDescription}}</span>
+                        </mat-radio-button>
+                    </mat-radio-group>
+                </div>
+                <ng-template #noCoupon>{{appCacheService._content.couponNotAvailableText}}</ng-template>
             </div>
         </div>
         <div #shortContainer></div>

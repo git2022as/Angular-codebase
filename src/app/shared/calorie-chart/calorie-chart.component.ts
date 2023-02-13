@@ -1,6 +1,6 @@
 import { Component, OnInit, ViewChild, AfterViewInit, Input } from '@angular/core';
 import { Chart, BarElement, BarController, CategoryScale, Decimation, Filler, Legend, Title, Tooltip, LinearScale, DoughnutController, ArcElement} from 'chart.js';
-import { staticValue } from 'src/app/constants/constant';
+import { staticValue, StaticMsg } from 'src/app/constants/constant';
 
 @Component({
   selector: 'app-calorie-chart',
@@ -16,10 +16,10 @@ export class CalorieChartComponent implements OnInit, AfterViewInit {
   data = {
     labels: [],
     datasets: [{
-      label: 'Calorie Details (in mg)',
+      label: StaticMsg.calorie_lable,
       data: [],
       backgroundColor: [],
-      hoverOffset: 4
+      hoverOffset: staticValue.calorieHoverOffset
     }]
   };
   constructor() {
@@ -47,7 +47,7 @@ export class CalorieChartComponent implements OnInit, AfterViewInit {
   ngAfterViewInit(): void {
     this.canvas = this.myChart.nativeElement.getContext('2d');
     new Chart(this.canvas, {
-      type: 'doughnut',
+      type: StaticMsg.calorie_chart_type,
       data: this.data
     });
   }

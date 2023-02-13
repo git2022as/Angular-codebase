@@ -19,18 +19,18 @@ export class CartComponent implements OnInit, OnDestroy {
 
   @ViewChild("shortContainer", { read: ViewContainerRef }) shortContainer: any = ViewContainerRef;
   cartAvailable: boolean = false;
-  timeForMsg: number = 2000;
+  timeForMsg: number = staticValue.timeForMsg;
   deliveryAmount: number = staticValue.deliveryCharge;
   cartObj : any;
   totalCartValue: number;
   deliveryFree: boolean = false;
-  govtTaxPackage: number = 0;
+  govtTaxPackage: number = staticValue.govtTaxPackage;
   packagingCharge: number = staticValue.packagingCharge;
   productDetails: Array<any> = [];
   cartDetails : Array<any> = [];
   selectedCoupon: string = "";
   coupons: Array<any>;
-  appDiscountAmount: number = 0;
+  appDiscountAmount: number = staticValue.appDiscountAmount;
   showAppDiscount: boolean = false;
   showAppDiscountTooltip : string = "";
   manualCouponCode: string = "";
@@ -39,7 +39,7 @@ export class CartComponent implements OnInit, OnDestroy {
   couponSubscription: Subscription | undefined;
   constructor(private dataService: DataService,
               private utilityService: UtilityService,
-              private appCacheService: AppCacheService,
+              public appCacheService: AppCacheService,
               private router: Router,
               private adminService: AdminService) { }
 
@@ -69,6 +69,10 @@ export class CartComponent implements OnInit, OnDestroy {
     this.cartDetails = this.appCacheService._cartDetails;
     this.productDetails = this.appCacheService._dishesDetails;
     this.selectedCoupon = this.appCacheService._appliedCoupon;
+    if(this.selectedCoupon != ""){
+      this.showAppDiscount = true;
+      this.showAppDiscountTooltip = `${this.selectedCoupon} is applied`;
+    }
     if(this.cartDetails.length > 0){
       this.cartAvailable = true;
       this.cartObj = this.utilityService.calculateCartValue(this.cartDetails,this.selectedCoupon); 

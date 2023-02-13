@@ -15,7 +15,7 @@ import { AppCacheService } from 'src/app/services/app.cache.service';
 })
 export class ChangePasswordComponent implements OnInit, OnDestroy {
 
-  title?: string = "Change Password";
+  title?: string;
   changePasswordForm: FormGroup;
   errorMessages = errorMessages;
   isVisibility: boolean = true;
@@ -28,7 +28,7 @@ export class ChangePasswordComponent implements OnInit, OnDestroy {
               public bsModalRef: BsModalRef,
               public commonService: CommonService,
               private fb: FormBuilder,
-              private appCacheService: AppCacheService) { }
+              public appCacheService: AppCacheService) { }
 
   ngOnInit(): void {
     this.createChangePasswordForm();

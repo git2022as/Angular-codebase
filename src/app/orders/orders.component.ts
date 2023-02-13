@@ -3,7 +3,6 @@ import { Subscription } from 'rxjs';
 import { AppCacheService } from '../services/app.cache.service';
 import { CommonService } from '../services/common.service';
 import { map } from 'rxjs/operators';
-import { databaseInstance$ } from '@angular/fire/database';
 
 @Component({
   selector: 'app-orders',
@@ -16,7 +15,7 @@ export class OrdersComponent implements OnInit, OnDestroy {
   orders: any[];
   orderAvailable: boolean = false;
   productDetails: any;
-  constructor(private appCacheService: AppCacheService,
+  constructor(public appCacheService: AppCacheService,
               private commonService: CommonService) {}
 
   ngOnInit(): void {

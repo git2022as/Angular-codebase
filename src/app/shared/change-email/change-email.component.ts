@@ -3,7 +3,6 @@ import { AuthService } from 'src/app/services/auth.service';
 import { BsModalRef } from 'ngx-bootstrap/modal';
 import { CommonService } from 'src/app/services/common.service';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
-import { customValidator } from 'src/app/validator/custom.validator';
 import { errorMessages } from 'src/app/constants/constant';
 import { Subscription } from 'rxjs';
 import { AppCacheService } from 'src/app/services/app.cache.service';
@@ -15,7 +14,7 @@ import { AppCacheService } from 'src/app/services/app.cache.service';
 })
 export class ChangeEmailComponent implements OnInit, OnDestroy{
 
-  title?: string = "Change Email";
+  title?: string;
   changeEmailForm: FormGroup;
   errorMessages = errorMessages;
   changeEmailSubscription: Subscription | undefined;
@@ -25,7 +24,7 @@ export class ChangeEmailComponent implements OnInit, OnDestroy{
               public bsModalRef: BsModalRef,
               public commonService: CommonService,
               private fb: FormBuilder,
-              private appCacheService: AppCacheService) { }
+              public appCacheService: AppCacheService) { }
 
   ngOnInit(): void {
     this.createChangeEmailForm();

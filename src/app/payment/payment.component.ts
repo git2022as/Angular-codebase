@@ -2,7 +2,7 @@ import { Component, OnInit, ViewChild, OnDestroy } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { AppCacheService } from '../services/app.cache.service';
 import { UtilityService } from '../services/utility.service';
-import { errorMessages } from '../constants/constant';
+import { errorMessages, staticValue } from '../constants/constant';
 import { CommonService } from '../services/common.service';
 import { NgForm } from '@angular/forms';
 import { Router } from '@angular/router';
@@ -33,7 +33,7 @@ export class PaymentComponent implements OnInit, OnDestroy {
   cardExpiryValue: number = null;
   cardCvvValue: number = null;
   offerApplied: boolean = false;
-  offersAvailableCount: number = 0; 
+  offersAvailableCount: number = staticValue.offersAvailableCount; 
   offerAppliedCode: string = "";
   offerDiscount: number = null;
   deliverAddressSubscription: Subscription | undefined;
@@ -46,7 +46,7 @@ export class PaymentComponent implements OnInit, OnDestroy {
   @ViewChild('deliverAddressForm', {read: NgForm}) deliverAddressForm: any;
 
   constructor(private activatedRoute: ActivatedRoute,
-              private appCacheService: AppCacheService,
+              public appCacheService: AppCacheService,
               private utilityService: UtilityService,
               public commonService: CommonService,
               private router: Router,

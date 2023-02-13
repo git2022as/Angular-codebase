@@ -1,6 +1,6 @@
 <div class="mt-3 mb-3">
     <div class="pagination p-2">
-        <div class="col-3 pl-0">Items per page:</div>
+        <div class="col-3 pl-0">{{appCacheService._content.itemPerPageText}}:</div>
         <div class="col-5 pl-0">
             <mat-form-field appearance="fill" class="pagination-select">
                 <mat-select [(ngModel)]="perPageSelection" (selectionChange)="perSelectionChange($event)" name="perPageSelection">

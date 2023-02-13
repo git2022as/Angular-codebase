@@ -1,6 +1,7 @@
 import { Component, OnInit, Input, OnChanges, SimpleChanges, Output, EventEmitter } from '@angular/core';
 import { StaticMsg } from 'src/app/constants/constant';
 import { CommonService } from 'src/app/services/common.service';
+import { AppCacheService } from 'src/app/services/app.cache.service';
 
 @Component({
   selector: 'app-admin-table',
@@ -24,7 +25,8 @@ export class AdminTableComponent implements OnInit, OnChanges {
   tableHeaderClickedPattern: boolean = true;//ascending
   staticMsg = StaticMsg;
 
-  constructor(public commonService: CommonService) { }
+  constructor(public commonService: CommonService,
+              public appCacheService: AppCacheService) { }
 
   ngOnInit(): void {
     this._adminTableDataSet = this.adminTableDataSet;

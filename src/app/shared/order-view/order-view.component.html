@@ -3,31 +3,31 @@
         <div class="order-overview p-2 m-0">
             <div class="order-cart-overview">
                 <div class="mb-3 mr-3" *ngFor="let cart of order.cartDetails; let j = index;">
-                    <img src="{{cart?.id | cartImage : productDetails}}" class="cart-image" alt="{{cart?.id | cartImageAlt : productDetails}}" [routerLink]= "['/dish/', cart.id]" tooltip="click to go back to dish details page" placement="auto">
+                    <img src="{{cart?.id | cartImage : productDetails}}" class="cart-image" alt="{{cart?.id | cartImageAlt : productDetails}}" [routerLink]= "['/layout/dish/', cart.id]" tooltip="{{appCacheService._content.backToDishTooltip}}" placement="auto">
                     <div style="text-align: center;">
-                        <span style="color: #3f51b5;font-size: 13px;font-weight: 600;cursor: pointer;text-decoration: underline;" tooltip="click to go back to dish details page" placement="auto" [routerLink]= "['/dish/', cart.id]">{{cart?.id | cartName : productDetails}}</span>
+                        <span style="color: #3f51b5;font-size: 13px;font-weight: 600;cursor: pointer;text-decoration: underline;" tooltip="{{appCacheService._content.backToDishTooltip}}" placement="auto" [routerLink]= "['/layout/dish/', cart.id]">{{cart?.id | cartName : productDetails}}</span>
                     </div>
-                    <div style="text-align: center;">
-                        <span class="orderSecondaryDesc">Quantity: {{cart?.quantity}}</span>
+                    <div style="text-align: center;"> 
+                        <span class="orderSecondaryDesc">{{appCacheService._content.quantityText}}: {{cart?.quantity}}</span>
                     </div>
                 </div>
             </div>
             <div class="order-cart-price-delivery-overview mt-2">
                 <div class="order-cart-price mb-3">
-                    <div style="text-decoration: underline; color: deeppink; font-weight: 600; font-size: 14px; margin-bottom: 5px;">Amount Section</div>
-                    <div class="orderSecondaryDesc">Total Cart Value: {{order?.cartPrice?.totalCartValue}}</div>
-                    <div class="orderSecondaryDesc">Delivery Charge: {{order?.cartPrice?.deliveryAmount}}</div>
-                    <div class="orderSecondaryDesc">Govt. Taxes & Packaging Charges: {{order?.cartPrice?.govtTaxPackage}}</div>
-                    <div class="orderSecondaryDesc">Order Mode: {{order?.paymentsection}}</div>
-                    <div class="orderSecondaryDesc" style="font-size: 18px;color: #3f51b5;">Final Pay: {{order?.cartPrice?.finalPay}}</div>
+                    <div style="text-decoration: underline; color: deeppink; font-weight: 600; font-size: 14px; margin-bottom: 5px;">{{appCacheService._content.amountSectionText}}</div>
+                    <div class="orderSecondaryDesc">{{appCacheService._content.totalCartValueText}}: {{order?.cartPrice?.totalCartValue}}</div>
+                    <div class="orderSecondaryDesc">{{appCacheService._content.deliverChargeText}}: {{order?.cartPrice?.deliveryAmount}}</div>
+                    <div class="orderSecondaryDesc">{{appCacheService._content.govtTaxPackText}}: {{order?.cartPrice?.govtTaxPackage}}</div>
+                    <div class="orderSecondaryDesc">{{appCacheService._content.orderModeText}}: {{order?.paymentsection}}</div>
+                    <div class="orderSecondaryDesc" style="font-size: 18px;color: #3f51b5;">{{appCacheService._content.finalPayText}}: {{order?.cartPrice?.finalPay}}</div>
                 </div>
                 <div class="order-cart-price mb-3">
-                    <div style="text-decoration: underline; color: deeppink; font-weight: 600; font-size: 14px; margin-bottom: 5px;">Time Section</div>
-                    <div class="orderSecondaryDesc">Order Time: {{order?.orderTime}}</div>
-                    <div class="orderSecondaryDesc">Delivery Time: {{order?.deliveryTime}}</div>
+                    <div style="text-decoration: underline; color: deeppink; font-weight: 600; font-size: 14px; margin-bottom: 5px;">{{appCacheService._content.timeSectionText}}</div>
+                    <div class="orderSecondaryDesc">{{appCacheService._content.orderTimeText}}: {{order?.orderTime}}</div>
+                    <div class="orderSecondaryDesc">{{appCacheService._content.deliveryTimeText}}: {{order?.deliveryTime}}</div>
                 </div>
                 <div class="order-cart-delivery mb-3">
-                    <div style="text-decoration: underline; color: deeppink; font-size: 14px; font-weight: 600; margin-bottom: 5px;">Delivery Address Section</div>
+                    <div style="text-decoration: underline; color: deeppink; font-size: 14px; font-weight: 600; margin-bottom: 5px;">{{appCacheService._content.deliveryAddSectionText}}</div>
                     <div class="orderSecondaryDesc">{{order?.deliveryAddress?.street}}</div>
                     <div class="orderSecondaryDesc">{{order?.deliveryAddress?.city}} - {{order?.deliveryAddress?.pincode}}</div>
                     <div class="orderSecondaryDesc">{{order?.deliveryAddress?.state}}</div>
@@ -35,7 +35,7 @@
             </div>
             <div class="order-status-overview mt-2">
                 <div style="text-decoration: underline; color: deeppink; font-size: 14px; font-weight: 600; margin-bottom: 5px;">
-                    Order Delivery Status
+                    {{appCacheService._content.orderDeliveryStatus}}
                     <span class="material-icons" *ngIf="editMode" style="color:white;margin:2px; font-size: 20px;background-color: #3f51b5;border-radius: 50%;padding: 2px;cursor: pointer;" (click)="editOrder(order)"> 
                         edit
                     </span>
@@ -48,13 +48,13 @@
                 </mat-progress-bar>
                 <div class="row mb-3">
                     <div class="col-4 order-progressbar-status" *ngIf="order?.orderStatus == 'ordered'">
-                        Ordered
+                        {{appCacheService._content.orderedText}}
                     </div>
                     <div class="col-8 order-progressbar-status" *ngIf="order?.orderStatus == 'intrans'">
-                        In-Transit
+                        {{appCacheService._content.inTransText}}
                     </div>
                     <div class="col-12 order-progressbar-status" *ngIf="order?.orderStatus == 'delivered'">
-                        Delivered
+                        {{appCacheService._content.deliveredText}}
                     </div>
                 </div>
             </div>

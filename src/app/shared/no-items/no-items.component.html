@@ -1,7 +1,7 @@
 <div class="no_cart-section">
     <mat-icon style="font-size: 70px;height: 80px; width: 65px;color: #3f51b5">remove_shopping_cart</mat-icon>
-    <div class="mb-4" style="font-size: 18px;"><b>Your {{section}} is empty</b></div>
+    <div class="mb-4" style="font-size: 18px;"><b>{{appCacheService._content.noItemsHeading1}}{{section}}{{appCacheService._content.noItemsHeading2}}</b></div>
     <div style="text-align: center; font-size: 14px;">
-        looks like you have not added anything to your {{section}}. Go ahead & order best qualities Kebab.
+        {{appCacheService._content.noItems1}}{{section}}{{appCacheService._content.noItems2}}
     </div>
 </div>
