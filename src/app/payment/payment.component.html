@@ -83,11 +83,11 @@
             </div>
         </div>
         <ng-template #no_delivery_address>
-            <span style="font-size: 14px;color: orange;padding:5px">
+            <span style="font-size: 12px;padding:5px">
                 {{appCacheService._content.noDeliveryAddText}}
             </span>
-            <span class="ml-md-3" style="padding: 5px;text-decoration: underline;color: deeppink;cursor: pointer;font-size: 12px;" (click)="addProfile()">
-                {{appCacheService._content.addAddressButton}}
+            <span class="ml-md-3" style="padding: 5px;text-decoration: underline;color: deeppink;cursor: pointer;font-size: 12px;font-weight: 700;" (click)="addProfile()">
+                {{appCacheService._content.addDeliveryAddButton}}
             </span>
         </ng-template>
     </div>
@@ -145,7 +145,7 @@
                             </div>
                         </form>
                         <div class="mt-2">
-                            <button mat-raised-button color="primary" [disabled]="cardForm.invalid ||deliverAddressForm.invalid || !dAddressAvailable" class="payment-button" (click)="confirmPayment('card')">{{appCacheService._content.paymentButton}}</button>
+                            <button mat-raised-button color="primary" [disabled]="!dAddressAvailable || cardForm.invalid ||deliverAddressForm.invalid" class="payment-button" (click)="confirmPayment('card')">{{appCacheService._content.paymentButton}}</button>
                         </div>
                     </div>
                     <div class="payment-mode-section" *ngIf="paymentMode == 'upi'">
@@ -163,7 +163,7 @@
                             </mat-form-field>
                         </form>
                         <div class="mt-2">
-                            <button mat-raised-button color="primary" [disabled]="upiForm.invalid || deliverAddressForm.invalid || !dAddressAvailable" class="payment-button" (click)="confirmPayment('upi')">{{appCacheService._content.paymentButton}}</button>
+                            <button mat-raised-button color="primary" [disabled]="!dAddressAvailable || upiForm.invalid || deliverAddressForm.invalid" class="payment-button" (click)="confirmPayment('upi')">{{appCacheService._content.paymentButton}}</button>
                         </div>
                     </div>
                     <div class="payment-mode-section" *ngIf="paymentMode == 'cash'">
@@ -171,7 +171,7 @@
                             <span>{{appCacheService._content.cashDeliveryText}}</span>
                         </div>
                         <div class="mt-2">
-                            <button mat-raised-button color="primary" class="payment-button" [disabled]="deliverAddressForm.invalid || !dAddressAvailable" (click)="confirmPayment('cash')">{{appCacheService._content.paymentButton}}</button>
+                            <button mat-raised-button color="primary" class="payment-button" [disabled]="!dAddressAvailable || deliverAddressForm.invalid" (click)="confirmPayment('cash')">{{appCacheService._content.paymentButton}}</button>
                         </div>
                     </div>
                 </div>
