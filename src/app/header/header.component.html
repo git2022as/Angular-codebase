@@ -13,7 +13,7 @@
 
             <mat-list-item role="listitem" routerLinkActive="active" routerLink="/layout/offers" *ngIf="!appCacheService._adminLoggedIn">{{appCacheService._content.header.offers}}</mat-list-item>
 
-            <mat-list-item role="listitem" routerLinkActive="active" routerLink="#" *ngIf="!appCacheService._adminLoggedIn">{{appCacheService._content.header.franchise}}</mat-list-item>
+            <!--<mat-list-item role="listitem" routerLinkActive="active" routerLink="#" *ngIf="!appCacheService._adminLoggedIn">{{appCacheService._content.header.franchise}}</mat-list-item>-->
 
             <mat-list-item role="listitem" (click)="openLoginModal()" *ngIf="!appCacheService._loggedInUser && !appCacheService._adminLoggedIn">{{appCacheService._content.header.login}}</mat-list-item>
 
