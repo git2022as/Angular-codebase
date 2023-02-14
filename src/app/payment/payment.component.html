@@ -83,10 +83,10 @@
             </div>
         </div>
         <ng-template #no_delivery_address>
-            <span style="font-size: 14px;color: orange;">
+            <span style="font-size: 14px;color: orange;padding:5px">
                 {{appCacheService._content.noDeliveryAddText}}
             </span>
-            <span class="ml-3" style="text-decoration: underline;" (click)="addProfile()">
+            <span class="ml-md-3" style="padding: 5px;text-decoration: underline;color: deeppink;cursor: pointer;font-size: 12px;" (click)="addProfile()">
                 {{appCacheService._content.addAddressButton}}
             </span>
         </ng-template>

@@ -175,7 +175,7 @@ export class PaymentComponent implements OnInit, OnDestroy {
   }
 
   addProfile(): void{
-    this.router.navigate(['layout/profile']);
+    this.router.navigate(['layout/profiles']);
   }
 
 }
