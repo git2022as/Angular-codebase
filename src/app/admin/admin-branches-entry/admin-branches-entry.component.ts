@@ -36,6 +36,7 @@ export class AdminBranchesEntryComponent implements OnInit, OnDestroy, deactivat
   updatedItemsPerPage: number = staticValue.paginationPerPageConstant;
   filterdBranch: Array<any>;
   filterText: string = "";
+  errorMessages = errorMessages;
   @ViewChild("shortContainer", { read: ViewContainerRef }) shortContainer: any = ViewContainerRef;
   @ViewChild("branchesForm", {read: NgForm}) branchesForm: any;
 
@@ -181,7 +182,7 @@ export class AdminBranchesEntryComponent implements OnInit, OnDestroy, deactivat
       }
       else{
         //Duplicate scene
-        this.showShortMsg(`${StaticMsg.admin_duplicate}`,'red');
+        this.showShortMsg(`${StaticMsg.admin_data_duplicate}`,'red');
       }
     }
   }

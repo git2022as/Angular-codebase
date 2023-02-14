@@ -5,10 +5,10 @@ import { AdminService } from '../admin.service';
 import { ShortMessageComponent } from 'src/app/shared/short-message/short-message.component';
 import { deactivateInterface } from '../../interface/project.interface';
 import { CommonService } from 'src/app/services/common.service';
-import { StaticMsg } from 'src/app/constants/constant';
+import { StaticMsg, staticValue, errorMessages, admin_headers } from 'src/app/constants/constant';
 import { BsModalRef } from 'ngx-bootstrap/modal';
 import { FilterPipe } from 'src/app/pipes/filter.pipe';
-import { staticValue } from 'src/app/constants/constant';
+import { AppCacheService } from 'src/app/services/app.cache.service';
 
 @Component({
   selector: 'app-admin-coupons-entry',
@@ -28,11 +28,12 @@ export class AdminCouponsEntryComponent implements OnInit, OnDestroy, deactivate
   buttonText: string = "Continue";
   coupons: Array<any>;
   selectedID: string = "";
-  couponsHeader = ["Coupon Code", "Coupon Type", "Actions"];
+  couponsHeader = admin_headers.coupon;
   paginationCoupon : Array<any> = [];
   updatedItemsPerPage: number = staticValue.paginationPerPageConstant;
   filterdCoupon: Array<any>;
   filterText: string = "";
+  errorMessages = errorMessages;
 
   @ViewChild("shortContainer", { read: ViewContainerRef }) shortContainer: any = ViewContainerRef;
   @ViewChild("couponsForm", {read: NgForm}) couponsForm: any;
@@ -40,7 +41,8 @@ export class AdminCouponsEntryComponent implements OnInit, OnDestroy, deactivate
   constructor(private adminService: AdminService,
               public commonService: CommonService,
               private bsModalRef: BsModalRef,
-              private filterPipe: FilterPipe) { }
+              private filterPipe: FilterPipe,
+              public appCacheService: AppCacheService) { }
 
   ngOnInit(): void {
     this.getCoupons();
@@ -123,7 +125,7 @@ export class AdminCouponsEntryComponent implements OnInit, OnDestroy, deactivate
       //when user confirms, call delete functionality
       this.deleteCouponsSubscription = this.adminService.deleteCoupon(each.id).subscribe((res: any)=>{
         this.bsModalRef.hide();
-        const msg = "coupon has been deleted";
+        const msg = `coupon ${StaticMsg.admin_data_deleted}`;
         const color = 'green';
         this.showShortMsg(msg,color);
         this.getCoupons();
@@ -140,13 +142,13 @@ export class AdminCouponsEntryComponent implements OnInit, OnDestroy, deactivate
     if(this.editMode){
       //when edit mode is ON, call the update functionality
       if(!couponsForm.dirty){
-        const msg = "It seems, you haven't changed any value yet";
+        const msg = `${StaticMsg.admin_no_data_change}`;
         const color = 'orange';
         this.showShortMsg(msg,color);
         return;
       }
       this.updateCouponsSubscription = this.adminService.updateCoupons(this.selectedID,couponsForm.value).subscribe((data: any)=>{
-        const msg = "coupon has been updated";
+        const msg = `coupon ${StaticMsg.admin_data_updated}`;
         const color = 'green';
         this.showShortMsg(msg,color);
         this.editMode = false;
@@ -166,7 +168,7 @@ export class AdminCouponsEntryComponent implements OnInit, OnDestroy, deactivate
         console.log(couponsForm.value);
         this.addCouponsSubscriptiton = this.adminService.addCoupons(couponsForm.value).subscribe((res: any)=>{
           this.getCoupons();
-          const msg = "coupon has been added";
+          const msg = `coupon ${StaticMsg.admin_data_added}`;
           const color = 'green';
           this.showShortMsg(msg,color);
           this.couponsFormReset(couponsForm);
@@ -175,7 +177,7 @@ export class AdminCouponsEntryComponent implements OnInit, OnDestroy, deactivate
       }
       else{
         //Duplicate scene
-        this.showShortMsg('Duplicate coupon, please add a new coupon.','red');
+        this.showShortMsg(`${StaticMsg.admin_data_duplicate}`,'red');
       }
     }
   }

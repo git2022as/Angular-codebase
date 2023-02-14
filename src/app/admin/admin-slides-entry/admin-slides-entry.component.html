@@ -1,54 +1,54 @@
 <div class="container">
-    <div class="mt-5 mb-5 heading" style="text-align: center;" id="top"><h3>Manage Carousel Slides</h3></div>
+    <div class="mt-5 mb-5 heading" style="text-align: center;" id="top"><h3>{{appCacheService._content.adminSlideHeading}}</h3></div>
     <div class="admin-block">
-        <div style="text-align: center;font-size: 20px; color: #3f51b5; font-weight: 600;">Manage Products</div>
+        <div style="text-align: center;font-size: 20px; color: #3f51b5; font-weight: 600;">{{appCacheService._content.adminManageProductText}}</div>
         <hr style="border-top: 1.5px solid #23222221;">
         <div class="admin-block-sections">
             <div class="col-md-5 col-xs-12 mt-2 mb-3">
-                <div class="mb-2" style="font-size: 16px; color: #3f51b5; font-weight: 600;">Create/Update Slide</div>
+                <div class="mb-2" style="font-size: 16px; color: #3f51b5; font-weight: 600;">{{appCacheService._content.adminSlideUpdateText}}</div>
                 <form #slidesForm="ngForm" style="display: grid;font-size: 12px;" (keydown.enter)="slidesFormSubmit(slidesForm)">
                     <mat-form-field class="mb-2">
-                        <mat-label>Image Source</mat-label>
+                        <mat-label>{{appCacheService._content.adminSlideImgText}}</mat-label>
                         <input matInput type="text" maxlength="40" ngModel #src="ngModel" name="imageSource" [required]=true [(ngModel)]="imageSource">
-                        <button matSuffix mat-icon-button aria-label="Clear" style="color: deeppink;" tooltip="Example: chicken-slider.png (just give image name & extension)" placement="auto" (click)="commonService.clickDisabled($event)">
+                        <button matSuffix mat-icon-button aria-label="Clear" style="color: deeppink;" tooltip="{{appCacheService._content.adminSlideImgTooltip}}" placement="auto" (click)="commonService.clickDisabled($event)">
                             <mat-icon>info</mat-icon>
                         </button>
                         <button *ngIf="imageSource" matSuffix mat-icon-button aria-label="Clear" (click)="imageSource = ''">
                             <mat-icon>close</mat-icon>
                         </button>
-                        <mat-error *ngIf="src.touched && src.invalid">Enter a valid image source</mat-error>
+                        <mat-error *ngIf="src.touched && src.invalid">{{errorMessages.adminSlideImgRequired}}</mat-error>
                     </mat-form-field>
                     <mat-form-field class="mb-2">
-                        <mat-label>Alt Text</mat-label>
+                        <mat-label>{{appCacheService._content.adminSlideImgAltText}}</mat-label>
                         <input matInput type="text" ngModel #alt="ngModel" maxlength="40" name="altText" [required]=true [(ngModel)]="altText">
-                        <button matSuffix mat-icon-button aria-label="Clear" style="color: deeppink;" tooltip="Example: chicken-slider (if image not available, this will be the text value)" placement="auto" (click)="commonService.clickDisabled($event)">
+                        <button matSuffix mat-icon-button aria-label="Clear" style="color: deeppink;" tooltip="{{appCacheService._content.adminSlideImgAltTooltip}}" placement="auto" (click)="commonService.clickDisabled($event)">
                             <mat-icon>info</mat-icon>
                         </button>
                         <button *ngIf="altText" matSuffix mat-icon-button aria-label="Clear" (click)="altText = ''">
                             <mat-icon>close</mat-icon>
                         </button>
-                        <mat-error *ngIf="alt.touched && alt.invalid">Enter a valid alternative text for image</mat-error>
+                        <mat-error *ngIf="alt.touched && alt.invalid">{{errorMessages.adminSlideImgAltRequired}}</mat-error>
                     </mat-form-field>
                     <mat-form-field class="mb-2">
-                        <mat-label>Image Text</mat-label>
+                        <mat-label>{{appCacheService._content.adminSlideCaroslText}}</mat-label>
                         <input matInput type="text" ngModel #iText="ngModel" maxlength="60" name="imageText" [required]=true [(ngModel)]="imageText">
-                        <button matSuffix mat-icon-button aria-label="Clear" style="color: deeppink;" tooltip="Example: Delicious Chicken Kebab..... upto 60 characters" placement="auto" (click)="commonService.clickDisabled($event)">
+                        <button matSuffix mat-icon-button aria-label="Clear" style="color: deeppink;" tooltip="{{appCacheService._content.adminSlideCaroslTooltip}}" placement="auto" (click)="commonService.clickDisabled($event)">
                             <mat-icon>info</mat-icon>
                         </button>
                         <button *ngIf="imageText" matSuffix mat-icon-button aria-label="Clear" (click)="imageText = ''">
                             <mat-icon>close</mat-icon>
                         </button>
-                        <mat-error *ngIf="iText.touched && iText.invalid">Enter a valid image text</mat-error>
+                        <mat-error *ngIf="iText.touched && iText.invalid">{{errorMessages.adminSlideCaroslRequired}}</mat-error>
                     </mat-form-field>
                 </form>
                 <div class="admin-block-button-section">
                     <button mat-raised-button style="margin-right: 1rem" color="primary" (click)="slidesFormSubmit(slidesForm)" [disabled]="slidesForm.invalid">{{buttonText}}</button>
-                    <button *ngIf="editMode" mat-raised-button style="margin-right: 1rem" (click)="editMode = false;slidesForm.resetForm();buttonText = 'Continue';selectedID=''">Cancel</button>
-                    <button mat-raised-button (click)="slidesFormReset(slidesForm)" [disabled]="slidesForm.untouched">Reset</button>
+                    <button *ngIf="editMode" mat-raised-button style="margin-right: 1rem" (click)="editMode = false;slidesForm.resetForm();buttonText = 'Continue';selectedID=''">{{appCacheService._content.cancelButton}}</button>
+                    <button mat-raised-button (click)="slidesFormReset(slidesForm)" [disabled]="slidesForm.untouched">{{appCacheService._content.resetButton}}</button>
                 </div>
             </div>
             <div class="col-md-7 col-xs-12 mt-2 mb-3 admin-block-border">
-                <div class="mb-2" style="font-size: 16px; color: #3f51b5; font-weight: 600;">Avaialable Slides</div>
+                <div class="mb-2" style="font-size: 16px; color: #3f51b5; font-weight: 600;">{{appCacheService._content.adminSlideAvlSlides}}</div>
                 <app-search *ngIf="slides" (searchTextEvent)="_searchTextEvent($event)"></app-search>
                 <app-admin-table *ngIf="slides" [filterDataText]="filterText" [adminHeader]="slidesHeader" [adminTableDataSet]="paginationSlide" adminFirstColumnVariable="altText" adminSecondColumnVariable="imageText" (deleteClickedEvent)="deleteSlide($event)" (editClickedEvent)="editSlides($event)" (tableSortEvent)="_tableSortEvent($event)"></app-admin-table>
                 <app-pagination *ngIf="paginationSlide.length > 0" [currentDataSet]="filterSlides" (perPageSelectionChangedEvent)="_perPageSelectionChanged($event)" (paginationButtonChangedEvent)="_paginationButtonChangedEvent($event)"></app-pagination>

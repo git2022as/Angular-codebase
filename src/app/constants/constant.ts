@@ -40,8 +40,7 @@ export const StaticMsg = {
     profile_add_success: "Profile has been added",
     password_update_success: "Password has been updated",
     email_update_success: "Email has been updated",
-    admin_dashboard_table_lable: "Ordered Quantity",
-    admin_duplicate: "Duplicate slides, please add a new slides."
+    admin_dashboard_table_lable: "Ordered Quantity"
 } as const;
 
 export const admin_headers = {
@@ -51,7 +50,15 @@ export const admin_headers = {
     coupon: ["Coupon Code", "Coupon Type", "Actions"],
     branch: ["Branch Name", "Branch Contact", "Actions"],
     dashboardOrderAnalysis: ["Total Orders", "Average Dish/Order", "Average Price/Order", "Maximum Used Payment Option"],
-    dashboardItemAnalysis: ["Maximum Ordered Item", "Maximum Ordered Item Quantity", "Minimum Ordered Item", "Minimum Ordered Item Quantity", "Top Veg Item", "Top Non-veg Item"]
+    dashboardItemAnalysis: ["Maximum Ordered Item", "Maximum Ordered Item Quantity", "Minimum Ordered Item", "Minimum Ordered Item Quantity", "Top Veg Item", "Top Non-veg Item"],
+    disclaimer: [
+        "This is a dummy website.",
+        "Create profile with your email id",
+        "You can reset your password, change your email id, password at anytime",
+        "Admin can check the order analysis with admin credentials",
+        "Please do not use your real time credentials to login",
+        "Realtime payment method is now working"
+    ]
 }
 
 export const staticValue = {
@@ -164,7 +171,21 @@ export const errorMessages = {
     adminOfferMinRequired: "Enter a valid minimum order amount",
     adminOfferSecRequired: "Select the proper section",
     adminOfferByRequired: "Enter a valid offered by institution name",
-    adminOfferDisRequired: "Enter the flat discount amount"
+    adminOfferDisRequired: "Enter the flat discount amount",
+    adminBranchLocRequired: "Enter a valid location of branch",
+    adminBranchPinRequired: "Enter a valid 6 digits pincode of the branch",
+    adminBranchLatRequired: "Enter a valid latitude of the branch",
+    adminBranchLongiRequired: "Enter a valid longitude of the branch",
+    adminBranchImageRequired: "Enter a valid image name of the branch",
+    adminBranchContactRequired: "Enter a valid contact number (only number without 0/+91)",
+    adminBranchTimeRequired: "Enter a valid operation timing of the branch(exp - 11AM - 11PM)",
+    adminCouponCodeRequired: "Enter a valid coupon code",
+    adminCouponCodeDescRequired: "Enter a valid coupon code description",
+    adminCouponMethodRequired: "Select the proper discount method",
+    adminCouponDisRequired: "Enter a valid discount amount/percentage",
+    adminSlideImgRequired: "Enter a valid image source name",
+    adminSlideImgAltRequired: "Enter a valid alternative text for image",
+    adminSlideCaroslRequired: "Enter a valid carousel text"
 }
 
 export const city = [

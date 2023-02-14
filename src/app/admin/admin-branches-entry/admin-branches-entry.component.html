@@ -8,91 +8,91 @@
                 <div class="mb-2" style="font-size: 16px; color: #3f51b5; font-weight: 600;">{{appCacheService._content.adminBrancheUpdateText}}</div>
                 <form #branchesForm="ngForm" style="display: grid;font-size: 12px;" (keydown.enter)="branchesFormSubmit(branchesForm)">
                     <mat-form-field class="mb-2">
-                        <mat-label>Branch Location</mat-label>
+                        <mat-label>{{appCacheService._content.adminBranchLocText}}</mat-label>
                         <input matInput type="text" maxlength="20" ngModel #location="ngModel" name="branchLocation" [required]=true [(ngModel)]="branchLocation">
-                        <button matSuffix mat-icon-button aria-label="Clear" style="color: deeppink;" tooltip="Example: Kasba (location of branch)" placement="auto" (click)="commonService.clickDisabled($event)">
+                        <button matSuffix mat-icon-button aria-label="Clear" style="color: deeppink;" tooltip="{{appCacheService._content.adminBranchLocTooltip}}" placement="auto" (click)="commonService.clickDisabled($event)">
                             <mat-icon>info</mat-icon>
                         </button>
                         <button *ngIf="branchLocation" matSuffix mat-icon-button aria-label="Clear" (click)="branchLocation = ''">
                             <mat-icon>close</mat-icon>
                         </button>
-                        <mat-error *ngIf="location.touched && location.invalid">Enter a valid location</mat-error>
+                        <mat-error *ngIf="location.touched && location.invalid">{{errorMessages.adminBranchLocRequired}}</mat-error>
                     </mat-form-field>
                     <mat-form-field class="mb-2">
-                        <mat-label>Branch's Pincode</mat-label>
+                        <mat-label>{{appCacheService._content.adminBranchPinText}}</mat-label>
                         <input matInput type="text" maxlength="6" minlength="6" ngModel #locPin="ngModel" name="branchPin" [required]=true [(ngModel)]="branchPin" onlyNumber>
-                        <button matSuffix mat-icon-button aria-label="Clear" style="color: deeppink;" tooltip="Example: 700107 (location's pin code)" placement="auto" (click)="commonService.clickDisabled($event)">
+                        <button matSuffix mat-icon-button aria-label="Clear" style="color: deeppink;" tooltip="{{appCacheService._content.adminBranchPinTooltip}}" placement="auto" (click)="commonService.clickDisabled($event)">
                             <mat-icon>info</mat-icon>
                         </button>
                         <button *ngIf="branchPin" matSuffix mat-icon-button aria-label="Clear" (click)="branchPin = null">
                             <mat-icon>close</mat-icon>
                         </button>
-                        <mat-error *ngIf="locPin.touched && locPin.invalid">Enter a valid location pincode</mat-error>
+                        <mat-error *ngIf="locPin.touched && locPin.invalid">{{errorMessages.adminBranchPinRequired}}</mat-error>
                     </mat-form-field>
                     <mat-form-field class="mb-2">
-                        <mat-label>Branch's Latitude</mat-label>
+                        <mat-label>{{appCacheService._content.adminBranchLatitudeText}}</mat-label>
                         <input matInput type="text" ngModel #lati="ngModel" name="latitude" [required]=true [(ngModel)]="latitude" onlyNumber>
-                        <button matSuffix mat-icon-button aria-label="Clear" style="color: deeppink;" tooltip="Example: 22.2354" placement="auto" (click)="commonService.clickDisabled($event)">
+                        <button matSuffix mat-icon-button aria-label="Clear" style="color: deeppink;" tooltip="{{appCacheService._content.adminBranchLatitudeTooltip}}" placement="auto" (click)="commonService.clickDisabled($event)">
                             <mat-icon>info</mat-icon>
                         </button>
                         <button *ngIf="latitude" matSuffix mat-icon-button aria-label="Clear" (click)="latitude = null">
                             <mat-icon>close</mat-icon>
                         </button>
-                        <mat-error *ngIf="lati.touched && lati.invalid">Enter a valid location latitude</mat-error>
+                        <mat-error *ngIf="lati.touched && lati.invalid">{{errorMessages.adminBranchLatRequired}}</mat-error>
                     </mat-form-field>
                     <mat-form-field class="mb-2">
-                        <mat-label>Branch's Longitude</mat-label>
+                        <mat-label>{{appCacheService._content.adminBranchLongiText}}</mat-label>
                         <input matInput type="text" ngModel #longi="ngModel" name="longitude" [required]=true [(ngModel)]="longitude" onlyNumber>
-                        <button matSuffix mat-icon-button aria-label="Clear" style="color: deeppink;" tooltip="Example: 88.1678" placement="auto" (click)="commonService.clickDisabled($event)">
+                        <button matSuffix mat-icon-button aria-label="Clear" style="color: deeppink;" tooltip="{{appCacheService._content.adminBranchLongiTooltip}}" placement="auto" (click)="commonService.clickDisabled($event)">
                             <mat-icon>info</mat-icon>
                         </button>
                         <button *ngIf="longitude" matSuffix mat-icon-button aria-label="Clear" (click)="longitude = null">
                             <mat-icon>close</mat-icon>
                         </button>
-                        <mat-error *ngIf="longi.touched && longi.invalid">Enter a valid location latitude</mat-error>
+                        <mat-error *ngIf="longi.touched && longi.invalid">{{errorMessages.adminBranchLongiRequired}}</mat-error>
                     </mat-form-field>
                     <mat-form-field class="mb-2">
-                        <mat-label>Location Image</mat-label>
+                        <mat-label>{{appCacheService._content.adminBranchImageText}}</mat-label>
                         <input matInput type="text" ngModel #locImg="ngModel" maxlength="40" name="locationImage" [required]=true [(ngModel)]="locationImage">
-                        <button matSuffix mat-icon-button aria-label="Clear" style="color: deeppink;" tooltip="Example: kasba.jpg (just give image name & extension)" placement="auto" (click)="commonService.clickDisabled($event)">
+                        <button matSuffix mat-icon-button aria-label="Clear" style="color: deeppink;" tooltip="{{appCacheService._content.adminBranchImageTooltip}}" placement="auto" (click)="commonService.clickDisabled($event)">
                             <mat-icon>info</mat-icon>
                         </button>
                         <button *ngIf="locationImage" matSuffix mat-icon-button aria-label="Clear" (click)="locationImage = ''">
                             <mat-icon>close</mat-icon>
                         </button>
-                        <mat-error *ngIf="locImg.touched && locImg.invalid">Enter a valid location Image</mat-error>
+                        <mat-error *ngIf="locImg.touched && locImg.invalid">{{errorMessages.adminBranchImageRequired}}</mat-error>
                     </mat-form-field>
                     <mat-form-field class="mb-2">
-                        <mat-label>Location's Contact</mat-label>
+                        <mat-label>{{appCacheService._content.adminBranchContactText}}</mat-label>
                         <input matInput type="text" ngModel #locContact="ngModel" maxlength="10" minlength="10" name="locationContact" [required]=true [(ngModel)]="locationContact" onlyNumber>
-                        <button matSuffix mat-icon-button aria-label="Clear" style="color: deeppink;" tooltip="Example: 9163123456 (just give 10 digits branch's contact number)" placement="auto" (click)="commonService.clickDisabled($event)">
+                        <button matSuffix mat-icon-button aria-label="Clear" style="color: deeppink;" tooltip="{{appCacheService._content.adminBranchContactTooltip}}" placement="auto" (click)="commonService.clickDisabled($event)">
                             <mat-icon>info</mat-icon>
                         </button>
                         <button *ngIf="locationContact" matSuffix mat-icon-button aria-label="Clear" (click)="locationContact = null">
                             <mat-icon>close</mat-icon>
                         </button>
-                        <mat-error *ngIf="locContact.touched && locContact.invalid">Enter a valid location contact (only number without 0/+91)</mat-error>
+                        <mat-error *ngIf="locContact.touched && locContact.invalid">{{errorMessages.adminBranchContactRequired}}</mat-error>
                     </mat-form-field>
                     <mat-form-field class="mb-2">
-                        <mat-label>Branch's Timing</mat-label>
+                        <mat-label>{{appCacheService._content.adminBranchTimeText}}</mat-label>
                         <input matInput type="text" ngModel #locTiming="ngModel" maxlength="20" name="locatiomTiming" [required]=true [(ngModel)]="locatiomTiming">
-                        <button matSuffix mat-icon-button aria-label="Clear" style="color: deeppink;" tooltip="Example: 11AM - 11PM (opening time - closing time)" placement="auto" (click)="commonService.clickDisabled($event)">
+                        <button matSuffix mat-icon-button aria-label="Clear" style="color: deeppink;" tooltip="{{appCacheService._content.adminBranchTimeTooltip}}" placement="auto" (click)="commonService.clickDisabled($event)">
                             <mat-icon>info</mat-icon>
                         </button>
                         <button *ngIf="locatiomTiming" matSuffix mat-icon-button aria-label="Clear" (click)="locatiomTiming = ''">
                             <mat-icon>close</mat-icon>
                         </button>
-                        <mat-error *ngIf="locTiming.touched && locTiming.invalid">Enter a valid time location (exp - 11AM - 11PM)</mat-error>
+                        <mat-error *ngIf="locTiming.touched && locTiming.invalid">{{errorMessages.adminBranchTimeRequired}}</mat-error>
                     </mat-form-field>
                 </form>
                 <div class="admin-block-button-section">
                     <button mat-raised-button style="margin-right: 1rem" color="primary" (click)="branchesFormSubmit(branchesForm)" [disabled]="branchesForm.invalid">{{buttonText}}</button>
-                    <button *ngIf="editMode" mat-raised-button style="margin-right: 1rem" (click)="editMode = false;branchesForm.resetForm();buttonText = 'Continue';selectedID=''">Cancel</button>
-                    <button mat-raised-button (click)="branchesFormReset(branchesForm)" [disabled]="branchesForm.untouched">Reset</button>
+                    <button *ngIf="editMode" mat-raised-button style="margin-right: 1rem" (click)="editMode = false;branchesForm.resetForm();buttonText = 'Continue';selectedID=''">{{appCacheService._content.cancelButton}}</button>
+                    <button mat-raised-button (click)="branchesFormReset(branchesForm)" [disabled]="branchesForm.untouched">{{appCacheService._content.resetButton}}</button>
                 </div>
             </div>
             <div class="col-md-7 col-xs-12 mt-2 mb-3 admin-block-border">
-                <div class="mb-2" style="font-size: 16px; color: #3f51b5; font-weight: 600;">Avaialable Branches</div>
+                <div class="mb-2" style="font-size: 16px; color: #3f51b5; font-weight: 600;">{{appCacheService._content.adminBranchAvlBranText}}</div>
                 <app-search *ngIf="branches" (searchTextEvent)="_searchTextEvent($event)"></app-search>
                 <app-admin-table *ngIf="branches" [filterDataText]="filterText" [adminHeader]="branchesHeader" [adminTableDataSet]="paginationBranch" adminFirstColumnVariable="branchLocation" adminSecondColumnVariable="locationContact" (deleteClickedEvent)="deleteSlide($event)" (editClickedEvent)="editSlides($event)" (tableSortEvent)="_tableSortEvent($event)"></app-admin-table>
                 <app-pagination *ngIf="paginationBranch.length > 0" [currentDataSet]="filterdBranch" (perPageSelectionChangedEvent)="_perPageSelectionChanged($event)" (paginationButtonChangedEvent)="_paginationButtonChangedEvent($event)"></app-pagination>

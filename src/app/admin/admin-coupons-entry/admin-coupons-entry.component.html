@@ -1,73 +1,73 @@
 <div class="container">
-    <div class="mt-5 mb-5 heading" style="text-align: center;" id="top"><h3>Manage Coupons</h3></div>
+    <div class="mt-5 mb-5 heading" style="text-align: center;" id="top"><h3>{{appCacheService._content.adminCouponHeading}}</h3></div>
     <div class="admin-block">
-        <div style="text-align: center;font-size: 20px; color: #3f51b5; font-weight: 600;">Manage Products</div>
+        <div style="text-align: center;font-size: 20px; color: #3f51b5; font-weight: 600;">{{appCacheService._content.adminManageProductText}}</div>
         <hr style="border-top: 1.5px solid #23222221;">
         <div class="admin-block-sections">
             <div class="col-md-5 col-xs-12 mt-2 mb-3">
-                <div class="mb-2" style="font-size: 16px; color: #3f51b5; font-weight: 600;">Create/Update Coupons</div>
+                <div class="mb-2" style="font-size: 16px; color: #3f51b5; font-weight: 600;">{{appCacheService._content.adminCouponUpdateText}}</div>
                 <form #couponsForm="ngForm" style="display: grid;font-size: 12px;" (keydown.enter)="couponsFormSubmit(couponsForm)">
                     <!--Code-->
                     <mat-form-field class="mb-2">
-                        <mat-label>Code</mat-label>
+                        <mat-label>{{appCacheService._content.adminCouponCodeText}}</mat-label>
                         <input matInput type="text" maxlength="10" ngModel #code="ngModel" name="couponCode" [required]=true [(ngModel)]="couponCode" (input)="this.couponCode = this.couponCode.toUpperCase()">
-                        <button matSuffix mat-icon-button aria-label="Clear" style="color: deeppink;" tooltip="Example: JAN2023 (coupon code)" placement="auto" (click)="commonService.clickDisabled($event)">
+                        <button matSuffix mat-icon-button aria-label="Clear" style="color: deeppink;" tooltip="{{appCacheService._content.adminCouponCodeTooltip}}" placement="auto" (click)="commonService.clickDisabled($event)">
                             <mat-icon>info</mat-icon>
                         </button>
                         <button *ngIf="couponCode" matSuffix mat-icon-button aria-label="Clear" (click)="couponCode = ''">
                             <mat-icon>close</mat-icon>
                         </button>
-                        <mat-error *ngIf="code.touched && code.invalid">Enter a valid coupon code</mat-error>
+                        <mat-error *ngIf="code.touched && code.invalid">{{errorMessages.adminCouponCodeRequired}}</mat-error>
                     </mat-form-field>
                     <!--Code Description-->
                     <mat-form-field class="mb-2">
-                        <mat-label>Code Description</mat-label>
+                        <mat-label>{{appCacheService._content.adminCouponCodeDescText}}</mat-label>
                         <input matInput type="text" ngModel #codeDesc="ngModel" maxlength="100" name="couponDescription" [required]=true [(ngModel)]="couponDescription">
-                        <button matSuffix mat-icon-button aria-label="Clear" style="color: deeppink;" tooltip="Example: Flat 10% discount on the final CART value (coupon short descripton)" placement="auto" (click)="commonService.clickDisabled($event)">
+                        <button matSuffix mat-icon-button aria-label="Clear" style="color: deeppink;" tooltip="{{appCacheService._content.adminCouponCodeDescTooltip}}" placement="auto" (click)="commonService.clickDisabled($event)">
                             <mat-icon>info</mat-icon>
                         </button>
                         <button *ngIf="couponDescription" matSuffix mat-icon-button aria-label="Clear" (click)="couponDescription = ''">
                             <mat-icon>close</mat-icon>
                         </button>
-                        <mat-error *ngIf="codeDesc.touched && codeDesc.invalid">Enter a valid coupon code description</mat-error>
+                        <mat-error *ngIf="codeDesc.touched && codeDesc.invalid">{{errorMessages.adminCouponCodeDescRequired}}</mat-error>
                     </mat-form-field>
                     <!--discount method-->
-                    <div style="font-weight: 600;">Discount Method Details (Amount/Percentage)* 
-                        <mat-icon style="color: deeppink;font-size: 12px;cursor: pointer;" tooltip="Select Amount or Percentage" placement="auto" (click)="commonService.clickDisabled($event)">info</mat-icon>
+                    <div style="font-weight: 600;">{{appCacheService._content.adminCouponMethodText}} 
+                        <mat-icon style="color: deeppink;font-size: 12px;cursor: pointer;" tooltip="{{appCacheService._content.adminCouponMethodTooltip}}" placement="auto" (click)="commonService.clickDisabled($event)">info</mat-icon>
                     </div>
                     <mat-radio-group
                     aria-labelledby="dish-origin-radio-group-label"
                     class="admin-radio-group"
                     [(ngModel)]="couponDiscountMethod" name="couponDiscountMethod" [required]=true  ngModel #couponDisMethod="ngModel">
                         <mat-radio-button class="admin-radio-button" value="amount">
-                        <span style="white-space: normal;">Amount</span>
+                        <span style="white-space: normal;">{{appCacheService._content.adminCouponMethodAmountText}}</span>
                         </mat-radio-button>
                         <mat-radio-button class="admin-radio-button" value="percentage">
-                        <span style="white-space: normal;">Percentage</span>
+                        <span style="white-space: normal;">{{appCacheService._content.adminCouponMethodPerText}}</span>
                         </mat-radio-button>
-                        <p *ngIf="couponDisMethod.touched && couponDisMethod.invalid">Select the proper discount method</p>
+                        <p *ngIf="couponDisMethod.touched && couponDisMethod.invalid">{{errorMessages.adminCouponMethodRequired}}</p>
                     </mat-radio-group>
                     <!--Discount amount/percentage-->
                     <mat-form-field class="mb-2">
-                        <mat-label>Discount Amount/Percentage</mat-label>
+                        <mat-label></mat-label>
                         <input matInput type="text" ngModel #discount="ngModel" maxlength="4" minlength="1" name="couponDiscount" [required]=true [(ngModel)]="couponDiscount" onlyNumber>
-                        <button matSuffix mat-icon-button aria-label="Clear" style="color: deeppink;" tooltip="Example: give 10 (in case of percentage) & 100 (in case of amount)" placement="auto" (click)="commonService.clickDisabled($event)">
+                        <button matSuffix mat-icon-button aria-label="Clear" style="color: deeppink;" tooltip="{{appCacheService._content.adminCouponDisTooltip}}" placement="auto" (click)="commonService.clickDisabled($event)">
                             <mat-icon>info</mat-icon>
                         </button>
                         <button *ngIf="couponDiscount" matSuffix mat-icon-button aria-label="Clear" (click)="couponDiscount = null">
                             <mat-icon>close</mat-icon>
                         </button>
-                        <mat-error *ngIf="discount.touched && discount.invalid">Enter a valid discount amount/percentage</mat-error>
+                        <mat-error *ngIf="discount.touched && discount.invalid">{{errorMessages.adminCouponDisRequired}}</mat-error>
                     </mat-form-field>
                 </form>
                 <div class="admin-block-button-section">
                     <button mat-raised-button style="margin-right: 1rem" color="primary" (click)="couponsFormSubmit(couponsForm)" [disabled]="couponsForm.invalid">{{buttonText}}</button>
-                    <button *ngIf="editMode" mat-raised-button style="margin-right: 1rem" (click)="editMode = false;couponsForm.resetForm();buttonText = 'Continue';selectedID=''">Cancel</button>
-                    <button mat-raised-button (click)="couponsFormReset(couponsForm)" [disabled]="couponsForm.untouched">Reset</button>
+                    <button *ngIf="editMode" mat-raised-button style="margin-right: 1rem" (click)="editMode = false;couponsForm.resetForm();buttonText = 'Continue';selectedID=''">{{appCacheService._content.cancelButton}}</button>
+                    <button mat-raised-button (click)="couponsFormReset(couponsForm)" [disabled]="couponsForm.untouched">{{appCacheService._content.resetButton}}</button>
                 </div>
             </div>
             <div class="col-md-7 col-xs-12 mt-2 mb-3 admin-block-border">
-                <div class="mb-2" style="font-size: 16px; color: #3f51b5; font-weight: 600;">Avaialable Coupons</div>
+                <div class="mb-2" style="font-size: 16px; color: #3f51b5; font-weight: 600;">{{appCacheService._content.adminCouponAvlCoupon}}</div>
                 <app-search *ngIf="coupons" (searchTextEvent)="_searchTextEvent($event)"></app-search>
                 <app-admin-table *ngIf="coupons" [filterDataText]="filterText" [adminHeader]="couponsHeader" [adminTableDataSet]="paginationCoupon" adminFirstColumnVariable="couponCode" adminSecondColumnVariable="couponDiscountMethod" (deleteClickedEvent)="deleteCoupon($event)" (editClickedEvent)="editCoupon($event)"></app-admin-table>
                 <app-pagination *ngIf="paginationCoupon.length>0" [currentDataSet]="filterdCoupon" (perPageSelectionChangedEvent)="_perPageSelectionChanged($event)" (paginationButtonChangedEvent)="_paginationButtonChangedEvent($event)"></app-pagination>

@@ -191,7 +191,7 @@ export class AdminOffersEntryComponent implements OnInit, OnDestroy, deactivateI
       }
       else{
         //Duplicate scene
-        this.showShortMsg(`${StaticMsg.admin_duplicate}`,'red');
+        this.showShortMsg(`${StaticMsg.admin_data_duplicate}`,'red');
       }
     }
   }

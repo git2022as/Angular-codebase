@@ -5,10 +5,10 @@ import { AdminService } from '../admin.service';
 import { ShortMessageComponent } from 'src/app/shared/short-message/short-message.component';
 import { deactivateInterface } from '../../interface/project.interface';
 import { CommonService } from 'src/app/services/common.service';
-import { StaticMsg } from 'src/app/constants/constant';
+import { StaticMsg, staticValue, errorMessages, admin_headers } from 'src/app/constants/constant';
 import { BsModalRef } from 'ngx-bootstrap/modal';
-import { staticValue } from 'src/app/constants/constant';
 import { FilterPipe } from 'src/app/pipes/filter.pipe';
+import { AppCacheService } from 'src/app/services/app.cache.service';
 
 @Component({
   selector: 'app-admin-slides-entry',
@@ -28,11 +28,12 @@ export class AdminSlidesEntryComponent implements OnInit, OnDestroy, deactivateI
   buttonText: string = "Continue";
   slides: Array<any>;
   selectedID: string = "";
-  slidesHeader = ["Slides' Name", "Slides' Details", "Actions"];
+  slidesHeader = admin_headers.slide;
   paginationSlide : Array<any> = [];
   updatedItemsPerPage: number = staticValue.paginationPerPageConstant;
   filterSlides: Array<any>;
   filterText: string = "";
+  errorMessages = errorMessages;
 
   @ViewChild("shortContainer", { read: ViewContainerRef }) shortContainer: any = ViewContainerRef;
   @ViewChild("slidesForm", {read: NgForm}) slidesForm: any;
@@ -40,7 +41,8 @@ export class AdminSlidesEntryComponent implements OnInit, OnDestroy, deactivateI
   constructor(private adminService: AdminService,
               public commonService: CommonService,
               private bsModalRef: BsModalRef,
-              private filterPipe: FilterPipe) { }
+              private filterPipe: FilterPipe,
+              public appCacheService: AppCacheService) { }
 
   ngOnInit(): void {
     this.getSlides();
@@ -122,7 +124,7 @@ export class AdminSlidesEntryComponent implements OnInit, OnDestroy, deactivateI
       //when user confirms, call delete functionality
       this.deleteSlideSubscription = this.adminService.deleteSlide(each.id).subscribe((res: any)=>{
         this.bsModalRef.hide();
-        const msg = "slide has been deleted";
+        const msg = `slide ${StaticMsg.admin_data_deleted}`;
         const color = 'green';
         this.showShortMsg(msg,color);
         this.getSlides();
@@ -139,13 +141,13 @@ export class AdminSlidesEntryComponent implements OnInit, OnDestroy, deactivateI
     if(this.editMode){
       //when edit mode is ON, call the update functionality
       if(!slidesForm.dirty){
-        const msg = "It seems, you haven't changed any value yet";
+        const msg = `${StaticMsg.admin_no_data_change}`;
         const color = 'orange';
         this.showShortMsg(msg,color);
         return;
       }
       this.updateSlidesSubscription = this.adminService.updateSlides(this.selectedID,slidesForm.value).subscribe((data: any)=>{
-        const msg = "slide has been updated";
+        const msg = `slide ${StaticMsg.admin_data_updated}`;
         const color = 'green';
         this.showShortMsg(msg,color);
         this.editMode = false;
@@ -165,7 +167,7 @@ export class AdminSlidesEntryComponent implements OnInit, OnDestroy, deactivateI
         console.log(slidesForm.value);
         this.addSlidesSubscriptiton = this.adminService.addSlides(slidesForm.value).subscribe((res: any)=>{
           this.getSlides();
-          const msg = "slide has been added";
+          const msg = `slide ${StaticMsg.admin_data_added}`;
           const color = 'green';
           this.showShortMsg(msg,color);
           this.slidesFormReset(slidesForm);
@@ -174,7 +176,7 @@ export class AdminSlidesEntryComponent implements OnInit, OnDestroy, deactivateI
       }
       else{
         //Duplicate scene
-        this.showShortMsg('Duplicate slides, please add a new slides.','red');
+        this.showShortMsg(`${StaticMsg.admin_data_duplicate}`,'red');
       }
     }
   }
