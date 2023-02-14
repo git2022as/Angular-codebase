@@ -15,10 +15,10 @@
     </button>
 </div>
 <div class="modal-body">
-    <ul *ngIf="data == 'list'">
+    <ul *ngIf="data == 'list'" style="font-size:13px">
         <li *ngFor="let item of content">{{item}}</li>
     </ul>
-    <div *ngIf="data == 'para'">
+    <div *ngIf="data == 'para'" style="font-size:13px">
         <span [ngStyle]="{'color': type == 'error' ? 'red' : 'black'}">{{content}}</span>
     </div>
 </div>

@@ -79,6 +79,13 @@ table.admin-block-table th {
     .modal-form{
         width:100%;
     }
+    table.admin-block-table th {
+        font-size: 11px;
+        text-transform: uppercase;
+    }
+    table.admin-block-table td{
+        font-size: 11px;
+    }
 }
 
 @media screen and (min-width: 768px) {

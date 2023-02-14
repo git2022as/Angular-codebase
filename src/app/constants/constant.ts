@@ -56,8 +56,8 @@ export const admin_headers = {
         "Create profile with your email id",
         "You can reset your password, change your email id, password at anytime",
         "Admin can check the order analysis with admin credentials",
-        "Please do not use your real time credentials to login",
-        "Realtime payment method is now working"
+        "Please do not use your real credentials to signup/login",
+        "Realtime payment method is not working"
     ]
 }
 
