@@ -3,7 +3,7 @@
         <img mat-card-image class="product-image" src="assets/images/{{product?.dishImage}}" [alt]="product?.dishImageText">
         <mat-card-title style="font-weight: 600;font-size: 15px;padding-right: 35px;text-decoration: underline;">{{product?.dishName}}</mat-card-title>
         <mat-card-subtitle>
-            <span styel="font-size: 13px;" [ngStyle]="{'color':product?.dishOrigin === 'Veg' ? 'green' : 'red' }">{{product?.dishOrigin}}</span>
+            <span [ngStyle]="{'color':product?.dishOrigin === 'Veg' ? 'green' : 'red' }">{{product?.dishOrigin}}</span>
             <span class="material-icons" [ngStyle]="{'color':product?.dishOrigin === 'Veg' ? 'green' : 'red' }">
                 adjust
             </span>

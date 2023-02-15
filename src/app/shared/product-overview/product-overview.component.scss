@@ -29,6 +29,10 @@
     margin-left: 0px !important;
 }
 
+::ng-deep .mat-card-content, .mat-card-subtitle{
+    font-size: 13px;
+}
+
 .product-view-details{
     cursor: pointer;
 }

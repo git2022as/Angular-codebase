@@ -120,7 +120,7 @@ export class UtilityService {
             });
             avgDishPerOrder = (no/len);
         }
-        return avgDishPerOrder;
+        return Math.round(avgDishPerOrder);
     }
 
     calculateAvgPricePerOrde(data, len): number{
@@ -134,7 +134,7 @@ export class UtilityService {
             });
             avgPricePerOrder = (no/len);
         }
-        return avgPricePerOrder;
+        return Math.round(avgPricePerOrder);
     }
 
     calculateMaxUsedPaymentOption(data, len): string{
