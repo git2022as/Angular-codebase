@@ -33,6 +33,8 @@ import { ChangeEmailComponent } from './change-email/change-email.component';
 import { OrderStatusChangeComponent } from './order-status-change/order-status-change.component';
 import { RouterModule } from '@angular/router';
 import { GoogleMapsModule } from '@angular/google-maps';
+import { GoogleMapComponent } from './google-map/google-map.component';
+import { ChildComponentComponent } from './child-component/child-component.component';
 
 /* pipe module */
 import { PipeModule } from '../pipes/pipe.module';
@@ -50,7 +52,7 @@ import { MatRadioModule } from '@angular/material/radio';
 import { MatCheckboxModule } from '@angular/material/checkbox';
 import { MatSelectModule } from '@angular/material/select';
 import { MatProgressBarModule } from '@angular/material/progress-bar';
-import { GoogleMapComponent } from './google-map/google-map.component';
+
 
 @NgModule({
   declarations: [
@@ -81,7 +83,8 @@ import { GoogleMapComponent } from './google-map/google-map.component';
     ChangeEmailComponent,
     OrderViewComponent,
     OrderStatusChangeComponent,
-    GoogleMapComponent
+    GoogleMapComponent,
+    ChildComponentComponent
   ],
   imports: [
     CommonModule,
@@ -131,7 +134,8 @@ import { GoogleMapComponent } from './google-map/google-map.component';
     ChangeEmailComponent,
     OrderViewComponent,
     OrderStatusChangeComponent,
-    GoogleMapComponent
+    GoogleMapComponent,
+    ChildComponentComponent
   ],
   providers: [IndividualCartPipe, FilterPipe]
 })

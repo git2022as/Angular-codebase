@@ -220,3 +220,19 @@ export enum pp {
     name = "tom",
     street = "kolkata"
 }
+
+export const config = {
+    fName: {
+      value: 'avi',
+      required: true,
+      type: 'text',
+      placeholder: 'First Name'
+    },
+    lName: {
+      value: 'bhat',
+      required: true,
+      type: 'text',
+      placeholder: 'Last Name'
+    },
+  };
+  

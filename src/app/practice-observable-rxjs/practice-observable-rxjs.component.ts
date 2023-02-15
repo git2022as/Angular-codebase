@@ -5,6 +5,8 @@ import { ajax } from 'rxjs/ajax';
 import { Subscription } from 'rxjs'
 import { formatCurrency } from '@angular/common';
 import { ViewEncapsulation } from '@angular/compiler';
+import { config } from '../constants/constant';
+import { FormControl, FormGroup, FormBuilder, Validators } from '@angular/forms';
 
 @Component({
   selector: 'app-practice-observable-rxjs',
@@ -12,6 +14,9 @@ import { ViewEncapsulation } from '@angular/compiler';
   styleUrls: ['./practice-observable-rxjs.component.scss']
 })
 export class PracticeObservableRxjsComponent implements OnInit, AfterViewInit {
+
+  myForm: any = FormGroup;
+  configDetails: any = [];
 
   constructor() { }
 
@@ -144,6 +149,28 @@ export class PracticeObservableRxjsComponent implements OnInit, AfterViewInit {
 
   ngOnInit(): void {
     this.subscribeAllObservable();
+    for(let x in config){
+      this.configDetails.push({name: x,...config[x]});
+    }
+    this.createForm();
+  }
+
+  createForm(){
+    const group = {};
+    console.log(this.configDetails);
+    this.configDetails.forEach((field) => {
+      group[field.name] = field.required
+        ? new FormControl(field.value || '', [
+            Validators.required,
+          ])
+        : new FormControl(field.value || '');
+    });
+    this.myForm = new FormGroup(group);
+  }
+
+  submitForm() {
+    //this.myForm.get('fName').setValue('blue');
+    console.log(this.myForm.value);
   }
 
   ngAfterViewInit(): void {
