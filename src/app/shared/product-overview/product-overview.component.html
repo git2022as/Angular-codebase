@@ -1,18 +1,17 @@
 <mat-card class="example-card">
     <mat-card-header class="product-header">
-        <mat-card-title style="font-weight: 600;font-size: 15px;">{{product?.dishName}}
+        <img mat-card-image class="product-image" src="assets/images/{{product?.dishImage}}" [alt]="product?.dishImageText">
+        <mat-card-title style="font-weight: 600;font-size: 15px;padding-right: 35px;text-decoration: underline;">{{product?.dishName}}</mat-card-title>
+        <mat-card-subtitle>
+            <span styel="font-size: 13px;" [ngStyle]="{'color':product?.dishOrigin === 'Veg' ? 'green' : 'red' }">{{product?.dishOrigin}}</span>
             <span class="material-icons" [ngStyle]="{'color':product?.dishOrigin === 'Veg' ? 'green' : 'red' }">
                 adjust
             </span>
-        </mat-card-title>
-        <mat-card-subtitle>
-            <span styel="font-size: 13px;">{{product?.dishOrigin}}</span>
+            <div [tooltip]="product?.dishDesc" style="padding-right: 35px;font-size: 12px; margin-top:5px;" placement="auto">{{product?.dishDesc | productDescription}}</div>
         </mat-card-subtitle>
     </mat-card-header>
-    <img mat-card-image class="product-image" src="assets/images/{{product?.dishImage}}" [alt]="product?.dishImageText">
     <mat-card-content>
         <div class="product-desc">
-            <div [tooltip]="product?.dishDesc" placement="auto">{{product?.dishDesc | productDescription}}</div>
             <div>
                 <span>{{appCacheService._content.quantityText}}: </span>
                 <span style="font-weight: 600;">{{product?.dishQuantity | quantityPipe}}</span>
