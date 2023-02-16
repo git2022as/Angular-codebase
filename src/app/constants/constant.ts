@@ -223,16 +223,18 @@ export enum pp {
 
 export const config = {
     fName: {
-      value: 'avi',
+      value: '',
       required: true,
       type: 'text',
-      placeholder: 'First Name'
+      placeholder: 'First Name',
+      color: 'green'
     },
     lName: {
-      value: 'bhat',
+      value: '',
       required: true,
       type: 'text',
-      placeholder: 'Last Name'
-    },
+      placeholder: 'Last Name',
+      color: 'blue'
+    }
   };
   

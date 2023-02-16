@@ -152,6 +152,7 @@ export class PracticeObservableRxjsComponent implements OnInit, AfterViewInit {
     for(let x in config){
       this.configDetails.push({name: x,...config[x]});
     }
+    //configdetails = [{name: 'fName', value: 'avi', ....}]
     this.createForm();
   }
 
@@ -167,6 +168,10 @@ export class PracticeObservableRxjsComponent implements OnInit, AfterViewInit {
     });
     this.myForm = new FormGroup(group);
   }
+
+  /*formGroupName = new FormGroup({
+    formControlName = new FormControl('', []);
+  })*/
 
   submitForm() {
     //this.myForm.get('fName').setValue('blue');

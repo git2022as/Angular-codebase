@@ -12,6 +12,7 @@ export class ChildComponentComponent implements OnInit {
   @Input() cformControlName: string;
   @Input() cPlaceholder: string;
   @Input() cType: string;
+  @Input() color: string;
 
   constructor() {}
 

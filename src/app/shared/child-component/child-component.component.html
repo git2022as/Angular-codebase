@@ -1,8 +1,10 @@
 <section [formGroup]="formGroupName">
-    <input
-      type="{{cType}}"
-      [formControlName]="cformControlName"
-      [placeholder]="cPlaceholder"
-      [name]="cformControlName"
-    />
+  <input [ngStyle]="{'color': color}"
+    type="{{cType}}"
+    [formControlName]="cformControlName"
+    [placeholder]="cPlaceholder"
+    [name]="cformControlName"
+  />
+  <div style="color: red;" *ngIf="formGroupName.get(cformControlName).touched && formGroupName.get(cformControlName).invalid">this is a required field</div>
 </section>
+<!-- this is the replicap of dap-input component-->

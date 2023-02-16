@@ -6,11 +6,11 @@
 </div>
 
 <div>
-    <h1>Reactive Forms with child input component</h1>
-    <form [formGroup]="myForm" (ngSubmit)="submitForm()">
-      <div *ngFor="let each of configDetails; let i = index;">
-        <app-child-component [formGroupName]=myForm [cformControlName]="each.name" [cPlaceholder]="each.placeholder" [cType]="each.type"></app-child-component>
-      </div>
-      <button [disabled]="myForm.invalid">Submit</button>
-    </form>
-  </div>
+  <h1>Reactive Forms with child input component</h1>
+  <form [formGroup]="myForm" (ngSubmit)="submitForm()">
+    <div *ngFor="let each of configDetails; let i = index;">
+      <app-child-component [formGroupName]=myForm [cformControlName]="each.name" [cPlaceholder]="each.placeholder" [cType]="each.type" [color]="each.color"></app-child-component>
+    </div>
+    <button [disabled]="myForm.invalid">Submit</button>
+  </form>
+</div>
