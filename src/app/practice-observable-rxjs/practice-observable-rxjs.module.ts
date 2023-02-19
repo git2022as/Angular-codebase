@@ -4,6 +4,7 @@ import { PracticeObservableRxjsComponent } from './practice-observable-rxjs.comp
 import { PracticeObservableRxjsRoutingModule } from './practice-observable-rxjs-routing.module';
 import { ReactiveFormsModule } from '@angular/forms';
 import { SharedModule } from '../shared/shared.module';
+import { DirectiveModule } from '../directives/directives.module';
 
 @NgModule({
     declarations: [PracticeObservableRxjsComponent],
@@ -11,7 +12,8 @@ import { SharedModule } from '../shared/shared.module';
         CommonModule,
         PracticeObservableRxjsRoutingModule,
         ReactiveFormsModule,
-        SharedModule
+        SharedModule,
+        DirectiveModule
     ],
     exports: [
         PracticeObservableRxjsComponent

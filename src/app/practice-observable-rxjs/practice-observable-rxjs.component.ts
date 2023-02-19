@@ -1,4 +1,4 @@
-import { Component, OnInit, AfterViewInit } from '@angular/core';
+import { Component, OnInit, AfterViewInit, OnDestroy, AfterContentChecked } from '@angular/core';
 import { combineLatest, from, fromEvent, interval, Observable, of, forkJoin } from 'rxjs';
 import { catchError, concatMap, delay, filter, map, mergeMap, retry, switchMap, take, takeUntil } from 'rxjs/operators';
 import { ajax } from 'rxjs/ajax';
@@ -6,19 +6,25 @@ import { Subscription } from 'rxjs'
 import { formatCurrency } from '@angular/common';
 import { ViewEncapsulation } from '@angular/compiler';
 import { config } from '../constants/constant';
-import { FormControl, FormGroup, FormBuilder, Validators } from '@angular/forms';
+import { FormGroup, FormBuilder } from '@angular/forms';
+import { ChangeDetectorRef } from '@angular/core';
 
 @Component({
   selector: 'app-practice-observable-rxjs',
   templateUrl: './practice-observable-rxjs.component.html',
   styleUrls: ['./practice-observable-rxjs.component.scss']
 })
-export class PracticeObservableRxjsComponent implements OnInit, AfterViewInit {
+export class PracticeObservableRxjsComponent implements OnInit, AfterViewInit, OnDestroy, AfterContentChecked {
 
   myForm: any = FormGroup;
-  configDetails: any = [];
+  dropdownvalue: any = null;
+  dropdownChangesSubscription: Subscription | undefined;
+  dropdownProperties: any;
+  configDetails = config;
+  inputArray : any = [];
 
-  constructor() { }
+  constructor(private fb: FormBuilder,
+              private cd: ChangeDetectorRef) { }
 
   test = new Observable((res: any)=>{
     setTimeout(()=>{
@@ -149,32 +155,45 @@ export class PracticeObservableRxjsComponent implements OnInit, AfterViewInit {
 
   ngOnInit(): void {
     this.subscribeAllObservable();
-    for(let x in config){
-      this.configDetails.push({name: x,...config[x]});
-    }
-    //configdetails = [{name: 'fName', value: 'avi', ....}]
     this.createForm();
+  }
+  
+  ngAfterContentChecked(): void {
+    this.cd.detectChanges();
+  }
+
+  _dropdownValueEvent(event: number){
+    this.dropdownvalue = event;
+    if(this.dropdownvalue != null){
+      this.updateForm(this.dropdownvalue);
+    }
+  }
+
+  updateForm(value: any){
+    this.inputArray.splice(0,1);
+    if(value == 1){
+      if(this.myForm.controls.hasOwnProperty('percent')){
+        this.myForm.removeControl('percent');
+      }
+      this.inputArray.push(
+        this.configDetails.nominal
+      )
+    }
+    else if(value == 2){
+      if(this.myForm.controls.hasOwnProperty('nominal')){
+        this.myForm.removeControl('nominal');
+      }
+      this.inputArray.push(
+        this.configDetails.percent
+      )
+    }
   }
 
   createForm(){
-    const group = {};
-    console.log(this.configDetails);
-    this.configDetails.forEach((field) => {
-      group[field.name] = field.required
-        ? new FormControl(field.value || '', [
-            Validators.required,
-          ])
-        : new FormControl(field.value || '');
-    });
-    this.myForm = new FormGroup(group);
+    this.myForm = this.fb.group({});
   }
 
-  /*formGroupName = new FormGroup({
-    formControlName = new FormControl('', []);
-  })*/
-
   submitForm() {
-    //this.myForm.get('fName').setValue('blue');
     console.log(this.myForm.value);
   }
 
@@ -324,6 +343,10 @@ export class PracticeObservableRxjsComponent implements OnInit, AfterViewInit {
     })
 
 
+  }
+
+  ngOnDestroy(): void {
+    this.dropdownChangesSubscription?.unsubscribe();
   }
 
 }

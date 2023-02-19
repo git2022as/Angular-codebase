@@ -1,0 +1,11 @@
+<section [formGroup]="fGName">
+    <select [formControlName]="properties?.name">
+      <option value=null>{{properties.placeholder}}</option>
+      <option *ngFor="let x of properties.options" [value]="x.key">
+        {{x.value}}
+      </option>
+    </select>
+    
+    <div style="color: red;" *ngIf="fGName.get(properties.name).touched && fGName.get(properties.name).invalid">this is a required field</div>
+</section>
+<!-- this is the replicap of dap-input component-->

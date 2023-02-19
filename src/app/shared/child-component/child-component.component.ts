@@ -1,5 +1,5 @@
 import { Component, Input, OnInit } from '@angular/core';
-import { FormGroup } from '@angular/forms';
+import { FormGroup, FormControl, Validators } from '@angular/forms';
 
 @Component({
   selector: 'app-child-component',
@@ -8,16 +8,19 @@ import { FormGroup } from '@angular/forms';
 })
 export class ChildComponentComponent implements OnInit {
 
-  @Input() formGroupName : FormGroup;
-  @Input() cformControlName: string;
-  @Input() cPlaceholder: string;
-  @Input() cType: string;
-  @Input() color: string;
+  @Input() fGName : FormGroup;
+  @Input() properties: any;
 
   constructor() {}
 
   ngOnInit(): void {
-    
+    this.fGName.addControl(this.properties.name, new FormControl(this.properties.value, [Validators.required]));
   }
+
+  get mFormCntrl(){
+    return this.fGName.get(this.properties.name);
+  }
+
+
 
 }

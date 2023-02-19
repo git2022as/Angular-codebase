@@ -35,6 +35,8 @@ import { RouterModule } from '@angular/router';
 import { GoogleMapsModule } from '@angular/google-maps';
 import { GoogleMapComponent } from './google-map/google-map.component';
 import { ChildComponentComponent } from './child-component/child-component.component';
+import { ChildDropdownComponentComponent } from './child-dropdown-component/child-dropdown-component.component';
+import { DirectiveModule } from '../directives/directives.module';
 
 /* pipe module */
 import { PipeModule } from '../pipes/pipe.module';
@@ -52,7 +54,6 @@ import { MatRadioModule } from '@angular/material/radio';
 import { MatCheckboxModule } from '@angular/material/checkbox';
 import { MatSelectModule } from '@angular/material/select';
 import { MatProgressBarModule } from '@angular/material/progress-bar';
-
 
 @NgModule({
   declarations: [
@@ -84,7 +85,8 @@ import { MatProgressBarModule } from '@angular/material/progress-bar';
     OrderViewComponent,
     OrderStatusChangeComponent,
     GoogleMapComponent,
-    ChildComponentComponent
+    ChildComponentComponent,
+    ChildDropdownComponentComponent
   ],
   imports: [
     CommonModule,
@@ -104,7 +106,8 @@ import { MatProgressBarModule } from '@angular/material/progress-bar';
     MatSelectModule,
     MatProgressBarModule,
     RouterModule,
-    GoogleMapsModule
+    GoogleMapsModule,
+    DirectiveModule
   ],
   exports: [
     SignUpModalComponent,
@@ -135,7 +138,8 @@ import { MatProgressBarModule } from '@angular/material/progress-bar';
     OrderViewComponent,
     OrderStatusChangeComponent,
     GoogleMapComponent,
-    ChildComponentComponent
+    ChildComponentComponent,
+    ChildDropdownComponentComponent
   ],
   providers: [IndividualCartPipe, FilterPipe]
 })

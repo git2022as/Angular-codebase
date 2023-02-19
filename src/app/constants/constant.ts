@@ -222,19 +222,43 @@ export enum pp {
 }
 
 export const config = {
-    fName: {
-      value: '',
-      required: true,
-      type: 'text',
-      placeholder: 'First Name',
-      color: 'green'
+    discount: {
+        value: null,
+        required: true,
+        type: 'dropdown',
+        placeholder: 'Select',
+        options: [
+            {
+                key: 1,
+                value: 'nominal'
+            },
+            {
+                key: 2,
+                value: 'percent'
+            }
+        ],
+        name: 'discount'
     },
-    lName: {
-      value: '',
-      required: true,
-      type: 'text',
-      placeholder: 'Last Name',
-      color: 'blue'
+    description: {
+        value: 'description is working',
+        required: true,
+        type: 'textarea',
+        placeholder: 'Description',
+        name: 'description'
+    },
+    nominal: {
+        value: '',
+        required: true,
+        type: 'text',
+        placeholder: 'Nominal value',
+        name: 'nominal'
+    },
+    percent: {
+        value: '5678',
+        required: true,
+        type: 'text',
+        placeholder: 'Percent value',
+        name: 'percent'
     }
   };
   

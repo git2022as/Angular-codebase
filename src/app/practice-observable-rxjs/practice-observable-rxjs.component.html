@@ -8,8 +8,23 @@
 <div>
   <h1>Reactive Forms with child input component</h1>
   <form [formGroup]="myForm" (ngSubmit)="submitForm()">
-    <div *ngFor="let each of configDetails; let i = index;">
-      <app-child-component [formGroupName]=myForm [cformControlName]="each.name" [cPlaceholder]="each.placeholder" [cType]="each.type" [color]="each.color"></app-child-component>
+    <div class="row mb-2">
+      <div class="col-6">
+        <app-child-dropdown-component [fGName]="myForm" (dropdownValueEvent)="_dropdownValueEvent($event)" [properties]="configDetails.discount"></app-child-dropdown-component>
+      </div>
+      <div class="col-6" *ngIf="inputArray.length > 0">
+        <ng-container *ngFor="let each of inputArray;let i = index">
+          <ng-container *ngIf="dropdownvalue == 1">
+            <app-child-component [fGName]="myForm" [properties]="each"></app-child-component>
+          </ng-container>
+          <ng-container *ngIf="dropdownvalue == 2">
+            <app-child-component [fGName]="myForm" [properties]="each"></app-child-component>
+          </ng-container>
+        </ng-container>
+      </div>
+    </div>
+    <div class="">
+      <app-child-component [fGName]="myForm" [properties]="configDetails.description"></app-child-component>
     </div>
     <button [disabled]="myForm.invalid">Submit</button>
   </form>
