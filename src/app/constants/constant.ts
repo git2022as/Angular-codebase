@@ -251,7 +251,13 @@ export const config = {
         required: true,
         type: 'text',
         placeholder: 'Nominal value',
-        name: 'nominal'
+        name: 'nominal',
+        customValidator: {
+            nominalValidation: true
+        },
+        errorLabel: {
+            nominalNumber: 'Only number is allowed'
+        }
     },
     percent: {
         value: '5678',

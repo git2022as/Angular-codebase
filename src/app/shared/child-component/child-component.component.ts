@@ -1,5 +1,6 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
+import { customValidator } from 'src/app/validator/custom.validator';
 
 @Component({
   selector: 'app-child-component',
@@ -14,7 +15,14 @@ export class ChildComponentComponent implements OnInit {
   constructor() {}
 
   ngOnInit(): void {
-    this.fGName.addControl(this.properties.name, new FormControl(this.properties.value, [Validators.required]));
+    this.properties.required ? this.fGName.addControl(this.properties.name, new FormControl(this.properties.value, [Validators.required])) : this.fGName.addControl(this.properties.name, new FormControl(this.properties.value));
+    this.addCustomValidator(this.fGName, this.properties);
+  }
+
+  addCustomValidator(formName?: any, details?: any): void{
+    if(details.customValidator?.nominalValidation){
+      formName.get(details.name).addValidators(customValidator.nominalValidation);
+    }
   }
 
   get mFormCntrl(){

@@ -30,4 +30,17 @@ export class customValidator {
         else    
             return {noMatch: true};
     }
+
+    /*onnyNumber is allowed*/
+    static nominalValidation(control: AbstractControl): ValidationErrors | null{
+        const value = control.value;
+        const regex = /^[0-9]+$/;
+        if(value == '' || regex.test(value)){
+            return null;
+        }
+        else{
+            return {nominalNumber: true};
+        }
+
+    }
 }

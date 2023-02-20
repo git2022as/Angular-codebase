@@ -4,6 +4,9 @@
     [formControlName]="properties?.name"
     placeholder="{{properties?.placeholder}}"
   />
-  <div style="color: red;" *ngIf="mFormCntrl?.touched && mFormCntrl?.invalid">this is a required field</div>
+  <div style="color: red;" *ngIf="mFormCntrl?.touched && mFormCntrl?.errors?.required">this is a required field</div>
+
+  <div style="color: red;" *ngIf="mFormCntrl?.touched && mFormCntrl?.errors?.nominalNumber">{{properties?.errorLabel?.nominalNumber}}</div>
+
 </section>
 <!-- this is the replicap of dap-input component-->
