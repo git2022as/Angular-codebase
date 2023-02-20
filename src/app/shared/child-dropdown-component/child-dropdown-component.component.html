@@ -1,6 +1,6 @@
 <section [formGroup]="fGName">
     <select [formControlName]="properties?.name">
-      <option value=null>{{properties.placeholder}}</option>
+      <option value=''>{{properties.placeholder}}</option>
       <option *ngFor="let x of properties.options" [value]="x.key">
         {{x.value}}
       </option>

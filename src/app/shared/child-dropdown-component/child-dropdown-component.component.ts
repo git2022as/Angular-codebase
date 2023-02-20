@@ -17,7 +17,7 @@ export class ChildDropdownComponentComponent implements OnInit {
   ngOnInit(): void {
     if(this.properties.type == 'dropdown'){
       this.fGName.addControl(this.properties.name, new FormControl(this.properties.value, [Validators.required]));
-      this.fGName.get(this.properties.name).setValue(null);
+      this.fGName.get(this.properties.name).setValue('');
     }
     this.subscribeChange();
   }

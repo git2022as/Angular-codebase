@@ -14,12 +14,7 @@
       </div>
       <div class="col-6" *ngIf="inputArray.length > 0">
         <ng-container *ngFor="let each of inputArray;let i = index">
-          <ng-container *ngIf="dropdownvalue == 1">
             <app-child-component [fGName]="myForm" [properties]="each"></app-child-component>
-          </ng-container>
-          <ng-container *ngIf="dropdownvalue == 2">
-            <app-child-component [fGName]="myForm" [properties]="each"></app-child-component>
-          </ng-container>
         </ng-container>
       </div>
     </div>

@@ -164,14 +164,12 @@ export class PracticeObservableRxjsComponent implements OnInit, AfterViewInit, O
 
   _dropdownValueEvent(event: number){
     this.dropdownvalue = event;
-    if(this.dropdownvalue != null){
-      this.updateForm(this.dropdownvalue);
-    }
+    this.updateForm(this.dropdownvalue);
   }
 
   updateForm(value: any){
-    this.inputArray.splice(0,1);
-    if(value == 1){
+    this.inputArray.splice(0,1);//it will make the array an empty array again
+    if(value == 1){//nominal
       if(this.myForm.controls.hasOwnProperty('percent')){
         this.myForm.removeControl('percent');
       }
@@ -180,12 +178,20 @@ export class PracticeObservableRxjsComponent implements OnInit, AfterViewInit, O
       )
     }
     else if(value == 2){
-      if(this.myForm.controls.hasOwnProperty('nominal')){
+      if(this.myForm.controls.hasOwnProperty('nominal')){//true/false
         this.myForm.removeControl('nominal');
       }
       this.inputArray.push(
         this.configDetails.percent
       )
+    }
+    else{
+      if(this.myForm.controls.hasOwnProperty('percent')){
+        this.myForm.removeControl('percent');
+      }
+      if(this.myForm.controls.hasOwnProperty('nominal')){//true/false
+        this.myForm.removeControl('nominal');
+      }
     }
   }
 

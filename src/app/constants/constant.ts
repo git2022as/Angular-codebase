@@ -223,7 +223,7 @@ export enum pp {
 
 export const config = {
     discount: {
-        value: null,
+        value: '',
         required: true,
         type: 'dropdown',
         placeholder: 'Select',
