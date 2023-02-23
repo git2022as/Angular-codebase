@@ -3,10 +3,15 @@
     type="{{properties?.type}}"
     [formControlName]="properties?.name"
     placeholder="{{properties?.placeholder}}"
+    maxlength="{{properties?.maxlength}}"
   />
-  <div style="color: red;" *ngIf="mFormCntrl?.touched && mFormCntrl?.errors?.required">this is a required field</div>
 
-  <div style="color: red;" *ngIf="mFormCntrl?.touched && mFormCntrl?.errors?.nominalNumber">{{properties?.errorLabel?.nominalNumber}}</div>
+  <!--auto population of error messages, you can create an component for this too-->
+  <div *ngIf="(mFormCntrl?.dirty || mFormCntrl?.touched) && mFormCntrl?.errors != null">
+    <div class="" *ngFor="let item of mFormCntrl?.errors | keyvalue">
+      <span style="color: red;font-size: 13px;">{{properties?.errorLabel[0] ? properties?.errorLabel[0][item.key] : ''}}</span>
+    </div>
+  </div>
 
 </section>
-<!-- this is the replicap of dap-input component-->
+<!-- this is the replicap of DAP-INPUT component (for input type TEXT, EMAIL, TEXTAREA etc)-->

@@ -1,5 +1,7 @@
 import { Component, Input, OnInit, Output, EventEmitter } from '@angular/core';
-import { FormControl, FormGroup, Validators } from '@angular/forms';
+import { FormControl, FormGroup } from '@angular/forms';
+import { reactiveChildInterface } from 'src/app/interface/project.interface';
+import { CommonService } from 'src/app/services/common.service';
 
 @Component({
   selector: 'app-child-dropdown-component',
@@ -9,16 +11,15 @@ import { FormControl, FormGroup, Validators } from '@angular/forms';
 export class ChildDropdownComponentComponent implements OnInit {
 
   @Input() fGName : FormGroup;
-  @Input() properties: any;
+  @Input() properties: reactiveChildInterface;
   @Output() dropdownValueEvent = new EventEmitter<any>();
 
-  constructor() {}
+  constructor(private commonService: CommonService) {}
 
   ngOnInit(): void {
-    if(this.properties.type == 'dropdown'){
-      this.fGName.addControl(this.properties.name, new FormControl(this.properties.value, [Validators.required]));
-      this.fGName.get(this.properties.name).setValue('');
-    }
+    this.fGName.addControl(this.properties.name, new FormControl(this.properties.value));
+    this.fGName.get(this.properties.name).setValue('');
+    this.commonService.addControls(this.fGName, this.properties);
     this.subscribeChange();
   }
 
@@ -27,6 +28,10 @@ export class ChildDropdownComponentComponent implements OnInit {
       console.log(res);
       this.dropdownValueEvent.emit(res);
     })
+  }
+
+  get mFormCntrl(){
+    return this.fGName.get(this.properties.name);//we are getting the formConrtolName
   }
 
 }

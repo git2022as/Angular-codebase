@@ -1,0 +1,19 @@
+<section [formGroup]="fGName">
+    <textarea
+      [formControlName]="properties?.name"
+      placeholder="{{properties?.placeholder}}"
+      maxlength="{{properties?.maxlength}}"
+      rows="{{properties?.rows}}"
+      cols="{{properties?.cols}}"
+    ></textarea>
+  
+    <!--auto population of error messages, you can create an component for this too-->
+    <div *ngIf="(mFormCntrl?.dirty || mFormCntrl?.touched) && mFormCntrl?.errors != null">
+      <div class="" *ngFor="let item of mFormCntrl?.errors | keyvalue">
+        <span style="color: red;font-size: 13px;">{{properties?.errorLabel[0] ? properties?.errorLabel[0][item.key] : ''}}</span>
+      </div>
+    </div>
+  
+  </section>
+  <!-- this is the replicap of DAP-INPUT component (for input type TEXT, EMAIL, TEXTAREA etc)-->
+  

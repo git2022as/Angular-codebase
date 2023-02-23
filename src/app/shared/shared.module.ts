@@ -37,6 +37,9 @@ import { GoogleMapComponent } from './google-map/google-map.component';
 import { ChildComponentComponent } from './child-component/child-component.component';
 import { ChildDropdownComponentComponent } from './child-dropdown-component/child-dropdown-component.component';
 import { DirectiveModule } from '../directives/directives.module';
+import { ChildDatepickerComponentComponent } from './child-datepicker-component/child-datepicker-component.component';
+import { ChildTextareaComponentComponent } from './child-textarea-component/child-textarea-component.component';
+import { ChildTableComponentComponent } from './child-table-component/child-table-component.component';
 
 /* pipe module */
 import { PipeModule } from '../pipes/pipe.module';
@@ -86,7 +89,10 @@ import { MatProgressBarModule } from '@angular/material/progress-bar';
     OrderStatusChangeComponent,
     GoogleMapComponent,
     ChildComponentComponent,
-    ChildDropdownComponentComponent
+    ChildDropdownComponentComponent,
+    ChildDatepickerComponentComponent,
+    ChildTextareaComponentComponent,
+    ChildTableComponentComponent
   ],
   imports: [
     CommonModule,
@@ -139,7 +145,10 @@ import { MatProgressBarModule } from '@angular/material/progress-bar';
     OrderStatusChangeComponent,
     GoogleMapComponent,
     ChildComponentComponent,
-    ChildDropdownComponentComponent
+    ChildDropdownComponentComponent,
+    ChildDatepickerComponentComponent,
+    ChildTextareaComponentComponent,
+    ChildTableComponentComponent
   ],
   providers: [IndividualCartPipe, FilterPipe]
 })

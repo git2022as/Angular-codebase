@@ -6,6 +6,10 @@
       </option>
     </select>
     
-    <div style="color: red;" *ngIf="fGName.get(properties.name).touched && fGName.get(properties.name).invalid">this is a required field</div>
+    <div *ngIf="(mFormCntrl?.dirty || mFormCntrl?.touched) && mFormCntrl?.errors != null">
+      <div class="" *ngFor="let item of mFormCntrl?.errors | keyvalue">
+        <span style="color: red;font-size: 13px;">{{properties?.errorLabel[0] ? properties?.errorLabel[0][item.key] : ''}}</span>
+      </div>
+    </div>
 </section>
-<!-- this is the replicap of dap-input component-->
+<!-- this is the replicap of DAP-DROPDOWN component-->

@@ -83,3 +83,23 @@ export interface profileInterface {
         }
     ] | []
 }
+
+export interface reactiveChildInterface{
+    value: string,
+    type?: string,
+    placeholder: string,
+    name: string,
+    maxlength?: number,
+    minlength?: number,
+    rows?: number,
+    cols?: number,
+    options?: Array<{ key: number; value: string; }> | null,
+    validation?: Array<any> | null,
+    errorLabel?: Array<any> | null
+}
+
+export interface tableInterface{
+    header: Array<any>,
+    content: Array<any>,
+    checkbox: boolean
+}

@@ -224,7 +224,6 @@ export enum pp {
 export const config = {
     discount: {
         value: '',
-        required: true,
         type: 'dropdown',
         placeholder: 'Select',
         options: [
@@ -237,34 +236,113 @@ export const config = {
                 value: 'percent'
             }
         ],
-        name: 'discount'
+        name: 'discount',
+        validation: [{
+            required: true
+        }],
+        errorLabel: [{
+            required: "Dropdown is a required field"
+        }]
     },
     description: {
         value: 'description is working',
         required: true,
-        type: 'textarea',
         placeholder: 'Description',
-        name: 'description'
+        name: 'description',
+        rows: 5,
+        cols: 60,
+        maxlength: 300,
+        options: null,
+        validation: [{
+            required: true
+        }],
+        errorLabel: [{
+            required: "Description is a required field"
+        }]
     },
     nominal: {
         value: '',
-        required: true,
         type: 'text',
         placeholder: 'Nominal value',
         name: 'nominal',
-        customValidator: {
-            nominalValidation: true
-        },
-        errorLabel: {
-            nominalNumber: 'Only number is allowed'
-        }
+        options: null,
+        minlength: 1,
+        maxlength: 3,
+        validation: [{
+            required: true,
+            nominalValidation: true//should be the method name in the customValidators
+        }],
+        errorLabel: [{
+            nominalNumber: 'Only number is allowed in this field',//should be equal to the Validator Error object details like required, minLength, maxLength or any custom validator error object key
+            required: "Nominal Field is a required field"
+        }]
     },
     percent: {
-        value: '5678',
+        value: '567',
         required: true,
         type: 'text',
         placeholder: 'Percent value',
-        name: 'percent'
+        name: 'percent',
+        minlength: 1,
+        maxlength: 3,
+        options: null,
+        validation: [{
+            required: true,
+            nominalValidation: true
+        }],
+        errorLabel: [{
+            nominalNumber: 'Only number is allowed in this field',
+            required: "Percent Field is a required field"
+        }]
+    },
+    dateRangeFrom: {
+        value: '',
+        type: 'date',
+        placeholder: '',
+        name: 'dateRangeFrom',
+        options: null,
+        validation: [{
+            required: true
+        }],
+        errorLabel: [{
+            required: "DateRangeFrom is a required field"
+        }]
+    },
+    dateRangeTo: {
+        value: '',
+        type: 'date',
+        placeholder: '',
+        name: 'dateRangeTo',
+        options: null,
+        validation: [{
+            required: true
+        }],
+        errorLabel: [{
+            required: "DateRangeTo is a required field",
+            greaterThanFromDateRangeValidation: "date Range To should be a future value than Date range From value"
+        }]
     }
-  };
+};
+
+export const sampleTable = {
+    header: ["First Name", "Last Name", "Location"],
+    content: [
+        {
+            firstName: "John",
+            lastName: "Thomas", 
+            location: "London"
+        },
+        {
+            firstName: "Peter",
+            lastName: "Harry", 
+            location: "New York"
+        },
+        {
+            firstName: "Sam",
+            lastName: "William", 
+            location: "Sydney"
+        }
+    ],
+    checkbox: true
+}
   

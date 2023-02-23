@@ -1,0 +1,13 @@
+<section [formGroup]="fGName">
+    <input [formControlName]="properties?.name" 
+        type="{{properties?.type}}" 
+        [min]="disabledPreviousDate"
+        [max]="disableFutureDate"
+    />
+
+    <div *ngIf="(mFormCntrl?.dirty || mFormCntrl?.touched) && mFormCntrl?.errors != null">
+        <div class="" *ngFor="let item of mFormCntrl?.errors | keyvalue">
+          <span style="color: red;font-size: 13px;">{{properties?.errorLabel[0] ? properties?.errorLabel[0][item.key] : ''}}</span>
+        </div>
+    </div>
+</section>

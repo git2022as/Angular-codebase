@@ -1,0 +1,16 @@
+<table class="mt-2 admin-block-table">
+    <thead>
+        <tr>
+            <th *ngFor="let header of tableConfig.header; let i = index;">
+                {{header}}
+            </th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr *ngFor="let each of tableConfig.content; let i = index;">
+            <td *ngFor="let ind of each | keyvalue ">
+                {{ind.value}}
+            </td>
+        </tr>
+    </tbody>
+</table>

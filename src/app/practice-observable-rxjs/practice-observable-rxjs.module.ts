@@ -5,6 +5,7 @@ import { PracticeObservableRxjsRoutingModule } from './practice-observable-rxjs-
 import { ReactiveFormsModule } from '@angular/forms';
 import { SharedModule } from '../shared/shared.module';
 import { DirectiveModule } from '../directives/directives.module';
+import { MatIconModule } from '@angular/material/icon';
 
 @NgModule({
     declarations: [PracticeObservableRxjsComponent],
@@ -13,7 +14,8 @@ import { DirectiveModule } from '../directives/directives.module';
         PracticeObservableRxjsRoutingModule,
         ReactiveFormsModule,
         SharedModule,
-        DirectiveModule
+        DirectiveModule,
+        MatIconModule
     ],
     exports: [
         PracticeObservableRxjsComponent

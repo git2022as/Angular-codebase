@@ -5,7 +5,7 @@ import { ajax } from 'rxjs/ajax';
 import { Subscription } from 'rxjs'
 import { formatCurrency } from '@angular/common';
 import { ViewEncapsulation } from '@angular/compiler';
-import { config } from '../constants/constant';
+import { config, sampleTable } from '../constants/constant';
 import { FormGroup, FormBuilder } from '@angular/forms';
 import { ChangeDetectorRef } from '@angular/core';
 
@@ -17,11 +17,13 @@ import { ChangeDetectorRef } from '@angular/core';
 export class PracticeObservableRxjsComponent implements OnInit, AfterViewInit, OnDestroy, AfterContentChecked {
 
   myForm: any = FormGroup;
+  adminForm: any = FormGroup;
   dropdownvalue: any = null;
   dropdownChangesSubscription: Subscription | undefined;
   dropdownProperties: any;
   configDetails = config;
   inputArray : any = [];
+  tableDetails = sampleTable;
 
   constructor(private fb: FormBuilder,
               private cd: ChangeDetectorRef) { }
@@ -196,6 +198,7 @@ export class PracticeObservableRxjsComponent implements OnInit, AfterViewInit, O
   }
 
   createForm(){
+    this.adminForm = this.fb.group({});
     this.myForm = this.fb.group({});
   }
 
@@ -204,7 +207,7 @@ export class PracticeObservableRxjsComponent implements OnInit, AfterViewInit, O
   }
 
   ngAfterViewInit(): void {
-    this.buttonEvent = fromEvent(document.getElementById('stopTimer'), 'click');
+    //this.buttonEvent = fromEvent(document.getElementById('stopTimer'), 'click');
   }
 
   startTimer(): void{

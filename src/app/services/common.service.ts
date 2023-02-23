@@ -6,10 +6,12 @@ import { DataService } from './data.service';
 import { StaticMsg, staticValue } from '../constants/constant';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
-import { FormGroup } from '@angular/forms';
+import { FormGroup, Validators } from '@angular/forms';
 import { environment } from 'src/environments/environment';
 import { ProductAddOnComponent } from '../shared/product-add-on/product-add-on.component';
 import { AuthService } from './auth.service';
+import { reactiveChildInterface } from '../interface/project.interface';
+import { customValidator } from '../validator/custom.validator';
 
 @Injectable({
     providedIn: 'root'
@@ -231,6 +233,19 @@ export class CommonService {
           },
         }
         return this.bsModalService.show(ProductAddOnComponent,initialState);
+    }
+
+    /* common code to add formControl */
+    addControls(formName: FormGroup, properties: reactiveChildInterface){
+        if(properties.validation && properties.validation.length > 0){
+            let item = properties.validation[0];
+            for(let key in item){
+                if(key == 'required')
+                    formName.get(properties.name).addValidators(Validators[key]);
+                else    
+                    formName.get(properties.name).addValidators(customValidator[key]); 
+            }
+        }
     }
     
 }

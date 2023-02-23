@@ -1,26 +1,52 @@
-<p>practice-observable-rxjs works!</p>
+<!--<p>practice-observable-rxjs works!</p>
 
 <div>
     <button (click)="startTimer()">Start Timer</button>
     <button id="stopTimer">Stop Timer</button>
-</div>
+</div>-->
 
-<div>
-  <h1>Reactive Forms with child input component</h1>
-  <form [formGroup]="myForm" (ngSubmit)="submitForm()">
-    <div class="row mb-2">
-      <div class="col-6">
-        <app-child-dropdown-component [fGName]="myForm" (dropdownValueEvent)="_dropdownValueEvent($event)" [properties]="configDetails.discount"></app-child-dropdown-component>
+<div class="AngularPOC">
+  <!--table section with checkbox, -->
+  <div class="IndividualSection">
+    <h4>Table Section</h4>
+    <app-child-table-component [tableConfig]="tableDetails"></app-child-table-component>
+  </div>
+  <div class="IndividualSection">
+    <form [formGroup]="adminForm">
+      <h4>Details</h4>
+      <div class="row mb-2">
+        <div class="col-6">
+          <div class="header-small">Role</div>
+          <mat-icon class="" style="cursor: pointer;color: deeppink;font-size: 14px;">person</mat-icon>
+          <span class="header-text">Admin</span>
+        </div>
+        <div class="col-6">
+          <div class="header-small">Date Range</div>
+          <div style="display: flex; justify-content: space-between;">
+            <app-child-datepicker-component [fGName]="adminForm" [properties]="configDetails.dateRangeFrom"></app-child-datepicker-component>
+            <app-child-datepicker-component [fGName]="adminForm" [properties]="configDetails.dateRangeTo"></app-child-datepicker-component>
+          </div>
+        </div>
       </div>
-      <div class="col-6" *ngIf="inputArray.length > 0">
-        <ng-container *ngFor="let each of inputArray;let i = index">
-            <app-child-component [fGName]="myForm" [properties]="each"></app-child-component>
-        </ng-container>
+    </form>
+  </div>
+  <div class="IndividualSection">
+    <h4>Offer</h4>
+    <form [formGroup]="myForm" (ngSubmit)="submitForm()">
+      <div class="row mb-2">
+        <div class="col-6">
+          <app-child-dropdown-component [fGName]="myForm" (dropdownValueEvent)="_dropdownValueEvent($event)" [properties]="configDetails.discount"></app-child-dropdown-component>
+        </div>
+        <div class="col-6" *ngIf="inputArray.length > 0">
+          <ng-container *ngFor="let each of inputArray;let i = index">
+              <app-child-component [fGName]="myForm" [properties]="each"></app-child-component>
+          </ng-container>
+        </div>
       </div>
-    </div>
-    <div class="">
-      <app-child-component [fGName]="myForm" [properties]="configDetails.description"></app-child-component>
-    </div>
-    <button [disabled]="myForm.invalid">Submit</button>
-  </form>
+      <div class="">
+        <app-child-textarea-component [fGName]="myForm" [properties]="configDetails.description"></app-child-textarea-component>
+      </div>
+      <button [disabled]="myForm.invalid">Submit</button>
+    </form>
+  </div>
 </div>

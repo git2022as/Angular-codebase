@@ -1,14 +1,14 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, Input } from '@angular/core';
 import { FormGroup, FormControl } from '@angular/forms';
 import { reactiveChildInterface } from 'src/app/interface/project.interface';
 import { CommonService } from 'src/app/services/common.service';
 
 @Component({
-  selector: 'app-child-component',
-  templateUrl: './child-component.component.html',
-  styleUrls: ['./child-component.component.scss']
+  selector: 'app-child-textarea-component',
+  templateUrl: './child-textarea-component.component.html',
+  styleUrls: ['./child-textarea-component.component.scss']
 })
-export class ChildComponentComponent implements OnInit {
+export class ChildTextareaComponentComponent {
 
   @Input() fGName : FormGroup;
   @Input() properties: reactiveChildInterface;
