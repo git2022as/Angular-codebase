@@ -31,7 +31,7 @@ export class customValidator {
             return {noMatch: true};
     }
 
-    /*onnyNumber is allowed*/
+    /*only Number is allowed*/
     static nominalValidation(control: AbstractControl): ValidationErrors | null{
         const value = control.value;
         const regex = /^[0-9]+$/;
@@ -39,8 +39,38 @@ export class customValidator {
             return null;
         }
         else{
-            return {nominalNumber: true};
+            return {onlyNumber: true};
         }
 
+    }
+
+    /* (date to range) should greater than (date from range) */
+    static futureToDate(control: AbstractControl): ValidationErrors | null {
+        const value = control.value;
+        const dateFromValue = control.parent.get('dateRangeFrom').value;
+        if(value == '' || (value > dateFromValue))
+            return null;
+        else
+            return {greaterThanFromDateRangeValidation: true};
+    }
+
+    /* (date to range) should greater than (date from range) */
+    static previousDateValidation(control: AbstractControl): ValidationErrors | null {
+        const value = control.value;
+        const dateFromValue = control.parent.get('dateRangeTo').value;
+        if(value == '' || (value < dateFromValue))
+            return null;
+        else
+            return {greaterThanFromDateRangeValidation: true};
+    }
+
+    /* (date to range) should greater than (date from range) */
+    static alphaNumericValidation(control: AbstractControl): ValidationErrors | null {
+        const value = control.value;
+        const regex = /^(?=.*?[a-zA-Z])(?=.*?[0-9]).{1,10}$/;
+        if(value == '' || (regex.test(value)))
+            return null;
+        else
+            return {alphaNumeric: true};
     }
 }

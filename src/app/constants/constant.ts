@@ -223,6 +223,7 @@ export enum pp {
 
 export const config = {
     discount: {
+        label: 'Dropdown',
         value: '',
         type: 'dropdown',
         placeholder: 'Select',
@@ -245,6 +246,7 @@ export const config = {
         }]
     },
     description: {
+        label: 'Description',
         value: 'description is working',
         required: true,
         placeholder: 'Description',
@@ -261,7 +263,8 @@ export const config = {
         }]
     },
     nominal: {
-        value: '',
+        label: 'Nominal %',
+        value: '46',
         type: 'text',
         placeholder: 'Nominal value',
         name: 'nominal',
@@ -270,14 +273,15 @@ export const config = {
         maxlength: 3,
         validation: [{
             required: true,
-            nominalValidation: true//should be the method name in the customValidators
+            nominalValidation: true//in case of CUSTOM validation, it should be the method name as mentioned in the customValidators
         }],
         errorLabel: [{
-            nominalNumber: 'Only number is allowed in this field',//should be equal to the Validator Error object details like required, minLength, maxLength or any custom validator error object key
+            onlyNumber: 'Only number is allowed in this field',//in case of CUSTOM validation, it should be equal to the validator error object details like required, minLength, maxLength or any custom validator error object key
             required: "Nominal Field is a required field"
         }]
     },
     percent: {
+        label: 'Percent %',
         value: '567',
         required: true,
         type: 'text',
@@ -291,35 +295,38 @@ export const config = {
             nominalValidation: true
         }],
         errorLabel: [{
-            nominalNumber: 'Only number is allowed in this field',
+            onlyNumber: 'Only number is allowed in this field',
             required: "Percent Field is a required field"
         }]
     },
     dateRangeFrom: {
         value: '',
         type: 'date',
-        placeholder: '',
+        placeholder: 'dd-mm-yyyy',
         name: 'dateRangeFrom',
         options: null,
         validation: [{
-            required: true
+            required: true,
+            previousDateValidation: true
         }],
         errorLabel: [{
-            required: "DateRangeFrom is a required field"
+            required: "DateRangeFrom is a required field",
+            greaterThanFromDateRangeValidation: "Date Range From should be a past value than Date Range From"
         }]
     },
     dateRangeTo: {
         value: '',
         type: 'date',
-        placeholder: '',
+        placeholder: 'dd-mm-yyyy',
         name: 'dateRangeTo',
         options: null,
         validation: [{
-            required: true
+            required: true,
+            futureToDate: true
         }],
         errorLabel: [{
             required: "DateRangeTo is a required field",
-            greaterThanFromDateRangeValidation: "date Range To should be a future value than Date range From value"
+            greaterThanFromDateRangeValidation: "Date Range To should be a future value than Date Range From"
         }]
     }
 };
@@ -344,5 +351,73 @@ export const sampleTable = {
         }
     ],
     checkbox: true
+}
+
+export const multiTable = {
+    label: 'MultiSelect',
+    data: [
+        { key: 1, value: 'Item1' },
+        { key: 2, value: 'Item2' },
+        { key: 3, value: 'Item3' },
+        { key: 4, value: 'Item4' },
+        { key: 5, value: 'Item5' }
+    ],
+    value: [
+        { key: 3, value: 'Item3' },
+        { key: 4, value: 'Item4' }
+    ],
+    placeholder: 'Select Item/Items',
+    name: 'multiDropdown',
+    validation: [{
+        required: true
+    }],
+    errorLabel: [{
+        required: "Multiple Dropdown is a required field"
+    }]
+}
+
+export const dropDownSettings = {
+    idField: 'key',
+    textField: 'value',
+    enableCheckAll: true,
+    selectAllText: "Select All Items From List",
+    unSelectAllText: "UnSelect All Items From List",
+    allowSearchFilter: true
+}
+
+export const dynamicForm = {
+    userName: {
+        label: 'User Name',
+        value: '',
+        type: 'text',
+        placeholder: 'User Name',
+        name: 'userName',
+        minlength: 1,
+        maxlength: 10,
+        validation: [{
+            required: true,
+            alphaNumericValidation: true//in case of CUSTOM validation, it should be the method name as mentioned in the customValidators
+        }],
+        errorLabel: [{
+            alphaNumeric: 'User Name should be alpha-numeric',//in case of CUSTOM validation, it should be equal to the validator error object details like required, minLength, maxLength or any custom validator error object key
+            required: "User Name Field is a required field"
+        }]
+    },
+    emailAddress: {
+        label: 'Email',
+        value: '',
+        required: true,
+        type: 'email',
+        placeholder: 'Email Address',
+        name: 'emailAddress',
+        validation: [{
+            required: true,
+            email: true
+        }],
+        errorLabel: [{
+            email: 'Please provide a valid email pattern',
+            required: "Email Field is a required field"
+        }]
+    }
 }
   

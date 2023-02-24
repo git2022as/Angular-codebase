@@ -22,8 +22,4 @@ export class ChildTextareaComponentComponent {
     this.commonService.addControls(this.fGName, this.properties);
   }
 
-  get mFormCntrl(){
-    return this.fGName.get(this.properties.name);//we are getting the formConrtolName
-  }
-
 }

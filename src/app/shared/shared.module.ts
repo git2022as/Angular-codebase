@@ -40,6 +40,9 @@ import { DirectiveModule } from '../directives/directives.module';
 import { ChildDatepickerComponentComponent } from './child-datepicker-component/child-datepicker-component.component';
 import { ChildTextareaComponentComponent } from './child-textarea-component/child-textarea-component.component';
 import { ChildTableComponentComponent } from './child-table-component/child-table-component.component';
+import { ChildErrorComponentComponent } from './child-error-component/child-error-component.component';
+import { ChildMultidropdownComponentComponent } from './child-multidropdown-component/child-multidropdown-component.component';
+import { NgMultiSelectDropDownModule } from 'ng-multiselect-dropdown';
 
 /* pipe module */
 import { PipeModule } from '../pipes/pipe.module';
@@ -92,7 +95,9 @@ import { MatProgressBarModule } from '@angular/material/progress-bar';
     ChildDropdownComponentComponent,
     ChildDatepickerComponentComponent,
     ChildTextareaComponentComponent,
-    ChildTableComponentComponent
+    ChildTableComponentComponent,
+    ChildErrorComponentComponent,
+    ChildMultidropdownComponentComponent
   ],
   imports: [
     CommonModule,
@@ -113,7 +118,8 @@ import { MatProgressBarModule } from '@angular/material/progress-bar';
     MatProgressBarModule,
     RouterModule,
     GoogleMapsModule,
-    DirectiveModule
+    DirectiveModule,
+    NgMultiSelectDropDownModule.forRoot()
   ],
   exports: [
     SignUpModalComponent,
@@ -148,7 +154,9 @@ import { MatProgressBarModule } from '@angular/material/progress-bar';
     ChildDropdownComponentComponent,
     ChildDatepickerComponentComponent,
     ChildTextareaComponentComponent,
-    ChildTableComponentComponent
+    ChildTableComponentComponent,
+    ChildErrorComponentComponent,
+    ChildMultidropdownComponentComponent
   ],
   providers: [IndividualCartPipe, FilterPipe]
 })

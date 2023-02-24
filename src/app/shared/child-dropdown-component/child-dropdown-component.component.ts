@@ -30,8 +30,4 @@ export class ChildDropdownComponentComponent implements OnInit {
     })
   }
 
-  get mFormCntrl(){
-    return this.fGName.get(this.properties.name);//we are getting the formConrtolName
-  }
-
 }

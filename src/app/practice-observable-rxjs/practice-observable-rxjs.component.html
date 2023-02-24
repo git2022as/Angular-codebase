@@ -5,15 +5,17 @@
     <button id="stopTimer">Stop Timer</button>
 </div>-->
 
-<div class="AngularPOC">
-  <!--table section with checkbox, -->
-  <div class="IndividualSection">
-    <h4>Table Section</h4>
-    <app-child-table-component [tableConfig]="tableDetails"></app-child-table-component>
+<div class="AngularPOC container">
+  <h3 class="mb-4" style="color: red">Parent Component with multiple child components (error, inputs, table)</h3>
+  <!-- Table component with checkbox as configuration -->
+  <div class="IndividualSection mb-3">
+    <h5>Table Section with checkbox as configuration</h5>
+    <app-child-table-component [tableConfig]="tableDetails" (selectedItemEvent)="_selectedItemEvent($event)"></app-child-table-component>
   </div>
-  <div class="IndividualSection">
+  <!-- Date Range & Multiple Dropdown Components -->
+  <div class="IndividualSection mb-3">
     <form [formGroup]="adminForm">
-      <h4>Details</h4>
+      <h5>Date Range & MultiSelect Dropdown Components</h5>
       <div class="row mb-2">
         <div class="col-6">
           <div class="header-small">Role</div>
@@ -22,16 +24,26 @@
         </div>
         <div class="col-6">
           <div class="header-small">Date Range</div>
-          <div style="display: flex; justify-content: space-between;">
-            <app-child-datepicker-component [fGName]="adminForm" [properties]="configDetails.dateRangeFrom"></app-child-datepicker-component>
-            <app-child-datepicker-component [fGName]="adminForm" [properties]="configDetails.dateRangeTo"></app-child-datepicker-component>
+          <div class="row">
+            <div class="col-6">
+              <app-child-datepicker-component class="mr-2" [fGName]="adminForm" [properties]="configDetails.dateRangeFrom" [disabledPreviousDate]=true></app-child-datepicker-component>
+            </div>
+            <div class="col-6">
+              <app-child-datepicker-component [fGName]="adminForm" [properties]="configDetails.dateRangeTo" [disabledPreviousDate]=true></app-child-datepicker-component>
+            </div>
           </div>
+        </div>
+      </div>
+      <div class="row mb-2">
+        <div class="col-6">
+          <app-child-multidropdown-component [fGName]="adminForm" [properties]="multiTable" [dropdownSettings]="dropDownSettings" (multiDropdownEvent)="_multiDropdownEvent($event)"></app-child-multidropdown-component>
         </div>
       </div>
     </form>
   </div>
-  <div class="IndividualSection">
-    <h4>Offer</h4>
+  <!-- Dropdown, Input & Textarea Components -->
+  <div class="IndividualSection mb-3">
+    <h5>Dropdown, Input & Textarea Components</h5>
     <form [formGroup]="myForm" (ngSubmit)="submitForm()">
       <div class="row mb-2">
         <div class="col-6">
@@ -43,10 +55,37 @@
           </ng-container>
         </div>
       </div>
-      <div class="">
+      <div>
         <app-child-textarea-component [fGName]="myForm" [properties]="configDetails.description"></app-child-textarea-component>
       </div>
-      <button [disabled]="myForm.invalid">Submit</button>
+      <button class="btn btn-primary" [disabled]="myForm.invalid">Submit</button>
+    </form>
+  </div>
+  <!-- Adding dynamic element (Dropdown + Input) -->
+  <div class="IndividualSection mb-3">
+    <h5>Adding dynamic element (Input(user name) + Input(email))</h5>
+    <form [formGroup]="addingForm" (ngSubmit)="submitAddingForm()">
+      <div class="mb-2" formArrayName="dynamicForm">
+        <ng-container *ngFor="let each of dynamicForm.controls;let i = index">
+          <div [formGroupName]="i" class="row m-0">
+            <div class="col-5">
+              <app-child-component [fGName]="addingForm" [fAIndex]="i" fAName="dynamicForm" [properties]="dynamicFormConstant.userName"></app-child-component>
+            </div>
+            <div class="col-5">
+              <app-child-component [fGName]="addingForm" [fAIndex]="i" fAName="dynamicForm" [properties]="dynamicFormConstant.emailAddress"></app-child-component>
+            </div>
+            <div class="col-2">
+              <span class="material-icons admin-icons" style="color: deeppink;margin-top:39px; font-size: 20px;" (click)="deleteItem(i)"> 
+                delete
+              </span>
+            </div>
+          </div>
+        </ng-container>
+      </div>
+      <div class="mb-5 mt-2">
+        <button class="btn btn-primary" (click)="addDynamicControl()">Add More</button>
+      </div>
+      <button class="btn btn-primary" [disabled]="addingForm.invalid">Submit Adding Form</button>
     </form>
   </div>
 </div>

@@ -1,0 +1,5 @@
+<div *ngIf="(mFormCntrl?.dirty || mFormCntrl?.touched) && mFormCntrl?.errors != null">
+    <div class="" *ngFor="let each of mFormCntrl?.errors | keyvalue">
+      <span style="color: red;font-size: 13px;">{{properties?.errorLabel[0] ? fetchError(each.key) : ''}}</span>
+    </div>
+</div>

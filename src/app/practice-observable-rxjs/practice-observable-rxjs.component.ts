@@ -5,8 +5,8 @@ import { ajax } from 'rxjs/ajax';
 import { Subscription } from 'rxjs'
 import { formatCurrency } from '@angular/common';
 import { ViewEncapsulation } from '@angular/compiler';
-import { config, sampleTable } from '../constants/constant';
-import { FormGroup, FormBuilder } from '@angular/forms';
+import { config, sampleTable, multiTable, dropDownSettings, dynamicForm } from '../constants/constant';
+import { FormGroup, FormBuilder, FormArray } from '@angular/forms';
 import { ChangeDetectorRef } from '@angular/core';
 
 @Component({
@@ -18,12 +18,16 @@ export class PracticeObservableRxjsComponent implements OnInit, AfterViewInit, O
 
   myForm: any = FormGroup;
   adminForm: any = FormGroup;
+  addingForm: any = FormGroup;
   dropdownvalue: any = null;
   dropdownChangesSubscription: Subscription | undefined;
   dropdownProperties: any;
   configDetails = config;
   inputArray : any = [];
   tableDetails = sampleTable;
+  multiTable= multiTable;
+  dropDownSettings = dropDownSettings;
+  dynamicFormConstant = dynamicForm;
 
   constructor(private fb: FormBuilder,
               private cd: ChangeDetectorRef) { }
@@ -200,10 +204,46 @@ export class PracticeObservableRxjsComponent implements OnInit, AfterViewInit, O
   createForm(){
     this.adminForm = this.fb.group({});
     this.myForm = this.fb.group({});
+    this.addingForm = this.fb.group({
+      dynamicForm: this.fb.array([])
+    })
   }
 
   submitForm() {
     console.log(this.myForm.value);
+  }
+
+  submitAddingForm(){
+    console.log(this.addingForm.value);
+  }
+
+  /*add element into the ADDING FORM */
+  addDynamicControl(): void{
+    this.dynamicForm.push(
+      //creating blank group
+      this.fb.group({})
+    )
+  }
+
+  /* get dynamic form control */
+  get dynamicForm(){
+    return this.addingForm.get('dynamicForm') as FormArray;
+  }
+
+  /* delete element from ADDING FORM */
+  deleteItem(i: number): void{
+    this.dynamicForm.removeAt(i);
+    this.addingForm.markAsDirty();
+  }
+
+  /* single dropdown change event */
+  _selectedItemEvent(event: any){
+    console.log(`selected table element received in the parent component ${JSON.stringify(event)}`);
+  }
+
+  /* Multidropdown change event */
+  _multiDropdownEvent(event: any){
+    console.log(JSON.stringify(event));
   }
 
   ngAfterViewInit(): void {

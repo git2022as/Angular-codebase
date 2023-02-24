@@ -1,0 +1,10 @@
+<section [formGroup]="fGName">
+    <label style="font-size: 13px;" for="{{properties?.name}}">{{properties?.label}}</label>
+    <ng-multiselect-dropdown
+        [settings]="dropdownSettings"
+        [data]="properties.data"
+        [formControlName]="properties?.name"
+        placeholder="{{properties.placeholder}}">
+    </ng-multiselect-dropdown>
+    <app-child-error-component [fG]="fGName" [properties]="properties"></app-child-error-component>
+</section>

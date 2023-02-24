@@ -1,15 +1,12 @@
-<section [formGroup]="fGName">
-    <select [formControlName]="properties?.name">
-      <option value=''>{{properties.placeholder}}</option>
-      <option *ngFor="let x of properties.options" [value]="x.key">
-        {{x.value}}
-      </option>
-    </select>
-    
-    <div *ngIf="(mFormCntrl?.dirty || mFormCntrl?.touched) && mFormCntrl?.errors != null">
-      <div class="" *ngFor="let item of mFormCntrl?.errors | keyvalue">
-        <span style="color: red;font-size: 13px;">{{properties?.errorLabel[0] ? properties?.errorLabel[0][item.key] : ''}}</span>
-      </div>
-    </div>
+<section [formGroup]="fGName" class="form-group">
+  <label style="font-size: 13px;" for="{{properties?.name}}">{{properties?.label}}</label>
+  <select [formControlName]="properties?.name" class="custom-select">
+    <option value=''>{{properties.placeholder}}</option>
+    <option *ngFor="let x of properties.options" [value]="x.key">
+      {{x.value}}
+    </option>
+  </select>
+  <!--auto population of error messages, as a shared component-->
+    <app-child-error-component [fG]="fGName" [properties]="properties"></app-child-error-component>
 </section>
-<!-- this is the replicap of DAP-DROPDOWN component-->
+<!-- this is the replica of DAP-DROPDOWN component-->

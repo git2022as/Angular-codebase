@@ -2,13 +2,19 @@
     <thead>
         <tr>
             <th *ngFor="let header of tableConfig.header; let i = index;">
+                <span *ngIf="i==0 && tableConfig.checkbox">
+                    <input type="checkbox" value="all" (change)="checkBoxParentClick($event)">
+                </span>
                 {{header}}
             </th>
         </tr>
     </thead>
     <tbody>
         <tr *ngFor="let each of tableConfig.content; let i = index;">
-            <td *ngFor="let ind of each | keyvalue ">
+            <td *ngFor="let ind of each | keyvalue; let j = index;">
+                <span *ngIf="j==0 && tableConfig.checkbox">
+                    <input type="checkbox" value="{{ind}}" [checked]="itemCheckContent[i].checked" (change)="checkBoxClick(ind,$event,i);">
+                </span>
                 {{ind.value}}
             </td>
         </tr>

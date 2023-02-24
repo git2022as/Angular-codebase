@@ -10,7 +10,7 @@ import { FormGroup, Validators } from '@angular/forms';
 import { environment } from 'src/environments/environment';
 import { ProductAddOnComponent } from '../shared/product-add-on/product-add-on.component';
 import { AuthService } from './auth.service';
-import { reactiveChildInterface } from '../interface/project.interface';
+import { multiTableInterface, reactiveChildInterface } from '../interface/project.interface';
 import { customValidator } from '../validator/custom.validator';
 
 @Injectable({
@@ -236,11 +236,11 @@ export class CommonService {
     }
 
     /* common code to add formControl */
-    addControls(formName: FormGroup, properties: reactiveChildInterface){
+    addControls(formName: FormGroup, properties: reactiveChildInterface | multiTableInterface){
         if(properties.validation && properties.validation.length > 0){
             let item = properties.validation[0];
             for(let key in item){
-                if(key == 'required')
+                if(key == 'required' || key == 'email')
                     formName.get(properties.name).addValidators(Validators[key]);
                 else    
                     formName.get(properties.name).addValidators(customValidator[key]); 
