@@ -105,7 +105,7 @@ export class CartComponent implements OnInit, OnDestroy {
     this.cartObj = this.utilityService.calculateCartValue(this.cartDetails,this.selectedCoupon); 
     if(this.cartObj.appDiscountAmount > 0){
       this.showAppDiscount = true;
-      this.showAppDiscountTooltip = `${event.couponCode} is applied`;
+      this.showAppDiscountTooltip = `${this.selectedCoupon} is applied`;
     }
   }
 
